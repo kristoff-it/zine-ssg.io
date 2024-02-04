@@ -1,0 +1,27 @@
+<extend template="with-menu.html"/>
+
+<title id="title" var="$page.title"></title>
+
+<head id="head">
+  <script> 
+   console.log("hello world");
+   console.log("hello world");
+  </script>
+  <link rel="stylesheet" type="text/css" href="foo.css">
+</head>
+
+<nav id="menu">
+   <a href="/foo/">Foo</a>
+   <a href="/bar/">Bar</a>
+</nav>
+
+
+<div id="content"> 
+   <h5>Tags:
+      <span loop="$page.tags">
+         <span var="$loop.it"></span>
+      </span>
+   </h5>
+   <div var="$page.content"></div>
+</div>
+
