@@ -1,0 +1,126 @@
+@font-face {
+    font-family: 'Merriweather';
+    src: url('Merriweather/Merriweather-Regular.ttf')  format('truetype');
+		font-weight: normal;
+}
+@font-face {
+    font-family: 'Merriweather';
+    src: url('Merriweather/Merriweather-Black.ttf')  format('truetype');
+		font-weight: bolder;
+}
+@font-face {
+    font-family: 'Merriweather';
+    src: url('Merriweather/Merriweather-BlackItalic.ttf')  format('truetype');
+		font-weight: bolder;
+		font-style: italic;
+}
+@font-face {
+    font-family: 'Merriweather';
+    src: url('Merriweather/Merriweather-Bold.ttf')  format('truetype');
+		font-weight: bold;
+}
+@font-face {
+    font-family: 'Merriweather';
+    src: url('Merriweather/Merriweather-BoldItalic.ttf')  format('truetype');
+		font-weight: bold;
+		font-style: italic;
+}
+@font-face {
+    font-family: 'Merriweather';
+    src: url('Merriweather/Merriweather-Italic.ttf')  format('truetype');
+		font-weight: normal;
+		font-style: italic;
+}
+@font-face {
+    font-family: 'Merriweather';
+    src: url('Merriweather/Merriweather-Light.ttf')  format('truetype');
+		font-weight: light;
+}
+@font-face {
+    font-family: 'Merriweather';
+    src: url('Merriweather/Merriweather-LightItalic.ttf')  format('truetype');
+		font-weight: light;
+		font-style: italic;
+}
+
+@font-face {
+    font-family: 'Bebas Neue';
+    src: url('/BebasNeue-Regular.ttf')  format('truetype');
+    font-weight: normal;
+}
+
+h1, h2, h3 {
+	font-family: 'Bebas Neue', sans-serif;
+  font-weight: normal;
+	color: #eee;
+	align-self: center;
+	text-align: center;
+}
+
+h4 {
+  color: #eee;
+}
+
+b, strong {
+	color: #eee;
+}
+
+a {
+  color: #ccc;
+  font-weight: bold;
+}
+
+
+body {
+  font-family: 'Merriweather', serif;
+  background-color: #111;
+  color: #ccc;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+}
+
+nav {
+  padding-top: 1rem;
+	font-weight: bold;
+}
+
+nav a {
+  color: white;
+	text-decoration: none;
+}
+
+
+nav a:hover {
+	text-decoration: underline;
+}
+
+#content {
+  align-self: center;
+  box-sizing: border-box;
+  padding: 0 30px;
+	max-width: 600px;
+}
+
+.centered {
+  align-self: center;
+	text-align: center;
+}
+
+p:has(+ pre) {
+  margin-bottom: 0;
+}
+
+p + pre {
+  margin-top: 5px;
+}
+
+pre {
+	overflow: auto;
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  padding: 4px 0;
+  background-color: #111;
+
+}
+

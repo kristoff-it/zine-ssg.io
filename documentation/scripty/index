@@ -1,0 +1,21 @@
+<h1>Globals</h1><h2>$site : Site</h2><p>Represents the global site configuration.</p><h2>$page : Page</h2><p>Represents the current page.</p><h2>$loop : ?Loop</h2><p>The iteration element in a loop, only available inside of elements with a <code>loop</code> attribute.</p><h2>$if : ?V</h2><p>The payload of an optional value, only available inside of elemens with an <code>if</code> attribute.</p><h1>Types</h1><h2>Site</h2><h3>base_url : str,</h3><h3>title : str,</h3><h3>pages() -> [Page...]</h3><p>Returns a list of all the pages of the website. To be used in conjuction with a <code>loop</code> attribute.</p><p>Examples:</p><pre><code>&lt;div loop="$site.pages()"&gt;&lt;/div&gt;
+</code></pre><h2>Page</h2><h3>title : str,</h3><h3>description : str,</h3><h3>author : str,</h3><h3>date : date,</h3><h3>layout : str,</h3><h3>draft : bool,</h3><h3>tags : [str...],</h3><h3>aliases : [str...],</h3><h3>custom : dyn,</h3><h3>content : str,</h3><h3>wordCount() -> int</h3><p>Returns the word count of the page.</p><p>The count is performed assuming 5-letter words, so it actually counts all characters and divides the result by 5.</p><p>Examples:</p><pre><code>&lt;div loop="$site.pages()"&gt;&lt;/div&gt;
+</code></pre><h3>nextPage() -> ?Page</h3><p>Tries to return the page after the target one (sorted by date), to be used with an <code>if</code> attribute.</p><p>Examples:</p><pre><code>&lt;div if="$page.nextPage()"&gt;&lt;/div&gt;
+</code></pre><h3>prevPage() -> ?Page</h3><p>Tries to return the page before the target one (sorted by date), to be used with an <code>if</code> attribute.</p><p>Examples:</p><pre><code>&lt;div if="$page.prevPage()"&gt;&lt;/div&gt;
+</code></pre><h3>hasNext() -> bool</h3><p>Returns true of the target page has another page after (sorted by date)</p><p>Examples:</p><pre><code>$page.hasNext()
+</code></pre><h3>hasPrev() -> bool</h3><p>Returns true of the target page has another page before (sorted by date)</p><p>Examples:</p><pre><code>$page.hasPrev()
+</code></pre><h3>permalink() -> str</h3><p>Returns the URL of the target page.</p><p>Examples:</p><pre><code>$page.permalink()
+</code></pre><h2>str</h2><h3>len() -> int</h3><p>Returns the length of a string.</p><p>Examples:</p><pre><code>$page.title.len()
+</code></pre><h3>suffix(str, [str...]) -> str</h3><p>Concatenates strings together (left-to-right).</p><p>Examples:</p><pre><code>$page.title.suffix("Foo","Bar", "Baz")
+</code></pre><h2>date</h2><h3>format(str) -> str</h3><p>Formats a datetime according to the specified format string.</p><p>Examples:</p><pre><code>$page.date.format("January 02, 2006")
+$page.date.format("06-Jan-02")
+</code></pre><h3>formatHTTP() -> str</h3><p>Formats a datetime according to the HTTP spec.</p><p>Examples:</p><pre><code>$page.date.formatHTTP()
+</code></pre><h2>int</h2><h3>eq(int) -> bool</h3><p>Tests if two integers have the same value.</p><p>Examples:</p><pre><code>$page.wordCount().eq(200)
+</code></pre><h3>plus(int) -> int</h3><p>Sums two integers.</p><p>Examples:</p><pre><code>$page.wordCount().plus(10)
+</code></pre><h3>div(int) -> int</h3><p>Divides the receiver by the argument.</p><p>Examples:</p><pre><code>$page.wordCount().div(10)
+</code></pre><h2>bool</h2><h3>not() -> bool</h3><p>Negates a boolean value.</p><p>Examples:</p><pre><code>$page.draft.not()
+</code></pre><h3>and(bool, [bool...]) -> bool</h3><p>Computes logical <code>and</code> between the receiver value and any other value passed as argument.</p><p>Examples:</p><pre><code>$page.draft.and($site.base_url.startsWith("https"))
+</code></pre><h3>or(bool, [bool...]) -> bool</h3><p>Computes logical <code>or</code> between the receiver value and any other value passed as argument.</p><p>Examples:</p><pre><code>$page.draft.or($site.base_url.startsWith("https"))
+</code></pre><h2>dyn</h2><h3>get?(str) -> ?dyn</h3><p>Tries to get a dynamic value, to be used in conjuction with an <code>if</code> attribute.</p><p>Examples:</p><pre><code>&lt;div if="$page.custom.get?('myValue')"&gt;&lt;/div&gt;
+</code></pre><h3>get(str, str) -> str</h3><p>Tries to get a dynamic value, uses the provided default value otherwise.</p><p>Examples:</p><pre><code>$page.custom.get('coauthor', 'nobody')
+</code></pre>

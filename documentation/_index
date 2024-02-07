@@ -1,0 +1,123 @@
+<h2>Warning</h2><p>Zine is currently alpha software.</p><p>Many features are missing and currently Zine is only capable of building relatively simple websites.</p><p>All the common features (like i18n, an asset system, etc) are planned, but will take some time to be implemented.</p><p>Using Zine today means participating in its development process.</p><h2>Requirements</h2><p>Zine is a collection of tools orchestrated by the Zig build system.</p><p>Zine only depends on the Zig compiler, see <a href="https://ziglang.org">the official website</a> for more information on how to download and install Zig.</p><h2>Project Setup</h2><p>Your website only needs the following two files to get started:</p><p><i><strong>build.zig.zon</strong></i></p><pre><code class="zig"><span class="tok tok-symbol">.</span><span class="tok tok-symbol">{</span>
+    <span class="tok tok-symbol">.</span><span class="tok">name</span> <span class="tok tok-symbol">=</span> <span class="tok tok-str">&quot;sample website&quot;</span><span class="tok tok-symbol">,</span>
+    <span class="tok tok-symbol">.</span><span class="tok">version</span> <span class="tok tok-symbol">=</span> <span class="tok tok-str">&quot;0.0.0&quot;</span><span class="tok tok-symbol">,</span>
+    <span class="tok tok-symbol">.</span><span class="tok">dependencies</span> <span class="tok tok-symbol">=</span> <span class="tok tok-symbol">.</span><span class="tok tok-symbol">{</span>
+        <span class="tok tok-symbol">.</span><span class="tok">zine</span> <span class="tok tok-symbol">=</span> <span class="tok tok-symbol">.</span><span class="tok tok-symbol">{</span>
+            <span class="tok tok-symbol">.</span><span class="tok">url</span> <span class="tok tok-symbol">=</span> <span class="tok tok-str">&quot;git+https://github.com/kristoff-it/zine.git#11d7742c5d77fdda6c7b5e99c1947f63a2002d34&quot;</span><span class="tok tok-symbol">,</span>
+            <span class="tok tok-symbol">.</span><span class="tok">hash</span> <span class="tok tok-symbol">=</span> <span class="tok tok-str">&quot;122072392929926ae3f247287f753cfae38d5167c5d1bd251ca6e50f0a4d9b4eb5cb&quot;</span><span class="tok tok-symbol">,</span>
+        <span class="tok tok-symbol">}</span><span class="tok tok-symbol">,</span>
+    <span class="tok tok-symbol">}</span><span class="tok tok-symbol">,</span>
+    <span class="tok tok-symbol">.</span><span class="tok">paths</span> <span class="tok tok-symbol">=</span> <span class="tok tok-symbol">.</span><span class="tok tok-symbol">{</span><span class="tok tok-str">&quot;.&quot;</span><span class="tok tok-symbol">}</span><span class="tok tok-symbol">,</span>
+<span class="tok tok-symbol">}</span></code></pre><p><i><strong>build.zig</strong></i></p><pre><code class="zig"><span class="tok tok-kw">const</span> <span class="tok">std</span> <span class="tok tok-symbol">=</span> <span class="tok tok-builtin">@import</span><span class="tok tok-symbol">(</span><span class="tok tok-str">&quot;std&quot;</span><span class="tok tok-symbol">)</span><span class="tok tok-symbol">;</span>
+<span class="tok tok-kw">const</span> <span class="tok">zine</span> <span class="tok tok-symbol">=</span> <span class="tok tok-builtin">@import</span><span class="tok tok-symbol">(</span><span class="tok tok-str">&quot;zine&quot;</span><span class="tok tok-symbol">)</span><span class="tok tok-symbol">;</span>
+
+<span class="tok tok-kw">pub</span> <span class="tok tok-kw">fn</span> <span class="tok tok-fn">build</span><span class="tok tok-symbol">(</span><span class="tok">b</span><span class="tok tok-symbol">:</span> <span class="tok tok-symbol">*</span><span class="tok">std</span><span class="tok tok-symbol">.</span><span class="tok">Build</span><span class="tok tok-symbol">)</span> <span class="tok tok-symbol">!</span><span class="tok tok-type">void</span> <span class="tok tok-symbol">{</span>
+    <span class="tok tok-kw">try</span> <span class="tok">zine</span><span class="tok tok-symbol">.</span><span class="tok">addWebsite</span><span class="tok tok-symbol">(</span><span class="tok">b</span><span class="tok tok-symbol">,</span> <span class="tok tok-symbol">.</span><span class="tok tok-symbol">{</span>
+        <span class="tok tok-symbol">.</span><span class="tok">layouts_dir_path</span> <span class="tok tok-symbol">=</span> <span class="tok tok-str">&quot;layouts&quot;</span><span class="tok tok-symbol">,</span>
+        <span class="tok tok-symbol">.</span><span class="tok">content_dir_path</span> <span class="tok tok-symbol">=</span> <span class="tok tok-str">&quot;content&quot;</span><span class="tok tok-symbol">,</span>
+        <span class="tok tok-symbol">.</span><span class="tok">static_dir_path</span> <span class="tok tok-symbol">=</span> <span class="tok tok-str">&quot;static&quot;</span><span class="tok tok-symbol">,</span>
+        <span class="tok tok-symbol">.</span><span class="tok">site</span> <span class="tok tok-symbol">=</span> <span class="tok tok-symbol">.</span><span class="tok tok-symbol">{</span>
+            <span class="tok tok-symbol">.</span><span class="tok">base_url</span> <span class="tok tok-symbol">=</span> <span class="tok tok-str">&quot;https://sample.com&quot;</span><span class="tok tok-symbol">,</span>
+            <span class="tok tok-symbol">.</span><span class="tok">title</span> <span class="tok tok-symbol">=</span> <span class="tok tok-str">&quot;Sample Website&quot;</span><span class="tok tok-symbol">,</span>
+        <span class="tok tok-symbol">}</span><span class="tok tok-symbol">,</span>
+    <span class="tok tok-symbol">}</span><span class="tok tok-symbol">)</span><span class="tok tok-symbol">;</span>
+<span class="tok tok-symbol">}</span></code></pre><p>Once you create the 3 directories mentioned in your <code>build.zig</code> file (<code>layouts</code>, <code>content</code>, <code>static</code>, but they can also be named however you like), you are ready to start working on your website.</p><h3>Content</h3><p>The content directory contains your markdown files.</p><p>Zine currently supports the following naming scheme:</p><ul><li><p><code>content/mypage/_index.md</code> signifies that <code>mypage</code> can also have subdirectories.</p></li><li><p><code>content/mypage/index.md</code> signifies that <code>mypage</code> will not have any other public subdirectory.</p></li></ul><h3>Layouts</h3><p>The layouts directory contains the html layouts that will be applied to your content.</p><p>See the layouting section for more information about creating layouts and templates.</p><h3>Static</h3><p>The static directory will be copied verbatim into the output directory.</p><h1>CLI</h1><h4><code>$ zig build</code></h4><p>Builds your website and places it in <code>zig-out</code>. Pass <code>-p some/path/</code> to change the output directory.</p><p>Use <code>zig build --help</code> for more information about flags supported by <code>zig build</code>.</p><h4><code>$ zig build serve</code></h4><p>Builds your website and starts the development server. Making changes to any of your input directories (ie content, layouts, static) will automatically trigger a rebuild and a page reload.</p><p>Pass <code>-Dport=8080</code> to set the listening port to 8080.</p><h1>Templating</h1><p>In Zine templates live under the <code>layout</code> directory.</p><p>A normal HTML document will be a valid Zine Template.</p><p><i><strong><code>layouts/base.html</code></strong></i></p><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;My Blog&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    Hello World!
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h2>Extending templates</h2><p>The first feature of Super templates is extending a template by using the <code>&lt;super/&gt;</code> element.</p><p>The principle is simple: the super tag defines an insertion point into the <i>parent</i> element which will have to be fulfilled by the <i>Super template</i> (the template that will extend the current one, what would be called the parent template in OOP lingo).</p><p><strong>NOTE: once a template defines an extension point, it must be moved inside the <code>layouts/templates/</code> directory. Only complete templates (called <i>layouts</i>) can live directly in <code>layouts/</code>.</strong></p><p><i><strong><code>layouts/templates/base.html</code></strong></i></p><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title id="title"&gt;&lt;super/&gt; - My Blog&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    Hello World!
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>This template can then be finalized by a <i>layout</i> like so:</p><p><i><strong><code>layouts/homepage.html</code></strong></i></p><pre><code>&lt;extend template="base.html"/&gt;
+
+&lt;title id="title"&gt;Homepage&lt;/title&gt;
+</code></pre><p>This will result in the following generated output:</p><p><i><strong><code>zig-out/homepage.html</code></strong></i></p><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title id="title"&gt;Homepage - My Blog&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    Hello World!
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h2>Extension chains</h2><p>Extension chains can be longer than two, and can involve multiple templates. Here's a more complex example.</p><p><i><strong><code>layouts/templates/base.html</code></strong></i></p><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head id="head"&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title id="title"&gt;&lt;super/&gt; - My Blog&lt;/title&gt;
+    &lt;super/&gt;
+  &lt;/head&gt;
+  &lt;body id="body"&gt;
+    &lt;super/&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><i><strong><code>layouts/templates/with-menu.html</code></strong></i></p><pre><code>&lt;extend template="base.html"/&gt;
+
+&lt;title id="title"&gt;&lt;super/&gt;&lt;/title&gt;
+
+&lt;head id="head"&gt;
+  &lt;script&gt;console.log("Hello World!");&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;!-- at the top level only comments 
+     and block definitions are allowed --&gt;
+&lt;body id="body"&gt;
+    &lt;nav&gt;
+        &lt;a&gt;Home&lt;/a&gt;
+        &lt;a&gt;About&lt;/a&gt;
+    &lt;/nav&gt;
+    &lt;div id="content"&gt;
+        &lt;super/&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+</code></pre><p>Note how <code>with-menu.html</code> is both fulfilling the <i>interface</i> (ie the extension points) of <code>base.html</code> and at the same time it's creating new ones for another <i>Super template</i> to fulfill in turn.</p><p><i><strong><code>layouts/page.html</code></strong></i></p><pre><code>&lt;extend template="with-menu.html"/&gt;
+
+&lt;head id="head"&gt;&lt;/head&gt;
+
+&lt;title id="title" var="$page.title"&gt;&lt;/title&gt;
+
+&lt;div id="content" var="$page.content"&gt;&lt;/div&gt;
+</code></pre><p>In this last example <code>page.html</code> is featuring Scripty, the scripting language used to refer to your content from templates.</p><h2>Logic</h2><p>Template logic is based on two main variables: <code>$site</code> and <code>$page</code>, representing the global site configuration and the current page respectively.</p><p>Example markdown file:</p><p><i><strong><code>content/foo/index.md</code></strong></i></p><pre><code>---
+{
+  "title": "My Post",
+  "date": "2020-07-06T00:00:00",
+  "author": "Sample Author",
+  "draft": false,
+  "layout": "post.html",
+  "tags": ["tag1", "tag2", "tag3"]
+}  
+--- 
+The content
+</code></pre><h4><code>var</code></h4><p>Prints the contents of a Scripty variable.</p><p><i><strong><code>layouts/post.html</code></strong></i></p><pre><code>&lt;span var="$page.title"&gt;&lt;/span&gt;  
+</code></pre><p><i><strong><code>output</code></strong></i></p><pre><code>&lt;span&gt;My Blog post&lt;/span&gt;
+</code></pre><h4><code>if</code></h4><p>Toggles the body of an element based on the condition.</p><p><i><strong><code>layouts/post.html</code></strong></i></p><pre><code>&lt;div if="$page.title.len().eq(1)" id="foo"&gt;
+    &lt;b&gt;Won't be rendered&lt;/b&gt;
+&lt;/div&gt;  
+</code></pre><p><i><strong><code>output</code></strong></i></p><pre><code>&lt;div id="foo"&gt;&lt;/div&gt;
+</code></pre><h4><code>loop</code></h4><p>Repeats the body of an element based on the condition. Inside an element with a <code>loop</code> attribute, <code>$loop</code> becomes available.</p><p><i><strong><code>layouts/post.html</code></strong></i></p><pre><code>&lt;ul loop="$page.tags" id="tags"&gt;
+   &lt;li var="$loop.it"&gt;&lt;/li&gt;
+&lt;/ul&gt;  
+</code></pre><p><i><strong><code>output</code></strong></i></p><pre><code>&lt;ul id="tags"&gt;
+   &lt;li&gt;tag1&lt;/li&gt;
+   &lt;li&gt;tag2&lt;/li&gt;
+   &lt;li&gt;tag3&lt;/li&gt;
+&lt;/ul&gt;  
+</code></pre><h4><code>inline-loop</code></h4><p>Repeats the <strong>entire</strong> element based on the condition. Inside an element with a <code>loop</code> attribute, <code>$loop</code> becomes available.</p><p><i><strong><code>layouts/post.html</code></strong></i></p><pre><code>&lt;div inline-loop="$page.tags" var="$loop.it"&gt;&lt;/div&gt;
+</code></pre><p><i><strong><code>output</code></strong></i></p><pre><code>&lt;div&gt;tag1&lt;/div&gt;
+&lt;div&gt;tag2&lt;/div&gt;
+&lt;div&gt;tag3&lt;/div&gt;
+</code></pre><h2>Scripty Reference</h2><p>To learn about all the types present in Scripty and their builting operations, <a href="scripty/">see the full reference</a>.</p>
