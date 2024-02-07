@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head id="head">
+    <meta charset="UTF-8">
     <title id="title"><super/> - My Blog</title>
-    <style>
-      body {
-        background-color: #111;
-        color: #bbb;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-    </style>
-
+    <link rel="stylesheet" type="text/css" href="/style.css">
     <super/>
   </head>
-  <body id="main">
-    <super/>
-    <footer style="margin-top: 100px;">All rights reserved</footer>
+  <body>
+    <nav id="menu" class="centered"> 
+      <a href="/">Home</a> •
+      <a href="/quickstart/">Get Started</a> •
+      <a href="/documentation/">Docs</a> •
+      <a href="/community/">Vision & Community</a> •
+      <a href="https://kristoff.it" target="_blank">Devlog</a> •
+      <a href="https://github.com/kristoff-it/zine" target="_blank">
+        Code
+      </a>
+    </nav>
+    <div id="content">
+      <super/>
+    </div>
   </body>
 </html>

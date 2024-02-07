@@ -1,27 +1,38 @@
-<extend template="with-menu.html"/>
+<extend template="base.html"/>
 
 <title id="title" var="$page.title"></title>
 
-<head id="head">
-  <script> 
-   console.log("hello world");
-   console.log("hello world");
-  </script>
-  <link rel="stylesheet" type="text/css" href="foo.css">
-</head>
-
-<nav id="menu">
-   <a href="/foo/">Foo</a>
-   <a href="/bar/">Bar</a>
-</nav>
-
+<head id="head"></head>
 
 <div id="content"> 
-   <h5>Tags:
-      <span loop="$page.tags">
-         <span var="$loop.it"></span>
-      </span>
-   </h5>
-   <div var="$page.content"></div>
+   <style>
+     h3.overtitle {
+       margin-bottom: 0;
+     }
+     h1.title {
+       margin-top: 0;
+     }
+
+		#page h2, #page h3 {
+			text-align: left;
+		}
+
+		#page h2 {
+			font-size: 1.7rem;
+			border-bottom: 1px dashed #aaa;
+			margin-top: 2em;
+		}
+
+		#page h3 {
+			font-size: 1.5rem;
+		}
+    
+		#page h4 {
+			font-size: 1rem;
+		}
+   </style>
+   <h3 class="overtitle centered">Zine</h3>
+   <h1 class="title" var="$page.title"></h1>
+   <div id="page" var="$page.content"></div>
 </div>
 

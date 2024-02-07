@@ -4,14 +4,47 @@
   "date": "2020-07-06T00:00:00",
   "author": "Sample Author",
   "draft": false,
-  "layout": "page.html",
+  "layout": "index.html",
   "tags": ["tag1", "tag2", "tag3"]
 }  
 --- 
-# Home
-test tesdt
-Hello world!
 
+# What is Zine?
+A Zine site is a collection of markdown files, HTML templates and static assets. Zine turns your markdown content into HTML, styles it using your templates, and finally copies the result alongside your static assets into an output directory that you can then publish on static hosting services like GitHub Pages.
+
+Zine is "low-code" by default, but once the needs of your project grow, then you will have the full power of the Zig build system at your disposal, allowing you to integrate any kind of pre-processing pipeline.
+
+# Feature Highlights
+## The Power Of A Real Build System
+Zine is a collection of tools (markdown renderer, templating engine, etc) orchestrated by the Zig build system. 
+
+The Zig build system performs **surgical dependency tracking and automatic parallelization of the build**, making Zine very fast and scalable.
+
+Since Zine tools cooperate via the build system, **each tool can be swapped out** for an alternative implementation provided by you. The Zig build system can also download and compile tools written in C/C++/Zig, so **you can easily depend on open source tools**.
+
+If your site depends on any kind of build pipeline, like asset pre-processing, it's simple to add it to your Zig build pipeline.
+
+## HTML Errors Are Build Errors
+Zine uses Super, a templating language that extends HTML, instead of the usual `{{ curly brace }}` languages.
+ 
+With Super it becomes impossible to output malformed HTML as the result of templating logic, and it also catches syntax errors at build time!
+
+***`shell`***
 ```
-this is a code block
+$ zig build
+
+---------- ELEMENT MISSING CLOSING TAG ----------
+While it is technically correct in HTML to have a non-void element 
+that doesn't have a closing tag, it's much more probable for
+it to be a programming error than to be intended. For this
+reason, this is a syntax error.
+
+[closing_tag_missing]
+(page.html) zine-sample-site/layouts/page.html:19:5:
+    <h1>Oops!<h1>
+     ^^
+trace:
+    layout `page.html`,
+    content `_index.md`.
 ```
+
