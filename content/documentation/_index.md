@@ -200,8 +200,6 @@ Note how `with-menu.html` is both fulfilling the *interface* (ie the extension p
 ```html
 <extend template="with-menu.html"/>
 
-<head id="head"></head>
-
 <title id="title" var="$page.title"></title>
 
 <div id="content" var="$page.content"></div>
