@@ -22,7 +22,7 @@ After that, the easiest way of getting started is by cloing a sample website and
 ***`shell`***
 ```sh
 $ git clone https://github.com/kristoff-it/zine-sample-site.git
-$ cd zine-sample-website
+$ cd zine-sample-site
 $ zig build serve -Dport=8080
 ```
 ## Next Steps
