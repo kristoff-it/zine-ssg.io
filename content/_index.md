@@ -51,4 +51,4 @@ trace:
 ## ...and more
 Zine is a very young project and many important features are yet to be implemented.
 
-[Drop a star on our GitHub repo](https://github.com/kristoff-it/zine) in the meantime :^)
+[Drop us a star on GitHub](https://github.com/kristoff-it/zine) in the meantime :^)
