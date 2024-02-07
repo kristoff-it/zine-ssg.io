@@ -8,6 +8,14 @@
   "tags": []
 }  
 --- 
+## Warning
+Zine is currently alpha software. 
+
+Many features are missing and currently Zine is only capable of building relatively simple websites. 
+
+All the common features (like i18n, an asset system, etc) are planned, but will take some time to be implemented.
+
+Using Zine today means participating in its development process.
 
 ## 1. Get Zig
 Zine has only one dependency: the Zig compiler.
