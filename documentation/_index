@@ -86,8 +86,6 @@
 &lt;/body&gt;
 </code></pre><p>Note how <code>with-menu.html</code> is both fulfilling the <i>interface</i> (ie the extension points) of <code>base.html</code> and at the same time it's creating new ones for another <i>Super template</i> to fulfill in turn.</p><p><i><strong><code>layouts/page.html</code></strong></i></p><pre><code>&lt;extend template="with-menu.html"/&gt;
 
-&lt;head id="head"&gt;&lt;/head&gt;
-
 &lt;title id="title" var="$page.title"&gt;&lt;/title&gt;
 
 &lt;div id="content" var="$page.content"&gt;&lt;/div&gt;
