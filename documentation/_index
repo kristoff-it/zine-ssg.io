@@ -101,7 +101,7 @@
 --- 
 The content
 </code></pre><h4><code>var</code></h4><p>Prints the contents of a Scripty variable.</p><p><i><strong><code>layouts/post.html</code></strong></i></p><pre><code>&lt;span var="$page.title"&gt;&lt;/span&gt;  
-</code></pre><p><i><strong><code>output</code></strong></i></p><pre><code>&lt;span&gt;My Blog post&lt;/span&gt;
+</code></pre><p><i><strong><code>output</code></strong></i></p><pre><code>&lt;span&gt;My Post&lt;/span&gt;
 </code></pre><h4><code>if</code></h4><p>Toggles the body of an element based on the condition.</p><p><i><strong><code>layouts/post.html</code></strong></i></p><pre><code>&lt;div if="$page.title.len().eq(1)" id="foo"&gt;
     &lt;b&gt;Won't be rendered&lt;/b&gt;
 &lt;/div&gt;  
