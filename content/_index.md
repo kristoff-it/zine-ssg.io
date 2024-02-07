@@ -48,3 +48,7 @@ trace:
     content `_index.md`.
 ```
 
+## ...and more
+Zine is a very young project and many of its features are still to be implemented.
+
+[Drop a star on our GitHub repo](https://github.com/kristoff-it/zine) in the meantime :^)
