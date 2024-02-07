@@ -238,7 +238,7 @@ Prints the contents of a Scripty variable.
 
 ***`output`***
 ```html
-<span>My Blog post</span>
+<span>My Post</span>
 ```
 
 

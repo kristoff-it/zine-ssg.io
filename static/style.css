@@ -99,7 +99,7 @@ nav a:hover {
   align-self: center;
   box-sizing: border-box;
   padding: 0 30px;
-	max-width: 600px;
+	max-width: min(600px, 100vw);
 }
 
 .centered {
