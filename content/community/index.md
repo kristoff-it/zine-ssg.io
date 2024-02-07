@@ -46,7 +46,7 @@ which give you the ability to customize the build process in any way you can
 imagine. 
 
 The downside of this type of tool is that it will allow you to express things 
-in ways that are absolutely hostile to any form caching, hindering the SSG's 
+in ways that are absolutely hostile to caching, hindering the SSG's 
 ability to perform caching and ultimately feeling responsive.
 
 The first iteration of my personal blog was written with Gatsby, which I chose

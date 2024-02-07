@@ -80,6 +80,10 @@ body {
   padding-bottom: 20px;
 }
 
+p {
+  line-height: 1.4;
+}
+
 nav {
   padding-top: 1rem;
 	font-weight: bold;
