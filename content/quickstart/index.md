@@ -25,7 +25,7 @@ In the future Zine will pin to a tagged release of Zig, be it an official releas
 
 
 ## 2. Clone Zine's Sample Site
-After that, the easiest way of getting started is by cloing a sample website and start hacking on it.
+After that, the easiest way of getting started is by cloning a sample website and start hacking on it.
 
 ***`shell`***
 ```sh
