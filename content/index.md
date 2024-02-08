@@ -31,7 +31,7 @@ With Super it becomes impossible to output malformed HTML as the result of templ
 
 `page.html`
 ```html
-<h1>Oops!</h1>
+<h1>Oops!<h1>
 ```
 
 ***`shell`***
