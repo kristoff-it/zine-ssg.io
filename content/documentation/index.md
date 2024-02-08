@@ -62,7 +62,7 @@ Once you create the 3 directories mentioned in your `build.zig` file (`layouts`,
 
 ### Content
 The content directory contains your markdown files and their structure will be 
-reflected verbamin in the final site.
+reflected verbatim in the final site.
 
 - `content/index.md` is the main index page of your website (ie `https://samplesite.com/`).
 - `content/about.md` will generate `/about/index.html` (ie `https://samplesite.com/about/`).
@@ -79,7 +79,10 @@ one communication round trip.
 In the future Zine might make links with a missing final `/` a build error.
 
 #### Frontmatter
-Each markdown file has a JSON frontmatter delimited by `---`.
+Each markdown file has a JSON frontmatter delimited by `---`. 
+
+*Note: the choice of using JSON is temporary, in the future Zine will use a better
+data format for frontmatter.*
 
 ***`index.md`*** 
 ```
