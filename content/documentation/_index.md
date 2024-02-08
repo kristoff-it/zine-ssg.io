@@ -111,7 +111,7 @@ A normal HTML document will be a valid Zine Template.
 
 The first feature of Super templates is extending a template by using the `<super/>` element.
 
-The principle is simple: the super tag defines an insertion point into the *parent* element which will have to be fulfilled by the *Super template* (the template that will extend the current one, what would be called the parent template in OOP lingo).
+The principle is simple: the super tag defines an insertion point into the *parent* element which will have to be fulfilled by the *super template* (the template that will extend the current one, what would be called the parent template in OOP lingo).
 
 **NOTE: once a template defines an extension point, it must be moved inside the `layouts/templates/` directory. Only complete templates (called *layouts*) can live directly in `layouts/`.**
 
@@ -194,7 +194,7 @@ Extension chains can be longer than two, and can involve multiple templates. Her
     </div>
 </body>
 ```
-Note how `with-menu.html` is both fulfilling the *interface* (ie the extension points) of `base.html` and at the same time it's creating new ones for another *Super template* to fulfill in turn.
+Note how `with-menu.html` is both fulfilling the *interface* (ie the extension points) of `base.html` and at the same time it's creating new ones for another *super template* to fulfill in turn.
 
 ***`layouts/page.html`***
 ```html
@@ -294,4 +294,4 @@ Repeats the **entire** element based on the condition. Inside an element with a 
 ```
 
 ## Scripty Reference
-To learn about all the types present in Scripty and their builting operations, [see the full reference](scripty/).
+To learn about all the types present in Scripty and their builtin operations, [see the full reference](scripty/).
