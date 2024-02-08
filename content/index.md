@@ -29,6 +29,11 @@ Zine uses Super, a templating language that extends HTML, instead of the usual `
  
 With Super it becomes impossible to output malformed HTML as the result of templating logic, and it also catches syntax errors at build time!
 
+`page.html`
+```html
+<h1>Oops!</h1>
+```
+
 ***`shell`***
 ```
 $ zig build
@@ -47,6 +52,34 @@ trace:
     layout `page.html`,
     content `_index.md`.
 ```
+
+
+`page.html`
+```html
+<div id="foo" id="oops"></div>
+```
+
+***`shell`***
+```
+$ zig build
+
+---------- DUPLICATE ATTRIBUTE ----------
+HTML elements cannot contain duplicate attributes.
+
+[duplicate_attr]
+(page.html) zine-sample-site/layouts/page.html:19:18:
+    <div id="foo" id="oops"></div>
+                  ^^
+
+node: previous instance was here:
+(page.html) zine-sample-site/layouts/page.html:19:9:
+    <div id="foo" id="oops"></div>
+         ^^
+trace:
+    layout `page.html`,
+    content `_index.md`.
+```
+
 
 ## ...and more
 Zine is a very young project and many important features are yet to be implemented.

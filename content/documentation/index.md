@@ -32,8 +32,8 @@ Your website only needs the following two files to get started:
     .version = "0.0.0",
     .dependencies = .{
         .zine = .{
-            .url = "git+https://github.com/kristoff-it/zine.git#11d7742c5d77fdda6c7b5e99c1947f63a2002d34",
-            .hash = "122072392929926ae3f247287f753cfae38d5167c5d1bd251ca6e50f0a4d9b4eb5cb",
+            .url = "git+https://github.com/kristoff-it/zine.git#eaa23f2d3a80868251302a1b979dbcc7e5b81d3a",
+            .hash = "1220230f7c6abf655ef9b1ec14161bd1c15e55afd14ceaedfe2e0e9cc2471b1dd0ca",
         },
     },
     .paths = .{"."},
@@ -61,12 +61,53 @@ pub fn build(b: *std.Build) !void {
 Once you create the 3 directories mentioned in your `build.zig` file (`layouts`, `content`, `static`, but they can also be named however you like), you are ready to start working on your website.
 
 ### Content
-The content directory contains your markdown files.
+The content directory contains your markdown files and their structure will be 
+reflected verbamin in the final site.
 
-Zine currently supports the following naming scheme:
+- `content/index.md` is the main index page of your website (ie `https://samplesite.com/`).
+- `content/about.md` will generate `/about/index.html` (ie `https://samplesite.com/about/`).
+- `content/foo/index.md` will generate `/foo/index.html` (ie `https://samplesite.com/foo/`).
+- `content/foo/bar.md` will generate `/foo/bar/index.html` (ie `https://samplesite.com/foo/bar/`).
 
-- `content/mypage/_index.md` signifies that `mypage` can also have subdirectories.
-- `content/mypage/index.md` signifies that `mypage` will not have any other public subdirectory.
+Note that SSGs rely heavily on the implication that webservers will 
+automatically serve `index.html` when a directory (usually indicated by a final 
+`/` in the URL) is requested. Most static servers will automatically redirect 
+in the absence of a final slash (the Zine dev server does too), but by making
+sure to include the final slash in your `<a>` elements you will spare your clients
+one communication round trip.
+
+In the future Zine might make links with a missing final `/` a build error.
+
+#### Frontmatter
+Each markdown file has a JSON frontmatter delimited by `---`.
+
+***`index.md`*** 
+```
+---
+{
+  "title": "Homepage",
+  "date": "2020-07-06T00:00:00",
+  "author": "Sample Author",
+  "draft": false,
+  "layout": "page.html",
+  "tags": []
+}  
+--- 
+Your **markdown** content goes here.
+```
+
+Some fields, like `title`, and `layout` are mandatory, while others have default values.
+See the Scripty reference relative to `Page` for more information (TODO). 
+
+A very important required field is `layout`. This field must point at the layout
+that you want to use to style your content. In Zine this field must always be 
+explicitly filled out and there is no implicit convention system (like in Hugo, for example).
+
+One useful optional field is `skip_subdirs` (defaults to `false`). When set to true
+in a `index.md` file (ie not in, say, `foo.md`), it will make Zine ignore any other
+markdown file and subdirectory of the current directory. This is useful if you 
+decide to create a directory for a post that has some assets (which could contain 
+markdown files, like `README.md` for example) that you want to keep in the same location.
 
 ### Layouts
 The layouts directory contains the html layouts that

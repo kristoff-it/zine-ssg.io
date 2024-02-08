@@ -43,6 +43,7 @@ Examples:
   ### draft : bool,
   ### tags : [str...],
   ### aliases : [str...],
+  ### skip_subdirs : bool,
   ### custom : dyn,
   ### content : str,
   ### wordCount() -> int
@@ -165,7 +166,7 @@ Computes logical `and` between the receiver value and any other value passed as 
 
 Examples:
 ```
-$page.draft.and($site.base_url.startsWith("https"))
+$page.draft.and($site.tags.len().eq(10))
 ``` 
 ### or(bool, [bool...]) -> bool
 Computes logical `or` between the receiver value and any other value passed as argument.
@@ -173,7 +174,7 @@ Computes logical `or` between the receiver value and any other value passed as a
 
 Examples:
 ```
-$page.draft.or($site.base_url.startsWith("https"))
+$page.draft.or($site.tags.len().eq(0))
 ``` 
 ## dyn
 ### get?(str) -> ?dyn
