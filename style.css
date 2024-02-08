@@ -78,6 +78,8 @@ body {
   display: flex;
   flex-direction: column;
   padding-bottom: 20px;
+  scrollbar-gutter: stable;
+  overflow-y: scroll;
 }
 
 p {
