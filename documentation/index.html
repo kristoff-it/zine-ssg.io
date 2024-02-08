@@ -92,7 +92,7 @@
     Hello World!
   &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h2>Extending templates</h2><p>The first feature of Super templates is extending a template by using the <code>&lt;super/&gt;</code> element.</p><p>The principle is simple: the super tag defines an insertion point into the <i>parent</i> element which will have to be fulfilled by the <i>Super template</i> (the template that will extend the current one, what would be called the parent template in OOP lingo).</p><p><strong>NOTE: once a template defines an extension point, it must be moved inside the <code>layouts/templates/</code> directory. Only complete templates (called <i>layouts</i>) can live directly in <code>layouts/</code>.</strong></p><p><i><strong><code>layouts/templates/base.html</code></strong></i></p><pre><code>&lt;!DOCTYPE html&gt;
+</code></pre><h2>Extending templates</h2><p>The first feature of Super templates is extending a template by using the <code>&lt;super/&gt;</code> element.</p><p>The principle is simple: the super tag defines an insertion point into the <i>parent</i> element which will have to be fulfilled by the <i>super template</i> (the template that will extend the current one, what would be called the parent template in OOP lingo).</p><p><strong>NOTE: once a template defines an extension point, it must be moved inside the <code>layouts/templates/</code> directory. Only complete templates (called <i>layouts</i>) can live directly in <code>layouts/</code>.</strong></p><p><i><strong><code>layouts/templates/base.html</code></strong></i></p><pre><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
   &lt;head&gt;
     &lt;meta charset="UTF-8"&gt;
@@ -145,7 +145,7 @@
         &lt;super/&gt;
     &lt;/div&gt;
 &lt;/body&gt;
-</code></pre><p>Note how <code>with-menu.html</code> is both fulfilling the <i>interface</i> (ie the extension points) of <code>base.html</code> and at the same time it's creating new ones for another <i>Super template</i> to fulfill in turn.</p><p><i><strong><code>layouts/page.html</code></strong></i></p><pre><code>&lt;extend template="with-menu.html"/&gt;
+</code></pre><p>Note how <code>with-menu.html</code> is both fulfilling the <i>interface</i> (ie the extension points) of <code>base.html</code> and at the same time it's creating new ones for another <i>super template</i> to fulfill in turn.</p><p><i><strong><code>layouts/page.html</code></strong></i></p><pre><code>&lt;extend template="with-menu.html"/&gt;
 
 &lt;title id="title" var="$page.title"&gt;&lt;/title&gt;
 
@@ -179,7 +179,7 @@ The content
 </code></pre><p><i><strong><code>output</code></strong></i></p><pre><code>&lt;div&gt;tag1&lt;/div&gt;
 &lt;div&gt;tag2&lt;/div&gt;
 &lt;div&gt;tag3&lt;/div&gt;
-</code></pre><h2>Scripty Reference</h2><p>To learn about all the types present in Scripty and their builting operations, <a href="scripty/">see the full reference</a>.</p></div>
+</code></pre><h2>Scripty Reference</h2><p>To learn about all the types present in Scripty and their builtin operations, <a href="scripty/">see the full reference</a>.</p></div>
 
     </div>
   </body>
