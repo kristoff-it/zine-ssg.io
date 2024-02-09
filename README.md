@@ -1,2 +1,2 @@
-# zine.kristoff.it
-The official website for kristoff-it/zine
+# zine-ssg.io
+The official website for https://github.com/kristoff-it/zine
