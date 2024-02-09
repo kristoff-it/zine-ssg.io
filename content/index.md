@@ -85,3 +85,5 @@ trace:
 Zine is a very young project and many important features are yet to be implemented.
 
 [Drop us a star on GitHub](https://github.com/kristoff-it/zine) in the meantime :^)
+
+To quickly gauge the level of maturity of Zine you might want to check [the changelog](/changelog/) on occasion.
