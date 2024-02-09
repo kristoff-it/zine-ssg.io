@@ -9,7 +9,7 @@
 }  
 --- 
 ## About
-This is a non-exhaustive curated list list of changes to Zine meant to help users quickly see what has improved since they last checked.
+This is a non-exhaustive curated list list of changes meant to help users quickly see what has improved since they last checked.
 
 Refer to [the repository](https://github.com/kristoff-it/zine) and the [issue tracker](https://github.com/kristoff-it/zine/issues) for more in-depth information.
 
