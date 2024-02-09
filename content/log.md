@@ -28,6 +28,16 @@ window.onload = function() {
   });
 }
 </script>
+### 2024-01-09 (later in the day)
+
+<button>copy</button>
+```zig
+.url = "git+https://github.com/kristoff-it/zine.git#da7c32c2c253f6b0dbd392006055598feb07410b",
+.hash = "1220e6580fdbd0a56a97300bab938f61fe3b5b35fc7755a150db267422cf554ab299",
+```
+- When running the dev server (`zig build serve`), Zine will now show build error messages inside of the web page itself using the hot reload mechanism. Fix the build error and the error overlay will disappear. Error messages are ugly for now  ([#16](https://github.com/kristoff-it/zine/issues/16)).
+
+
 ### 2024-01-09 
 
 <button>copy</button>
