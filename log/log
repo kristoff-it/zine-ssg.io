@@ -1,0 +1,17 @@
+<h2>About</h2><p>This is a non-exhaustive curated list list of changes to Zine meant to help users quickly see what has improved since they last checked.</p><p>Refer to <a href="https://github.com/kristoff-it/zine">the repository</a> and the <a href="https://github.com/kristoff-it/zine/issues">issue tracker</a> for more in-depth information.</p><h2>Changes</h2><style>
+pre {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>
+<script>
+window.onload = function() {
+  document.querySelectorAll("button").forEach(function (b) {b.addEventListener("click", function () {
+      navigator.clipboard.writeText(b.parentElement.nextElementSibling.textContent);
+  });
+  });
+}
+</script>
+<h3>2024-01-09</h3><p><button>copy</button></p><pre><code class="zig"><span class="tok tok-symbol">.</span><span class="tok">url</span> <span class="tok tok-symbol">=</span> <span class="tok tok-str">&quot;git+https://github.com/kristoff-it/zine.git#527762348ef104dce601f52bca9f958a511ff11b&quot;</span><span class="tok tok-symbol">,</span>
+<span class="tok tok-symbol">.</span><span class="tok">hash</span> <span class="tok tok-symbol">=</span> <span class="tok tok-str">&quot;122018fb2b0ba1479ae28bacf3839d38da69044b006068fd67b1b7f4425114bec8d1&quot;</span><span class="tok tok-symbol">,</span></code></pre><ul><li><p>Zine will now stop erroring out in the presence of empty markdown files. It will instead print a warning and ignore them. Now you can <code>touch</code> a bunch of files and fill them out as you make progress, without losing hot reloading in the meantime.</p></li></ul><h3>2024-01-08</h3><p><button>copy</button></p><pre><code class="zig"><span class="tok tok-symbol">.</span><span class="tok">url</span> <span class="tok tok-symbol">=</span> <span class="tok tok-str">&quot;git+https://github.com/kristoff-it/zine.git#eaa23f2d3a80868251302a1b979dbcc7e5b81d3a&quot;</span><span class="tok tok-symbol">,</span>
+<span class="tok tok-symbol">.</span><span class="tok">hash</span> <span class="tok tok-symbol">=</span> <span class="tok tok-str">&quot;1220230f7c6abf655ef9b1ec14161bd1c15e55afd14ceaedfe2e0e9cc2471b1dd0ca&quot;</span><span class="tok tok-symbol">,</span></code></pre><ul><li><p>Removed the <code>_index.md</code> vs <code>index.md</code> naming convention. Now it's always <code>index.md</code> and you can use the <code>skip_subdirs</code> frontmatter property to get the old behavior. See the docs for more information.</p></li></ul>
