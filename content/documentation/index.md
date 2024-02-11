@@ -280,7 +280,7 @@ Let's continue the example from the previous section where we try to collect all
 ```html
 <extend template="base.html"/>
 
-<title var="$site.title"></title>
+<title id="title" var="$site.title"></title>
 
 <body id="main">
   <h1>Blog</h1>
