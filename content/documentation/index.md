@@ -36,8 +36,8 @@ Your website only needs the following two files to get started:
     .version = "0.0.0",
     .dependencies = .{
         .zine = .{
-            .url = "git+https://github.com/kristoff-it/zine.git#6a6bac671dba78c5e0d4368a3b1889725ef91abf",
-            .hash = "122018823741d8410e08aea6925555b79c54769233f1c5afb71ec1a6a8fbf5debb67",
+            .url = "git+https://github.com/kristoff-it/zine.git#beb5434a04fad660ecf8db8379532dfe5b5e13b0",
+            .hash = "12203c37cb5fb3931d3b7d1f1dace46cf5329ffe2fb5a8d2ac87dc78630ce7f601a7",
         },
     },
     .paths = .{"."},
@@ -96,7 +96,7 @@ data format for frontmatter.*
   "date": "2020-07-06T00:00:00",
   "author": "Sample Author",
   "draft": false,
-  "layout": "page.html",
+  "layout": "homepage.html",
   "tags": []
 }  
 --- 
@@ -110,20 +110,12 @@ A very important required field is `layout`. This field must point at the layout
 that you want to use to style your content. In Zine this field must always be 
 explicitly filled out and there is no implicit convention system (like in Hugo, for example).
 
-One useful optional field is `skip_subdirs` (defaults to `false`). When set to true
-in a `index.md` file (ie not in, say, `foo.md`), it will make Zine ignore any other
-markdown file and subdirectory of the current directory. This is useful if you 
-decide to create a directory for a post that has some assets (which could contain 
-markdown files, like `README.md` for example) that you want to keep in the same location.
-
 ### Layouts
 The layouts directory contains the html layouts that
-will be applied to your content.
-
-See the layouting section for more information about creating layouts and templates.
+will be applied to your content. We're going see how layouts work later in this document.
 
 ### Static
-The static directory will be copied verbatim into the output directory.
+The contents of the static directory will be copied verbatim into the output directory.
 
 
 # CLI
@@ -137,31 +129,126 @@ Builds your website and starts the development server. Making changes to any of 
 
 Pass `-Dport=8080` to set the listening port to 8080.
 
-# Templating
-In Zine templates live under the `layout` directory.
+# Layouting
+In Zine layouts live under the `layouts/` directory.
 
-A normal HTML document will be a valid Zine Template.
+Here's a basic example where we create the homepage of our sample website. 
 
-***`layouts/base.html`***
+***`content/index.md`*** 
+```
+---
+{
+  "title": "Home",
+  "date": "2020-07-06T00:00:00",
+  "author": "Sample Author",
+  "draft": false,
+  "layout": "homepage.html",
+  "tags": []
+}  
+--- 
+Hello World!
+```
+
+***`layouts/homepage.html`***
 ```html
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>My Blog</title>
+    <title var="$site.title"></title>
   </head>
   <body>
-    Hello World!
+    <h1 var="$page.title"></h1>
+    <div var="$page.content"></div>
   </body>
 </html>
 ```
+
+
+***`zig-out/index.html`*** (output)
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Sample Site</title>
+  </head>
+  <body>
+    <h1>Home</h1>
+    <div><p>Hello World!</p></div>
+  </body>
+</html>
+```
+
+In this example we just saw:
+- `index.md` defines in the frontmatter that its layout is `homepage.html`
+- `homepage.html` defines some html and uses special attributes to pull in the contents of `index.md` (more on that later)
+- the final output is going to be the homepage of our website 
+
+If you run the dev server now (`zig build serve -Dport=8080`), you should see the output page at `https://localhost:8080/`.
+
+### Adding more pages
+
+Let's imagine now that we want to add a blog section to our website with a first post in it.
+
+***`shell`***
+```sh
+$ mkdir content/blog
+$ touch content/blog/first-post.md
+$ touch layouts/post.html
+```
+
+***`content/blog/first-post.md`*** 
+```
+---
+{
+  "title": "First Post!",
+  "date": "2020-07-06T00:00:00",
+  "author": "Sample Author",
+  "draft": false,
+  "layout": "post.html",
+  "tags": []
+}  
+--- 
+This is my first post!
+```
+
+***`layouts/post.html`***
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title var="$site.title"></title>
+  </head>
+  <body>
+    <h1>Blog</h1>
+    <h2 var="$page.title"></h2>
+    <h3>by <span var="$page.author"></span></h3>
+    <h4>Posted on: <span var="$page.date.format('January 02, 2006')"></span></h4>
+    <div var="$page.content"></div>
+  </body>
+</html>
+```
+
+At this point you should be able to navigate to `http://localhost:8080/blog/first-post/` and see the result.
+
+Note how we now need a new layout (`post.html`) since the blog post is not going to have the same structure at the homepage. 
+
+While the structure is indeed different, both `post.html` and `homepage.html` share a lot of common boilerplate that would be nice not to have to maintain separately.
+
+What we need now is a way to have both layouts put the common boilerplate into a singular *template* that then gets *extended* by each layout to produce two final different layouts.
+
+
 ## Extending templates
 
-The first feature of Super templates is extending a template by using the `<super/>` element.
+First, some terminology:
 
-The principle is simple: the super tag defines an insertion point into the *parent* element which will have to be fulfilled by the *super template* (the template that will extend the current one, what would be called the parent template in OOP lingo).
+- **`layout`**: HTML file that can be directly used to style a piece of content. Layouts live directly under `layouts/`.
+- **`template`**: HTML file that collects common boilerplate that contains extension points. Cannot be used directly to style content (as some parts need to be filled out) and must live under `layouts/templates/`.
+- a **`layout`** can *extend* a **`template`** (but not viceversa).
 
-**NOTE: once a template defines an extension point, it must be moved inside the `layouts/templates/` directory. Only complete templates (called *layouts*) can live directly in `layouts/`.**
+Let's continue the example from the previous section where we try to collect all common boilerplate from `homepage.html` and `page.html`.
 
 ***`layouts/templates/base.html`***
 ```html
@@ -169,42 +256,193 @@ The principle is simple: the super tag defines an insertion point into the *pare
 <html>
   <head>
     <meta charset="UTF-8">
-    <title id="title"><super/> - My Blog</title>
+    <title id="title"><super/></title>
   </head>
-  <body>
-    Hello World!
+  <body id="main">
+    <super/>
   </body>
 </html>
 ```
-
-This template can then be finalized by a *layout* like so:
 
 ***`layouts/homepage.html`***
 ```html
 <extend template="base.html"/>
 
-<title id="title">Homepage</title>
+<title id="title" var="$site.title"></title>
+
+<body id="main">
+  <h1 var="$page.title"></h1>
+  <div var="$page.content"></div>
+</body>
 ```
 
-This will result in the following generated output:
+***`layouts/post.html`***
+```html
+<extend template="base.html"/>
 
-***`zig-out/homepage.html`***
+<title var="$site.title"></title>
+
+<body id="main">
+  <h1>Blog</h1>
+  <h2 var="$page.title"></h2>
+  <h3>by <span var="$page.author"></span></h3>
+  <h4>Posted on: <span var="$page.date.format('January 02, 2006')"></span></h4>
+  <div var="$page.content"></div>
+</body>
+```
+
+Let's analyze what we just saw:
+
+- `layouts/templates/base.html` now contains all the main HTML boilerplate and has two `<super/>` tags: one inside `<title>` and one inside `<body>` (both of which have also gained an `id` attribute).
+
+- both layouts now start with an `<extend/>` tag and have lost their original structure (since it was collected in `base.html`), keeping only the parts that each defines differently than the other.
+
+### `<extend/>`
+When a layout wants to extend a template, it must declare at the very top the template name using the extend tag, like so: 
+
+```html
+<extend template="foo.html"/>
+```
+
+A layout that extends a template won't have a normal HTML structure, but rather it will be a list of HTML elements that will replace a correspoding super tag from the base template they're extending.
+
+### `<super/>`
+The super tag defines an extension point in a template. The direct parent of a super tag must have an `id` attribute.
+
+**Each top level element in a layout must correspond to a super tag in the template being extended.**
+
+Since super tags don't have any id of their own, **the layout uses the tag and `id` of the parent element of each super tag to match its content with the correct super tag**.
+
+***template***
+```html
+<title id="title"><super/> - Sample Site</title>
+```
+
+***layout***
+```html
+<title id="title">Home</title>
+```
+
+***evaluates to***
+```html
+<title id="title">Home - Sample Site</title>
+```
+
+#### Why not just give `id`s to super tags?
+
+Matching via parent elements is admittedly an uncommon choice, but it has some very real upsides over the alternatives.
+
+Let's define a block in a curly brace templating language (mustache,jinja, hugo, etc):
+
+***hugo***
+```html
+{{ define "main" }}
+  <p> Hello World </p>
+{{ end }}
+```
+
+This is the equivalent of a top-level element in a Zine layout that extends a template, but it has a critical disadvantage: **you know nothing about where the content will be put**.
+
+Unless you have perfect recollection of what "main" is, you won't know if your content should be framed in a container element or not. In fact, all the following declarations in a hugo base template are possible:
+
+***ok***
 ```html
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title id="title">Homepage - My Blog</title>
-  </head>
+  <head></head>
   <body>
-    Hello World!
+    {{ block "main" . }}{{ end }}
+  </body>
+</html>
+```
+***oops, needed a `<body>` wrapper***
+```html
+<!DOCTYPE html>
+<html>
+    <head></head>
+    {{ block "main" . }}{{ end }}
+</html>
+```
+***oops, too many wrappers***
+```html
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <p>{{ block "main" . }}{{ end }}</p>
   </body>
 </html>
 ```
 
-## Extension chains
-Extension chains can be longer than two, and can involve multiple templates. Here's a more complex example.
+Contrast this with our previous example:
 
+***`layouts/homepage.html`***
+```html
+<extend template="base.html"/>
+
+<title id="title" var="$site.title"></title>
+
+<body id="main">
+  <h1 var="$page.title"></h1>
+  <div var="$page.content"></div>
+</body>
+```
+By looking at the layout we know that we are putting content directly into the `body` element of the template we are extending.
+
+In fact if we were to make a mistake and define "main" as a `div` element in our layout, we would get a compile error:
+
+***shell***
+```
+$ zig build
+
+---------- MISMATCHED BLOCK TAG ----------
+The super template defines a block that has the wrong tag.
+Both tags and ids must match in order to avoid confusion
+about where the block contents are going to be placed in
+the extended template.
+
+note: super template block tag:
+(post.html) layouts/post.html:19:2:
+    <div id="main">
+     ^^^
+
+note: extended template block defined here:
+(base.html) layouts/templates/base.html:16:4:
+    <body id="main">
+     ^^^^
+trace:
+    layout `post.html`,
+    content `about.md`.
+```
+
+So, if we were to give `id`s to super tags, we would have to introduce another
+fake html tag and we would end up with the same problem that curly brace templating 
+languages have today.
+
+***where would this go?***
+```html
+<content id="main">
+  <p> Hello World </p>
+</content>
+```
+
+Repeating the parent element is a form of ***typing*** for your templates, in 
+a sense.
+
+## Extension chains
+
+In the previous section we saw how a layout can extend a template. We are now 
+going to see how templates can extend other templates.
+
+Let's update our terminology one last time. Since both layouts and templates can
+extend other templates, we need a generic way of referring to the template that 
+is extending and the one being extended:
+
+- a ***super template*** is the template (or layout) that extends another template.
+- an ***extended template*** is the template being extended.
+
+A template can take on both roles at the same time when in the middle of an 
+extension chain. 
 
 ***`layouts/templates/base.html`***
 ```html

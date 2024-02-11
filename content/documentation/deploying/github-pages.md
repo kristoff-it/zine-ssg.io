@@ -71,4 +71,4 @@ jobs:
           key: zine-${{hashFiles('build.zig.zon')}}          
 ```
 
-This is how we deploy this website: [https://github.com/kristoff-it/zine-ssg.io](https://github.com/kristoff-it/zine-ssg.io).
+This is how we deploy [this website](https://github.com/kristoff-it/zine-ssg.io).
