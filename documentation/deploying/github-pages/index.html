@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head id="head">
+    <meta charset="UTF-8">
+	  <meta name="description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+	  <meta name="twitter:card" content="summary">
+	  <meta name="twitter:site" content="@croloris">
+	  <meta name="twitter:author" content="@croloris">
+	  <meta name="twitter:description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+	  <meta name="twitter:title" content="Deploying on GitHub Pages - Zine">
+	  <meta property="og:title" content="Deploying on GitHub Pages">
+	  <meta property="og:type" content="website">
+    
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    
+    <title id="title">Deploying on GitHub Pages - Zine</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    
+  </head>
+  <body>
+    <nav id="menu" class="centered"> 
+      <a href="/">Home</a> •
+      <a href="/quickstart/">Get Started</a> •
+      <a href="/documentation/">Docs</a> •
+      <a href="/community/">Vision & Community</a> •
+      <a href="/log/">Changelog</a> •
+      <a href="https://github.com/kristoff-it/zine" target="_blank">
+        Code
+      </a>
+    </nav>
+    <div id="content">
+       
+   <style>
+     h1 {
+       margin-top: 0;
+     }
+     h3 {
+       margin-bottom: 0;
+     }
+
+		#docs h2, #docs h3 {
+			text-align: left;
+		}
+
+		#docs h3 {
+			font-size: 1.5rem;
+		}
+
+		#docs h2 {
+			font-size: 1.5rem;
+			border-bottom: 1px dashed #aaa;
+			margin-top: 2em;
+		}
+
+		#docs h4 {
+			font-size: 1rem;
+		}
+   </style>
+   <h3 class="centered">Zine</h3>
+   <h1 >Deploying on GitHub Pages</h1>
+   <div id="docs" ><h2>About</h2><p>This guide assumes that you're already familiar with GitHub Pages. Please refer <a href="https://pages.github.com/">the official GitHub Pages documentation</a> for more info.</p><p>If you're a developer looking to deploy a static website to GitHub Pages, you have two main options.</p><h2>1. Build locally</h2><p>The first one, which is more efficient, is to build the website locally and commit it to the correct branch/subdir.</p><p>Currently Zine doesn't offer any help automating this process, but in the future it might.</p><h2>2. Use GitHub Actions</h2><p>This one is a more hands-off, but slower option.</p><p>It is inherently slower because of all the overhead introduced by GitHub Actions. Additionally, Zine is a collection of tools compiled on demand by your build script, which is a bad match for GitHub Actions given its ephemeral nature.</p><p>One day we might maintain a set of Zine actions that pre-builds Zine once for everybody but, in the meantime, the following workflow definition will use the GitHub's caching system to cache builds of Zine for you.</p><p><i><strong><code>.github/workflows/gh-pages.yml</code></strong></i></p><pre><code>name: github pages
+
+on:
+  push:
+    branches:
+      - main  # Set a branch to deploy
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Change if you need git info
+
+      - name: Setup Zig
+        uses: goto-bus-stop/setup-zig@v2
+        with:
+          version: 0.12.0-dev.2701+d18f52197
+
+      - name: Restore cache
+        uses: actions/cache/restore@v3
+        with:
+          path: zig-cache
+          key: zine-${{hashFiles('build.zig.zon')}}          
+
+      - name: Build
+        run: zig build --summary all
+          
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./zig-out
+          
+      - name: Save Cache
+        uses: actions/cache/save@v3
+        with:
+          path: zig-cache
+          key: zine-${{hashFiles('build.zig.zon')}}          
+</code></pre><p>This is how we deploy this website: <a href="https://github.com/kristoff-it/zine-ssg.io">https://github.com/kristoff-it/zine-ssg.io</a>.</p></div>
+
+    </div>
+  </body>
+</html>
