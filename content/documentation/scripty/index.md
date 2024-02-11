@@ -11,10 +11,12 @@
 # Globals
 ## $site : Site
 
-Represents the global site configuration.
+The global site configuration. The fields come from the call to 
+`addWebsite` in your `build.zig`. Gives you access to the full list
+of pages.
 ## $page : Page
 
-Represents the current page.
+The current page.
 ## $loop : ?Loop
 
 The iteration element in a loop, only available inside of elements with a `loop` attribute.
@@ -25,7 +27,7 @@ The payload of an optional value, only available inside of elemens with an `if` 
 ## Site
 ### base_url : str,
   ### title : str,
-  ### pages() -> [Page...]
+  ### pages() -> [Page]
 Returns a list of all the pages of the website. 
 To be used in conjuction with a `loop` attribute. 
 
@@ -36,16 +38,16 @@ Examples:
 ``` 
 ## Page
 ### title : str,
-  ### description : str,
+  ### description : str = "",
   ### author : str,
   ### date : date,
   ### layout : str,
-  ### draft : bool,
-  ### tags : [str...],
-  ### aliases : [str...],
-  ### skip_subdirs : bool,
-  ### custom : dyn,
-  ### content : str,
+  ### draft : bool = false,
+  ### tags : [str] = [],
+  ### aliases : [str] = [],
+  ### skip_subdirs : bool = false,
+  ### custom : dyn = null,
+  ### content : str = "",
   ### wordCount() -> int
 Returns the word count of the page.
 
@@ -54,7 +56,7 @@ counts all characters and divides the result by 5.
 
 Examples:
 ```
-<div loop="$site.pages()"></div>
+<div loop="$page.wordCount()"></div>
 ``` 
 ### nextPage() -> ?Page
 Tries to return the page after the target one (sorted by date), to be used with an `if` attribute.
@@ -100,7 +102,7 @@ Examples:
 ```
 $page.title.len()
 ``` 
-### suffix(str, [str...]) -> str
+### suffix(str, [...str]) -> str
 Concatenates strings together (left-to-right).
 
 
@@ -160,7 +162,7 @@ Examples:
 ```
 $page.draft.not()
 ``` 
-### and(bool, [bool...]) -> bool
+### and(bool, [...bool]) -> bool
 Computes logical `and` between the receiver value and any other value passed as argument.
 
 
@@ -168,7 +170,7 @@ Examples:
 ```
 $page.draft.and($site.tags.len().eq(10))
 ``` 
-### or(bool, [bool...]) -> bool
+### or(bool, [...bool]) -> bool
 Computes logical `or` between the receiver value and any other value passed as argument.
 
 

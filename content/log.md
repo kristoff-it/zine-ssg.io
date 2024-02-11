@@ -28,7 +28,18 @@ window.onload = function() {
   });
 }
 </script>
-### 2024-01-09 (later in the day)
+### 2024-02-11 
+
+<button>copy</button>
+```zig
+.url = "git+https://github.com/kristoff-it/zine.git#6a6bac671dba78c5e0d4368a3b1889725ef91abf",
+.hash = "122018823741d8410e08aea6925555b79c54769233f1c5afb71ec1a6a8fbf5debb67",
+```
+- Updated Zig version because of a recent breaking change related to `std.Options` / `root.std_options`. Now Zine depends on Zig `0.12.0-dev.2701+d18f52197` and above. Consider using [marler8997/zigup](https://github.com/marler8997/zigup) if you're not building Zig from source.
+- The Scripty reference documentation was improved slightly: the reference for `Page` displays which fields have default values and which do not.
+- The dev server is now better at reporting build errors: in the event of a build error the message will be shown in the terminal, as well as being shown on the web page, and the 404 page too will connect to the hotreloading mechanism in order to show build errors.
+
+### 2024-02-09 (later in the day)
 
 <button>copy</button>
 ```zig
@@ -38,7 +49,7 @@ window.onload = function() {
 - When running the dev server (`zig build serve`), Zine will now show build error messages inside of the web page itself using the hot reload mechanism. Fix the build error and the error overlay will disappear. Error messages are ugly for now  ([#16](https://github.com/kristoff-it/zine/issues/16)).
 
 
-### 2024-01-09 
+### 2024-02-09 
 
 <button>copy</button>
 ```zig
@@ -48,7 +59,7 @@ window.onload = function() {
 
 - Zine will now stop erroring out in the presence of empty markdown files. It will instead print a warning and ignore them. Now you can `touch` a bunch of files and fill them out as you make progress, without losing hot reloading in the meantime.
 
-### 2024-01-08
+### 2024-02-08
 
 <button>copy</button>
 ```zig

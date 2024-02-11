@@ -32,8 +32,8 @@ Your website only needs the following two files to get started:
     .version = "0.0.0",
     .dependencies = .{
         .zine = .{
-            .url = "git+https://github.com/kristoff-it/zine.git#da7c32c2c253f6b0dbd392006055598feb07410b",
-            .hash = "1220e6580fdbd0a56a97300bab938f61fe3b5b35fc7755a150db267422cf554ab299",
+            .url = "git+https://github.com/kristoff-it/zine.git#6a6bac671dba78c5e0d4368a3b1889725ef91abf",
+            .hash = "122018823741d8410e08aea6925555b79c54769233f1c5afb71ec1a6a8fbf5debb67",
         },
     },
     .paths = .{"."},
@@ -74,7 +74,7 @@ automatically serve `index.html` when a directory (usually indicated by a final
 `/` in the URL) is requested. Most static servers will automatically redirect 
 in the absence of a final slash (the Zine dev server does too), but by making
 sure to include the final slash in your `<a>` elements you will spare your clients
-one communication round trip.
+one redirect round trip.
 
 In the future Zine might make links with a missing final `/` a build error.
 
@@ -100,7 +100,7 @@ Your **markdown** content goes here.
 ```
 
 Some fields, like `title`, and `layout` are mandatory, while others have default values.
-See the Scripty reference relative to `Page` for more information (TODO). 
+See the Scripty reference relative to `Page` for more information. 
 
 A very important required field is `layout`. This field must point at the layout
 that you want to use to style your content. In Zine this field must always be 
