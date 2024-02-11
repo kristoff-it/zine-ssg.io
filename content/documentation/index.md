@@ -17,6 +17,10 @@ All the common features (like i18n, an asset system, etc) are planned, but will 
 
 Using Zine today means participating in its development process.
 
+## Sub sections
+- [Scripty Reference](scripty/)
+- [Deploying on GitHub Pages](deploying/github-pages/)
+
 ## Requirements
 Zine is a collection of tools orchestrated by the Zig build system.
 

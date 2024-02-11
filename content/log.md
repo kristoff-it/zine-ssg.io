@@ -32,8 +32,8 @@ window.onload = function() {
 
 <button>copy</button>
 ```zig
-.url = "git+https://github.com/kristoff-it/zine.git#6a6bac671dba78c5e0d4368a3b1889725ef91abf",
-.hash = "122018823741d8410e08aea6925555b79c54769233f1c5afb71ec1a6a8fbf5debb67",
+.url = "git+https://github.com/kristoff-it/zine.git#beb5434a04fad660ecf8db8379532dfe5b5e13b0",
+.hash = "12203c37cb5fb3931d3b7d1f1dace46cf5329ffe2fb5a8d2ac87dc78630ce7f601a7",
 ```
 - Updated Zig version because of a recent breaking change related to `std.Options` / `root.std_options`. Now Zine depends on Zig `0.12.0-dev.2701+d18f52197` and above. Consider using [marler8997/zigup](https://github.com/marler8997/zigup) if you're not building Zig from source.
 - The Scripty reference documentation was improved slightly: the reference for `Page` displays which fields have default values and which do not.
