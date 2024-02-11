@@ -21,7 +21,7 @@ jobs:
         uses: actions/cache/restore@v3
         with:
           path: zig-cache
-          key: zig-cache          
+          key: zine-${{hashFiles('build.zig.zon')}}          
 
       - name: Build
         run: zig build
@@ -37,4 +37,4 @@ jobs:
         uses: actions/cache/save@v3
         with:
           path: zig-cache
-          key: zig-cache
+          key: zine-${{hashFiles('build.zig.zon')}}          
