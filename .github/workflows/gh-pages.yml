@@ -24,7 +24,7 @@ jobs:
           key: zine-${{hashFiles('build.zig.zon')}}          
 
       - name: Build
-        run: zig build
+        run: zig build --summary all
           
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
