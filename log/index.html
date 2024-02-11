@@ -69,7 +69,7 @@ pre {
 window.onload = function() {
   document.querySelectorAll("button").forEach(function (b) {b.addEventListener("click", function () {
       navigator.clipboard.writeText(b.parentElement.nextElementSibling.textContent);
-  });
+    });
   });
 }
 </script>

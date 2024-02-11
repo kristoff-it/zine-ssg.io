@@ -64,8 +64,8 @@
     <span class="tok tok-symbol">.</span><span class="tok">version</span> <span class="tok tok-symbol">=</span> <span class="tok tok-str">&quot;0.0.0&quot;</span><span class="tok tok-symbol">,</span>
     <span class="tok tok-symbol">.</span><span class="tok">dependencies</span> <span class="tok tok-symbol">=</span> <span class="tok tok-symbol">.</span><span class="tok tok-symbol">{</span>
         <span class="tok tok-symbol">.</span><span class="tok">zine</span> <span class="tok tok-symbol">=</span> <span class="tok tok-symbol">.</span><span class="tok tok-symbol">{</span>
-            <span class="tok tok-symbol">.</span><span class="tok">url</span> <span class="tok tok-symbol">=</span> <span class="tok tok-str">&quot;git+https://github.com/kristoff-it/zine.git#6a6bac671dba78c5e0d4368a3b1889725ef91abf&quot;</span><span class="tok tok-symbol">,</span>
-            <span class="tok tok-symbol">.</span><span class="tok">hash</span> <span class="tok tok-symbol">=</span> <span class="tok tok-str">&quot;122018823741d8410e08aea6925555b79c54769233f1c5afb71ec1a6a8fbf5debb67&quot;</span><span class="tok tok-symbol">,</span>
+            <span class="tok tok-symbol">.</span><span class="tok">url</span> <span class="tok tok-symbol">=</span> <span class="tok tok-str">&quot;git+https://github.com/kristoff-it/zine.git#beb5434a04fad660ecf8db8379532dfe5b5e13b0&quot;</span><span class="tok tok-symbol">,</span>
+            <span class="tok tok-symbol">.</span><span class="tok">hash</span> <span class="tok tok-symbol">=</span> <span class="tok tok-str">&quot;12203c37cb5fb3931d3b7d1f1dace46cf5329ffe2fb5a8d2ac87dc78630ce7f601a7&quot;</span><span class="tok tok-symbol">,</span>
         <span class="tok tok-symbol">}</span><span class="tok tok-symbol">,</span>
     <span class="tok tok-symbol">}</span><span class="tok tok-symbol">,</span>
     <span class="tok tok-symbol">.</span><span class="tok">paths</span> <span class="tok tok-symbol">=</span> <span class="tok tok-symbol">.</span><span class="tok tok-symbol">{</span><span class="tok tok-str">&quot;.&quot;</span><span class="tok tok-symbol">}</span><span class="tok tok-symbol">,</span>
@@ -88,45 +88,159 @@
   "date": "2020-07-06T00:00:00",
   "author": "Sample Author",
   "draft": false,
-  "layout": "page.html",
+  "layout": "homepage.html",
   "tags": []
 }  
 --- 
 Your **markdown** content goes here.
-</code></pre><p>Some fields, like <code>title</code>, and <code>layout</code> are mandatory, while others have default values. See the Scripty reference relative to <code>Page</code> for more information.</p><p>A very important required field is <code>layout</code>. This field must point at the layout that you want to use to style your content. In Zine this field must always be explicitly filled out and there is no implicit convention system (like in Hugo, for example).</p><p>One useful optional field is <code>skip_subdirs</code> (defaults to <code>false</code>). When set to true in a <code>index.md</code> file (ie not in, say, <code>foo.md</code>), it will make Zine ignore any other markdown file and subdirectory of the current directory. This is useful if you decide to create a directory for a post that has some assets (which could contain markdown files, like <code>README.md</code> for example) that you want to keep in the same location.</p><h3>Layouts</h3><p>The layouts directory contains the html layouts that will be applied to your content.</p><p>See the layouting section for more information about creating layouts and templates.</p><h3>Static</h3><p>The static directory will be copied verbatim into the output directory.</p><h1>CLI</h1><h4><code>$ zig build</code></h4><p>Builds your website and places it in <code>zig-out</code>. Pass <code>-p some/path/</code> to change the output directory.</p><p>Use <code>zig build --help</code> for more information about flags supported by <code>zig build</code>.</p><h4><code>$ zig build serve</code></h4><p>Builds your website and starts the development server. Making changes to any of your input directories (ie content, layouts, static) will automatically trigger a rebuild and a page reload.</p><p>Pass <code>-Dport=8080</code> to set the listening port to 8080.</p><h1>Templating</h1><p>In Zine templates live under the <code>layout</code> directory.</p><p>A normal HTML document will be a valid Zine Template.</p><p><i><strong><code>layouts/base.html</code></strong></i></p><pre><code>&lt;!DOCTYPE html&gt;
+</code></pre><p>Some fields, like <code>title</code>, and <code>layout</code> are mandatory, while others have default values. See the Scripty reference relative to <code>Page</code> for more information.</p><p>A very important required field is <code>layout</code>. This field must point at the layout that you want to use to style your content. In Zine this field must always be explicitly filled out and there is no implicit convention system (like in Hugo, for example).</p><h3>Layouts</h3><p>The layouts directory contains the html layouts that will be applied to your content. We're going see how layouts work later in this document.</p><h3>Static</h3><p>The contents of the static directory will be copied verbatim into the output directory.</p><h1>CLI</h1><h4><code>$ zig build</code></h4><p>Builds your website and places it in <code>zig-out</code>. Pass <code>-p some/path/</code> to change the output directory.</p><p>Use <code>zig build --help</code> for more information about flags supported by <code>zig build</code>.</p><h4><code>$ zig build serve</code></h4><p>Builds your website and starts the development server. Making changes to any of your input directories (ie content, layouts, static) will automatically trigger a rebuild and a page reload.</p><p>Pass <code>-Dport=8080</code> to set the listening port to 8080.</p><h1>Layouting</h1><p>In Zine layouts live under the <code>layouts/</code> directory.</p><p>Here's a basic example where we create the homepage of our sample website.</p><p><i><strong><code>content/index.md</code></strong></i></p><pre><code>---
+{
+  "title": "Home",
+  "date": "2020-07-06T00:00:00",
+  "author": "Sample Author",
+  "draft": false,
+  "layout": "homepage.html",
+  "tags": []
+}  
+--- 
+Hello World!
+</code></pre><p><i><strong><code>layouts/homepage.html</code></strong></i></p><pre><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
   &lt;head&gt;
     &lt;meta charset="UTF-8"&gt;
-    &lt;title&gt;My Blog&lt;/title&gt;
+    &lt;title var="$site.title"&gt;&lt;/title&gt;
   &lt;/head&gt;
   &lt;body&gt;
-    Hello World!
+    &lt;h1 var="$page.title"&gt;&lt;/h1&gt;
+    &lt;div var="$page.content"&gt;&lt;/div&gt;
   &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h2>Extending templates</h2><p>The first feature of Super templates is extending a template by using the <code>&lt;super/&gt;</code> element.</p><p>The principle is simple: the super tag defines an insertion point into the <i>parent</i> element which will have to be fulfilled by the <i>super template</i> (the template that will extend the current one, what would be called the parent template in OOP lingo).</p><p><strong>NOTE: once a template defines an extension point, it must be moved inside the <code>layouts/templates/</code> directory. Only complete templates (called <i>layouts</i>) can live directly in <code>layouts/</code>.</strong></p><p><i><strong><code>layouts/templates/base.html</code></strong></i></p><pre><code>&lt;!DOCTYPE html&gt;
+</code></pre><p><i><strong><code>zig-out/index.html</code></strong></i> (output)</p><pre><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
   &lt;head&gt;
     &lt;meta charset="UTF-8"&gt;
-    &lt;title id="title"&gt;&lt;super/&gt; - My Blog&lt;/title&gt;
+    &lt;title&gt;Sample Site&lt;/title&gt;
   &lt;/head&gt;
   &lt;body&gt;
-    Hello World!
+    &lt;h1&gt;Home&lt;/h1&gt;
+    &lt;div&gt;&lt;p&gt;Hello World!&lt;/p&gt;&lt;/div&gt;
   &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>This template can then be finalized by a <i>layout</i> like so:</p><p><i><strong><code>layouts/homepage.html</code></strong></i></p><pre><code>&lt;extend template="base.html"/&gt;
+</code></pre><p>In this example we just saw:</p><ul><li><p><code>index.md</code> defines in the frontmatter that its layout is <code>homepage.html</code></p></li><li><p><code>homepage.html</code> defines some html and uses special attributes to pull in the contents of <code>index.md</code> (more on that later)</p></li><li><p>the final output is going to be the homepage of our website</p></li></ul><p>If you run the dev server now (<code>zig build serve -Dport=8080</code>), you should see the output page at <code>https://localhost:8080/</code>.</p><h3>Adding more pages</h3><p>Let's imagine now that we want to add a blog section to our website with a first post in it.</p><p><i><strong><code>shell</code></strong></i></p><pre><code>$ mkdir content/blog
+$ touch content/blog/first-post.md
+$ touch layouts/post.html
+</code></pre><p><i><strong><code>content/blog/first-post.md</code></strong></i></p><pre><code>---
+{
+  "title": "First Post!",
+  "date": "2020-07-06T00:00:00",
+  "author": "Sample Author",
+  "draft": false,
+  "layout": "post.html",
+  "tags": []
+}  
+--- 
+This is my first post!
+</code></pre><p><i><strong><code>layouts/post.html</code></strong></i></p><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title var="$site.title"&gt;&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Blog&lt;/h1&gt;
+    &lt;h2 var="$page.title"&gt;&lt;/h2&gt;
+    &lt;h3&gt;by &lt;span var="$page.author"&gt;&lt;/span&gt;&lt;/h3&gt;
+    &lt;h4&gt;Posted on: &lt;span var="$page.date.format('January 02, 2006')"&gt;&lt;/span&gt;&lt;/h4&gt;
+    &lt;div var="$page.content"&gt;&lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>At this point you should be able to navigate to <code>http://localhost:8080/blog/first-post/</code> and see the result.</p><p>Note how we now need a new layout (<code>post.html</code>) since the blog post is not going to have the same structure at the homepage.</p><p>While the structure is indeed different, both <code>post.html</code> and <code>homepage.html</code> share a lot of common boilerplate that would be nice not to have to maintain separately.</p><p>What we need now is a way to have both layouts put the common boilerplate into a singular <i>template</i> that then gets <i>extended</i> by each layout to produce two final different layouts.</p><h2>Extending templates</h2><p>First, some terminology:</p><ul><li><p><strong><code>layout</code></strong>: HTML file that can be directly used to style a piece of content. Layouts live directly under <code>layouts/</code>.</p></li><li><p><strong><code>template</code></strong>: HTML file that collects common boilerplate that contains extension points. Cannot be used directly to style content (as some parts need to be filled out) and must live under <code>layouts/templates/</code>.</p></li><li><p>a <strong><code>layout</code></strong> can <i>extend</i> a <strong><code>template</code></strong> (but not viceversa).</p></li></ul><p>Let's continue the example from the previous section where we try to collect all common boilerplate from <code>homepage.html</code> and <code>page.html</code>.</p><p><i><strong><code>layouts/templates/base.html</code></strong></i></p><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title id="title"&gt;&lt;super/&gt;&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body id="main"&gt;
+    &lt;super/&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><i><strong><code>layouts/homepage.html</code></strong></i></p><pre><code>&lt;extend template="base.html"/&gt;
 
-&lt;title id="title"&gt;Homepage&lt;/title&gt;
-</code></pre><p>This will result in the following generated output:</p><p><i><strong><code>zig-out/homepage.html</code></strong></i></p><pre><code>&lt;!DOCTYPE html&gt;
+&lt;title id="title" var="$site.title"&gt;&lt;/title&gt;
+
+&lt;body id="main"&gt;
+  &lt;h1 var="$page.title"&gt;&lt;/h1&gt;
+  &lt;div var="$page.content"&gt;&lt;/div&gt;
+&lt;/body&gt;
+</code></pre><p><i><strong><code>layouts/post.html</code></strong></i></p><pre><code>&lt;extend template="base.html"/&gt;
+
+&lt;title var="$site.title"&gt;&lt;/title&gt;
+
+&lt;body id="main"&gt;
+  &lt;h1&gt;Blog&lt;/h1&gt;
+  &lt;h2 var="$page.title"&gt;&lt;/h2&gt;
+  &lt;h3&gt;by &lt;span var="$page.author"&gt;&lt;/span&gt;&lt;/h3&gt;
+  &lt;h4&gt;Posted on: &lt;span var="$page.date.format('January 02, 2006')"&gt;&lt;/span&gt;&lt;/h4&gt;
+  &lt;div var="$page.content"&gt;&lt;/div&gt;
+&lt;/body&gt;
+</code></pre><p>Let's analyze what we just saw:</p><ul><li><p><code>layouts/templates/base.html</code> now contains all the main HTML boilerplate and has two <code>&lt;super/&gt;</code> tags: one inside <code>&lt;title&gt;</code> and one inside <code>&lt;body&gt;</code> (both of which have also gained an <code>id</code> attribute).</p></li><li><p>both layouts now start with an <code>&lt;extend/&gt;</code> tag and have lost their original structure (since it was collected in <code>base.html</code>), keeping only the parts that each defines differently than the other.</p></li></ul><h3><code>&lt;extend/&gt;</code></h3><p>When a layout wants to extend a template, it must declare at the very top the template name using the extend tag, like so:</p><pre><code>&lt;extend template="foo.html"/&gt;
+</code></pre><p>A layout that extends a template won't have a normal HTML structure, but rather it will be a list of HTML elements that will replace a correspoding super tag from the base template they're extending.</p><h3><code>&lt;super/&gt;</code></h3><p>The super tag defines an extension point in a template. The direct parent of a super tag must have an <code>id</code> attribute.</p><p><strong>Each top level element in a layout must correspond to a super tag in the template being extended.</strong></p><p>Since super tags don't have any id of their own, <strong>the layout uses the tag and <code>id</code> of the parent element of each super tag to match its content with the correct super tag</strong>.</p><p><i><strong>template</strong></i></p><pre><code>&lt;title id="title"&gt;&lt;super/&gt; - Sample Site&lt;/title&gt;
+</code></pre><p><i><strong>layout</strong></i></p><pre><code>&lt;title id="title"&gt;Home&lt;/title&gt;
+</code></pre><p><i><strong>evaluates to</strong></i></p><pre><code>&lt;title id="title"&gt;Home - Sample Site&lt;/title&gt;
+</code></pre><h4>Why not just give <code>id</code>s to super tags?</h4><p>Matching via parent elements is admittedly an uncommon choice, but it has some very real upsides over the alternatives.</p><p>Let's define a block in a curly brace templating language (mustache,jinja, hugo, etc):</p><p><i><strong>hugo</strong></i></p><pre><code>{{ define "main" }}
+  &lt;p&gt; Hello World &lt;/p&gt;
+{{ end }}
+</code></pre><p>This is the equivalent of a top-level element in a Zine layout that extends a template, but it has a critical disadvantage: <strong>you know nothing about where the content will be put</strong>.</p><p>Unless you have perfect recollection of what "main" is, you won't know if your content should be framed in a container element or not. In fact, all the following declarations in a hugo base template are possible:</p><p><i><strong>ok</strong></i></p><pre><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
-  &lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;title id="title"&gt;Homepage - My Blog&lt;/title&gt;
-  &lt;/head&gt;
+  &lt;head&gt;&lt;/head&gt;
   &lt;body&gt;
-    Hello World!
+    {{ block "main" . }}{{ end }}
   &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h2>Extension chains</h2><p>Extension chains can be longer than two, and can involve multiple templates. Here's a more complex example.</p><p><i><strong><code>layouts/templates/base.html</code></strong></i></p><pre><code>&lt;!DOCTYPE html&gt;
+</code></pre><p><i><strong>oops, needed a <code>&lt;body&gt;</code> wrapper</strong></i></p><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;&lt;/head&gt;
+    {{ block "main" . }}{{ end }}
+&lt;/html&gt;
+</code></pre><p><i><strong>oops, too many wrappers</strong></i></p><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;&lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;{{ block "main" . }}{{ end }}&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>Contrast this with our previous example:</p><p><i><strong><code>layouts/homepage.html</code></strong></i></p><pre><code>&lt;extend template="base.html"/&gt;
+
+&lt;title id="title" var="$site.title"&gt;&lt;/title&gt;
+
+&lt;body id="main"&gt;
+  &lt;h1 var="$page.title"&gt;&lt;/h1&gt;
+  &lt;div var="$page.content"&gt;&lt;/div&gt;
+&lt;/body&gt;
+</code></pre><p>By looking at the layout we know that we are putting content directly into the <code>body</code> element of the template we are extending.</p><p>In fact if we were to make a mistake and define "main" as a <code>div</code> element in our layout, we would get a compile error:</p><p><i><strong>shell</strong></i></p><pre><code>$ zig build
+
+---------- MISMATCHED BLOCK TAG ----------
+The super template defines a block that has the wrong tag.
+Both tags and ids must match in order to avoid confusion
+about where the block contents are going to be placed in
+the extended template.
+
+note: super template block tag:
+(post.html) layouts/post.html:19:2:
+    &lt;div id="main"&gt;
+     ^^^
+
+note: extended template block defined here:
+(base.html) layouts/templates/base.html:16:4:
+    &lt;body id="main"&gt;
+     ^^^^
+trace:
+    layout `post.html`,
+    content `about.md`.
+</code></pre><p>So, if we were to give <code>id</code>s to super tags, we would have to introduce another fake html tag and we would end up with the same problem that curly brace templating languages have today.</p><p><i><strong>where would this go?</strong></i></p><pre><code>&lt;content id="main"&gt;
+  &lt;p&gt; Hello World &lt;/p&gt;
+&lt;/content&gt;
+</code></pre><p>Repeating the parent element is a form of <i><strong>typing</strong></i> for your templates, in a sense.</p><h2>Extension chains</h2><p>In the previous section we saw how a layout can extend a template. We are now going to see how templates can extend other templates.</p><p>Let's update our terminology one last time. Since both layouts and templates can extend other templates, we need a generic way of referring to the template that is extending and the one being extended:</p><ul><li><p>a <i><strong>super template</strong></i> is the template (or layout) that extends another template.</p></li><li><p>an <i><strong>extended template</strong></i> is the template being extended.</p></li></ul><p>A template can take on both roles at the same time when in the middle of an extension chain.</p><p><i><strong><code>layouts/templates/base.html</code></strong></i></p><pre><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
   &lt;head id="head"&gt;
     &lt;meta charset="UTF-8"&gt;
