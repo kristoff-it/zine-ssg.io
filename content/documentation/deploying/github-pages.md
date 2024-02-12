@@ -47,11 +47,13 @@ jobs:
         uses: goto-bus-stop/setup-zig@v2
         with:
           version: 0.12.0-dev.2701+d18f52197
-
+          
       - name: Restore cache
         uses: actions/cache/restore@v3
         with:
-          path: zig-cache
+          path: |
+            ~/.cache/zig
+            zig-cache
           key: zine-${{hashFiles('build.zig.zon')}}          
 
       - name: Build
@@ -67,7 +69,9 @@ jobs:
       - name: Save Cache
         uses: actions/cache/save@v3
         with:
-          path: zig-cache
+          path: |
+            ~/.cache/zig
+            zig-cache
           key: zine-${{hashFiles('build.zig.zon')}}          
 ```
 
