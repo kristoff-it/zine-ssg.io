@@ -270,12 +270,12 @@ trace:
         &lt;super/&gt;
     &lt;/div&gt;
 &lt;/body&gt;
-</code></pre><p>Note how <code>with-menu.html</code> is both fulfilling the <i>interface</i> (ie the extension points) of <code>base.html</code> and at the same time it's creating new ones for another <i>super template</i> to fulfill in turn.</p><p><i><strong><code>layouts/page.html</code></strong></i></p><pre><code>&lt;extend template="with-menu.html"/&gt;
+</code></pre><p><i><strong><code>layouts/page.html</code></strong></i></p><pre><code>&lt;extend template="with-menu.html"/&gt;
 
 &lt;title id="title" var="$page.title"&gt;&lt;/title&gt;
 
 &lt;div id="content" var="$page.content"&gt;&lt;/div&gt;
-</code></pre><p>In this last example <code>page.html</code> is featuring Scripty, the scripting language used to refer to your content from templates.</p><h2>Logic</h2><p>Template logic is based on two main variables: <code>$site</code> and <code>$page</code>, representing the global site configuration and the current page respectively.</p><p>Example markdown file:</p><p><i><strong><code>content/foo/index.md</code></strong></i></p><pre><code>---
+</code></pre><p>Note how <code>with-menu.html</code> is both fulfilling the <i>interface</i> (ie the extension points) of <code>base.html</code> and at the same time it's creating new ones for another <i>super template</i> to fulfill in turn.</p><p>In this last example <code>page.html</code> is featuring Scripty, the scripting language used to refer to your content from templates.</p><h2>Logic</h2><p>Template logic is based on two main variables: <code>$site</code> and <code>$page</code>, representing the global site configuration and the current page respectively.</p><p>Example markdown file:</p><p><i><strong><code>content/foo/index.md</code></strong></i></p><pre><code>---
 {
   "title": "My Post",
   "date": "2020-07-06T00:00:00",
