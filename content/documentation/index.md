@@ -480,8 +480,6 @@ extension chain.
     </div>
 </body>
 ```
-Note how `with-menu.html` is both fulfilling the *interface* (ie the extension points) of `base.html` and at the same time it's creating new ones for another *super template* to fulfill in turn.
-
 ***`layouts/page.html`***
 ```html
 <extend template="with-menu.html"/>
@@ -490,6 +488,8 @@ Note how `with-menu.html` is both fulfilling the *interface* (ie the extension p
 
 <div id="content" var="$page.content"></div>
 ```
+
+Note how `with-menu.html` is both fulfilling the *interface* (ie the extension points) of `base.html` and at the same time it's creating new ones for another *super template* to fulfill in turn.
 
 In this last example `page.html` is featuring Scripty, the scripting language used to refer to your content from templates.
 
