@@ -19,7 +19,9 @@ Using Zine today means participating in its development process.
 
 ## Sub sections
 - [Scripty Reference](scripty/)
-- [Deploying on GitHub Pages](deploying/github-pages/)
+- Deploying
+    - [GitHub Pages](deploying/github-pages/)
+    - [Cloudflare Pages](deploying/cloudflare-pages/)
 
 ## Requirements
 Zine is a collection of tools orchestrated by the Zig build system.
