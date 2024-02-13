@@ -33,7 +33,7 @@ window.onload = function() {
 ### 2024-02-13
 - Overhauled the documentation page. Now  it's a little bit easier to get started with Zine.
 - Added deployment guides: [one for GitHub Pages](/documentation/deploying/cloudflare-pages/) and [one for Cloudflare Pages](/documentation/deploying/cloudflare-pages/) (thanks `ninja_tron`!)
-- Started work on the JSON replacement for better frontmatters, join the Discord server for related discussion & sneak peeks.
+- Started work on the JSON replacement for better frontmatters, [join the Discord server](https://discord.gg/B73sGxF) or [catch me live on Twitch](https://twitch.tv/kristoff_it) for related discussion & sneak peeks.
 
 ### 2024-02-11 
 
