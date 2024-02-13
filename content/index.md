@@ -8,6 +8,7 @@
   "tags": []
 }  
 --- 
+
 # What is Zine?
 A Zine site is a collection of markdown files, HTML templates and static assets. Zine turns your markdown content into HTML, styles it using your templates, and finally copies the result alongside your static assets into an output directory that you can then publish on static hosting services like GitHub Pages.
 

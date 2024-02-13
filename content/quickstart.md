@@ -25,14 +25,17 @@ In the future Zine will pin to a tagged release of Zig, be it an official releas
 
 
 ## 2. Clone Zine's Sample Site
-After that, the easiest way of getting started is by cloning a sample website and start hacking on it.
+
+And what's a better sample site than the official site itself?
 
 ***`shell`***
 ```sh
-$ git clone https://github.com/kristoff-it/zine-sample-site.git
+$ git clone https://github.com/kristoff-it/zine-ssg.io.git
 $ cd zine-sample-site
 $ zig build serve -Dport=8080
 ```
+After that, start hacking on it and see how Zine reacts!
+
 ## Next Steps
 
 To learn more about Zine, [see the documentation section](/documentation/).
