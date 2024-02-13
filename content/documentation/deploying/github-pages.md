@@ -11,21 +11,24 @@
 ## About
 This guide assumes that you're already familiar with GitHub Pages. Please refer [the official GitHub Pages documentation](https://pages.github.com/) for more info.
 
-If you're a developer looking to deploy a static website to GitHub Pages, you have two main options.
-
 
 ## 1. Build locally
 The first one, which is more efficient, is to build the website locally and commit it to the correct branch/subdir. 
 
 Currently Zine doesn't offer any help automating this process, but in the future it might.
 
+**NOTE: currently Zine doesn't clean `zig-out/` across rebuilds so you will have to it manually.**
+
 
 ## 2. Use GitHub Actions
-This one is a more hands-off, but slower option. 
 
-It is inherently slower because of all the overhead introduced by GitHub Actions. Additionally, Zine is a collection of tools compiled on demand by your build script, which is a bad match for GitHub Actions given its ephemeral nature.
+This is a more popular, but slower option.
 
-One day we might maintain a set of Zine actions that pre-builds Zine once for everybody but, in the meantime, the following workflow definition will use the GitHub's caching system to cache builds of Zine for you.
+GitHub Actions runner have an inherent overhead and, since Zine is a collection of tools that gets compiled on-demand, your runner will need to do some work that wounldn't be necessary with a single-executable tool.
+
+Luckly, the build can be cached by adding a few lines to your GitHub Actions workflow.
+
+[This site currently builds in 25-35 seconds](https://github.com/kristoff-it/zine/actions), of which 9 are spent setting up Zig, 2 restoring the Zine tools cache, and 1 for the actual site build.
 
 ***`.github/workflows/gh-pages.yml`***
 ```
@@ -74,5 +77,3 @@ jobs:
             zig-cache
           key: zine-${{hashFiles('build.zig.zon')}}          
 ```
-
-This is how we deploy [this website](https://github.com/kristoff-it/zine-ssg.io).

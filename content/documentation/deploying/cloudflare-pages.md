@@ -11,25 +11,34 @@
 ## About
 This guide assumes that you're already familiar with using Cloudflare Pages and the Wrangler CLI. Please refer [the official Cloudflare Pages documentation](https://developers.cloudflare.com/pages/) for more info.
 
-If you're a developer looking to deploy a static website to Cloudflare Pages, you have a two options.
+## Getting Started
+To get started you will need to first create a new Cloudflare Pages project.
 
+***`shell`***
+```shell
+$ wrangler pages project create PROJECT_NAME
+```
+,
+This will create a new Cloudflare Pages project that you can deploy to, which can be done in two different ways.
 
-## 1. Build locally and deploy locally with wrangler
-The first one, which is more efficient, is to build the website locally and use `wrangler` to publish this to Cloudflare Pages. To get started, run `wrangler pages project create PROJECT_NAME`. This will create a new Cloudflare Pages project that you can deploy to. Once complete, you can push your built Zine files to that project using `wrangler pages deploy ./zig-out --project-name PROJECT_NAME`. 
+## 1. Build locally and deploy directly with wrangler
+To publish from your computer you will need fist to build your Zine site, and then upload the output to Cloudflare Pages using `wrangler`.
+
+**NOTE: currently Zine doesn't clean `zig-out/` across rebuilds so you will have to it manually.**
+
+***`shell`***
+```shell
+$ zig build 
+$ wrangler pages deploy ./zig-out --project-name PROJECT_NAME
+```
 
 ## 2. Use GitHub Actions
-This one is a more hands-off, but slower option. 
 
-It is inherently slower because of all the overhead introduced by GitHub Actions. Additionally, Zine is a collection of tools compiled on demand by your build script, which is a bad match for GitHub Actions given its ephemeral nature.
+This method uses GitHub Actions to build the site and then uploads the output to Cloudflare Pages (instead of GitHub Pages).
 
-One day we might maintain a set of Zine actions that pre-builds Zine once for everybody but, in the meantime, the following workflow definition will use the GitHub's caching system to cache builds of Zine for you.
+This section assumes that you're already familiar with GitHub Actions. Please refer [the official GitHub Actions documentation](https://docs.github.com/en/actions) for more info.
 
-To get started you will need to create a new project in Cloudflare Pages. This can be done by running:
-
-`wrangler pages project create PROJECT_NAME`
-
-
-Once completed, we will need a few things from Cloudflare to get the GitHub Action to run:
+Once we have created our Cloudflare Pages project, we will need a few things from Cloudflare:
 - [Your Cloudflare Account ID](https://github.com/cloudflare/pages-action#get-account-id)
 - [An API Token](https://github.com/cloudflare/pages-action#generate-an-api-token)
 - The project name created in the previous command
