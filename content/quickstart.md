@@ -31,7 +31,7 @@ And what's a better sample site than the official site itself?
 ***`shell`***
 ```sh
 $ git clone https://github.com/kristoff-it/zine-ssg.io.git
-$ cd zine-sample-site
+$ cd zine-ssg.io
 $ zig build serve -Dport=8080
 ```
 After that, start hacking on it and see how Zine reacts!
