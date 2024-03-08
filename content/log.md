@@ -29,6 +29,15 @@ window.onload = function() {
 }
 </script>
 
+### 2024-03-08 
+
+<button>copy</button>
+```zig
+.url = "git+https://github.com/kristoff-it/zine.git#4b3efd178cb6ee9af3c864fa980ad0499823aac6",
+.hash = "1220f6920dbb9540cc9013bbaa1621d62ef79aabadcbb6f7b9f45e415de815d15404",
+```
+- Added syntax highlighting support via tree-sitter. Most code snippets of this website have now gained syntax highlighting. No themes are provided for now and it's expected that you define your own CSS from scratch. See `hightlight.css` from this website for an idea on how to proceed.
+- Updated Zig version because of a recent breaking change related to `std.http`. Now Zine depends on Zig `0.12.0-dev.3161+377ecc6af` and above. Make sure to update your GitHub Actions workflows accordingly.
 
 ### 2024-02-13
 - Overhauled the documentation page. Now  it's a little bit easier to get started with Zine.
