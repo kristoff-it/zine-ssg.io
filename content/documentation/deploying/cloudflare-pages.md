@@ -15,7 +15,7 @@ This guide assumes that you're already familiar with using Cloudflare Pages and 
 To get started you will need to first create a new Cloudflare Pages project.
 
 ***`shell`***
-```shell
+```bash
 $ wrangler pages project create PROJECT_NAME
 ```
 ,
@@ -27,7 +27,7 @@ To publish from your computer you will need fist to build your Zine site, and th
 **NOTE: currently Zine doesn't clean `zig-out/` across rebuilds so you will have to it manually.**
 
 ***`shell`***
-```shell
+```bash
 $ zig build 
 $ wrangler pages deploy ./zig-out --project-name PROJECT_NAME
 ```

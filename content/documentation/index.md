@@ -91,7 +91,7 @@ Each markdown file has a JSON frontmatter delimited by `---`.
 data format for frontmatter.*
 
 ***`index.md`*** 
-```
+```ziggy
 ---
 {
   "title": "Homepage",
@@ -194,7 +194,7 @@ If you run the dev server now (`zig build serve -Dport=8080`), you should see th
 Let's imagine now that we want to add a blog section to our website with a first post in it.
 
 ***`shell`***
-```sh
+```bash
 $ mkdir content/blog
 $ touch content/blog/first-post.md
 $ touch layouts/post.html
@@ -501,7 +501,7 @@ Template logic is based on two main variables: `$site` and `$page`, representing
 Example markdown file:
 
 ***`content/foo/index.md`***
-```md
+```markdown
 ---
 {
   "title": "My Post",

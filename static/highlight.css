@@ -1,0 +1,68 @@
+:root {
+  --light-yellow: #e5c07b;
+  --dark-yellow: #d19a66;
+  --blue: #61afef;
+  --cyan: #56b6c2;
+  --light-red: #e06c75;
+  --dark-red: #be5046;
+  --comment-gray: #5c6370;
+  --magenta: #c678dd;
+}
+
+code .comment {
+  color: var(--comment-gray);
+}
+
+
+code.html {}
+
+code.html .string {
+  color: var(--dark-yellow);
+}
+
+code.html .tag {
+  color: var(--blue);
+}
+
+code.html .constant {
+  color: var(--light-red);
+}
+
+code.html .attribute {
+  color: var(--light-yellow);
+}
+
+code.html .punctuation {
+  color: var(--cyan);
+}
+
+
+code.zig {}
+
+code.zig .string {
+  color: var(--dark-yellow);
+}
+
+code.zig .variable, code.zig .field {
+  color: var(--light-yellow);
+}
+
+code.zig .keyword.function {
+  color: var(--light-red);
+}
+
+code.zig .bracket {
+  color: var(--cyan);
+}
+
+code.zig .function {
+  color: var(--blue);
+}
+
+code.zig .builtin {
+  color: var(--magenta);
+}
+
+code.zig .operator, code.zig .qualifier, code.zig .attribute  {
+  color: var(--light-red);
+}

@@ -29,7 +29,7 @@ In the future Zine will pin to a tagged release of Zig, be it an official releas
 And what's a better sample site than the official site itself?
 
 ***`shell`***
-```sh
+```bash
 $ git clone https://github.com/kristoff-it/zine-ssg.io.git
 $ cd zine-ssg.io
 $ zig build serve -Dport=8080
