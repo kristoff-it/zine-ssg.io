@@ -33,8 +33,8 @@ window.onload = function() {
 
 <button>copy</button>
 ```zig
-.url = "git+https://github.com/kristoff-it/zine#22e197e1c9b863b8477f76f77ac7bf2b67e24b18",
-.hash = "1220504ed3bf3c2e53c58dd9b7ef14340f84578a10eb51857ce18aff94faa4643766",
+.url = "git+https://github.com/kristoff-it/zine#d06884ec657abe87ab4f408b5dc3f336a6dcea9b",
+.hash = "1220d3bc95a5343918d69d3478f27ebb4abe14613c159737af64cd2185151efd2fa1",
 ```
 - **Zine now uses [Ziggy](https://ziggy-lang.io) as the frontmatter language!** In the near future Zine will develop tooling for editing ziggy-markdown files. In the meantime consider downloading the Ziggy CLI tool for a smoother editing experience if you plan to use Ziggy directly.
 - Added an initial version of sections to Zine! See the updated documentation section for more information about that. Beware that `$site.pages()` was removed in favor of the new system.
