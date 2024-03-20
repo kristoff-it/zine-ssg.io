@@ -1,19 +1,18 @@
 ---
 {
-  "title": "Scripty Reference",
-  "description": "", 
-  "author": "Loris Cro",
-  "layout": "scripty-reference.html",
-  "date": "2023-06-16T00:00:00",
-  "draft": false
+    .title = "Scripty Reference",
+    .description = "",
+    .author = "Loris Cro",
+    .layout = "scripty-reference.html",
+    .date = @date("2023-06-16T00:00:00"),
+    .draft = false,
 }
 ---
 # Globals
 ## $site : Site
 
 The global site configuration. The fields come from the call to 
-`addWebsite` in your `build.zig`. Gives you access to the full list
-of pages.
+`addWebsite` in your `build.zig`.
 ## $page : Page
 
 The current page.
@@ -27,16 +26,7 @@ The payload of an optional value, only available inside of elemens with an `if` 
 ## Site
 ### base_url : str,
   ### title : str,
-  ### pages() -> [Page]
-Returns a list of all the pages of the website. 
-To be used in conjuction with a `loop` attribute. 
-
-
-Examples:
-```
-<div loop="$site.pages()"></div>
-``` 
-## Page
+  ## Page
 ### title : str,
   ### description : str = "",
   ### author : str,
@@ -45,8 +35,9 @@ Examples:
   ### draft : bool = false,
   ### tags : [str] = [],
   ### aliases : [str] = [],
+  ### alternatives : [Alternative] = {  },
   ### skip_subdirs : bool = false,
-  ### custom : dyn = null,
+  ### custom : dyn = ziggy.dynamic.Value{ .null = void },
   ### content : str = "",
   ### wordCount() -> int
 Returns the word count of the page.
@@ -57,6 +48,26 @@ counts all characters and divides the result by 5.
 Examples:
 ```
 <div loop="$page.wordCount()"></div>
+``` 
+### isSection() -> bool
+Returns true if the current page defines a section (i.e. if 
+the current page is an 'index.md' page).
+
+
+Examples:
+```
+<div ></div>
+``` 
+### subpages() -> [Page]
+Only available on 'index.md' pages, as those are the pages
+that define a section.
+
+Returns a list of all the pages in this section.
+
+
+Examples:
+```
+<div loop="$page.subpages()"><span var="$loop.it.title"></span></div>
 ``` 
 ### nextPage() -> ?Page
 Tries to return the page after the target one (sorted by date), to be used with an `if` attribute.
@@ -93,7 +104,12 @@ Examples:
 ```
 $page.permalink()
 ``` 
-## str
+## Alternative
+### layout : str,
+  ### output : str,
+  ### title : str = "",
+  ### type : str = "",
+  ## str
 ### len() -> int
 Returns the length of a string.
 
@@ -109,6 +125,15 @@ Concatenates strings together (left-to-right).
 Examples:
 ```
 $page.title.suffix("Foo","Bar", "Baz")
+``` 
+### syntaxHighlight(str) -> str
+Applies syntax highlighting to a string.
+The argument specifies the language name.
+
+
+Examples:
+```
+<pre><code class="ziggy" var="$page.custom.get('sample', '').syntaxHighLight('ziggy')"></code></pre>
 ``` 
 ## date
 ### format(str) -> str

@@ -1,11 +1,11 @@
 ---
 {
-  "title": "Deploying on Cloudflare Pages",
-  "date": "2023-02-12T00:00:00",
-  "author": "Etahn Holz",
-  "draft": false,
-  "layout": "documentation.html",
-  "tags": []
+    .title = "Deploying on Cloudflare Pages",
+    .date = @date("2023-02-12T00:00:00"),
+    .author = "Etahn Holz",
+    .draft = false,
+    .layout = "documentation.html",
+    .tags = [],
 }
 ---
 ## About

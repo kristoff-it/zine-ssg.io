@@ -1,11 +1,11 @@
 ---
 {
-  "title": "Vision & Community",
-  "date": "2020-07-06T00:00:00",
-  "author": "Sample Author",
-  "draft": false,
-  "layout": "page.html",
-  "tags": []
+    .title = "Vision & Community",
+    .date = @date("2020-07-06T00:00:00"),
+    .author = "Sample Author",
+    .draft = false,
+    .layout = "page.html",
+    .tags = [],
 }  
 --- 
 ## Vision

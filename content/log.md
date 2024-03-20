@@ -1,12 +1,12 @@
 ---
 {
-  "title": "Changelog",
-  "date": "2020-07-06T00:00:00",
-  "author": "Sample Author",
-  "draft": false,
-  "layout": "page.html",
-  "tags": []
-}  
+    .title = "Changelog",
+    .date = @date("2020-07-06T00:00:00"),
+    .author = "Sample Author",
+    .draft = false,
+    .layout = "page.html",
+    .tags = [],
+} 
 --- 
 ## About
 This is a non-exhaustive, curated list of changes meant to help users quickly see what has improved since they last checked.
@@ -28,6 +28,20 @@ window.onload = function() {
   });
 }
 </script>
+
+### 2024-03-20 
+
+<button>copy</button>
+```zig
+.url = "git+https://github.com/kristoff-it/zine#22e197e1c9b863b8477f76f77ac7bf2b67e24b18",
+.hash = "1220504ed3bf3c2e53c58dd9b7ef14340f84578a10eb51857ce18aff94faa4643766",
+```
+- **Zine now uses [Ziggy](https://ziggy-lang.io) as the frontmatter language!** In the near future Zine will develop tooling for editing ziggy-markdown files. In the meantime consider downloading the Ziggy CLI tool for a smoother editing experience if you plan to use Ziggy directly.
+- Added an initial version of sections to Zine! See the updated documentation section for more information about that. Beware that `$site.pages()` was removed in favor of the new system.
+- Added a the ability to define `alternatives` in the frontmatter of a page. Alternatives allow you to specify multiple layouts to apply to the same piece of content. Useful for generating RSS feeds.
+- Added syntax highlighting to layouts: now strings have a `syntaxHighlight` builtin. 
+- Updated Zig version because [a bugfix](https://github.com/ziglang/zig/pull/19224) was needed to add syntax highlighting to templates. Now Zine depends on Zig `0.12.0-dev.3381+7057bffc1` and above. Make sure to update your GitHub Actions workflows accordingly.
+
 
 ### 2024-03-08 
 

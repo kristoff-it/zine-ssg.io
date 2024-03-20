@@ -1,12 +1,10 @@
 ---
-{
-  "title": "Documentation",
-  "date": "2020-07-06T00:00:00",
-  "author": "Sample Author",
-  "draft": false,
-  "layout": "documentation.html",
-  "tags": []
-}  
+.title = "Documentation",
+.date = @date("2020-07-06T00:00:00"),
+.author = "Sample Author",
+.draft = false,
+.layout = "documentation.html",
+.tags = [],
 --- 
 ## Warning
 Zine is currently alpha software. 
@@ -38,8 +36,8 @@ Your website only needs the following two files to get started:
     .version = "0.0.0",
     .dependencies = .{
         .zine = .{
-            .url = "git+https://github.com/kristoff-it/zine.git#4b3efd178cb6ee9af3c864fa980ad0499823aac6",
-            .hash = "1220f6920dbb9540cc9013bbaa1621d62ef79aabadcbb6f7b9f45e415de815d15404",
+          .url = "git+https://github.com/kristoff-it/zine#22e197e1c9b863b8477f76f77ac7bf2b67e24b18",
+          .hash = "1220504ed3bf3c2e53c58dd9b7ef14340f84578a10eb51857ce18aff94faa4643766",
         },
     },
     .paths = .{"."},
@@ -84,23 +82,60 @@ one redirect round trip.
 
 In the future Zine might make links with a missing final `/` a build error.
 
-#### Frontmatter
-Each markdown file has a JSON frontmatter delimited by `---`. 
+### Sections
+Consider the following content structure:
+```
+content
+├── about
+│   └── contacts.md
+├── about.md
+├── blog
+│   ├── a.md
+│   ├── b.md
+│   └── index.md
+└── index.md
+```
+**In Zine every `index.md` file denotes a section.**
 
-*Note: the choice of using JSON is temporary, in the future Zine will use a better
-data format for frontmatter.*
+In this example there are 2 sections: 
+
+The first one is the "root" section, defined by `content/index.md`, containing:
+
+- `about/contacts.md`
+- `about.md`
+- `blog/index.md`
+
+The second section is the "blog" section, defined by `content/blog/index.md`, containing:
+
+- `blog/a.md`
+- `blog/b.md`
+
+Note how an `index.md` file defines a section but as a page it is not included in the list of pages that belong to that section.
+
+Lastly, note how pages in a section don't all share the same basepath. In the absence of a nested `index.md`, all pages are considered siblings regardless of how they are nested inside of different directories.
+
+
+#### Frontmatter
+Each markdown file has a Ziggy frontmatter delimited by `---`. 
+
+Ziggy is a data serialization language developed alongside Zine. You can learn more on the official Ziggy website: [https://ziggy-lang.io](https://ziggy-lang.io).
+
+It is highly recommended to setup your editor with Ziggy support and to download
+the Ziggy CLI tool. Unfortunately this won't grant you syntax highlighting for the
+frontmatter section of your content files (although it will inside of code blocks).
+
+Zine will eventually have its own LSP and related tooling for a fully smooth 
+development experience.
 
 ***`index.md`*** 
 ```ziggy
 ---
-{
-  "title": "Homepage",
-  "date": "2020-07-06T00:00:00",
-  "author": "Sample Author",
-  "draft": false,
-  "layout": "homepage.html",
-  "tags": []
-}  
+.title = "Homepage",
+.date = @date("2020-07-06T00:00:00"),
+.author = "Sample Author",
+.draft = false,
+.layout = "homepage.html",
+.tags = [],
 --- 
 Your **markdown** content goes here.
 ```
@@ -139,14 +174,12 @@ Here's a basic example where we create the homepage of our sample website.
 ***`content/index.md`*** 
 ```
 ---
-{
-  "title": "Home",
-  "date": "2020-07-06T00:00:00",
-  "author": "Sample Author",
-  "draft": false,
-  "layout": "homepage.html",
-  "tags": []
-}  
+.title = "Home",
+.date = @date("2020-07-06T00:00:00"),
+.author = "Sample Author",
+.draft = false,
+.layout = "homepage.html",
+.tags = [],
 --- 
 Hello World!
 ```
@@ -203,14 +236,12 @@ $ touch layouts/post.html
 ***`content/blog/first-post.md`*** 
 ```
 ---
-{
-  "title": "First Post!",
-  "date": "2020-07-06T00:00:00",
-  "author": "Sample Author",
-  "draft": false,
-  "layout": "post.html",
-  "tags": []
-}  
+.title = "First Post!",
+.date = @date("2020-07-06T00:00:00"),
+.author = "Sample Author",
+.draft = false,
+.layout = "post.html",
+.tags = [],
 --- 
 This is my first post!
 ```
@@ -503,14 +534,12 @@ Example markdown file:
 ***`content/foo/index.md`***
 ```markdown
 ---
-{
-  "title": "My Post",
-  "date": "2020-07-06T00:00:00",
-  "author": "Sample Author",
-  "draft": false,
-  "layout": "post.html",
-  "tags": ["tag1", "tag2", "tag3"]
-}  
+.title = "My Post",
+.date = @date("2020-07-06T00:00:00"),
+.author = "Sample Author",
+.draft = false,
+.layout = "post.html",
+.tags = ["tag1", "tag2", "tag3"],
 --- 
 The content
 ```

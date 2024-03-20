@@ -1,12 +1,12 @@
 ---
 {
-  "title": "Deploying on GitHub Pages",
-  "date": "2020-07-06T00:00:00",
-  "author": "Sample Author",
-  "draft": false,
-  "layout": "documentation.html",
-  "tags": []
-}  
+    .title = "Deploying on GitHub Pages",
+    .date = @date("2020-07-06T00:00:00"),
+    .author = "Sample Author",
+    .draft = false,
+    .layout = "documentation.html",
+    .tags = [],
+} 
 --- 
 ## About
 This guide assumes that you're already familiar with GitHub Pages. Please refer [the official GitHub Pages documentation](https://pages.github.com/) for more info.
