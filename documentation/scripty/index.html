@@ -68,17 +68,23 @@
 </code></pre><h2>Alternative</h2><h3>layout : str,</h3><h3>output : str,</h3><h3>title : str = "",</h3><h3>type : str = "",</h3><h2>str</h2><h3>len() -> int</h3><p>Returns the length of a string.</p><p>Examples:</p><pre><code>$page.title.len()
 </code></pre><h3>suffix(str, [...str]) -> str</h3><p>Concatenates strings together (left-to-right).</p><p>Examples:</p><pre><code>$page.title.suffix("Foo","Bar", "Baz")
 </code></pre><h3>syntaxHighlight(str) -> str</h3><p>Applies syntax highlighting to a string. The argument specifies the language name.</p><p>Examples:</p><pre><code>&lt;pre&gt;&lt;code class="ziggy" var="$page.custom.get('sample', '').syntaxHighLight('ziggy')"&gt;&lt;/code&gt;&lt;/pre&gt;
-</code></pre><h2>date</h2><h3>format(str) -> str</h3><p>Formats a datetime according to the specified format string.</p><p>Examples:</p><pre><code>$page.date.format("January 02, 2006")
+</code></pre><h2>date</h2><h3>gt(date) -> bool</h3><p>Return true if lhs is later than rhs (the argument).</p><p>Examples:</p><pre><code>$page.date.gt($page.custom.expiry_date)
+</code></pre><h3>lt(date) -> bool</h3><p>Return true if lhs is earlier than rhs (the argument).</p><p>Examples:</p><pre><code>$page.date.lt($page.custom.expiry_date)
+</code></pre><h3>eq(date) -> bool</h3><p>Return true if lhs is the same instant as the rhs (the argument).</p><p>Examples:</p><pre><code>$page.date.eq($page.custom.expiry_date)
+</code></pre><h3>format(str) -> str</h3><p>Formats a datetime according to the specified format string.</p><p>Examples:</p><pre><code>$page.date.format("January 02, 2006")
 $page.date.format("06-Jan-02")
 </code></pre><h3>formatHTTP() -> str</h3><p>Formats a datetime according to the HTTP spec.</p><p>Examples:</p><pre><code>$page.date.formatHTTP()
 </code></pre><h2>int</h2><h3>eq(int) -> bool</h3><p>Tests if two integers have the same value.</p><p>Examples:</p><pre><code>$page.wordCount().eq(200)
+</code></pre><h3>gt(int) -> bool</h3><p>Returns true if lhs is greater than rhs (the argument).</p><p>Examples:</p><pre><code>$page.wordCount().gt(200)
 </code></pre><h3>plus(int) -> int</h3><p>Sums two integers.</p><p>Examples:</p><pre><code>$page.wordCount().plus(10)
 </code></pre><h3>div(int) -> int</h3><p>Divides the receiver by the argument.</p><p>Examples:</p><pre><code>$page.wordCount().div(10)
-</code></pre><h2>bool</h2><h3>not() -> bool</h3><p>Negates a boolean value.</p><p>Examples:</p><pre><code>$page.draft.not()
+</code></pre><h2>bool</h2><h3>then(dyn, dyn) -> dyn</h3><p>If the boolean is <code>true</code>, returns the first argument. Otherwise, returns the second argument.</p><p>Examples:</p><pre><code>$page.draft.then("&lt;alert&gt;DRAFT!&lt;/alert&gt;", "")
+</code></pre><h3>not() -> bool</h3><p>Negates a boolean value.</p><p>Examples:</p><pre><code>$page.draft.not()
 </code></pre><h3>and(bool, [...bool]) -> bool</h3><p>Computes logical <code>and</code> between the receiver value and any other value passed as argument.</p><p>Examples:</p><pre><code>$page.draft.and($site.tags.len().eq(10))
 </code></pre><h3>or(bool, [...bool]) -> bool</h3><p>Computes logical <code>or</code> between the receiver value and any other value passed as argument.</p><p>Examples:</p><pre><code>$page.draft.or($site.tags.len().eq(0))
 </code></pre><h2>dyn</h2><h3>get?(str) -> ?dyn</h3><p>Tries to get a dynamic value, to be used in conjuction with an <code>if</code> attribute.</p><p>Examples:</p><pre><code>&lt;div if="$page.custom.get?('myValue')"&gt;&lt;/div&gt;
-</code></pre><h3>get(str, str) -> str</h3><p>Tries to get a dynamic value, uses the provided default value otherwise.</p><p>Examples:</p><pre><code>$page.custom.get('coauthor', 'nobody')
+</code></pre><h3>get!(str) -> dyn</h3><p>Tries to get a dynamic value, errors out if the value is not present.</p><p>Examples:</p><pre><code>$page.custom.get!('coauthor')
+</code></pre><h3>get(str, dyn) -> dyn</h3><p>Tries to get a dynamic value, returns the second value on failure.</p><p>Examples:</p><pre><code>$page.custom.get('coauthor', 'Loris Cro')
 </code></pre></div>
 
     </div>
