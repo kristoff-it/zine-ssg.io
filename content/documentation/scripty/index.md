@@ -136,6 +136,30 @@ Examples:
 <pre><code class="ziggy" var="$page.custom.get('sample', '').syntaxHighLight('ziggy')"></code></pre>
 ``` 
 ## date
+### gt(date) -> bool
+Return true if lhs is later than rhs (the argument).
+
+
+Examples:
+```
+$page.date.gt($page.custom.expiry_date)
+``` 
+### lt(date) -> bool
+Return true if lhs is earlier than rhs (the argument).
+
+
+Examples:
+```
+$page.date.lt($page.custom.expiry_date)
+``` 
+### eq(date) -> bool
+Return true if lhs is the same instant as the rhs (the argument).
+
+
+Examples:
+```
+$page.date.eq($page.custom.expiry_date)
+``` 
 ### format(str) -> str
 Formats a datetime according to the specified format string.
 
@@ -162,6 +186,14 @@ Examples:
 ```
 $page.wordCount().eq(200)
 ``` 
+### gt(int) -> bool
+Returns true if lhs is greater than rhs (the argument).
+
+
+Examples:
+```
+$page.wordCount().gt(200)
+``` 
 ### plus(int) -> int
 Sums two integers.
 
@@ -179,6 +211,15 @@ Examples:
 $page.wordCount().div(10)
 ``` 
 ## bool
+### then(dyn, dyn) -> dyn
+If the boolean is `true`, returns the first argument.
+Otherwise, returns the second argument.
+
+
+Examples:
+```
+$page.draft.then("<alert>DRAFT!</alert>", "")
+``` 
 ### not() -> bool
 Negates a boolean value.
 
@@ -212,11 +253,19 @@ Examples:
 ```
 <div if="$page.custom.get?('myValue')"></div>
 ``` 
-### get(str, str) -> str
-Tries to get a dynamic value, uses the provided default value otherwise.
+### get!(str) -> dyn
+Tries to get a dynamic value, errors out if the value is not present.
 
 
 Examples:
 ```
-$page.custom.get('coauthor', 'nobody')
+$page.custom.get!('coauthor')
+``` 
+### get(str, dyn) -> dyn
+Tries to get a dynamic value, returns the second value on failure.
+
+
+Examples:
+```
+$page.custom.get('coauthor', 'Loris Cro')
 ``` 

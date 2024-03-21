@@ -29,6 +29,21 @@ window.onload = function() {
 }
 </script>
 
+### 2024-03-21 
+
+<button>copy</button>
+```zig
+.url = "git+https://github.com/kristoff-it/zine#ecc72eb042af07f5b4690a35a7ca1dd9c6fd5b61",
+.hash = "1220610a18236cd32936502bd7e762743e89ef70408638675420e453be41f1e83de4",
+```
+- Changed datetime library to [rockorager/zeit](https://github.com/rockorager/zeit/).
+- If you put a `@date("...")` literal in your custom fields, it will be recognized as a date by Zine.
+- A few improvements to bulitins:
+  - `get?()`, `get!()` and `get()`: different ways of getting values out of Ziggy maps (i.e. custom fields).
+  - `then()` on booleans now gives you the ability to create if-then-else expressions.
+  - `gt` on integers.
+  - `lt`, `eq`, `gt` on dates.
+
 ### 2024-03-20 
 
 <button>copy</button>
