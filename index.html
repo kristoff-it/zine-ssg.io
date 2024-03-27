@@ -18,9 +18,10 @@
     <link rel="stylesheet" type="text/css" href="/style.css">
     <link rel="stylesheet" type="text/css" href="/highlight.css">
     
-  
+
 	<style>
-		#page h2, #page h3 {
+		#page h2,
+		#page h3 {
 			text-align: left;
 		}
 
@@ -33,16 +34,18 @@
 		#page h3 {
 			font-size: 1.5rem;
 		}
-    
+
 		#page h4 {
 			font-size: 1rem;
 		}
 
-	  .title, .subtitle {
+		.title,
+		.subtitle {
 			margin-bottom: 0;
-		} 
+		}
 
-		.subtitle, .tagline {
+		.subtitle,
+		.tagline {
 			margin-top: 0;
 		}
 
@@ -58,7 +61,7 @@
 			font-size: 1rem;
 			font-style: italic;
 		}
-		
+
 		.note {
 			border-top: 1px solid white;
 			border-bottom: 1px solid white;
@@ -66,27 +69,26 @@
 			text-align: center;
 		}
 
-   .get-started {
-        font-family: 'Bebas Neue', sans-serif;
-				font-weight: normal;
-        font-size: 2rem;
-				text-align: center;
-				margin: 1em;
+		.get-started {
+			font-family: 'Bebas Neue', sans-serif;
+			font-weight: normal;
+			font-size: 2rem;
+			text-align: center;
+			margin: 1em;
 		}
 
 		.get-started a {
-        color: black;	
-				font-weight: normal;
-        background-color: #ccc;
-        border: 1px solid #ccc;
-        padding: 3px 10px;
-        text-decoration: none;
-    }
+			color: black;
+			font-weight: normal;
+			background-color: #ccc;
+			border: 1px solid #ccc;
+			padding: 3px 10px;
+			text-decoration: none;
+		}
 
-    .get-started a:hover {
-	     background-color: white;
-    }
-
+		.get-started a:hover {
+			background-color: white;
+		}
 	</style>
 
   </head>
@@ -102,18 +104,18 @@
       </a>
     </nav>
     <div id="content">
-       
+      
 	<h1 class="centered title">Zine</h1>
 	<h2 class="centered subtitle">Fast, Scalable and Flexible Static Site Generator</h2>
 	<p class="centered tagline">
 		Zine is pronounced like in fan<b>zine</b>.
 	</p>
 
-  <div class="note">
-    Zine is alpha software.<br>Using Zine today means participating in its development. 
-  </div>
+	<div class="note">
+		Zine is alpha software.<br>Using Zine today means participating in its development.
+	</div>
 
-<div class="get-started"><a href="/quickstart/" >Get Started</a></div>
+	<div class="get-started"><a href="/quickstart/">Get Started</a></div>
 
 	<div id="page" ><h1>What is Zine?</h1><p>A Zine site is a collection of markdown files, HTML templates and static assets. Zine turns your markdown content into HTML, styles it using your templates, and finally copies the result alongside your static assets into an output directory that you can then publish on static hosting services like GitHub Pages.</p><p>Zine is "low-code" by default, but once the needs of your project grow, then you will have the full power of the Zig build system at your disposal, allowing you to integrate any kind of pre-processing pipeline.</p><h1>Feature Highlights</h1><h2>The Power Of A Real Build System</h2><p>Zine is a collection of tools (markdown renderer, templating engine, etc) orchestrated by the Zig build system.</p><p>The Zig build system performs <strong>surgical dependency tracking and automatic parallelization of the build</strong>, making Zine very fast and scalable.</p><p>Since Zine tools cooperate via the build system, <strong>each tool can be swapped out</strong> for an alternative implementation provided by you. The Zig build system can also download and compile tools written in C/C++/Zig, so <strong>you can easily depend on open source tools</strong>.</p><p>If your site depends on any kind of build pipeline, like asset pre-processing, it's simple to add it to your Zig build pipeline.</p><h2>HTML Errors Are Build Errors</h2><p>Zine uses Super, a templating language that extends HTML, instead of the usual <code>{{ curly brace }}</code> languages.</p><p>With Super it becomes impossible to output malformed HTML as the result of templating logic, and it also catches syntax errors at build time!</p><p><code>page.html</code></p><pre><code class="html"><span class="punctuation bracket">&lt;</span><span class="tag">h1</span><span class="punctuation bracket">&gt;</span>Oops!<span class="punctuation bracket">&lt;</span><span class="tag">h1</span><span class="punctuation bracket">&gt;</span>
 </code></pre>
@@ -153,7 +155,7 @@ trace:
     content `_index.md`.
 </code></pre><h2>...and more</h2><p>Zine is a very young project and many important features are yet to be implemented.</p><p><a href="https://github.com/kristoff-it/zine">Drop us a star on GitHub</a> in the meantime :^)</p><p>To gauge the level of maturity of Zine you might want to check <a href="/log/">the changelog</a> on occasion.</p></div>
 
-<div class="get-started"><a href="/quickstart/" >Get Started</a></div>
+	<div class="get-started"><a href="/quickstart/">Get Started</a></div>
 
     </div>
   </body>
