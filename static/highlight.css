@@ -43,7 +43,8 @@ code.zig .string {
   color: var(--dark-yellow);
 }
 
-code.zig .variable, code.zig .field {
+code.zig .variable,
+code.zig .field {
   color: var(--light-yellow);
 }
 
@@ -63,6 +64,30 @@ code.zig .builtin {
   color: var(--magenta);
 }
 
-code.zig .operator, code.zig .qualifier, code.zig .attribute  {
+code.zig .operator,
+code.zig .qualifier,
+code.zig .attribute {
   color: var(--light-red);
+}
+
+
+code.ziggy {
+  color: var(--cyan);
+}
+
+code.ziggy .keyword,
+code.ziggy .type {
+  color: var(--light-yellow);
+}
+
+code.ziggy .string {
+  color: var(--dark-yellow);
+}
+
+code.ziggy .numeric.constant {
+  color: var(--magenta);
+}
+
+code.ziggy .function {
+  color: var(--blue);
 }

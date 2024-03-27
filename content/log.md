@@ -29,6 +29,28 @@ window.onload = function() {
 }
 </script>
 
+
+### 2024-03-26 
+
+<button>copy</button>
+```zig
+.url = "git+https://github.com/kristoff-it/zine#e33a1d79b09e8532db60347a7ec4bd3413888977",
+.hash = "12209f9be74fcc805c0f086e4a81ccca041354448f5b3592e04b6a6d1b4a95da5a26",
+```
+- Added support for multilingual websites. See the [corresponding docs page](/documentation/i18n/) for more info. Because of this change now the `AddWebsiteOptions` struct is slightly different, here's how to fix it:
+  - Take the contents of `site` and move them top level, rename `base_url` to `host_url`.
+- Related-but-distinct from the above, you can now specify an output prefix for your static site. The feature was added primarily for i18n purposes but can also be used in simple websites to add an arbitrary prefix.
+- The markdown renderer now renders tables!
+- Fixed a crash in the dev server that would trigger when refreshing the page multiple times in quick succession (the crash was realted to websockets). There's still one remaining known bug related to this same problem though.
+- The dev server now works on Windows (thanks Parzival-3141)
+- New Scripty builtins:
+   - Strings
+      - `addPath()` similar to `suffix` but knows when to add a `/` or not.
+      - `fmt()` replaces occurrences of `{}` in your strings with the provided string arguments.
+   - Maps, refined the `get` family of functions
+      - `get(key, fallback)` allows to get a key from a map and provide a fallback value
+      - `get!(key)` errors out if the key doesn't exist
+      - `get?(key)` returns null if the value is missing, to be used in conjunction with `if` attributes.       
 ### 2024-03-21 
 
 <button>copy</button>

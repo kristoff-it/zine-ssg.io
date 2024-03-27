@@ -15,7 +15,8 @@ All the common features (like i18n, an asset system, etc) are planned, but will 
 
 Using Zine today means participating in its development process.
 
-## Sub sections
+## Other Pages
+- [Multilingual Websites (i18n)](i18n/)
 - [Scripty Reference](scripty/)
 - Deploying
     - [GitHub Pages](deploying/github-pages/)
@@ -36,8 +37,8 @@ Your website only needs the following two files to get started:
     .version = "0.0.0",
     .dependencies = .{
         .zine = .{
-            .url = "git+https://github.com/kristoff-it/zine#ecc72eb042af07f5b4690a35a7ca1dd9c6fd5b61",
-            .hash = "1220610a18236cd32936502bd7e762743e89ef70408638675420e453be41f1e83de4",
+            .url = "git+https://github.com/kristoff-it/zine#e33a1d79b09e8532db60347a7ec4bd3413888977",
+            .hash = "12209f9be74fcc805c0f086e4a81ccca041354448f5b3592e04b6a6d1b4a95da5a26",
         },
     },
     .paths = .{"."},
@@ -51,13 +52,11 @@ const zine = @import("zine");
 
 pub fn build(b: *std.Build) !void {
     try zine.addWebsite(b, .{
+        .title = "Sample Website",
+        .host_url = "https://sample.com",
         .layouts_dir_path = "layouts",
         .content_dir_path = "content",
         .static_dir_path = "static",
-        .site = .{
-            .base_url = "https://sample.com",
-            .title = "Sample Website",
-        },
     });
 }  
 ```
