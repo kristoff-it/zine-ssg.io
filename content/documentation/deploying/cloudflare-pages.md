@@ -24,7 +24,7 @@ This will create a new Cloudflare Pages project that you can deploy to, which ca
 ## 1. Build locally and deploy directly with wrangler
 To publish from your computer you will need fist to build your Zine site, and then upload the output to Cloudflare Pages using `wrangler`.
 
-**NOTE: currently Zine doesn't clean `zig-out/` across rebuilds so you will have to it manually.**
+**NOTE: currently Zine doesn't clean `zig-out/` across rebuilds so you will have to do it manually.**
 
 ***`shell`***
 ```bash

@@ -278,7 +278,7 @@ First, some terminology:
 
 - **`layout`**: HTML file that can be directly used to style a piece of content. Layouts live directly under `layouts/`.
 - **`template`**: HTML file that collects common boilerplate that contains extension points. Cannot be used directly to style content (as some parts need to be filled out) and must live under `layouts/templates/`.
-- a **`layout`** can *extend* a **`template`** (but not viceversa).
+- a **`layout`** can *extend* a **`template`** (but not vice-versa).
 
 Let's continue the example from the previous section where we try to collect all common boilerplate from `homepage.html` and `page.html`.
 
@@ -336,7 +336,7 @@ When a layout wants to extend a template, it must declare at the very top the te
 <extend template="foo.html"/>
 ```
 
-A layout that extends a template won't have a normal HTML structure, but rather it will be a list of HTML elements that will replace a correspoding super tag from the base template they're extending.
+A layout that extends a template won't have a normal HTML structure, but rather it will be a list of HTML elements that will replace a corresponding super tag from the base template they're extending.
 
 ### `<super/>`
 The super tag defines an extension point in a template. The direct parent of a super tag must have an `id` attribute.
