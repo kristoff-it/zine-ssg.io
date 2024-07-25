@@ -4,7 +4,7 @@
     .date = @date("2020-07-06T00:00:00"),
     .author = "Sample Author",
     .draft = false,
-    .layout = "page.html",
+    .layout = "page.shtml",
     .tags = [],
 }  
 --- 
@@ -22,11 +22,10 @@ by me.
 
 My journey in creating software (and other experiences) 
 you can love has taught me that, if your project is serious enough, you will
-need a website and that in most cases the best fit will be a *static* website.
+need a website and that in most cases a *static* website will be exactly what you need.
 
 For this reason I've become interested in streamlining the static website 
-building experience for myself and others who are interested in creating *experiences*
-you can love.
+building experience for myself and others who are interested in creating *experiences* you can love.
 
 Zine is tailored for creators who want to make simple, elegant websites that 
 reflect the attention to detail they already put in designing their main product.
@@ -120,7 +119,7 @@ are involved.
 
 To learn more about this perspective, see "[It's Not About the Technology](https://www.youtube.com/watch?v=89bLKVvF85M)" by Mason Remaley from Software You Can Love Vancouver 2023.
  
-### Unlike hugo
+### Like JavaScript SSGs / Unlike hugo
 Unlike Hugo, Zine is not a single executable but rather a collection of tools
 orchestrated by the Zig build system. This means that we pay a small performance
 price to go from in-process communication to file-based multiprocessing, but in
@@ -130,12 +129,13 @@ Since the Zig build system is also a package manager, replacing an executable
 can be done in a self-contained and portable way, especially if written in Zig.
 
 File-based communication has the upside that it lets us cache intermediate 
-artifacts, which can compensate for the initial performance cost, alongside
-the fact that Zig executables are inherently faster than Go.
+artifacts, which can compensate for the initial performance cost, allowing us to scale easily to very big websites.
 
 ### Unlike JavaScript SSGs
 Customization has to be expressed through the build system so that scalability is not
-compromised.
+compromised. 
+
+I'm taking great care in designing data dependencies in Zine and in modeling everything as opt-in meaning, for example, that a page will only be rebuit when another changes only if it tries to access information about the other page.
 
 
 ## Community
@@ -143,3 +143,5 @@ compromised.
 help as an early adopter.
 
 If you prefer forums, you can find me on [https://ziggit.dev](https://ziggit.dev).
+
+If you want to watch me work on Zine, [you can often find me on Twitch](https://twitch.tv/kristoff_it).

@@ -1,12 +1,9 @@
-<extend template="base.html"/>
-
+<extend template="base.shtml">
 <title id="title" var="$page.title"></title>
-
 <head id="head"></head>
-
-<div id="content"> 
-   <style>
-     h1 {
+<div id="content">
+  <style>
+    h1 {
        margin-top: 0;
      }
      h3 {
@@ -30,9 +27,8 @@
 		#docs h4 {
 			font-size: 1rem;
 		}
-   </style>
-   <h3 class="centered">Zine</h3>
-   <h1 var="$page.title"></h1>
-   <div id="docs" var="$page.content"></div>
+  </style>
+  <h3 class="centered">Zine</h3>
+  <h1 var="$page.title"></h1>
+  <div id="docs" var="$page.content"></div>
 </div>
-
