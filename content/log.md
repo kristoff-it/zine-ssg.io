@@ -71,7 +71,7 @@ Now onto new features and breaking changes:
 
   - This is thanks to the fact that interrupts were implemented in Scripty, opening the door to features that rely on the ability to pass from the outside values into scripty (`up()` relies on that since loops are a SuperHTML concept that Scripty is completely unaware of).
 
-- For syntax highlighting, Zine uses a distribution of Tree Sitter that bundles a lot of grammars and highlighting queries from [Flow Editor](https://github.com/neurocyte/flow). The dependency has now been updated to a new version that adds support for more languages.
+- For syntax highlighting, Zine uses a distribution of Tree Sitter that bundles a lot of grammars and highlighting queries from [Flow Control](https://github.com/neurocyte/flow). The dependency has now been updated to a new version that adds support for more languages.
 
 That's mostly it. If you encounter bugs while updating, please don't hesitate to open a [new issue on GitHub](https://github.com/kristoff-it/zine/issues) **with a link to a reproduction**.
 
