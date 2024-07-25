@@ -2,38 +2,44 @@
 <html>
   <head id="head">
     <meta charset="UTF-8">
-	  <meta name="description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
-	  <meta name="twitter:card" content="summary">
-	  <meta name="twitter:site" content="@croloris">
-	  <meta name="twitter:author" content="@croloris">
-	  <meta name="twitter:description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
-	  <meta name="twitter:title" content="Quickstart - Zine">
-	  <meta property="og:title" content="Quickstart">
-	  <meta property="og:type" content="website">
-    
-    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    
-    <title id="title">Quickstart - Zine</title>
+    <meta name="description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@croloris">
+    <meta name="twitter:author" content="@croloris">
+    <meta name="twitter:description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+    <meta name="twitter:title" content="Quickstart - Zine">
+    <meta property="og:title" content="Quickstart">
+    <meta property="og:type" content="website">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title id="title">
+      Quickstart
+      - Zine
+    </title>
     <link rel="stylesheet" type="text/css" href="/style.css">
     <link rel="stylesheet" type="text/css" href="/highlight.css">
     
   </head>
   <body>
-    <nav id="menu" class="centered"> 
-      <a href="/">Home</a> •
-      <a href="/quickstart/">Get Started</a> •
-      <a href="/documentation/">Docs</a> •
-      <a href="/community/">Vision & Community</a> •
-      <a href="/log/">Changelog</a> •
+    <nav id="menu" class="centered">
+      <a href="/">Home</a>
+      •
+      <a href="/quickstart/">Get Started</a>
+      •
+      <a href="/documentation/">Docs</a>
+      •
+      <a href="/community/">Vision & Community</a>
+      •
+      <a href="/log/">Changelog</a>
+      •
       <a href="https://github.com/kristoff-it/zine" target="_blank">
         Code
       </a>
     </nav>
     <div id="content">
-       
-   <style>
-     h3.overtitle {
+      
+  <style>
+    h3.overtitle {
        margin-bottom: 0;
      }
      h1.title {
@@ -57,14 +63,17 @@
 		#page h4 {
 			font-size: 1rem;
 		}
-   </style>
-   <h3 class="overtitle centered">Zine</h3>
-   <h1 class="title" >Quickstart</h1>
-   <div id="page" ><h2>Warning</h2><p>Zine is currently alpha software.</p><p>Many features are missing and currently Zine is only capable of building relatively simple websites.</p><p>All the common features (like i18n, an asset system, etc) are planned, but will take some time to be implemented.</p><p>Using Zine today means participating in its development process.</p><h2>1. Get Zig</h2><p>Zine has only one dependency: the Zig compiler.</p><p>We currently track Zig's master branch so you will need to get an unstable build  from <a href="https://ziglang.org">the official website</a>. In the future Zine will pin to a tagged release of Zig, be it an official release <a href="https://devlog.hexops.com/2024/announcing-nominated-zig/">or not</a>.</p><h2>2. Clone Zine's Sample Site</h2><p>And what's a better sample site than the official site itself?</p><p><i><strong><code>shell</code></strong></i></p><pre><code class="bash"><span class="constant">$ git</span> <span class="constant">clone</span> <span class="constant">https://github.com/kristoff-it/zine-ssg.io.git</span>
+  </style>
+  <h3 class="overtitle centered">Zine</h3>
+  <h1 class="title" >Quickstart</h1>
+  <div id="page" ><h2>Warning</h2><p>Zine is currently alpha software and many features are missing or not complete yet.</p><p><strong>It's recommended to try Zine on a small project first to get a feeling of the limits of the current implementation.</strong></p><p>If Zine turns out to not be ready yet for your needs, check the <a href="/log/">Changelog</a> from time to time to learn of new improvements.</p><h2>1. Get Zig</h2><p>Zine has only one dependency: the Zig compiler.</p><p>We currently track Zig's latest tagged release (0.13.0 at the moment).</p><p>You can download it from from <a href="https://ziglang.org">the official website</a> or use <a href="https://github.com/marler8997/zigup">zigup</a>.</p><h2>2. Clone Zine's Sample Site</h2><p>And what's a better sample site than the official site itself?</p><p><i><strong><code>shell</code></strong></i></p><pre><code class="bash"><span class="constant">$ git</span> <span class="constant">clone</span> <span class="constant">https://github.com/kristoff-it/zine-ssg.io.git</span>
 <span class="constant">$ cd</span> <span class="constant">zine-ssg.io</span>
 <span class="constant">$ zig</span> <span class="constant">build</span> <span class="constant">serve</span> <span class="constant">-Dport=8080</span>
 </code></pre>
-<p>After that, start hacking on it and see how Zine reacts!</p><h2>Next Steps</h2><p>To learn more about Zine, <a href="/documentation/">see the documentation section</a>.</p><p>See the <a href="/community/">Vision & Community section</a> to join our community.</p></div>
+<p>After that, start hacking on it and see how Zine reacts!</p><h2>3. Get developer tooling</h2><p>This step is optional but <strong>strongly</strong> recommended.</p><h3>Language Server</h3><p>Get <a href="https://github.com/kristoff-it/superhtml">SuperHTML</a> and configure your editor to use it for diagnostics and format-on-save.</p><p><figure data-title=""><img src="superhtml.png" alt="" title=""></figure></p><p>SuperHTML also implements pretty sweet autoformatting (see the repo's README for more info):</p><video controls autoplay loop disablepictureinpicture muted width=100%>
+ <source src="/vscode-autoformatting.mp4">
+</video>
+<h4>VSCode</h4><p>Get the <a href="https://marketplace.visualstudio.com/items?itemName=LorisCro.super">SuperHTML VSCode Extension</a> (until <a href="https://github.com/kristoff-it/superhtml/issues/8">#8</a> is implemented you will also need to download the SuperHTML CLI tool).</p><p>The extension will also give you syntax highlighting support for <code>.shtml</code> files (SuperHTML templates).</p><h3>Syntax Highlighting</h3><p>SuperHTML template files have a <code>.shtml</code> extension. Since it's valid HTML, you can use normal syntax highlighting, but there are dedicated grammars that can help you understand your templates more easily at a glance.</p><p>In the SuperHTML repository you will also find a tree-sitter grammar which can be used  by Vim, NeoVim, Helix, etc.</p><h2>Next Steps</h2><p>To learn more about Zine, <a href="/documentation/">see the documentation section</a>.</p><p>See the <a href="/community/">Vision & Community section</a> to join our community.</p></div>
 
     </div>
   </body>

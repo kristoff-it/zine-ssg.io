@@ -36,6 +36,32 @@ code.html .punctuation {
   color: var(--cyan);
 }
 
+code.superhtml {}
+
+code.superhtml .string {
+  color: var(--dark-yellow);
+}
+
+code.superhtml .tag {
+  color: var(--blue);
+}
+
+code.superhtml .special {
+  color: var(--blue);
+}
+
+code.superhtml .constant {
+  color: var(--light-red);
+}
+
+code.superhtml .attribute {
+  color: var(--light-yellow);
+}
+
+code.superhtml .punctuation {
+  color: var(--cyan);
+}
+
 
 code.zig {}
 

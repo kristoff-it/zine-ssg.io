@@ -2,38 +2,44 @@
 <html>
   <head id="head">
     <meta charset="UTF-8">
-	  <meta name="description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
-	  <meta name="twitter:card" content="summary">
-	  <meta name="twitter:site" content="@croloris">
-	  <meta name="twitter:author" content="@croloris">
-	  <meta name="twitter:description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
-	  <meta name="twitter:title" content="Deploying on GitHub Pages - Zine">
-	  <meta property="og:title" content="Deploying on GitHub Pages">
-	  <meta property="og:type" content="website">
-    
-    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    
-    <title id="title">Deploying on GitHub Pages - Zine</title>
+    <meta name="description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@croloris">
+    <meta name="twitter:author" content="@croloris">
+    <meta name="twitter:description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+    <meta name="twitter:title" content="Deploying on GitHub Pages - Zine">
+    <meta property="og:title" content="Deploying on GitHub Pages">
+    <meta property="og:type" content="website">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title id="title">
+      Deploying on GitHub Pages
+      - Zine
+    </title>
     <link rel="stylesheet" type="text/css" href="/style.css">
     <link rel="stylesheet" type="text/css" href="/highlight.css">
     
   </head>
   <body>
-    <nav id="menu" class="centered"> 
-      <a href="/">Home</a> •
-      <a href="/quickstart/">Get Started</a> •
-      <a href="/documentation/">Docs</a> •
-      <a href="/community/">Vision & Community</a> •
-      <a href="/log/">Changelog</a> •
+    <nav id="menu" class="centered">
+      <a href="/">Home</a>
+      •
+      <a href="/quickstart/">Get Started</a>
+      •
+      <a href="/documentation/">Docs</a>
+      •
+      <a href="/community/">Vision & Community</a>
+      •
+      <a href="/log/">Changelog</a>
+      •
       <a href="https://github.com/kristoff-it/zine" target="_blank">
         Code
       </a>
     </nav>
     <div id="content">
-       
-   <style>
-     h1 {
+      
+  <style>
+    h1 {
        margin-top: 0;
      }
      h3 {
@@ -57,10 +63,10 @@
 		#docs h4 {
 			font-size: 1rem;
 		}
-   </style>
-   <h3 class="centered">Zine</h3>
-   <h1 >Deploying on GitHub Pages</h1>
-   <div id="docs" ><h2>About</h2><p>This guide assumes that you're already familiar with GitHub Pages. Please refer <a href="https://pages.github.com/">the official GitHub Pages documentation</a> for more info.</p><h2>1. Build locally</h2><p>The first one, which is more efficient, is to build the website locally and commit it to the correct branch/subdir.</p><p>Currently Zine doesn't offer any help automating this process, but in the future it might.</p><p><strong>NOTE: currently Zine doesn't clean <code>zig-out/</code> across rebuilds so you will have to it manually.</strong></p><h2>2. Use GitHub Actions</h2><p>This is a more popular, but slower option.</p><p>GitHub Actions runner have an inherent overhead and, since Zine is a collection of tools that gets compiled on-demand, your runner will need to do some work that wounldn't be necessary with a single-executable tool.</p><p>Luckly, the build can be cached by adding a few lines to your GitHub Actions workflow.</p><p><a href="https://github.com/kristoff-it/zine/actions">This site currently builds in 25-35 seconds</a>, of which 9 are spent setting up Zig, 2 restoring the Zine tools cache, and 1 for the actual site build.</p><p><i><strong><code>.github/workflows/gh-pages.yml</code></strong></i></p><pre><code>name: github pages
+  </style>
+  <h3 class="centered">Zine</h3>
+  <h1 >Deploying on GitHub Pages</h1>
+  <div id="docs" ><h2>About</h2><p>This guide assumes that you're already familiar with GitHub Pages. Please refer <a href="https://pages.github.com/">the official GitHub Pages documentation</a> for more info.</p><h2>1. Use GitHub Actions</h2><p>GitHub Actions runner have an inherent overhead and, since Zine is a collection of tools that gets compiled on-demand, your runner will need to do some work that wounldn't be necessary with a single-executable tool.</p><p><strong>Luckly, the build will be cached automatically if you use <a href="https://github.com/marketplace/actions/setup-zig-compiler">mlugg/setup-zig</a></strong>.</p><p><a href="https://github.com/kristoff-it/zine/actions">This site currently builds in 25-35 seconds</a>, of which 10 are spent setting up Zig, and 1 for the actual site build (the rest is GitHub Pages overhead).</p><p><i><strong><code>.github/workflows/gh-pages.yml</code></strong></i></p><pre><code>name: github pages
 
 on:
   push:
@@ -68,25 +74,17 @@ on:
       - main  # Set a branch to deploy
 jobs:
   deploy:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Change if you need git info
 
       - name: Setup Zig
-        uses: goto-bus-stop/setup-zig@v2
+        uses: mlugg/setup-zig@v1
         with:
-          version: 0.12.0-dev.2701+d18f52197
+          version: 0.13.0
           
-      - name: Restore cache
-        uses: actions/cache/restore@v3
-        with:
-          path: |
-            ~/.cache/zig
-            zig-cache
-          key: zine-${{hashFiles('build.zig.zon')}}          
-
       - name: Build
         run: zig build --summary all
           
@@ -96,15 +94,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./zig-out
-          
-      - name: Save Cache
-        uses: actions/cache/save@v3
-        with:
-          path: |
-            ~/.cache/zig
-            zig-cache
-          key: zine-${{hashFiles('build.zig.zon')}}          
-</code></pre></div>
+</code></pre><h2>2. Build locally</h2><p>A more manual, but faster approach is to build the website locally and commit it to the correct branch/subdir.</p><p>Currently Zine doesn't offer any help automating this process, but in the future it might.</p><p><strong>NOTE: currently Zine doesn't clean <code>zig-out/</code> across rebuilds so you will have to it manually.</strong></p></div>
 
     </div>
   </body>

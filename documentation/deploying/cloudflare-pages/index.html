@@ -2,38 +2,44 @@
 <html>
   <head id="head">
     <meta charset="UTF-8">
-	  <meta name="description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
-	  <meta name="twitter:card" content="summary">
-	  <meta name="twitter:site" content="@croloris">
-	  <meta name="twitter:author" content="@croloris">
-	  <meta name="twitter:description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
-	  <meta name="twitter:title" content="Deploying on Cloudflare Pages - Zine">
-	  <meta property="og:title" content="Deploying on Cloudflare Pages">
-	  <meta property="og:type" content="website">
-    
-    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    
-    <title id="title">Deploying on Cloudflare Pages - Zine</title>
+    <meta name="description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@croloris">
+    <meta name="twitter:author" content="@croloris">
+    <meta name="twitter:description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+    <meta name="twitter:title" content="Deploying on Cloudflare Pages - Zine">
+    <meta property="og:title" content="Deploying on Cloudflare Pages">
+    <meta property="og:type" content="website">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title id="title">
+      Deploying on Cloudflare Pages
+      - Zine
+    </title>
     <link rel="stylesheet" type="text/css" href="/style.css">
     <link rel="stylesheet" type="text/css" href="/highlight.css">
     
   </head>
   <body>
-    <nav id="menu" class="centered"> 
-      <a href="/">Home</a> •
-      <a href="/quickstart/">Get Started</a> •
-      <a href="/documentation/">Docs</a> •
-      <a href="/community/">Vision & Community</a> •
-      <a href="/log/">Changelog</a> •
+    <nav id="menu" class="centered">
+      <a href="/">Home</a>
+      •
+      <a href="/quickstart/">Get Started</a>
+      •
+      <a href="/documentation/">Docs</a>
+      •
+      <a href="/community/">Vision & Community</a>
+      •
+      <a href="/log/">Changelog</a>
+      •
       <a href="https://github.com/kristoff-it/zine" target="_blank">
         Code
       </a>
     </nav>
     <div id="content">
-       
-   <style>
-     h1 {
+      
+  <style>
+    h1 {
        margin-top: 0;
      }
      h3 {
@@ -57,15 +63,12 @@
 		#docs h4 {
 			font-size: 1rem;
 		}
-   </style>
-   <h3 class="centered">Zine</h3>
-   <h1 >Deploying on Cloudflare Pages</h1>
-   <div id="docs" ><h2>About</h2><p>This guide assumes that you're already familiar with using Cloudflare Pages and the Wrangler CLI. Please refer <a href="https://developers.cloudflare.com/pages/">the official Cloudflare Pages documentation</a> for more info.</p><h2>Getting Started</h2><p>To get started you will need to first create a new Cloudflare Pages project.</p><p><i><strong><code>shell</code></strong></i></p><pre><code class="bash"><span class="constant">$ wrangler</span> <span class="constant">pages</span> <span class="constant">project</span> <span class="constant">create</span> <span class="constant">PROJECT_NAME</span>
+  </style>
+  <h3 class="centered">Zine</h3>
+  <h1 >Deploying on Cloudflare Pages</h1>
+  <div id="docs" ><h2>About</h2><p>This guide assumes that you're already familiar with using Cloudflare Pages and the Wrangler CLI. Please refer <a href="https://developers.cloudflare.com/pages/">the official Cloudflare Pages documentation</a> for more info.</p><h2>Getting Started</h2><p>To get started you will need to first create a new Cloudflare Pages project.</p><p><i><strong><code>shell</code></strong></i></p><pre><code class="bash"><span class="constant">$ wrangler</span> <span class="constant">pages</span> <span class="constant">project</span> <span class="constant">create</span> <span class="constant">PROJECT_NAME</span>
 </code></pre>
-<p>, This will create a new Cloudflare Pages project that you can deploy to, which can be done in two different ways.</p><h2>1. Build locally and deploy directly with wrangler</h2><p>To publish from your computer you will need fist to build your Zine site, and then upload the output to Cloudflare Pages using <code>wrangler</code>.</p><p><strong>NOTE: currently Zine doesn't clean <code>zig-out/</code> across rebuilds so you will have to it manually.</strong></p><p><i><strong><code>shell</code></strong></i></p><pre><code class="bash"><span class="constant">$ zig</span> <span class="constant">build</span> 
-<span class="constant">$ wrangler</span> <span class="constant">pages</span> <span class="constant">deploy</span> <span class="constant">./zig-out</span> <span class="constant">--project-name</span> <span class="constant">PROJECT_NAME</span>
-</code></pre>
-<h2>2. Use GitHub Actions</h2><p>This method uses GitHub Actions to build the site and then uploads the output to Cloudflare Pages (instead of GitHub Pages).</p><p>This section assumes that you're already familiar with GitHub Actions. Please refer <a href="https://docs.github.com/en/actions">the official GitHub Actions documentation</a> for more info.</p><p>Once we have created our Cloudflare Pages project, we will need a few things from Cloudflare:</p><ul><li><p><a href="https://github.com/cloudflare/pages-action#get-account-id">Your Cloudflare Account ID</a></p></li><li><p><a href="https://github.com/cloudflare/pages-action#generate-an-api-token">An API Token</a></p></li><li><p>The project name created in the previous command</p></li></ul><p>Replace <code>ACCOUNT_ID</code> with your Cloudflare Account ID and add your API key as a GitHub Actions secret. In the example below, this would be set to <code>CLOUDFLARE_API_TOKEN</code>.</p><p><i><strong><code>.github/workflows/cf-pages.yml</code></strong></i></p><pre><code>name: cloudflare pages
+<p>This will create a new Cloudflare Pages project that you can deploy to, which can be done in two different ways.</p><h2>2. Use GitHub Actions</h2><p>This method uses GitHub Actions to build the site and then uploads the output to Cloudflare Pages (instead of GitHub Pages).</p><p>This section assumes that you're already familiar with GitHub Actions. Please refer <a href="https://docs.github.com/en/actions">the official GitHub Actions documentation</a> for more info.</p><p>GitHub Actions runner have an inherent overhead and, since Zine is a collection of tools that gets compiled on-demand, your runner will need to do some work that wounldn't be necessary with a single-executable tool.</p><p><strong>Luckly, the build will be cached automatically if you use <a href="https://github.com/marketplace/actions/setup-zig-compiler">mlugg/setup-zig</a></strong>.</p><p><a href="https://github.com/kristoff-it/zine/actions">This site currently builds in 25-35 seconds</a>, of which 10 are spent setting up Zig, and 1 for the actual site build (the rest is GitHub Pages overhead).</p><p>Once we have created our Cloudflare Pages project, we will need a few things from Cloudflare:</p><ul><li><p><a href="https://github.com/cloudflare/pages-action#get-account-id">Your Cloudflare Account ID</a></p></li><li><p><a href="https://github.com/cloudflare/pages-action#generate-an-api-token">An API Token</a></p></li><li><p>The project name created in the previous command</p></li></ul><p>Replace <code>ACCOUNT_ID</code> with your Cloudflare Account ID and add your API key as a GitHub Actions secret. In the example below, this would be set to <code>CLOUDFLARE_API_TOKEN</code>.</p><p><i><strong><code>.github/workflows/cf-pages.yml</code></strong></i></p><pre><code>name: cloudflare pages
 
 on:
   push:
@@ -75,23 +78,15 @@ jobs:
   deploy:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Change if you need git info
 
       - name: Setup Zig
-        uses: goto-bus-stop/setup-zig@v2
+        uses: mlugg/setup-zig@v1
         with:
-          version: 0.12.0-dev.2701+d18f52197
+          version: 0.13.0
           
-      - name: Restore cache
-        uses: actions/cache/restore@v3
-        with:
-          path: |
-            ~/.cache/zig
-            zig-cache
-          key: zine-${{hashFiles('build.zig.zon')}}          
-
       - name: Build
         run: zig build --summary all
           
@@ -105,14 +100,10 @@ jobs:
           # Optional: Used for adding GitHub deployments support
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           
-      - name: Save Cache
-        uses: actions/cache/save@v3
-        with:
-          path: |
-            ~/.cache/zig
-            zig-cache
-          key: zine-${{hashFiles('build.zig.zon')}}          
-</code></pre><p><strong>NOTE:</strong> If you want to have your deployments populate the GitHub deployments menu, you must also enable your Action to have read and write permissions. This can be by going to Settings -> Actions -> General -> Workflow Permissions.</p></div>
+</code></pre><p><strong>NOTE:</strong> If you want to have your deployments populate the GitHub deployments menu, you must also enable your Action to have read and write permissions. This can be by going to Settings -> Actions -> General -> Workflow Permissions.</p><h2>2. Build locally and deploy directly with wrangler</h2><p>To publish from your computer you will need fist to build your Zine site, and then upload the output to Cloudflare Pages using <code>wrangler</code>.</p><p><strong>NOTE: currently Zine doesn't clean <code>zig-out/</code> across rebuilds so you will have to it manually.</strong></p><p><i><strong><code>shell</code></strong></i></p><pre><code class="bash"><span class="constant">$ zig</span> <span class="constant">build</span> 
+<span class="constant">$ wrangler</span> <span class="constant">pages</span> <span class="constant">deploy</span> <span class="constant">./zig-out</span> <span class="constant">--project-name</span> <span class="constant">PROJECT_NAME</span>
+</code></pre>
+</div>
 
     </div>
   </body>

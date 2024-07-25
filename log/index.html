@@ -2,38 +2,44 @@
 <html>
   <head id="head">
     <meta charset="UTF-8">
-	  <meta name="description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
-	  <meta name="twitter:card" content="summary">
-	  <meta name="twitter:site" content="@croloris">
-	  <meta name="twitter:author" content="@croloris">
-	  <meta name="twitter:description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
-	  <meta name="twitter:title" content="Changelog - Zine">
-	  <meta property="og:title" content="Changelog">
-	  <meta property="og:type" content="website">
-    
-    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    
-    <title id="title">Changelog - Zine</title>
+    <meta name="description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@croloris">
+    <meta name="twitter:author" content="@croloris">
+    <meta name="twitter:description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+    <meta name="twitter:title" content="Changelog - Zine">
+    <meta property="og:title" content="Changelog">
+    <meta property="og:type" content="website">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title id="title">
+      Changelog
+      - Zine
+    </title>
     <link rel="stylesheet" type="text/css" href="/style.css">
     <link rel="stylesheet" type="text/css" href="/highlight.css">
     
   </head>
   <body>
-    <nav id="menu" class="centered"> 
-      <a href="/">Home</a> •
-      <a href="/quickstart/">Get Started</a> •
-      <a href="/documentation/">Docs</a> •
-      <a href="/community/">Vision & Community</a> •
-      <a href="/log/">Changelog</a> •
+    <nav id="menu" class="centered">
+      <a href="/">Home</a>
+      •
+      <a href="/quickstart/">Get Started</a>
+      •
+      <a href="/documentation/">Docs</a>
+      •
+      <a href="/community/">Vision & Community</a>
+      •
+      <a href="/log/">Changelog</a>
+      •
       <a href="https://github.com/kristoff-it/zine" target="_blank">
         Code
       </a>
     </nav>
     <div id="content">
-       
-   <style>
-     h3.overtitle {
+      
+  <style>
+    h3.overtitle {
        margin-bottom: 0;
      }
      h1.title {
@@ -57,13 +63,19 @@
 		#page h4 {
 			font-size: 1rem;
 		}
-   </style>
-   <h3 class="overtitle centered">Zine</h3>
-   <h1 class="title" >Changelog</h1>
-   <div id="page" ><h2>About</h2><p>This is a non-exhaustive, curated list of changes meant to help users quickly see what has improved since they last checked.</p><p>Refer to <a href="https://github.com/kristoff-it/zine">the repository</a> and the <a href="https://github.com/kristoff-it/zine/issues">issue tracker</a> for more in-depth information.</p><h2>Changes</h2><style>
+  </style>
+  <h3 class="overtitle centered">Zine</h3>
+  <h1 class="title" >Changelog</h1>
+  <div id="page" ><h2>About</h2><p>This is a non-exhaustive, curated list of changes meant to help users quickly see what has improved since they last checked.</p><p>Refer to <a href="https://github.com/kristoff-it/zine">the repository</a> and the <a href="https://github.com/kristoff-it/zine/issues">issue tracker</a> for more in-depth information.</p><h2>Changes</h2><style>
 pre {
   overflow: hidden;
   text-overflow: ellipsis;
+}
+pre:has(.sh) {
+  color: #111;
+  background-color: #ccc;
+  padding-left: 10px;
+  text-align: center;
 }
 </style>
 <script>
@@ -74,7 +86,9 @@ window.onload = function() {
   });
 }
 </script>
-<h3>2024-03-26</h3><p><button>copy</button></p><pre><code class="zig"><span class="punctuation delimiter">.</span><span class="variable builtin">url</span> = <span class="string">"git+https://github.com/kristoff-it/zine#e33a1d79b09e8532db60347a7ec4bd3413888977"</span><span class="punctuation delimiter">,</span>
+<h3>2024-7-25</h3><p><button>copy</button></p><pre><code class="sh">zig fetch --save "git+https://github.com/kristoff-it/zine#v0.1.0"
+</code></pre>
+<p><strong>Zine has finally reached a first tagged release!</strong></p><p>A lot has happened in these 4 months, so read this changelog to learn how to upgrade your Zine website.</p><p>The first thing that changed is the recommended way of updating your <code>build.zig.zon</code>.</p><p>The second is that Zine now tracks the latest stable version of Zig, which is 0.13.0 at the moment of writing.</p><p>Now onto new features and breaking changes:</p><ul><li><p>The recommended GitHub Actions Workflow files for building Zine websites on Github have changed. The new version uses the <a href="https://github.com/marketplace/actions/setup-zig-compiler">mlugg/setup-zig@v1</a> action that will automatically manage caching for you. It is <strong>highly recommended</strong> to update your scripts.</p></li><li><p><a href="https://github.com/kristoff-it/superhtml">SuperHTML</a> (Zine's templating language) dropped Tree Sitter as its HTML parser in favor of a handcrafted implementation that more closely follows the HTML5 spec. This brings us <strong>significantly</strong> improved error messages and other advantages.</p><ul><li><p><a href="https://github.com/kristoff-it/superhtml">It's <strong>highly</strong> recommended you install and configure SuperHTML</a> as your language server for both HTML and SuperHTML Templates (.shtml) <strong>in order to get in-editor diagnostics and kickass autoformatting</strong>. The repo also offers a Tree Sitter grammar for SuperHTML that incudes a few visual improvements for tags and attributes that have semantic meaning.</p><p>SuperHTML also has a <a href="https://marketplace.visualstudio.com/items?itemName=LorisCro.super">VSCode extension</a>.</p></li><li><p>SuperHTML follows the HTML5 spec much more closely and, while writing an HTML parser from scratch for it, I learned that self-closing tags (tags with a final <code>/</code>) are not a thing in HTML5, so now <code>&lt;extend&gt;</code> and <code>&lt;super&gt;</code> want no final slash.</p><p>Note that SuperHTML will consider an error using self-closing tags in HTML (outside of a <code>&lt;svg&gt;</code> scope).</p></li></ul></li><li><p>Scripty has impoved as well: inside of nested loops, it is now possible to access outer <code>$loop</code> variables by doing <code>$loop.up()</code>. Each call to <code>up()</code> goes up one level.</p><ul><li><p>This is thanks to the fact that interrupts were implemented in Scripty, opening the door to features that rely on the ability to pass from the outside values into scripty (<code>up()</code> relies on that since loops are a SuperHTML concept that Scripty is completely unaware of).</p></li></ul></li><li><p>For syntax highlighting, Zine uses a distribution of Tree Sitter that bundles a lot of grammars and highlighting queries from <a href="https://github.com/neurocyte/flow">Flow Editor</a>. The dependency has now been updated to a new version that adds support for more languages.</p></li></ul><p>That's mostly it. If you encounter bugs while updating, please don't hesitate to open a <a href="https://github.com/kristoff-it/zine/issues">new issue on GitHub</a> <strong>with a link to a reproduction</strong>.</p><h3>2024-03-26</h3><p><button>copy</button></p><pre><code class="zig"><span class="punctuation delimiter">.</span><span class="variable builtin">url</span> = <span class="string">"git+https://github.com/kristoff-it/zine#e33a1d79b09e8532db60347a7ec4bd3413888977"</span><span class="punctuation delimiter">,</span>
 <span class="punctuation delimiter">.</span><span class="variable builtin">hash</span> = <span class="string">"12209f9be74fcc805c0f086e4a81ccca041354448f5b3592e04b6a6d1b4a95da5a26"</span><span class="punctuation delimiter">,</span>
 </code></pre>
 <ul><li><p>Added support for multilingual websites. See the <a href="/documentation/i18n/">corresponding docs page</a> for more info. Because of this change now the <code>AddWebsiteOptions</code> struct is slightly different, here's how to fix it:</p><ul><li><p>Take the contents of <code>site</code> and move them top level, rename <code>base_url</code> to <code>host_url</code>.</p></li></ul></li><li><p>Related-but-distinct from the above, you can now specify an output prefix for your static site. The feature was added primarily for i18n purposes but can also be used in simple websites to add an arbitrary prefix.</p></li><li><p>The markdown renderer now renders tables!</p></li><li><p>Fixed a crash in the dev server that would trigger when refreshing the page multiple times in quick succession (the crash was realted to websockets). There's still one remaining known bug related to this same problem though.</p></li><li><p>The dev server now works on Windows (thanks Parzival-3141)</p></li><li><p>New Scripty builtins:</p><ul><li><p>Strings</p><ul><li><p><code>addPath()</code> similar to <code>suffix</code> but knows when to add a <code>/</code> or not.</p></li><li><p><code>fmt()</code> replaces occurrences of <code>{}</code> in your strings with the provided string arguments.</p></li></ul></li><li><p>Maps, refined the <code>get</code> family of functions</p><ul><li><p><code>get(key, fallback)</code> allows to get a key from a map and provide a fallback value</p></li><li><p><code>get!(key)</code> errors out if the key doesn't exist</p></li><li><p><code>get?(key)</code> returns null if the value is missing, to be used in conjunction with <code>if</code> attributes.</p></li></ul></li></ul></li></ul><h3>2024-03-21</h3><p><button>copy</button></p><pre><code class="zig"><span class="punctuation delimiter">.</span><span class="variable builtin">url</span> = <span class="string">"git+https://github.com/kristoff-it/zine#ecc72eb042af07f5b4690a35a7ca1dd9c6fd5b61"</span><span class="punctuation delimiter">,</span>

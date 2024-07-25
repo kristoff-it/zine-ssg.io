@@ -2,38 +2,44 @@
 <html>
   <head id="head">
     <meta charset="UTF-8">
-	  <meta name="description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
-	  <meta name="twitter:card" content="summary">
-	  <meta name="twitter:site" content="@croloris">
-	  <meta name="twitter:author" content="@croloris">
-	  <meta name="twitter:description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
-	  <meta name="twitter:title" content="Documentation - Zine">
-	  <meta property="og:title" content="Documentation">
-	  <meta property="og:type" content="website">
-    
-    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    
-    <title id="title">Documentation - Zine</title>
+    <meta name="description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@croloris">
+    <meta name="twitter:author" content="@croloris">
+    <meta name="twitter:description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+    <meta name="twitter:title" content="Documentation - Zine">
+    <meta property="og:title" content="Documentation">
+    <meta property="og:type" content="website">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title id="title">
+      Documentation
+      - Zine
+    </title>
     <link rel="stylesheet" type="text/css" href="/style.css">
     <link rel="stylesheet" type="text/css" href="/highlight.css">
     
   </head>
   <body>
-    <nav id="menu" class="centered"> 
-      <a href="/">Home</a> •
-      <a href="/quickstart/">Get Started</a> •
-      <a href="/documentation/">Docs</a> •
-      <a href="/community/">Vision & Community</a> •
-      <a href="/log/">Changelog</a> •
+    <nav id="menu" class="centered">
+      <a href="/">Home</a>
+      •
+      <a href="/quickstart/">Get Started</a>
+      •
+      <a href="/documentation/">Docs</a>
+      •
+      <a href="/community/">Vision & Community</a>
+      •
+      <a href="/log/">Changelog</a>
+      •
       <a href="https://github.com/kristoff-it/zine" target="_blank">
         Code
       </a>
     </nav>
     <div id="content">
-       
-   <style>
-     h1 {
+      
+  <style>
+    h1 {
        margin-top: 0;
      }
      h3 {
@@ -57,10 +63,10 @@
 		#docs h4 {
 			font-size: 1rem;
 		}
-   </style>
-   <h3 class="centered">Zine</h3>
-   <h1 >Documentation</h1>
-   <div id="docs" ><h2>Multilingual Websites</h2><p>To create a multilingual website, use <code>addMultilingualWebsite</code> in your <code>build.zig</code>, like in the following example.</p><pre><code class="zig"><span class="type qualifier">const</span> <span class="variable">std</span> = <span class="function builtin">@import</span><span class="punctuation bracket">(</span><span class="string">"std"</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+  </style>
+  <h3 class="centered">Zine</h3>
+  <h1 >Documentation</h1>
+  <div id="docs" ><h2>Multilingual Websites</h2><p>To create a multilingual website, use <code>addMultilingualWebsite</code> in your <code>build.zig</code>, like in the following example.</p><pre><code class="zig"><span class="type qualifier">const</span> <span class="variable">std</span> = <span class="function builtin">@import</span><span class="punctuation bracket">(</span><span class="string">"std"</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
 <span class="type qualifier">const</span> <span class="variable">zine</span> = <span class="function builtin">@import</span><span class="punctuation bracket">(</span><span class="string">"zine"</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
 
 <span class="attribute">pub</span> <span class="keyword function">fn</span> <span class="function">build</span><span class="punctuation bracket">(</span><span class="parameter">b</span><span class="punctuation delimiter">:</span> <span class="operator">*</span><span class="variable">std</span><span class="punctuation delimiter">.</span><span class="field">Build</span><span class="punctuation bracket">)</span> <span class="exception">!</span><span class="type builtin">void</span> <span class="punctuation bracket">{</span>

@@ -150,3 +150,12 @@ pre {
 table th {
   border-bottom: 1px solid #ccc;
 }
+
+figure {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+figure img {
+  max-width: 100%;
+}
