@@ -53,6 +53,8 @@ Now onto new features and breaking changes:
 
 - The recommended GitHub Actions Workflow files for building Zine websites on Github have changed. The new version uses the [mlugg/setup-zig@v1](https://github.com/marketplace/actions/setup-zig-compiler) action that will automatically manage caching for you. It is **highly recommended** to update your scripts.
 
+  - While you're at it, change `--summary all` to `--summary new`, which will only list the pages that were rebuilt.
+
 - [SuperHTML](https://github.com/kristoff-it/superhtml) (Zine's templating language) dropped Tree Sitter as its HTML parser in favor of a handcrafted implementation that more closely follows the HTML5 spec. This brings us **significantly** improved error messages and other advantages.
 
   - [It's **highly** recommended you install and configure SuperHTML](https://github.com/kristoff-it/superhtml) as your language server for both HTML and SuperHTML Templates (.shtml) **in order to get in-editor diagnostics and kickass autoformatting**. The repo also offers a Tree Sitter grammar for SuperHTML that incudes a few visual improvements for tags and attributes that have semantic meaning.

@@ -41,7 +41,7 @@ jobs:
           version: 0.13.0
           
       - name: Build
-        run: zig build --summary all
+        run: zig build --summary new
           
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
