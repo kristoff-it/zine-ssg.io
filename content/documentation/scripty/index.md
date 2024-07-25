@@ -3,7 +3,7 @@
     .title = "Scripty Reference",
     .description = "",
     .author = "Loris Cro",
-    .layout = "scripty-reference.html",
+    .layout = "scripty-reference.shtml",
     .date = @date("2023-06-16T00:00:00"),
     .draft = false,
 }
@@ -24,7 +24,7 @@ The iteration element in a loop, only available inside of elements with a `loop`
 The payload of an optional value, only available inside of elemens with an `if` attribute.
 # Types
 ## Site
-### base_url : str,
+### host_url : str,
   ### title : str,
   ## Page
 ### title : str,
@@ -37,9 +37,18 @@ The payload of an optional value, only available inside of elemens with an `if` 
   ### aliases : [str] = [],
   ### alternatives : [Alternative] = {  },
   ### skip_subdirs : bool = false,
+  ### translation_key : str = "",
   ### custom : dyn = ziggy.dynamic.Value{ .null = void },
   ### content : str = "",
-  ### wordCount() -> int
+  ### translations() -> [Translation]
+Returns a list of translations for the current page.
+A translation is a file with the same translation key as the current page.
+
+Examples:
+```
+<div loop="$page.translations()"><a href="$loop.it.permalink()" var="$loop.it.title"></a></div>
+``` 
+### wordCount() -> int
 Returns the word count of the page.
 
 The count is performed assuming 5-letter words, so it actually
@@ -109,6 +118,9 @@ $page.permalink()
   ### output : str,
   ### title : str = "",
   ### type : str = "",
+  ## Translation
+### locale_code : str,
+  ### page : Page,
   ## str
 ### len() -> int
 Returns the length of a string.
@@ -125,6 +137,23 @@ Concatenates strings together (left-to-right).
 Examples:
 ```
 $page.title.suffix("Foo","Bar", "Baz")
+``` 
+### fmt(str, [...str]) -> str
+Looks for '{}' placeholders in the receiver string and 
+replaces them with the provided arguments.
+
+
+Examples:
+```
+$i18n.get!("welcome-message").fmt($page.custom.get!("name"))
+``` 
+### addPath(str, [...str]) -> str
+Joins URL path segments automatically adding `/` as needed. 
+
+Examples:
+```
+$site.host_url.addPath("rss.xml")
+$site.host_url.addPath("foo/bar", "/baz")
 ``` 
 ### syntaxHighlight(str) -> str
 Applies syntax highlighting to a string.
@@ -168,6 +197,7 @@ Examples:
 ```
 $page.date.format("January 02, 2006")
 $page.date.format("06-Jan-02")
+$page.date.format("2006/01/02")
 ``` 
 ### formatHTTP() -> str
 Formats a datetime according to the HTTP spec.

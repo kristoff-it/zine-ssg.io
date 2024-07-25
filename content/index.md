@@ -4,7 +4,7 @@
     .date = @date("2020-07-06T00:00:00"),
     .author = "Loris Cro",
     .draft = false,
-    .layout = "index.html",
+    .layout = "index.shtml",
     .tags = [],
 }  
 --- 
@@ -15,43 +15,24 @@ A Zine site is a collection of markdown files, HTML templates and static assets.
 Zine is "low-code" by default, but once the needs of your project grow, then you will have the full power of the Zig build system at your disposal, allowing you to integrate any kind of pre-processing pipeline.
 
 # Feature Highlights 
-## The Power Of A Real Build System
-Zine is a collection of tools (markdown renderer, templating engine, etc) orchestrated by the Zig build system. 
 
-The Zig build system performs **surgical dependency tracking and automatic parallelization of the build**, making Zine very fast and scalable.
-
-Since Zine tools cooperate via the build system, **each tool can be swapped out** for an alternative implementation provided by you. The Zig build system can also download and compile tools written in C/C++/Zig, so **you can easily depend on open source tools**.
-
-If your site depends on any kind of build pipeline, like asset pre-processing, it's simple to add it to your Zig build pipeline.
-
-## HTML Errors Are Build Errors
-Zine uses Super, a templating language that extends HTML, instead of the usual `{{ curly brace }}` languages.
+## A delightful HTML experience 
+Zine uses [SuperHTML](https://github.com/kristoff-it/superhtml), a templating language that extends HTML, instead of the usual `{{ curly brace }}` languages.
  
-With Super it becomes impossible to output malformed HTML as the result of templating logic, and it also catches syntax errors at build time!
+SuperHTML is also an HTML language server that gives you real-time feedback on
+syntax errors in your code.
 
-`page.html`
-```html
-<h1>Oops!<h1>
-```
+![](superhtml.png)
 
-***`shell`***
-```
-$ zig build
+SuperHTML also provides autoformatting (with the [SuperHTML VScode extension](https://marketplace.visualstudio.com/items?itemName=LorisCro.super)):
 
----------- ELEMENT MISSING CLOSING TAG ----------
-While it is technically correct in HTML to have a non-void element 
-that doesn't have a closing tag, it's much more probable for
-it to be a programming error than to be intended. For this
-reason, this is a syntax error.
+<video controls autoplay loop disablepictureinpicture muted width=100%>
+ <source src="/vscode-autoformatting.mp4">
+</video>
+<br><br>
 
-[closing_tag_missing]
-(page.html) zine-sample-site/layouts/page.html:19:5:
-    <h1>Oops!<h1>
-     ^^
-trace:
-    layout `page.html`,
-    content `_index.md`.
-```
+And even if you don't want to use the language server, HTML errors are build errors in Zine:
+
 
 
 `page.html`
@@ -80,6 +61,15 @@ trace:
     content `_index.md`.
 ```
 
+
+## The Power Of A Real Build System
+Zine is a collection of tools (markdown renderer, templating engine, etc) orchestrated by the Zig build system. 
+
+The Zig build system performs **surgical dependency tracking and automatic parallelization of the build**, making Zine very fast and scalable.
+
+Since Zine tools cooperate via the build system, **each tool can be swapped out** for an alternative implementation provided by you. The Zig build system can also download and compile tools written in C/C++/Zig, so **you can easily depend on open source tools**.
+
+If your site depends on any kind of build pipeline, like asset pre-processing, it's simple to add it to your Zig build pipeline.
 
 ## ...and more
 Zine is a very young project and many important features are yet to be implemented.

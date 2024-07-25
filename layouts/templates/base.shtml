@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head id="head">
+    <meta charset="UTF-8">
+    <meta name="description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@croloris">
+    <meta name="twitter:author" content="@croloris">
+    <meta name="twitter:description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+    <meta name="twitter:title" content="$page.title.suffix(' - Zine')">
+    <meta property="og:title" content="$page.title">
+    <meta property="og:type" content="website">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title id="title">
+      <super>
+      - Zine
+    </title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="stylesheet" type="text/css" href="/highlight.css">
+    <super>
+  </head>
+  <body>
+    <nav id="menu" class="centered">
+      <a href="/">Home</a>
+      •
+      <a href="/quickstart/">Get Started</a>
+      •
+      <a href="/documentation/">Docs</a>
+      •
+      <a href="/community/">Vision & Community</a>
+      •
+      <a href="/log/">Changelog</a>
+      •
+      <a href="https://github.com/kristoff-it/zine" target="_blank">
+        Code
+      </a>
+    </nav>
+    <div id="content">
+      <super>
+    </div>
+  </body>
+</html>

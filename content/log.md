@@ -4,7 +4,7 @@
     .date = @date("2020-07-06T00:00:00"),
     .author = "Sample Author",
     .draft = false,
-    .layout = "page.html",
+    .layout = "page.shtml",
     .tags = [],
 } 
 --- 
@@ -19,6 +19,12 @@ pre {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+pre:has(.sh) {
+  color: #111;
+  background-color: #ccc;
+  padding-left: 10px;
+  text-align: center;
+}
 </style>
 <script>
 window.onload = function() {
@@ -28,6 +34,43 @@ window.onload = function() {
   });
 }
 </script>
+
+### 2024-7-25 
+
+<button>copy</button>
+```sh
+zig fetch --save "git+https://github.com/kristoff-it/zine#v0.1.0"
+```
+**Zine has finally reached a first tagged release!**
+
+A lot has happened in these 4 months, so read this changelog to learn how to upgrade your Zine website.
+
+The first thing that changed is the recommended way of updating your `build.zig.zon`. 
+
+The second is that Zine now tracks the latest stable version of Zig, which is 0.13.0 at the moment of writing.
+
+Now onto new features and breaking changes:
+
+- The recommended GitHub Actions Workflow files for building Zine websites on Github have changed. The new version uses the [mlugg/setup-zig@v1](https://github.com/marketplace/actions/setup-zig-compiler) action that will automatically manage caching for you. It is **highly recommended** to update your scripts.
+
+- [SuperHTML](https://github.com/kristoff-it/superhtml) (Zine's templating language) dropped Tree Sitter as its HTML parser in favor of a handcrafted implementation that more closely follows the HTML5 spec. This brings us **significantly** improved error messages and other advantages.
+
+  - [It's **highly** recommended you install and configure SuperHTML](https://github.com/kristoff-it/superhtml) as your language server for both HTML and SuperHTML Templates (.shtml) **in order to get in-editor diagnostics and kickass autoformatting**. The repo also offers a Tree Sitter grammar for SuperHTML that incudes a few visual improvements for tags and attributes that have semantic meaning.
+  
+    SuperHTML also has a [VSCode extension](https://marketplace.visualstudio.com/items?itemName=LorisCro.super).
+
+  - SuperHTML follows the HTML5 spec much more closely and, while writing an HTML parser from scratch for it, I learned that self-closing tags (tags with a final `/`) are not a thing in HTML5, so now `<extend>` and `<super>` want no final slash. 
+    
+    Note that SuperHTML will consider an error using self-closing tags in HTML (outside of a `<svg>` scope).
+
+- Scripty has impoved as well: inside of nested loops, it is now possible to access outer `$loop` variables by doing `$loop.up()`. Each call to `up()` goes up one level.
+
+  - This is thanks to the fact that interrupts were implemented in Scripty, opening the door to features that rely on the ability to pass from the outside values into scripty (`up()` relies on that since loops are a SuperHTML concept that Scripty is completely unaware of).
+
+- For syntax highlighting, Zine uses a distribution of Tree Sitter that bundles a lot of grammars and highlighting queries from [Flow Editor](https://github.com/neurocyte/flow). The dependency has now been updated to a new version that adds support for more languages.
+
+That's mostly it. If you encounter bugs while updating, please don't hesitate to open a [new issue on GitHub](https://github.com/kristoff-it/zine/issues) **with a link to a reproduction**.
+
 
 
 ### 2024-03-26 
