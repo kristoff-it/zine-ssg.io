@@ -13,9 +13,9 @@ This guide assumes that you're already familiar with GitHub Pages. Please refer 
 
 ## 1. Use GitHub Actions
 
-GitHub Actions runner have an inherent overhead and, since Zine is a collection of tools that gets compiled on-demand, your runner will need to do some work that wounldn't be necessary with a single-executable tool.
+GitHub Actions runner have an inherent overhead and, since Zine is a collection of tools that gets compiled on-demand, your runner will need to do some work that wouldn't be necessary with a single-executable tool.
 
-**Luckly, the build will be cached automatically if you use [mlugg/setup-zig](https://github.com/marketplace/actions/setup-zig-compiler)**.
+**Luckily, the build will be cached automatically if you use [mlugg/setup-zig](https://github.com/marketplace/actions/setup-zig-compiler)**.
 
 [This site currently builds in 25-35 seconds](https://github.com/kristoff-it/zine/actions), of which 10 are spent setting up Zig, and 1 for the actual site build (the rest is GitHub Pages overhead).
 

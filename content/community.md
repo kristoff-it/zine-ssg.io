@@ -31,12 +31,12 @@ Zine is tailored for creators who want to make simple, elegant websites that
 reflect the attention to detail they already put in designing their main product.
 
 Zine itself is designed according to this principle and this is why I've decided
-to design the templating exeperience of Zine, instead of blindly assuming that
+to design the templating experience of Zine, instead of blindly assuming that
 it would be impossible to create a solution that fits Zine better than existing
 off-the-shelf templating languages.
 
 ## Other static site generators
-My experience in working with static site generators can be succintly described
+My experience in working with static site generators can be succinctly described
 as using tools that sit at two extremes in the flexibility-rigidity spectrum.
 
 ### Flexibility

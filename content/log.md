@@ -86,7 +86,7 @@ That's mostly it. If you encounter bugs while updating, please don't hesitate to
   - Take the contents of `site` and move them top level, rename `base_url` to `host_url`.
 - Related-but-distinct from the above, you can now specify an output prefix for your static site. The feature was added primarily for i18n purposes but can also be used in simple websites to add an arbitrary prefix.
 - The markdown renderer now renders tables!
-- Fixed a crash in the dev server that would trigger when refreshing the page multiple times in quick succession (the crash was realted to websockets). There's still one remaining known bug related to this same problem though.
+- Fixed a crash in the dev server that would trigger when refreshing the page multiple times in quick succession (the crash was related to websockets). There's still one remaining known bug related to this same problem though.
 - The dev server now works on Windows (thanks Parzival-3141)
 - New Scripty builtins:
    - Strings
@@ -149,7 +149,7 @@ That's mostly it. If you encounter bugs while updating, please don't hesitate to
 ```
 - Updated Zig version because of a recent breaking change related to `std.Options` / `root.std_options`. Now Zine depends on Zig `0.12.0-dev.2701+d18f52197` and above. Consider using [marler8997/zigup](https://github.com/marler8997/zigup) if you're not building Zig from source.
 - The Scripty reference documentation was improved slightly: the reference for `Page` displays which fields have default values and which do not.
-- The dev server is now better at reporting build errors: in the event of a build error the message will be shown in the terminal, as well as being shown on the web page, and the 404 page too will connect to the hotreloading mechanism in order to show build errors.
+- The dev server is now better at reporting build errors: in the event of a build error the message will be shown in the terminal, as well as being shown on the web page, and the 404 page too will connect to the hot-reloading mechanism in order to show build errors.
 
 ### 2024-02-09 (later in the day)
 

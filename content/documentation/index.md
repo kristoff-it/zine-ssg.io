@@ -358,7 +358,9 @@ When a layout wants to extend a template, it must declare at the very top the te
 ```
 A template that extends another won't have a normal HTML structure, but rather it will be a list of HTML elements that will replace a correspoding super tag from the base template they're extending.
 
+
 ### `<super>`
+
 The super tag defines an extension point in a template. The direct parent of a super tag must have an `id` attribute.
 
 **Each top level element in a template that extends another must correspond to a super tag in the template being extended.**

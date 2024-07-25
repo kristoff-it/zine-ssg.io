@@ -21,7 +21,7 @@ The current page.
 The iteration element in a loop, only available inside of elements with a `loop` attribute.
 ## $if : ?V
 
-The payload of an optional value, only available inside of elemens with an `if` attribute.
+The payload of an optional value, only available inside of elements with an `if` attribute.
 # Types
 ## Site
 ### host_url : str,
@@ -276,7 +276,7 @@ $page.draft.or($site.tags.len().eq(0))
 ``` 
 ## dyn
 ### get?(str) -> ?dyn
-Tries to get a dynamic value, to be used in conjuction with an `if` attribute.
+Tries to get a dynamic value, to be used in conjunction with an `if` attribute.
 
 
 Examples:
