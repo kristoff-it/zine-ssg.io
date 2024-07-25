@@ -57,13 +57,15 @@ Now onto new features and breaking changes:
 
 - [SuperHTML](https://github.com/kristoff-it/superhtml) (Zine's templating language) dropped Tree Sitter as its HTML parser in favor of a handcrafted implementation that more closely follows the HTML5 spec. This brings us **significantly** improved error messages and other advantages.
 
-  - [It's **highly** recommended you install and configure SuperHTML](https://github.com/kristoff-it/superhtml) as your language server for both HTML and SuperHTML Templates (.shtml) **in order to get in-editor diagnostics and kickass autoformatting**. The repo also offers a Tree Sitter grammar for SuperHTML that incudes a few visual improvements for tags and attributes that have semantic meaning.
+  - [It's **highly** recommended you install and configure SuperHTML](https://github.com/kristoff-it/superhtml) as your language server for both HTML and SuperHTML Templates **in order to get in-editor diagnostics and kickass autoformatting**. The repo also offers a Tree Sitter grammar for SuperHTML that incudes a few visual improvements for tags and attributes that have semantic meaning.
   
     SuperHTML also has a [VSCode extension](https://marketplace.visualstudio.com/items?itemName=LorisCro.super).
 
-  - SuperHTML follows the HTML5 spec much more closely and, while writing an HTML parser from scratch for it, I learned that self-closing tags (tags with a final `/`) are not a thing in HTML5, so now `<extend>` and `<super>` want no final slash. 
+  - SuperHTML follows the HTML5 spec much more closely and, while writing an HTML parser from scratch for it, I learned that self-closing tags (tags with a final `/`) are not a thing in HTML5, so now `<extend>` and `<super>` have been defined as [void elements](https://developer.mozilla.org/en-US/docs/Glossary/Void_element) in SuperHTML and want no final slash nor closing tag. 
     
     Note that SuperHTML will consider an error using self-closing tags in HTML (outside of a `<svg>` scope).
+
+  - The correct file extension for templates is `.shtml`. **You must rename all your templates to the new file extension** otherwise you will get an error from SuperHTML when it sees non-HTML compliant syntax, since `<extend>` and `<super>` are recognized as void elements only in SuperHTML template files.
 
 - Scripty has impoved as well: inside of nested loops, it is now possible to access outer `$loop` variables by doing `$loop.up()`. Each call to `up()` goes up one level.
 
