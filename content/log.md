@@ -65,6 +65,8 @@ zig fetch --save "git+https://github.com/kristoff-it/zine#v0.1.3"
   - `interface`: prints out the interface of a given SuperHTML template file, 
   useful to bootstrap a new SuperHTML template that extends another.
 
+- Zine and some of its dependencies depend on [kristoff-it/zig-afl-kit](https://github.com/kristoff-it/zig-afl-kit) for fuzzing. I tried now to make it a lazy dependency so that users don't have to download it just to use Zine (as it's a dev-only dependency), but I haven't yet been able to fully test that I did so correctly.
+
 ### 2024-7-25 
 
 <button>copy</button>
