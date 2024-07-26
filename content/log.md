@@ -19,6 +19,11 @@ pre {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+pre:has(.superhtml) {
+  overflow: hidden;
+  text-overflow: unset;
+  overflow-x: auto;
+}
 pre:has(.sh) {
   color: #111;
   background-color: #ccc;
@@ -34,6 +39,31 @@ window.onload = function() {
   });
 }
 </script>
+
+### 2024-7-26 
+
+<button>copy</button>
+```sh
+zig fetch --save "git+https://github.com/kristoff-it/zine#v0.1.3"
+```
+- Scripty strings now have `eql`, `contains` and `endsWith`. With a pinch of creativity you  can create menus that style differently the current active page:
+  ```superhtml
+  <div class="$page.permalink().endsWith('/blog/').then('selected', '')">
+    Blog
+  </div>
+  ```
+  Similarly, when printing out the list of pages in a section, you can filter-out occasional "miscellaneous" (as in belonging to the same section but unwanted in the current list):
+  ```superhtml
+  <div loop="$page.subpages()">
+    <div if="$loop.it.permalink().contains('/blog/')">
+      <a href="$loop.it.permalink() var="$loop.it.title"></a>
+    </div>
+  </div>
+  ```
+- The [SuperHTML CLI tool](https://github.com/kristoff-it/superhtml) was updated with two new commands:
+  - `check`: checks HTML and SuperHTML template files for syntax errors, useful if you don't have / want LSP integration (see also `fmt` in such case).
+  - `interface`: prints out the interface of a given SuperHTML template file, 
+  useful to bootstrap a new SuperHTML template that extends another.
 
 ### 2024-7-25 
 

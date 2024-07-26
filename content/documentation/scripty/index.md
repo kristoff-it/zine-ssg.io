@@ -21,7 +21,7 @@ The current page.
 The iteration element in a loop, only available inside of elements with a `loop` attribute.
 ## $if : ?V
 
-The payload of an optional value, only available inside of elements with an `if` attribute.
+The payload of an optional value, only available inside of elemens with an `if` attribute.
 # Types
 ## Site
 ### host_url : str,
@@ -65,7 +65,7 @@ the current page is an 'index.md' page).
 
 Examples:
 ```
-<div ></div>
+$page.isSection()
 ``` 
 ### subpages() -> [Page]
 Only available on 'index.md' pages, as those are the pages
@@ -129,6 +129,22 @@ Returns the length of a string.
 Examples:
 ```
 $page.title.len()
+``` 
+### endsWith(str) -> bool
+Returns true if the receiver ends with the provided string.
+
+
+Examples:
+```
+$page.permalink().endsWith("/blog/")
+``` 
+### eql(str) -> bool
+Returns true if the receiver equals the provided string.
+
+
+Examples:
+```
+$page.author.eql("Loris Cro")
 ``` 
 ### suffix(str, [...str]) -> str
 Concatenates strings together (left-to-right).
@@ -276,7 +292,7 @@ $page.draft.or($site.tags.len().eq(0))
 ``` 
 ## dyn
 ### get?(str) -> ?dyn
-Tries to get a dynamic value, to be used in conjunction with an `if` attribute.
+Tries to get a dynamic value, to be used in conjuction with an `if` attribute.
 
 
 Examples:
