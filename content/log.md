@@ -52,7 +52,7 @@ zig fetch --save "git+https://github.com/kristoff-it/zine#v0.1.3"
     Blog
   </div>
   ```
-  Similarly, when printing out the list of pages in a section, you can filter-out occasional "miscellaneous" (as in belonging to the same section but unwanted in the current list):
+  Similarly, when printing out the list of pages in a section, you can filter-out occasional "miscellaneous" pages (as in belonging to the same section but unwanted in the current list):
   ```superhtml
   <div loop="$page.subpages()">
     <div if="$loop.it.permalink().contains('/blog/')">
