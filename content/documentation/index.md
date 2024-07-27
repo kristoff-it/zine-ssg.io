@@ -35,8 +35,8 @@ Your website only needs the following two files to get started:
     .name = "sample website",
     .version = "0.0.0",
     .dependencies = .{
-            .url = "git+https://github.com/kristoff-it/zine#v0.2.0",
-            .hash = "1220781f118454bbc87d7efbd244b4d1ef029e76a6113ddf4752a6f3cd85879dbb3b",
+        .url = "git+https://github.com/kristoff-it/zine#v0.2.0",
+        .hash = "1220781f118454bbc87d7efbd244b4d1ef029e76a6113ddf4752a6f3cd85879dbb3b",
     },
     .paths = .{"."},
 }
