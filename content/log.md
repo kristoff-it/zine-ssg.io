@@ -40,6 +40,30 @@ window.onload = function() {
 }
 </script>
 
+
+
+### 2024-7-27 
+
+<button>copy</button>
+```sh
+zig fetch --save "git+https://github.com/kristoff-it/zine#v0.2.0"
+```
+**The build system flexibility update (part 1)!** 
+ 
+- Upgrading from v0.1: in your `build.zig` change `try zine.addWebsite` to `zine.website`.
+- `addWebsite` and `addMultilingualWebsite` have been renamed to `website` and `multilingualWebsite` respectively (and now don't return an error anymore)
+- To align with `std.Build`'s naming convention (where 'add' functions create steps but don't wire them to the default install step), `addWebsite` and `addMultilingualWebsite` are now more low-level functions for defining build pipelines that allow you to customize more things:
+  - **You can have other build steps depend on the website being built** 
+  - **You can specify if and how the development webserver is bound to a named step**
+  - et cetera
+
+  To learn how to use this more fine-grained API, look at the implementation of `website` and `multilingualWebsite`.
+
+-  As suspected, in the last release I did not proprely wire the dependency on `zig-afl-kit` as a lazy dependency and that caused build errors to some. This is now fixed in this release. Sorry!
+
+*The next item on the roadmap is to add an asset system to Zine in order to have the static content generation depend on other steps defined in your build script.*
+  
+
 ### 2024-7-26 
 
 <button>copy</button>
