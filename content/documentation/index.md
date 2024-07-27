@@ -48,7 +48,7 @@ const std = @import("std");
 const zine = @import("zine");
 
 pub fn build(b: *std.Build) !void {
-    try zine.addWebsite(b, .{
+    zine.website(b, .{
         .title = "Sample Website",
         .host_url = "https://sample.com",
         .content_dir_path = "content",
