@@ -30,9 +30,14 @@ And what's a better sample site than the official site itself?
 ```bash
 $ git clone https://github.com/kristoff-it/zine-ssg.io.git
 $ cd zine-ssg.io
-$ zig build serve -Dport=8080
+$ zig build serve
 ```
 After that, start hacking on it and see how Zine reacts!
+
+Here are a couple of things that you might want to observe:
+- On first invocation it will take a moment for Zine to load, as it has to compile optimized versions of all its tools. Subsequent runs will be much faster.
+- `zig build serve` launches the development server but you can also just generate the site without it. Run `zig build --summary new` to build the website and see which pages ended up being re-rendered. Notice how pages that don't change don't need to be re-rendered.
+- What happens if you delete `assets/style.css` and try to rebuild the site?
 
 
 ## 3. Get developer tooling

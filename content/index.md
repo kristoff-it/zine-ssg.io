@@ -22,7 +22,7 @@ Zine uses [SuperHTML](https://github.com/kristoff-it/superhtml), a templating la
 SuperHTML is also an HTML language server that gives you real-time feedback on
 syntax errors in your code.
 
-![](superhtml.png)
+![](quickstart/superhtml.png)
 
 SuperHTML also provides autoformatting (with the [SuperHTML VScode extension](https://marketplace.visualstudio.com/items?itemName=LorisCro.super)):
 

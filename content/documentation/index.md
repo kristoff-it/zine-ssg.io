@@ -15,8 +15,11 @@ Zine is currently alpha software and many features are missing or not complete y
 If Zine turns out to not be ready yet for your needs, check the [Changelog](/log/) from time to time to learn of new improvements.
 
 ## Other Pages
-- [Multilingual Websites (i18n)](i18n/)
+Quick access documentation links useful once you've become familiar with the rest of the content in this page. 
+
+- [Assets](assets/)
 - [Scripty Reference](scripty/)
+- [Multilingual Websites (i18n)](i18n/)
 - Deploying
     - [GitHub Pages](deploying/github-pages/)
     - [Cloudflare Pages](deploying/cloudflare-pages/)
@@ -36,10 +39,9 @@ Your website only needs the following two files to get started:
     .version = "0.0.0",
     .dependencies = .{
         .zine = .{
-            .url = "git+https://github.com/kristoff-it/zine#v0.2.0",
-            .hash = "1220781f118454bbc87d7efbd244b4d1ef029e76a6113ddf4752a6f3cd85879dbb3b",
+            .url = "git+https://github.com/kristoff-it/zine#v0.3.0",
+            .hash = "122082799c345efd9630f2f8c55c8a4093125fd10f0f8a7ecd7d768c06c831955483",
         },
-    },
     .paths = .{"."},
 }
 ```
@@ -55,12 +57,12 @@ pub fn build(b: *std.Build) !void {
         .host_url = "https://sample.com",
         .content_dir_path = "content",
         .layouts_dir_path = "layouts",
-        .static_dir_path = "static",
+        .assets_dir_path = "assets",
     });
 }  
 ```
 
-Once you create the 3 directories mentioned in your `build.zig` file (`content`, `layouts`, `static`, but they can also be named however you like), you are ready to start working on your website.
+Once you create the 3 directories mentioned in your `build.zig` file (`content`, `layouts`, `assets`, but they can also be named however you like), you are ready to start working on your website.
 
 ### Content
 The content directory contains your markdown files and their structure will be 
@@ -108,9 +110,9 @@ The second section is the "blog" section, defined by `content/blog/index.md`, co
 - `blog/a.md`
 - `blog/b.md`
 
-Note how an `index.md` file defines a section but as a page it is not included in the list of pages that belong to that section.
+Note how an `index.md` file defines a section but as a page it is not included in the list of pages that belong to that same section.
 
-Lastly, note how pages in a section don't all share the same basepath. In the absence of a nested `index.md`, all pages are considered siblings regardless of how they are nested inside of different directories.
+Lastly, note how pages in a section don't all share the same basepath. In the absence of a nested `index.md`, all pages are considered siblings regardless of how deeply they are nested inside of different directories.
 
 
 #### Frontmatter
@@ -159,9 +161,10 @@ Here's a schema that shows the processing pipeline. Square brackets indicate an 
 
 Later in this document we'll see how layouts work more in detail.
 
-### Static
-The contents of the static directory will be copied verbatim into the output directory.
+### Assets
+This directory collects various assets (images, css files, etc) necessary to build the website. Note that unlike other mainstream static site generators, Zine doesn't have a "static" asset folder as all assets are managed explicitly through Zine's Asset System.
 
+Later in this document you will learn how to reference assets in this directory.
 
 # CLI
 #### `$ zig build`
@@ -172,7 +175,7 @@ Use `zig build --help` for more information about flags supported by `zig build`
 #### `$ zig build serve`
 Builds your website and starts the development server. Making changes to any of your input directories (ie content, layouts, static) will automatically trigger a rebuild and a page reload.
 
-Pass **`-Dport=8080`** to set the listening port to 8080.
+Zine will default to using port `1990`, pass **`-Dport=8080`** to set the listening port to 8080, or any value you'd like.
 
 # Layouting
 Zine uses [SuperHTML](https://github.com/kristoff-it/superhtml) as its templating language. 
@@ -187,11 +190,12 @@ SuperHTML is instead a super-set of HTML.
 ## Layout vs Template
 Throughout this document (and in error messages) you will see a distinction being made between 'layouts' and 'templates'.
 
-In Zine a layout is a template that can be fully evaluated to a complete HTML file that has no "extension placeholders" left.
+We'll see in a bit how templates extend each other by defining "placeholders" that can be then filled out by other templates. Layouts are basically the final link of a "chain" of templates that extend one another.
 
-We'll see in a bit how templates extend each other by defining "placeholders" that can be then filled out by another template. Layouts are basically the final link of a "chain" of templates that extend one another.
+In Zine a layout is a template that can be fully evaluated to a complete HTML file
+(i.e. it has no "extension placeholders" left).
 
-The special name for those templates is used because, unike other templates, they define a final, complete layout for a set of pages.
+The special name for those templates is used because, unike other templates, they define a final, complete *layout* for a set of pages of the same kind.
 
 ## Basic Example
 
@@ -200,7 +204,7 @@ In Zine layouts live under the `layouts/` directory.
 Here's a basic example where we create the homepage of our sample website. 
 
 ***`content/index.md`*** 
-```
+```ziggy
 ---
 .title = "Home",
 .date = @date("2020-07-06T00:00:00"),
@@ -262,7 +266,7 @@ $ touch layouts/post.shtml
 ```
 
 ***`content/blog/first-post.md`*** 
-```
+```ziggy
 ---
 .title = "First Post!",
 .date = @date("2020-07-06T00:00:00"),
@@ -556,7 +560,7 @@ SuperHTML templates implement logic via special attributes that have semantic me
 Example markdown file:
 
 ***`content/foo/index.md`***
-```markdown
+```ziggy
 ---
 .title = "My Post",
 .date = @date("2020-07-06T00:00:00"),
@@ -634,5 +638,19 @@ Repeats the **entire** element based on a condition. Inside an element with a `i
 <div>tag3</div>
 ```
 
-## Scripty Reference
-To learn about all the types present in Scripty and their builtin operations, [see the full reference](scripty/).
+
+## Assets & Scripty
+You can also use Scripty to add logic to normal attributes.
+
+One notable example is linking to assets.
+
+```html
+<img src="$site.asset('logo.png').link()">
+<link rel="stylesheet" type="text/css" href="$site.asset('style.css').link()">
+```
+
+
+## Next Steps
+
+- [Learn more about Zine's Asset System](assets/)
+- [Read the Scripty Reference Documentation](scripty/)

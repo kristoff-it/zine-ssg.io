@@ -41,8 +41,26 @@ window.onload = function() {
 </script>
 
 
+### 2024-08-03
 
-### 2024-7-27 
+<button>copy</button>
+```sh
+zig fetch --save "git+https://github.com/kristoff-it/zine#v0.3.0"
+```
+**The Asset System update!**
+
+- Zine has now an asset system with clearly defined semantics. Previously we kinda implemented informally what other static site generators offered (eg a static asset directory), while now Zine gained it's own spin on assets
+
+  There's a new [Assets section in the docs](/documentation/assets/), read it to learn how assets now work in Zine. The most notable changes are:
+    - Zine can now make use of artifacts generated via the Zig build system!
+    - `static_dir_path` has become `assets_dir_path` (I also recommend renaming `static` to `assets`)
+    - Page assets (eg images placed in the content directory next to the page they belong to) __now have one extra rule for file placement__, see the docs for more info on that (or let the error messages *gently* guide you)
+- The dev server now by default opens a <strike>door</strike> port to 1990 if you don's specify `-Dport`
+- `output_prefix` has been renamed to `output_path_prefix`
+- In `MultilingualSite`, `variants` has been renamed to `localized variants`
+- Scripty has gained a new `Asset` type and handful of new builtins, including adding the ability to query for the current `locale_code` in a multilingual website (`$site.localeCode()`)
+
+### 2024-07-27 
 
 <button>copy</button>
 ```sh
@@ -64,7 +82,7 @@ zig fetch --save "git+https://github.com/kristoff-it/zine#v0.2.0"
 *The next item on the roadmap is to add an asset system to Zine in order to have the static content generation depend on other steps defined in your build script.*
   
 
-### 2024-7-26 
+### 2024-07-26 
 
 <button>copy</button>
 ```sh
@@ -91,7 +109,7 @@ zig fetch --save "git+https://github.com/kristoff-it/zine#v0.1.3"
 
 - Zine and some of its dependencies depend on [kristoff-it/zig-afl-kit](https://github.com/kristoff-it/zig-afl-kit) for fuzzing. I tried now to make it a lazy dependency so that users don't have to download it just to use Zine (as it's a dev-only dependency), but I haven't yet been able to fully test if I did so correctly.
 
-### 2024-7-25 
+### 2024-07-25 
 
 <button>copy</button>
 ```sh
