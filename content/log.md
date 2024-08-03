@@ -55,7 +55,7 @@ zig fetch --save "git+https://github.com/kristoff-it/zine#v0.3.0"
     - Zine can now make use of artifacts generated via the Zig build system!
     - `static_dir_path` has become `assets_dir_path` (I also recommend renaming `static` to `assets`)
     - Page assets (eg images placed in the content directory next to the page they belong to) __now have one extra rule for file placement__, see the docs for more info on that (or let the error messages *gently* guide you)
-- The dev server now by default opens a <strike>door</strike> port to 1990 if you don's specify `-Dport`
+- The dev server now by default opens a <strike>door</strike> port to 1990 if you don't specify `-Dport`
 - `output_prefix` has been renamed to `output_path_prefix`
 - In `MultilingualSite`, `variants` has been renamed to `localized variants`
 - Scripty has gained a new `Asset` type and handful of new builtins, including adding the ability to query for the current `locale_code` in a multilingual website (`$site.localeCode()`)
