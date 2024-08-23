@@ -134,7 +134,7 @@ development experience.
 .date = @date("2020-07-06T00:00:00"),
 .author = "Sample Author",
 .draft = false,
-.layout = "homepage.html",
+.layout = "homepage.shtml",
 .tags = [],
 --- 
 Your **markdown** content goes here.
@@ -210,7 +210,7 @@ Here's a basic example where we create the homepage of our sample website.
 .date = @date("2020-07-06T00:00:00"),
 .author = "Sample Author",
 .draft = false,
-.layout = "homepage.html",
+.layout = "homepage.shtml",
 .tags = [],
 --- 
 Hello World!
@@ -272,7 +272,7 @@ $ touch layouts/post.shtml
 .date = @date("2020-07-06T00:00:00"),
 .author = "Sample Author",
 .draft = false,
-.layout = "post.html",
+.layout = "post.shtml",
 .tags = [],
 --- 
 This is my first post!
@@ -325,7 +325,7 @@ Let's continue the example from the previous section where we try to collect all
 
 ***`layouts/homepage.shtml`***
 ```superhtml
-<extend template="base.html">
+<extend template="base.shtml">
 
 <title id="title" var="$site.title"></title>
 
@@ -337,7 +337,7 @@ Let's continue the example from the previous section where we try to collect all
 
 ***`layouts/post.shtml`***
 ```superhtml
-<extend template="base.html">
+<extend template="base.shtml">
 
 <title id="title" var="$site.title"></title>
 
@@ -354,13 +354,13 @@ Let's analyze what we just saw:
 
 - `layouts/templates/base.shtml` now contains all the main HTML boilerplate and has two `<super>` tags: one inside `<title>` and one inside `<body>` (both of which have also gained an `id` attribute).
 
-- both layouts now start with an `<extend>` tag and have lost their original structure (since it was collected in `base.html`), keeping only the parts that each defines differently than the other.
+- both layouts now start with an `<extend>` tag and have lost their original structure (since it was collected in `base.shtml`), keeping only the parts that each defines differently than the other.
 
 ### `<extend>`
 When a layout wants to extend a template, it must declare at the very top the template name using the extend tag, like so: 
 
 ```superhtml
-<extend template="foo.html">
+<extend template="foo.shtml">
 ```
 A template that extends another won't have a normal HTML structure, but rather it will be a list of HTML elements that will replace a correspoding super tag from the base template they're extending.
 
@@ -438,9 +438,9 @@ Unless you have perfect recollection of what "main" is, you won't know if your c
 
 Contrast this with our previous example:
 
-***`layouts/homepage.html`***
+***`layouts/homepage.shtml`***
 ```html
-<extend template="base.html"/>
+<extend template="base.shtml"/>
 
 <title id="title" var="$site.title"></title>
 
@@ -464,16 +464,16 @@ about where the block contents are going to be placed in
 the extended template.
 
 note: super template block tag:
-(post.html) layouts/post.html:19:2:
+(post.html) layouts/post.shtml:19:2:
     <div id="main">
      ^^^
 
 note: extended template block defined here:
-(base.html) layouts/templates/base.html:16:4:
+(base.html) layouts/templates/base.shtml:16:4:
     <body id="main">
      ^^^^
 trace:
-    layout `post.html`,
+    layout `post.shtml`,
     content `about.md`.
 ```
 
@@ -519,7 +519,7 @@ Let's see an example:
 ```
 ***`layouts/templates/with-menu.shtml`***
 ```superhtml
-<extend template="base.html">
+<extend template="base.shtml">
 
 <title id="title"><super></title>
 
@@ -541,7 +541,7 @@ Let's see an example:
 ```
 ***`layouts/page.shtml`***
 ```superhtml
-<extend template="with-menu.html">
+<extend template="with-menu.shtml">
 
 <title id="title" var="$page.title"></title>
 
@@ -566,7 +566,7 @@ Example markdown file:
 .date = @date("2020-07-06T00:00:00"),
 .author = "Sample Author",
 .draft = false,
-.layout = "post.html",
+.layout = "post.shtml",
 .tags = ["tag1", "tag2", "tag3"],
 --- 
 The content
@@ -576,7 +576,7 @@ The content
 #### `var`
 Prints the contents of a Scripty variable.
 
-***`layouts/post.html`***
+***`layouts/post.shtml`***
 ```html
 <span var="$page.title"></span>  
 ```
@@ -591,7 +591,7 @@ Prints the contents of a Scripty variable.
 Toggles the body of an element based on a condition.
 
 
-***`layouts/post.html`***
+***`layouts/post.shtml`***
 ```html
 <div if="$page.title.len().eq(1)" id="foo">
     <b>Won't be rendered</b>
@@ -607,7 +607,7 @@ Toggles the body of an element based on a condition.
 Repeats the body of an element based on a condition. Inside an element with a `loop` attribute, `$loop` becomes available.
 
 
-***`layouts/post.html`***
+***`layouts/post.shtml`***
 ```html
 <ul loop="$page.tags" id="tags">
    <li var="$loop.it"></li>
@@ -626,7 +626,7 @@ Repeats the body of an element based on a condition. Inside an element with a `l
 #### `inline-loop`
 Repeats the **entire** element based on a condition. Inside an element with a `inline-loop` attribute, `$loop` becomes available.
 
-***`layouts/post.html`***
+***`layouts/post.shtml`***
 ```html
 <div inline-loop="$page.tags" var="$loop.it"></div>
 ```
