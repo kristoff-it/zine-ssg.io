@@ -1,0 +1,312 @@
+---
+.title = "Documentation",
+.date = @date("2020-07-06T00:00:00"),
+.author = "Sample Author",
+.draft = false,
+.layout = "documentation.shtml",
+.tags = [],
+--- 
+
+>[Warning]($box.attrs('warning'))
+>Zine is currently alpha software and many features are missing or not 
+>complete yet.
+
+
+## In this page
+This page will guide you through the first few motions of getting a Zine site started.
+
+Once you're familiar with the content of this page you can start venturing into topic deep dives:
+
+- [Scripty Basics](scripty/)
+- Content
+  - [SuperMD Basics](supermd/)
+  - [Scripty Reference](supermd/scripty/)
+- Templating 
+  - [SuperHTML Basics](superhtml/)
+  - [Scripty Reference](superhtml/scripty/)
+- [Assets](assets/)
+- [Multilingual Websites (i18n)](i18n/)
+- Deploying
+    - [GitHub Pages](deploying/github-pages/)
+    - [Cloudflare Pages](deploying/cloudflare-pages/)
+
+## Requirements
+Zine is a collection of tools orchestrated by the Zig build system.
+
+Zine only depends on the Zig compiler, follow [the quickstart guide](/quickstart) to learn how to setup Zig and other optional developer tooling.
+
+## Project Structure
+Your website only needs the following two files to get started:
+
+***build.zig.zon***
+[]($code.buildAsset('zon').language('zig'))
+
+***build.zig***
+```zig
+const std = @import("std");
+const zine = @import("zine");
+
+pub fn build(b: *std.Build) !void {
+    zine.website(b, .{
+        .title = "Sample Website",
+        .host_url = "https://sample.com",
+        .content_dir_path = "content",
+        .layouts_dir_path = "layouts",
+        .assets_dir_path = "assets",
+    });
+}  
+```
+
+Once you create the 3 directories mentioned in your `build.zig` file (`content`, `layouts`, `assets`, but they can also be named however you like), you are ready to start working on your website.
+
+
+## File formats used by Zine
+Zine uses [SuperMD]($link.page('docs/supermd')) for content and [SuperHTML]($link.page('docs/superhtml')) for defining layouts.
+
+- File extensions:
+  - SuperMD: `.smd`
+  - SuperHTML: `.shtml`
+  
+Later in the page you'll see some examples of both languages.
+
+## The Content Directory
+The content directory contains your SuperMD files and their structure will be 
+reflected verbatim in the final site.
+
+- `content/index.smd` is the main index page of your website 
+  - (i.e. `https://site.com/`).
+- `content/about.smd` will generate `/about/index.html` 
+  - (i.e. `https://site.com/about/`)
+- `content/foo/index.smd` will generate `/foo/index.html` 
+  - (i.e. `https://site.com/foo/`)
+- `content/foo/bar.smd` will generate `/foo/bar/index.html` 
+  - (i.e. `https://site.com/foo/bar/`)
+
+Note that SSGs rely heavily on the implication that webservers will 
+automatically serve `index.html` when a directory (usually indicated 
+by a final `/` in the URL) is requested. 
+
+### Site Sections
+Consider the following content structure:
+```
+content
+├── about
+│   └── contacts.smd
+├── about.smd
+├── blog
+│   ├── a.smd
+│   ├── b.smd
+│   └── index.smd
+└── index.smd
+```
+**In Zine every `index.smd` file denotes a section.**
+
+In this example there are 2 sections: 
+
+The first one is the "root" section, defined by `content/index.smd`, containing:
+
+- `about/contacts.smd`
+- `about.smd`
+- `blog/index.smd`
+
+The second section is the "blog" section, defined by `content/blog/index.smd`, containing:
+
+- `blog/a.smd`
+- `blog/b.smd`
+
+Note how an `index.smd` file defines a section but as a page it is not included
+in the list of pages that belong to that same section.
+
+Lastly, note how pages in a section don't all share the same basepath. In the
+absence of a nested `index.smd`, all pages are considered siblings regardless of
+how deeply they are nested inside of different directories.
+
+
+### Frontmatter
+Each SuperMD file must start with a Ziggy frontmatter delimited by `---` (three
+dashes in a row).
+
+Ziggy is a data serialization language similar to YAML and JSON. You can
+learn more on the official Ziggy website: 
+[https://ziggy-lang.io](https://ziggy-lang.io).
+
+***`index.smd`*** 
+```ziggy
+---
+.title = "Homepage",
+.date = @date("2020-07-06T00:00:00"),
+.author = "Sample Author",
+.layout = "home.shtml",
+.draft = false,
+--- 
+Your **SuperMD** content goes here.
+```
+
+Some fields, like `title`, and `layout` are mandatory, while others have default values. You can find a complete list of  
+[frontmatter fields]($link.page('docs/supermd/').ref('frontmatter')) 
+in the SuperMD documentation page.
+
+A very important required field is `layout`. This field must point at the layout
+that you want to use to style your content. In Zine this field must always be
+explicitly filled out and there is no implicit naming convention (like in Hugo,
+for example).
+
+## The Layouts Directory
+Layouts are used to style your content files. 
+
+Here's a schema that shows the processing pipeline. Square brackets indicate an artifact, while round parens indicate a tool orchestrated by Zine.
+```
+[content/foo.smd]
+  => (supermd-renderer)
+    => [foo.smd.html]
+      => (layout-engine) + [layouts/page.shtml]
+        => [foo/index.html]
+```
+
+Later in this document we'll see how layouts work more in detail.
+
+## The Assets Directory
+This directory collects various assets (images, css files, etc) necessary to
+build the website. Note that unlike other mainstream static site generators,
+Zine doesn't have a "static" asset folder as all assets are managed explicitly
+through Zine's [Asset System]($link.page('docs/assets')).
+
+Later you will learn how to reference assets in this directory.
+
+## CLI
+#### `$ zig build`
+Builds your website and places it in `zig-out`. Pass `-p some/path/` to change the output directory.
+
+Use `zig build --help` for more information about flags supported by `zig build`.
+
+#### `$ zig build serve`
+Builds your website and starts the development server. Making changes to any of your input directories (ie content, layouts, static) will automatically trigger a rebuild and a page reload.
+
+Zine will default to using port `1990`, pass **`-Dport=8080`** to set the listening port to 8080, or any value you'd like.
+
+## First Steps
+
+Here's a basic example where we create the homepage of our sample website. 
+
+***`shell`***
+```
+touch content/index.smd
+touch layouts/home.shtml
+```
+
+***`content/index.smd`*** 
+```ziggy
+---
+.title = "Home",
+.date = @date("2020-07-06T00:00:00"),
+.author = "Sample Author",
+.layout = "homepage.shtml",
+.draft = false,
+--- 
+Hello World!
+```
+
+***`layouts/home.shtml`***
+```superhtml
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title :text="$site.title"></title>
+  </head>
+  <body>
+    <h1 :text="$page.title"></h1>
+    <div :html="$page.content()"></div>
+  </body>
+</html>
+```
+
+
+***`zig-out/index.shtml (output)`*** 
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Sample Site</title>
+  </head>
+  <body>
+    <h1>Home</h1>
+    <div><p>Hello World!</p></div>
+  </body>
+</html>
+```
+
+In this example we just saw:
+- `index.smd` defines that its layout is `home.shtml`
+- `home.shtml` defines some HTML and uses 
+   [special attributes]($link.page('docs/superhtml').ref('attributes')) 
+   to pull in the contents of `index.smd` 
+- the final output is going to be the homepage of our website 
+
+If you run the dev server now (`zig build serve`), you should see the output page at `https://localhost:1990/`.
+
+### Adding more pages
+
+Let's imagine now that we want to add a blog section to our website with a first post in it.
+
+***`shell`***
+```bash
+mkdir content/blog
+touch content/blog/first-post.smd
+touch layouts/post.shtml
+```
+
+***`content/blog/first-post.smd`*** 
+```ziggy
+---
+.title = "First Post!",
+.date = @date("2020-07-06T00:00:00"),
+.author = "Sample Author",
+.layout = "post.shtml",
+.draft = false,
+--- 
+This is my first post!
+```
+
+***`layouts/post.shtml`***
+```superhtml
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title :text="$site.title"></title>
+  </head>
+  <body>
+    <h1>Blog</h1>
+    <h2 :text="$page.title"></h2>
+    <h3>by <span :text="$page.author"></span></h3>
+    <h4>
+      Posted on: 
+      <span 
+        :text="$page.date.format('January 02, 2006')"
+      ></span>
+    </h4>
+    <div :html="$page.content"></div>
+  </body>
+</html>
+```
+
+At this point you should be able to navigate to
+`http://localhost:1990/blog/first-post/` and see the result.
+
+Note how we needed a new layout (`post.shtml`) since the blog post is not
+going to have the same structure at the homepage.
+
+While the structure is indeed different, both `post.shtml` and `home.shtml`
+share a lot of common boilerplate that can be collected into a single template by leveraging SuperHTML template extension features.
+
+You now know enough about Zine to read the remaining documentation pages.
+
+
+## Next Steps
+
+Start with [Scripty Basics]($link.page('docs/scripty')) to learn how expression syntax works, then circle back to [the top of this page](#) to read the other documentation pages.
+
+
+

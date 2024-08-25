@@ -1,5 +1,5 @@
 <extend template="base.shtml">
-<title id="title" var="$page.title"></title>
+<title id="title" :text="$page.title"></title>
 <head id="head">
   <style>
     #page h2,
@@ -84,6 +84,6 @@
     Zine is alpha software.<br>Using Zine today means participating in its development.
   </div>
   <div class="get-started"><a href="/quickstart/">Get Started</a></div>
-  <div id="page" var="$page.content"></div>
+  <div id="page" :html="$page.content()"></div>
   <div class="get-started"><a href="/quickstart/">Get Started</a></div>
 </div>

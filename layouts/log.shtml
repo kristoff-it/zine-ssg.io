@@ -1,0 +1,67 @@
+
+<extend template="base.shtml">
+<title id="title" :text="$page.title"></title>
+<head id="head"></head>
+<div id="content">
+  <style>
+    h3.overtitle {
+       margin-bottom: 0;
+     }
+     h1.title {
+       margin-top: 0;
+     }
+
+		#page h2, #page h3 {
+			text-align: left;
+		}
+
+		#page h2 {
+			font-size: 1.7rem;
+			border-bottom: 1px dashed #aaa;
+			margin-top: 2em;
+		}
+
+		#page h3 {
+			font-size: 1.5rem;
+		}
+    
+		#page h4 {
+			font-size: 1rem;
+		}
+
+	pre {
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	}
+	pre:has(.superhtml) {
+	  overflow: hidden;
+	  text-overflow: unset;
+	  overflow-x: auto;
+	}
+	pre:has(.sh) {
+	  color: #111;
+	  background-color: #ccc;
+	  padding: 5px 10px;
+	  text-align: center;
+	}
+  </style>
+  <h3 class="overtitle centered">Zine</h3>
+  <h1 class="title" :text="$page.title"></h1>
+  <div id="page" :html="$page.content()"></div>
+  <script>
+    window.onload = function() {
+		document.querySelectorAll("#page > h3").forEach(function (h) {
+
+            let btn = document.createElement("button");
+			btn.innerText = "copy";
+            h.insertAdjacentElement('afterend', btn);
+		
+			btn.addEventListener("click", function () {
+				navigator.clipboard.writeText(
+					btn.nextElementSibling.textContent
+				);
+			});
+		});
+	}
+  </script>
+</div>

@@ -4,7 +4,7 @@
     .date = @date("2020-07-06T00:00:00"),
     .author = "Sample Author",
     .draft = false,
-    .layout = "page.shtml",
+    .layout = "log.shtml",
     .tags = [],
 } 
 --- 
@@ -14,36 +14,8 @@ This is a non-exhaustive, curated list of changes meant to help users quickly se
 Refer to [the repository](https://github.com/kristoff-it/zine) and the [issue tracker](https://github.com/kristoff-it/zine/issues) for more in-depth information.
 
 ## Changes
-<style>
-pre {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-pre:has(.superhtml) {
-  overflow: hidden;
-  text-overflow: unset;
-  overflow-x: auto;
-}
-pre:has(.sh) {
-  color: #111;
-  background-color: #ccc;
-  padding-left: 10px;
-  text-align: center;
-}
-</style>
-<script>
-window.onload = function() {
-  document.querySelectorAll("button").forEach(function (b) {b.addEventListener("click", function () {
-      navigator.clipboard.writeText(b.parentElement.nextElementSibling.textContent);
-    });
-  });
-}
-</script>
-
 
 ### 2024-08-03
-
-<button>copy</button>
 ```sh
 zig fetch --save "git+https://github.com/kristoff-it/zine#v0.3.0"
 ```
@@ -62,7 +34,6 @@ zig fetch --save "git+https://github.com/kristoff-it/zine#v0.3.0"
 
 ### 2024-07-27 
 
-<button>copy</button>
 ```sh
 zig fetch --save "git+https://github.com/kristoff-it/zine#v0.2.0"
 ```
@@ -84,7 +55,6 @@ zig fetch --save "git+https://github.com/kristoff-it/zine#v0.2.0"
 
 ### 2024-07-26 
 
-<button>copy</button>
 ```sh
 zig fetch --save "git+https://github.com/kristoff-it/zine#v0.1.3"
 ```
@@ -111,7 +81,6 @@ zig fetch --save "git+https://github.com/kristoff-it/zine#v0.1.3"
 
 ### 2024-07-25 
 
-<button>copy</button>
 ```sh
 zig fetch --save "git+https://github.com/kristoff-it/zine#v0.1.0"
 ```
@@ -153,7 +122,6 @@ That's mostly it. If you encounter bugs while updating, please don't hesitate to
 
 ### 2024-03-26 
 
-<button>copy</button>
 ```zig
 .url = "git+https://github.com/kristoff-it/zine#e33a1d79b09e8532db60347a7ec4bd3413888977",
 .hash = "12209f9be74fcc805c0f086e4a81ccca041354448f5b3592e04b6a6d1b4a95da5a26",
@@ -174,7 +142,6 @@ That's mostly it. If you encounter bugs while updating, please don't hesitate to
       - `get?(key)` returns null if the value is missing, to be used in conjunction with `if` attributes.       
 ### 2024-03-21 
 
-<button>copy</button>
 ```zig
 .url = "git+https://github.com/kristoff-it/zine#ecc72eb042af07f5b4690a35a7ca1dd9c6fd5b61",
 .hash = "1220610a18236cd32936502bd7e762743e89ef70408638675420e453be41f1e83de4",
@@ -189,7 +156,6 @@ That's mostly it. If you encounter bugs while updating, please don't hesitate to
 
 ### 2024-03-20 
 
-<button>copy</button>
 ```zig
 .url = "git+https://github.com/kristoff-it/zine#d06884ec657abe87ab4f408b5dc3f336a6dcea9b",
 .hash = "1220d3bc95a5343918d69d3478f27ebb4abe14613c159737af64cd2185151efd2fa1",
@@ -203,7 +169,6 @@ That's mostly it. If you encounter bugs while updating, please don't hesitate to
 
 ### 2024-03-08 
 
-<button>copy</button>
 ```zig
 .url = "git+https://github.com/kristoff-it/zine.git#4b3efd178cb6ee9af3c864fa980ad0499823aac6",
 .hash = "1220f6920dbb9540cc9013bbaa1621d62ef79aabadcbb6f7b9f45e415de815d15404",
@@ -218,7 +183,6 @@ That's mostly it. If you encounter bugs while updating, please don't hesitate to
 
 ### 2024-02-11 
 
-<button>copy</button>
 ```zig
 .url = "git+https://github.com/kristoff-it/zine.git#beb5434a04fad660ecf8db8379532dfe5b5e13b0",
 .hash = "12203c37cb5fb3931d3b7d1f1dace46cf5329ffe2fb5a8d2ac87dc78630ce7f601a7",
@@ -229,7 +193,6 @@ That's mostly it. If you encounter bugs while updating, please don't hesitate to
 
 ### 2024-02-09 (later in the day)
 
-<button>copy</button>
 ```zig
 .url = "git+https://github.com/kristoff-it/zine.git#da7c32c2c253f6b0dbd392006055598feb07410b",
 .hash = "1220e6580fdbd0a56a97300bab938f61fe3b5b35fc7755a150db267422cf554ab299",
@@ -239,7 +202,6 @@ That's mostly it. If you encounter bugs while updating, please don't hesitate to
 
 ### 2024-02-09 
 
-<button>copy</button>
 ```zig
 .url = "git+https://github.com/kristoff-it/zine.git#527762348ef104dce601f52bca9f958a511ff11b",
 .hash = "122018fb2b0ba1479ae28bacf3839d38da69044b006068fd67b1b7f4425114bec8d1",
@@ -249,7 +211,6 @@ That's mostly it. If you encounter bugs while updating, please don't hesitate to
 
 ### 2024-02-08
 
-<button>copy</button>
 ```zig
 .url = "git+https://github.com/kristoff-it/zine.git#eaa23f2d3a80868251302a1b979dbcc7e5b81d3a",
 .hash = "1220230f7c6abf655ef9b1ec14161bd1c15e55afd14ceaedfe2e0e9cc2471b1dd0ca",

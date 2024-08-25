@@ -7,12 +7,9 @@
 .tags = [],
 --- 
 
-## Warning
-Zine is currently alpha software and many features are missing or not complete yet.
-
-**It's recommended to try Zine on a small project first to get a feeling of the limits of the current implementation.**
-
-If Zine turns out to not be ready yet for your needs, check the [Changelog](/log/) from time to time to learn of new improvements.
+>[Warning]($box.attrs('warning'))
+>Zine is currently alpha software and many features are missing or not 
+>complete yet.
 
 
 ## 1. Get Zig
@@ -47,13 +44,12 @@ This step is optional but **strongly** recommended.
 ### Language Server
 Get [SuperHTML](https://github.com/kristoff-it/superhtml) and configure your editor to use it for diagnostics and format-on-save.
 
-![](superhtml.png)
+[]($image.siteAsset('superhtml.png').attrs("big"))
 
-SuperHTML also implements pretty sweet autoformatting (see the repo's README for more info):
+SuperHTML also implements pretty sweet autoformatting (see the repo's README for more info).
 
-<video controls autoplay loop disablepictureinpicture muted width=100%>
- <source src="/vscode-autoformatting.mp4">
-</video>
+[]($video.siteAsset('vscode-autoformatting.mp4').attrs("big").loop(true).controls(true).muted(true).pip(false).autoplay(true))
+
 
 #### VSCode
 Get the [SuperHTML VSCode Extension](https://marketplace.visualstudio.com/items?itemName=LorisCro.super) (until [#8](https://github.com/kristoff-it/superhtml/issues/8) is implemented you will also need to download the SuperHTML CLI tool).

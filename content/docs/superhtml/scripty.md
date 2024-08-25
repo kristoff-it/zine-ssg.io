@@ -1,0 +1,979 @@
+---
+.title = "SuperHTML Scripty Reference",
+.description = "",
+.author = "Loris Cro",
+.layout = "scripty-reference.shtml",
+.date = @date("2023-06-16T00:00:00"),
+.draft = false,
+---
+# [Global Scope]($block.id('global'))
+
+## `$site` : [Site]($link.ref("Site"))
+
+The current website. In a multilingual website,
+each locale will have its own separate instance of $site
+
+## `$page` : [Page]($link.ref("Page"))
+
+The page being currently rendered.
+
+## `$build` : [Build]($link.ref("Build"))
+
+Gives you access to build-time assets (i.e. assets built
+ via the Zig build system) alongside other information
+relative to the current build.
+
+## `$i18n` : [Map]($link.ref("Map"))
+
+In a multilingual website it contains the translations 
+defined in the corresponding i18n file.
+
+See the i18n docs for more info.
+
+## `$ctx` : [Ctx]($link.ref("Ctx"))
+
+A key-value mapping that contains data defined in `<ctx>`
+nodes.
+
+## `$loop` : ?[Iterator]($link.ref("Iterator"))
+
+The current iterator, only available within elements
+that have a `loop` attribute.
+
+## `$if` : ?[any]($link.ref("any"))
+
+The current branching variable, only available within elements
+that have an `if` attribute used to unwrap an optional value.
+
+# [Site]($block.id('Site'))
+
+The global site configuration. The fields come from the call to 
+`website` in your `build.zig`.
+ 
+ Gives you also access to assets and static assets from the directories 
+ defined in your site configuration.
+
+## Fields
+
+### `host_url` : [String]($link.ref("String"))
+
+The host URL, as defined in your `build.zig`.
+
+### `title` : [String]($link.ref("String"))
+
+The website title, as defined in your `build.zig`.
+
+## Functions
+
+### []($heading.id("Site.localeCode")) [`fn`]($link.ref("Site.localeCode")) localeCode () -> [String]($link.ref("String"))
+
+In a multilingual website, returns the locale of the current 
+variant as defined in your `build.zig` file. 
+
+#### Examples
+
+```superhtml
+<html lang="$site.localeCode()"></html>
+```
+### []($heading.id("Site.localeName")) [`fn`]($link.ref("Site.localeName")) localeName () -> [String]($link.ref("String"))
+
+In a multilingual website, returns the locale name of the current 
+variant as defined in your `build.zig` file. 
+
+#### Examples
+
+```superhtml
+<span text="$site.localeName()"></span>
+```
+### []($heading.id("Site.link")) [`fn`]($link.ref("Site.link")) link () -> [String]($link.ref("String"))
+
+Returns a link to the homepage of the website.
+
+Correctly links to a subpath when correct to do so in a  
+multilingual website.
+
+#### Examples
+
+```superhtml
+<a href="$site.link()" text="$site.title"></a>
+```
+### []($heading.id("Site.asset")) [`fn`]($link.ref("Site.asset")) asset ([String]($link.ref("String"))) -> [Asset]($link.ref("Asset"))
+
+Retuns an asset by name from inside the assets directory.
+
+#### Examples
+
+```superhtml
+<img src="$site.asset('foo.png').link()">
+```
+### []($heading.id("Site.page")) [`fn`]($link.ref("Site.page")) page ([String]($link.ref("String"))) -> [Page]($link.ref("Page"))
+
+Finds a page by path.
+
+Paths are relative to the content directory and should exclude
+the markdown suffix as Zine will automatically infer which file
+naming convention is used by the target page. 
+
+For example, the value 'foo/bar' will be automatically
+matched by Zine with either:
+        - content/foo/bar.md
+        - content/foo/bar/index.md
+
+#### Examples
+
+```superhtml
+<a href="$site.page('downloads').link()">Downloads</a>
+```
+### []($heading.id("Site.pages")) [`fn`]($link.ref("Site.pages")) pages ([[String]($link.ref("String"))...]) -> [Page]($link.ref("Page"))
+
+Same as `page`, but accepts a variable number of page references and 
+loops over them in the provided order. All pages must exist.
+
+To be used in conjunction with a `loop` attribute.
+
+#### Examples
+
+```superhtml
+<ul loop="$site.pages('a', 'b', 'c')"><li text="$loop.it.title"></li></ul>
+```
+### []($heading.id("Site.locale")) [`fn`]($link.ref("Site.locale")) locale ([String]($link.ref("String"))) -> [Site]($link.ref("Site"))
+
+Returns the Site corresponding to the provided locale code.
+
+Only available in multilingual websites.
+
+#### Examples
+
+```superhtml
+<a href="$site.locale('en-US').link()">Murica</a>
+```
+# [Page]($block.id('Page'))
+
+The page currently being rendered.
+
+## Fields
+
+### `title` : [String]($link.ref("String"))
+
+Title of the page, 
+as set in the SuperMD frontmatter.
+
+### `description` : [String]($link.ref("String"))
+
+Description of the page, 
+as set in the SuperMD frontmatter.
+
+### `author` : [String]($link.ref("String"))
+
+Author of the page, 
+as set in the SuperMD frontmatter.
+
+### `date` : [Date]($link.ref("Date"))
+
+Publication date of the page, 
+as set in the SuperMD frontmatter.
+
+Used to provide default ordering of pages.
+
+### `layout` : [String]($link.ref("String"))
+
+SuperHTML layout used to render the page, 
+as set in the SuperMD frontmatter.
+
+### `draft` : [Bool]($link.ref("Bool"))
+
+When set to true the page will not be rendered in release mode, 
+as set in the SuperMD frontmatter.
+
+### `tags` : [[String]($link.ref("String"))]
+
+Tags associated with the page, 
+as set in the SuperMD frontmatter.
+
+### `aliases` : [[String]($link.ref("String"))]
+
+Aliases of the current page, 
+as set in the SuperMD frontmatter.
+
+Aliases can be used to make the same page available
+from different locations.
+
+Every entry in the list is an output location where the 
+rendered page will be copied to.
+
+### `alternatives` : [[Alternative]($link.ref("Alternative"))]
+
+Alternative versions of the page, 
+as set in the SuperMD frontmatter.
+
+Alternatives are a good way of implementing RSS feeds, for example.
+
+### `skip_subdirs` : [Bool]($link.ref("Bool"))
+
+Skips any other potential content present in the subdir of the page, 
+as set in the SuperMD frontmatter.
+
+Can only be set to true on section pages (i.e. `index.md` pages).
+
+### `translation_key` : ?[String]($link.ref("String"))
+
+Translation key used to map this page with corresponding localized variants, 
+as set in the SuperMD frontmatter.
+
+See the docs on i18n for more info.
+
+### `custom` : [any]($link.ref("any"))
+
+A Ziggy map where you can define custom properties for the page, 
+as set in the SuperMD frontmatter.
+
+## Functions
+
+### []($heading.id("Page.isCurrent")) [`fn`]($link.ref("Page.isCurrent")) isCurrent () -> [Bool]($link.ref("Bool"))
+
+Returns true if the target page is the one currently being 
+rendered. 
+
+To be used in conjunction with the various functions that give 
+you references to other pages, like `$site.page()`, for example.
+
+#### Examples
+
+```superhtml
+<div class="$site.page('foo').isCurrent().then('selected')"></div>
+```
+### []($heading.id("Page.asset")) [`fn`]($link.ref("Page.asset")) asset ([String]($link.ref("String"))) -> [Asset]($link.ref("Asset"))
+
+Retuns an asset by name from inside the page's asset directory.
+
+Assets for a non-section page must be placed under a subdirectory 
+that shares the same name with the corresponding markdown file.
+
+(as a reminder sections are defined by pages named `index.md`)
+
+| section? |      page path      | asset directory |
+|----------|---------------------|-----------------|
+|   yes    |  blog/foo/index.md  |    blog/foo/    |
+|   no     |  blog/bar.md        |    blog/bar/    |
+
+#### Examples
+
+```superhtml
+<img src="$page.asset('foo.png').link(false)">
+```
+### []($heading.id("Page.site")) [`fn`]($link.ref("Page.site")) site () -> [Site]($link.ref("Site"))
+
+Returns the Site that the page belongs to.
+
+#### Examples
+
+```superhtml
+<div text="$page.site().localeName()"></div>
+```
+### []($heading.id("Page.locale")) [`fn`]($link.ref("Page.locale")) locale ([String]($link.ref("String"))) -> ?[Page]($link.ref("Page"))
+
+Returns a reference to a localized variant of the target page.
+
+
+#### Examples
+
+```superhtml
+<div text="$page.locale('en-US').title"></div>
+```
+### []($heading.id("Page.locale?")) [`fn`]($link.ref("Page.locale?")) locale? ([String]($link.ref("String"))) -> ?[Page]($link.ref("Page"))
+
+Returns a reference to a localized variant of the target page, if
+present. Returns null otherwise.
+
+To be used in conjunction with an `if` attribute.
+
+#### Examples
+
+```superhtml
+<div if="$page.locale?('en-US')"><a href="$if.link()" text="$if.title"></a></div>
+```
+### []($heading.id("Page.locales")) [`fn`]($link.ref("Page.locales")) locales () -> [[Page]($link.ref("Page"))]
+
+Returns the list of localized variants of the current page.
+
+#### Examples
+
+```superhtml
+<div loop="$page.locales()"><a href="$loop.it.link()" text="$loop.it.title"></a></div>
+```
+### []($heading.id("Page.wordCount")) [`fn`]($link.ref("Page.wordCount")) wordCount () -> [Int]($link.ref("Int"))
+
+Returns the word count of the page.
+
+The count is performed assuming 5-letter words, so it actually
+counts all characters and divides the result by 5.
+
+#### Examples
+
+```superhtml
+<div loop="$page.wordCount()"></div>
+```
+### []($heading.id("Page.isSection")) [`fn`]($link.ref("Page.isSection")) isSection () -> [Bool]($link.ref("Bool"))
+
+Returns true if the current page defines a section (i.e. if 
+the current page is an 'index.md' page).
+
+
+#### Examples
+
+```superhtml
+$page.isSection()
+```
+### []($heading.id("Page.subpages")) [`fn`]($link.ref("Page.subpages")) subpages () -> [[Page]($link.ref("Page"))]
+
+Returns a list of all the pages in this section. If the page is 
+not a section, returns an empty list.
+
+Sections are defined by `index.md` files, see the content 
+structure section in the official docs for more info.
+
+#### Examples
+
+```superhtml
+<div loop="$page.subpages()">
+  <span text="$loop.it.title"></span>
+</div>
+```
+### []($heading.id("Page.nextPage")) [`fn`]($link.ref("Page.nextPage")) nextPage () -> ?[Page]($link.ref("Page"))
+
+Returns the next page in the same section, sorted by date. 
+
+The returned value is an optional to be used in conjunction 
+with an `if` attribute. Use `$if` to access the unpacked value
+within the `if` block.
+
+#### Examples
+
+```superhtml
+<div if="$page.nextPage()">
+  <span text="$if.title"></span>
+</div>
+```
+### []($heading.id("Page.prevPage")) [`fn`]($link.ref("Page.prevPage")) prevPage () -> ?[Page]($link.ref("Page"))
+
+Tries to return the page before the target one (sorted by date), to be used with an `if` attribute.
+
+#### Examples
+
+```superhtml
+<div if="$page.prevPage()"></div>
+```
+### []($heading.id("Page.hasNext")) [`fn`]($link.ref("Page.hasNext")) hasNext () -> [Bool]($link.ref("Bool"))
+
+Returns true of the target page has another page after (sorted by date) 
+
+#### Examples
+
+```superhtml
+$page.hasNext()
+```
+### []($heading.id("Page.hasPrev")) [`fn`]($link.ref("Page.hasPrev")) hasPrev () -> [Bool]($link.ref("Bool"))
+
+Returns true of the target page has another page before (sorted by date) 
+
+#### Examples
+
+```superhtml
+$page.hasPrev()
+```
+### []($heading.id("Page.link")) [`fn`]($link.ref("Page.link")) link () -> [String]($link.ref("String"))
+
+Returns the URL of the target page.
+
+#### Examples
+
+```superhtml
+$page.link()
+```
+### []($heading.id("Page.permalink")) [`fn`]($link.ref("Page.permalink")) permalink () -> [String]($link.ref("String"))
+
+Deprecated, use `link()`
+
+#### Examples
+
+```superhtml
+
+```
+### []($heading.id("Page.content")) [`fn`]($link.ref("Page.content")) content () -> [String]($link.ref("String"))
+
+Renders the full Markdown page to HTML
+
+#### Examples
+
+```superhtml
+
+```
+### []($heading.id("Page.block")) [`fn`]($link.ref("Page.block")) block ([String]($link.ref("String"))) -> [String]($link.ref("String"))
+
+Renders the specified content block of a page.
+
+Example:
+ `# [Title]($block.id('section-id'))`
+
+#### Examples
+
+```superhtml
+<div html="$page.block('section-id')"></div>
+<div html="$page.block('other-section')"></div>
+```
+### []($heading.id("Page.toc")) [`fn`]($link.ref("Page.toc")) toc () -> [String]($link.ref("String"))
+
+Renders the table of content.
+
+#### Examples
+
+```superhtml
+<div html="$page.toc()"></div>
+```
+# [Ctx]($block.id('Ctx'))
+
+A special map that contains all the attributes
+ defined on `<ctx>` in the current scope.
+
+You can access the available fields using dot notation.
+
+Example:
+```superhtml
+<div>
+  <ctx foo="(scripty expr)" bar="(scripty expr)"> 
+    <span :text="$ctx.foo"></span>
+    <span :text="$ctx.bar"></span>
+  </ctx>
+</div>
+```
+
+# [Alternative]($block.id('Alternative'))
+
+An alternative version of the current page. Title and type
+can be used when generating `<link rel="alternate">` elements.
+
+## Fields
+
+### `name` : [String]($link.ref("String"))
+
+A name that can be used to fetch this alternative version
+of the page.
+
+### `layout` : [String]($link.ref("String"))
+
+The SuperHTML layout to use to generate this alternative version of the page.
+
+### `output` : [String]($link.ref("String"))
+
+Output path where to to put the generated alternative.
+
+### `type` : [String]($link.ref("String"))
+
+A metadata field that can be used to set the content-type of this alternative version of the Page. 
+
+Useful for example to generate RSS links:
+
+```superhtml
+<ctx alt="$page.alternative('rss')"
+  <a href="$ctx.alt.link()" 
+     type="$ctx.alt.type" 
+     text="$ctx.alt.name"
+  ></a>
+</ctx>
+```
+
+# [Build]($block.id('Build'))
+
+Gives you access to build-time assets and other build related info.
+When inside of a git repository it also gives git-related metadata.
+
+## Functions
+
+### []($heading.id("Build.asset")) [`fn`]($link.ref("Build.asset")) asset ([String]($link.ref("String"))) -> [Asset]($link.ref("Asset"))
+
+Retuns a build-time asset (i.e. an asset generated through your 'build.zig' file) by name.
+
+#### Examples
+
+```superhtml
+<div text="$build.asset('foo').bytes()"></div>
+```
+# [Asset]($block.id('Asset'))
+
+Represents an asset.
+
+## Functions
+
+### []($heading.id("Asset.link")) [`fn`]($link.ref("Asset.link")) link () -> [String]($link.ref("String"))
+
+Returns a link to the asset.
+
+Calling `link` on an asset will cause it to be installed 
+under the same relative path into the output directory.
+
+    `content/post/bar.jpg` -> `zig-out/post/bar.jpg`
+  `assets/foo/bar/baz.jpg` -> `zig-out/foo/bar/baz.jpg`
+
+Build assets will be installed under the path defined in 
+your `build.zig`.
+
+#### Examples
+
+```superhtml
+<img src="$site.asset('logo.jpg').link()">
+<img src="$page.asset('profile.jpg').link()">
+```
+### []($heading.id("Asset.size")) [`fn`]($link.ref("Asset.size")) size () -> [String]($link.ref("String"))
+
+Returns the size of an asset file in bytes.
+
+#### Examples
+
+```superhtml
+<div text="$site.asset('foo.json').size()"></div>
+```
+### []($heading.id("Asset.bytes")) [`fn`]($link.ref("Asset.bytes")) bytes () -> [String]($link.ref("String"))
+
+Returns the raw contents of an asset.
+
+#### Examples
+
+```superhtml
+<div text="$page.assets.file('foo.json').bytes()"></div>
+```
+### []($heading.id("Asset.ziggy")) [`fn`]($link.ref("Asset.ziggy")) ziggy () -> [any]($link.ref("any"))
+
+Tries to parse the asset as a Ziggy document.
+
+#### Examples
+
+```superhtml
+<div text="$page.assets.file('foo.ziggy').ziggy().get('bar')"></div>
+```
+# [Map]($block.id('Map'))
+
+A map that can hold any value, used to represent the `custom` field 
+in Page frontmatters or Ziggy / JSON data loaded from assets.
+
+## Functions
+
+### []($heading.id("Map.getOr")) [`fn`]($link.ref("Map.getOr")) getOr ([String]($link.ref("String")), [String]($link.ref("String"))) -> [String]($link.ref("String"))
+
+Tries to get a value from a map, returns the second value on failure.
+
+
+#### Examples
+
+```superhtml
+$page.custom.getOr('coauthor', 'Loris Cro')
+```
+### []($heading.id("Map.get")) [`fn`]($link.ref("Map.get")) get ([String]($link.ref("String"))) -> [any]($link.ref("any"))
+
+Tries to get a value from a map, errors out if the value is not present.
+
+
+#### Examples
+
+```superhtml
+$page.custom.get('coauthor')
+```
+### []($heading.id("Map.get?")) [`fn`]($link.ref("Map.get?")) get? ([String]($link.ref("String"))) -> ?[any]($link.ref("any"))
+
+Tries to get a dynamic value, to be used in conjuction with an `if` attribute.
+
+
+#### Examples
+
+```superhtml
+<div if="$page.custom.get?('myValue')">
+  <span text="$if"></span>
+</div>
+```
+### []($heading.id("Map.has")) [`fn`]($link.ref("Map.has")) has ([String]($link.ref("String"))) -> [Bool]($link.ref("Bool"))
+
+Returns true if the map contains the provided key.
+
+
+#### Examples
+
+```superhtml
+<div if="$page.custom.has('myValue')">Yep!</div>
+```
+### []($heading.id("Map.iterate")) [`fn`]($link.ref("Map.iterate")) iterate (?[String]($link.ref("String"))) -> [[KV]($link.ref("KV"))]
+
+Iterates over key-value pairs of a Ziggy map.
+
+You can optionally pass a string that will be used to filter key names.
+
+#### Examples
+
+```superhtml
+$page.custom.iterate()
+```
+# [?any]($block.id('any'))
+
+An optional value, to be used in conjunction with `if` attributes.
+
+# [String]($block.id('String'))
+
+A string.
+
+## Functions
+
+### []($heading.id("String.len")) [`fn`]($link.ref("String.len")) len () -> [Int]($link.ref("Int"))
+
+Returns the length of a string.
+
+
+#### Examples
+
+```superhtml
+$page.title.len()
+```
+### []($heading.id("String.contains")) [`fn`]($link.ref("String.contains")) contains ([String]($link.ref("String"))) -> [Bool]($link.ref("Bool"))
+
+Returns true if the receiver contains the provided string.
+
+
+#### Examples
+
+```superhtml
+$page.permalink().contains("/blog/")
+```
+### []($heading.id("String.endsWith")) [`fn`]($link.ref("String.endsWith")) endsWith ([String]($link.ref("String"))) -> [Bool]($link.ref("Bool"))
+
+Returns true if the receiver ends with the provided string.
+
+
+#### Examples
+
+```superhtml
+$page.permalink().endsWith("/blog/")
+```
+### []($heading.id("String.eql")) [`fn`]($link.ref("String.eql")) eql ([String]($link.ref("String"))) -> [Bool]($link.ref("Bool"))
+
+Returns true if the receiver equals the provided string.
+
+
+#### Examples
+
+```superhtml
+$page.author.eql("Loris Cro")
+```
+### []($heading.id("String.basename")) [`fn`]($link.ref("String.basename")) basename () -> [String]($link.ref("String"))
+
+Returns the last component of a path.
+
+#### Examples
+
+```superhtml
+TODO
+```
+### []($heading.id("String.suffix")) [`fn`]($link.ref("String.suffix")) suffix ([String]($link.ref("String")), [[String]($link.ref("String"))...]) -> [String]($link.ref("String"))
+
+Concatenates strings together (left-to-right).
+
+
+#### Examples
+
+```superhtml
+$page.title.suffix("Foo","Bar", "Baz")
+```
+### []($heading.id("String.fmt")) [`fn`]($link.ref("String.fmt")) fmt ([String]($link.ref("String")), [[String]($link.ref("String"))...]) -> [String]($link.ref("String"))
+
+Looks for '{}' placeholders in the receiver string and 
+replaces them with the provided arguments.
+
+
+#### Examples
+
+```superhtml
+$i18n.get!("welcome-message").fmt($page.custom.get!("name"))
+```
+### []($heading.id("String.addPath")) [`fn`]($link.ref("String.addPath")) addPath ([String]($link.ref("String")), [[String]($link.ref("String"))...]) -> [String]($link.ref("String"))
+
+Joins URL path segments automatically adding `/` as needed. 
+
+#### Examples
+
+```superhtml
+$site.host_url.addPath("rss.xml")
+$site.host_url.addPath("foo/bar", "/baz")
+```
+### []($heading.id("String.syntaxHighlight")) [`fn`]($link.ref("String.syntaxHighlight")) syntaxHighlight ([String]($link.ref("String"))) -> [String]($link.ref("String"))
+
+Applies syntax highlighting to a string.
+The argument specifies the language name.
+
+
+#### Examples
+
+```superhtml
+<pre>
+  <code class="ziggy" 
+        html="$page.custom.get('sample').syntaxHighLight('ziggy')"
+  ></code>
+</pre>
+```
+### []($heading.id("String.parseInt")) [`fn`]($link.ref("String.parseInt")) parseInt () -> [Int]($link.ref("Int"))
+
+Parses an integer out of a string
+
+
+#### Examples
+
+```superhtml
+$page.custom.get!('not-a-num-for-some-reason').parseInt()
+```
+### []($heading.id("String.splitN")) [`fn`]($link.ref("String.splitN")) splitN ([String]($link.ref("String")), [Int]($link.ref("Int"))) -> [String]($link.ref("String"))
+
+Splits the string using the first string argument as delimiter and then
+returns the Nth substring (where N is the second argument).
+
+Indices start from 0.
+
+
+#### Examples
+
+```superhtml
+$page.author.splitN(" ", 1)
+```
+### []($heading.id("String.lower")) [`fn`]($link.ref("String.lower")) lower () -> [String]($link.ref("String"))
+
+Returns a lowercase version of the target string.
+
+
+#### Examples
+
+```superhtml
+$page.title.lower()
+```
+# [Date]($block.id('Date'))
+
+A datetime.
+
+## Functions
+
+### []($heading.id("Date.gt")) [`fn`]($link.ref("Date.gt")) gt ([Date]($link.ref("Date"))) -> [Bool]($link.ref("Bool"))
+
+Return true if lhs is later than rhs (the argument).
+
+
+#### Examples
+
+```superhtml
+$page.date.gt($page.custom.expiry_date)
+```
+### []($heading.id("Date.lt")) [`fn`]($link.ref("Date.lt")) lt ([Date]($link.ref("Date"))) -> [Bool]($link.ref("Bool"))
+
+Return true if lhs is earlier than rhs (the argument).
+
+
+#### Examples
+
+```superhtml
+$page.date.lt($page.custom.expiry_date)
+```
+### []($heading.id("Date.eq")) [`fn`]($link.ref("Date.eq")) eq ([Date]($link.ref("Date"))) -> [Bool]($link.ref("Bool"))
+
+Return true if lhs is the same instant as the rhs (the argument).
+
+
+#### Examples
+
+```superhtml
+$page.date.eq($page.custom.expiry_date)
+```
+### []($heading.id("Date.format")) [`fn`]($link.ref("Date.format")) format ([String]($link.ref("String"))) -> [String]($link.ref("String"))
+
+Formats a datetime according to the specified format string.
+
+
+#### Examples
+
+```superhtml
+$page.date.format("January 02, 2006")
+$page.date.format("06-Jan-02")
+$page.date.format("2006/01/02")
+```
+### []($heading.id("Date.formatHTTP")) [`fn`]($link.ref("Date.formatHTTP")) formatHTTP () -> [String]($link.ref("String"))
+
+Formats a datetime according to the HTTP spec.
+
+
+#### Examples
+
+```superhtml
+$page.date.formatHTTP()
+```
+# [Bool]($block.id('Bool'))
+
+A boolean value
+
+## Functions
+
+### []($heading.id("Bool.then")) [`fn`]($link.ref("Bool.then")) then ([String]($link.ref("String")), ?[String]($link.ref("String"))) -> [String]($link.ref("String"))
+
+If the boolean is `true`, returns the first argument.
+Otherwise, returns the second argument.
+
+Omitting the second argument defaults to an empty string.
+
+
+#### Examples
+
+```superhtml
+$page.draft.then("<alert>DRAFT!</alert>")
+```
+### []($heading.id("Bool.not")) [`fn`]($link.ref("Bool.not")) not () -> [Bool]($link.ref("Bool"))
+
+Negates a boolean value.
+
+
+#### Examples
+
+```superhtml
+$page.draft.not()
+```
+### []($heading.id("Bool.and")) [`fn`]($link.ref("Bool.and")) and ([Bool]($link.ref("Bool")), [[Bool]($link.ref("Bool"))...]) -> [Bool]($link.ref("Bool"))
+
+Computes logical `and` between the receiver value and any other 
+value passed as argument.
+
+#### Examples
+
+```superhtml
+$page.draft.and($site.tags.len().eq(10))
+```
+### []($heading.id("Bool.or")) [`fn`]($link.ref("Bool.or")) or ([Bool]($link.ref("Bool")), [[Bool]($link.ref("Bool"))...]) -> [Bool]($link.ref("Bool"))
+
+Computes logical `or` between the receiver value and any other value passed as argument.
+
+
+#### Examples
+
+```superhtml
+$page.draft.or($site.tags.len().eq(0))
+```
+# [Int]($block.id('Int'))
+
+A signed 64-bit integer.
+
+## Functions
+
+### []($heading.id("Int.eq")) [`fn`]($link.ref("Int.eq")) eq ([Int]($link.ref("Int"))) -> [Bool]($link.ref("Bool"))
+
+Tests if two integers have the same value.
+
+
+#### Examples
+
+```superhtml
+$page.wordCount().eq(200)
+```
+### []($heading.id("Int.gt")) [`fn`]($link.ref("Int.gt")) gt ([Int]($link.ref("Int"))) -> [Bool]($link.ref("Bool"))
+
+Returns true if lhs is greater than rhs (the argument).
+
+
+#### Examples
+
+```superhtml
+$page.wordCount().gt(200)
+```
+### []($heading.id("Int.plus")) [`fn`]($link.ref("Int.plus")) plus ([Int]($link.ref("Int"))) -> [Int]($link.ref("Int"))
+
+Sums two integers.
+
+
+#### Examples
+
+```superhtml
+$page.wordCount().plus(10)
+```
+### []($heading.id("Int.div")) [`fn`]($link.ref("Int.div")) div ([Int]($link.ref("Int"))) -> [Int]($link.ref("Int"))
+
+Divides the receiver by the argument.
+
+
+#### Examples
+
+```superhtml
+$page.wordCount().div(10)
+```
+### []($heading.id("Int.byteSize")) [`fn`]($link.ref("Int.byteSize")) byteSize () -> [String]($link.ref("String"))
+
+Turns a raw number of bytes into a human readable string that
+appropriately uses Kilo, Mega, Giga, etc.
+
+
+#### Examples
+
+```superhtml
+$page.asset('photo.jpg').size().byteSize()
+```
+# [Float]($block.id('Float'))
+
+A 64bit float value.
+
+# [Iterator]($block.id('Iterator'))
+
+An iterator.
+
+## Fields
+
+### `it` : [any]($link.ref("any"))
+
+The current iteration variable.
+
+### `idx` : [Int]($link.ref("Int"))
+
+The current iteration index.
+
+### `first` : [Bool]($link.ref("Bool"))
+
+True on the first iteration loop.
+
+### `last` : [Bool]($link.ref("Bool"))
+
+True on the last iteration loop.
+
+### `len` : [Int]($link.ref("Int"))
+
+The length of the sequence being iterated.
+
+## Functions
+
+### []($heading.id("Iterator.up")) [`fn`]($link.ref("Iterator.up")) up () -> [Iterator]($link.ref("Iterator"))
+
+In nested loops, accesses the upper `$loop`
+
+
+#### Examples
+
+```superhtml
+$loop.up().it
+```
+# [KV]($block.id('KV'))
+
+A key-value pair.
+
+## Fields
+
+### `key` : [String]($link.ref("String"))
+
+The key string.
+
+### `value` : [any]($link.ref("any"))
+
+The corresponding value.
+
+# [err]($block.id('err'))
+
+A Scripty error.
+
+In Scripty all errors are unrecoverable.
+When available, you can use `?` variants 
+of functions (e.g. `get?`) to obtain a null
+value instead of an error. 
+

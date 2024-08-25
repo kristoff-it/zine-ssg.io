@@ -18,18 +18,16 @@ Zine is "low-code" by default, but once the needs of your project grow, then you
 
 ## A delightful HTML experience 
 Zine uses [SuperHTML](https://github.com/kristoff-it/superhtml), a templating language that extends HTML, instead of the usual `{{ curly brace }}` languages.
- 
+
 SuperHTML is also an HTML language server that gives you real-time feedback on
 syntax errors in your code.
 
-![](quickstart/superhtml.png)
+
+[]($image.siteAsset('superhtml.png').attrs("big"))
 
 SuperHTML also provides autoformatting (with the [SuperHTML VScode extension](https://marketplace.visualstudio.com/items?itemName=LorisCro.super)):
 
-<video controls autoplay loop disablepictureinpicture muted width=100%>
- <source src="/vscode-autoformatting.mp4">
-</video>
-<br><br>
+[]($video.siteAsset('vscode-autoformatting.mp4').attrs("big").loop(true).controls(true).muted(true).pip(false).autoplay(true))
 
 And even if you don't want to use the language server, HTML errors are build errors in Zine:
 

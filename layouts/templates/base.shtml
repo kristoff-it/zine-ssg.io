@@ -16,6 +16,7 @@
       <super>
       - Zine
     </title>
+    <link rel="stylesheet" type="text/css" href="$site.asset('fira_code.css').link()">
     <link rel="stylesheet" type="text/css" href="$site.asset('style.css').link()">
     <link rel="stylesheet" type="text/css" href="$site.asset('highlight.css').link()">
     <super>
@@ -24,13 +25,13 @@
     <nav id="menu" class="centered">
       <a href="/">Home</a>
       •
-      <a href="/quickstart/">Get Started</a>
+      <a href="$site.page('quickstart').link()">Get Started</a>
       •
-      <a href="/documentation/">Docs</a>
+      <a href="$site.page('docs').link()">Docs</a>
       •
-      <a href="/community/">Vision & Community</a>
+      <a href="$site.page('community').link()">Vision & Community</a>
       •
-      <a href="/log/">Changelog</a>
+      <a href="$site.page('log').link()">Changelog</a>
       •
       <a href="https://github.com/kristoff-it/zine" target="_blank">
         Code
