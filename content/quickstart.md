@@ -8,8 +8,8 @@
 --- 
 
 >[Warning]($box.attrs('warning'))
->Zine is currently alpha software and many features are missing or not 
->complete yet.
+>Zine is alpha software.  
+>Using Zine today means participating in its development.
 
 
 ## 1. Get Zig
@@ -62,7 +62,7 @@ SuperHTML template files have a `.shtml` extension. Since it's valid HTML, you c
 In the SuperHTML repository you will also find a tree-sitter grammar which can be used  by Vim, NeoVim, Helix, etc.
 
 ## Next Steps
-To learn more about Zine, [see the documentation section](/documentation/).
+To learn more about Zine, [see the documentation section]($link.page('docs')).
 
 See the [Vision & Community section](/community/) to join our community.
 

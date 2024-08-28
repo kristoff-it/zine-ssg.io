@@ -1,20 +1,50 @@
 ---
-{
-    .title = "Home",
-    .date = @date("2020-07-06T00:00:00"),
-    .author = "Loris Cro",
-    .draft = false,
-    .layout = "index.shtml",
-    .tags = [],
-}  
---- 
+.title = "Home",
+.date = @date("2020-07-06T00:00:00"),
+.author = "Loris Cro",
+.draft = false,
+.layout = "index.shtml",
+.tags = [],
+---
 
-# What is Zine?
-A Zine site is a collection of markdown files, HTML templates and static assets. Zine turns your markdown content into HTML, styles it using your templates, and finally copies the result alongside your static assets into an output directory that you can then publish on static hosting services like GitHub Pages.
+>[Warning]($box.attrs('warning'))
+>Zine is alpha software.  
+>Using Zine today means participating in its development.
 
-Zine is "low-code" by default, but once the needs of your project grow, then you will have the full power of the Zig build system at your disposal, allowing you to integrate any kind of pre-processing pipeline.
+## What is Zine?
+A Zine site is a collection of markdown content files and HTML templates.
+Zine turns your markdown content into HTML, styles it using your templates, and
+finally copies the result (alongside other assets like images) into an output directory
+that you can then publish on static hosting services like GitHub Pages.
 
-# Feature Highlights 
+Zine uses a **structured approach to content authoring** that helps keeping sizeable
+content collections manageable. Similarly, the build process uses **surgical
+dependency tracking** to ensure minimal rebuilds, keeping the authoring experience
+excellent at all scales.
+
+*Zine is pronounced like in [fan**zine**](https://en.wikipedia.org/wiki/Zine)*.
+    
+## A handcrafted authoring experience
+Zine uses [SuperMD]($link.page('docs/supermd')) for content and [SuperHTML]($link.page('docs/superhtml')) for defining layouts. Both languages were developed 
+alongside Zine and are **desinged to push forward the state of the art** when it
+comes to authoring static content.
+
+SuperMD is an extension of Markdown that allows you to **define embedded assets 
+and semantic constructs that would be impossible to express in Markdown** without
+using inline HTML.
+
+SuperHTML is an extension of HTML5 that focuses on expressing **correct templating
+logic**. With SuperHTML it's **impossible to generate malformed HTML** and most
+mistakes become **build time errors**. 
+
+[Learn more about file formats in Zine]($link.page('docs/scripty')).
+
+## Dynamic as needed
+Zine specializes in the generation of static content but integration with both dynamic frontend and backend technologies is straigthtforward.
+
+
+
+
 
 ## A delightful HTML experience 
 Zine uses [SuperHTML](https://github.com/kristoff-it/superhtml), a templating language that extends HTML, instead of the usual `{{ curly brace }}` languages.

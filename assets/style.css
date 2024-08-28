@@ -202,6 +202,28 @@ table th {
   background-color: #CCCC49;
 }
 
+.note {
+  border: 1px dashed #CCC;
+}
+
+.note p {
+  padding-top: 0;
+  font-size: 0.9em;
+  padding-left: 15px;
+}
+
+.note h1 {
+  font-size: 1.17em;
+  margin: 0;
+  text-align: left;
+  padding-left: 15px;
+  padding-top: 2px;
+  border: 1px solid #CCC;
+  color: #111;
+  background-color: #CCC;
+}
+
+
 li {
   padding: 1px 0;
 }

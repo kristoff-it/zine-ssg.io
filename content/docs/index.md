@@ -8,9 +8,8 @@
 --- 
 
 >[Warning]($box.attrs('warning'))
->Zine is currently alpha software and many features are missing or not 
->complete yet.
-
+>Zine is alpha software.  
+>Using Zine today means participating in its development.
 
 ## In this page
 This page will guide you through the first few motions of getting a Zine site started.

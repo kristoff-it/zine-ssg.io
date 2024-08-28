@@ -42,11 +42,8 @@
 		.tagline {
 			font-size: 1rem;
 			font-style: italic;
-		}
-
-		.note {
-			border-top: 1px solid white;
-			border-bottom: 1px solid white;
+			border-top: 1px solid #ccc;
+			border-bottom: 1px solid #ccc;
 			padding: 2px 5px;
 			text-align: center;
 		}
@@ -75,14 +72,10 @@
 </head>
 <div id="content">
   <h1 class="centered title">Zine</h1>
-  <h2 class="centered subtitle">Fast, Scalable and Flexible Static Site Generator</h2>
+  <h2 class="centered subtitle">Fast, Scalable, and Flexible Static Site Generator</h2>
   <p class="centered tagline">
-    Zine is pronounced like in
-    <a href="https://en.wikipedia.org/wiki/Zine">fan<b>zine</b></a>.
+    Zine helps you make art with your words.
   </p>
-  <div class="note">
-    Zine is alpha software.<br>Using Zine today means participating in its development.
-  </div>
   <div class="get-started"><a href="/quickstart/">Get Started</a></div>
   <div id="page" :html="$page.content()"></div>
   <div class="get-started"><a href="/quickstart/">Get Started</a></div>

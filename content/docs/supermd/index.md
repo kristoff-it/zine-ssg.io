@@ -16,9 +16,9 @@ SuperMD is an extension of Markdown that adds Scripty expression support.
 
 There are [plenty](https://github.github.com/gfm/) [of](https://github.com/iamgio/quarkdown) Markdown dialects in the wild that add new syntax to it, and there are also [plenty](https://mdxjs.com/) [of](https://gohugo.io/content-management/shortcodes/) templating languages that allow you to *template* your Markdown content.
 
-The problem with the first approach is that the new syntax complicates an already overcomplicated language (to parse) and it usually only solves very precise problems.
+The issue with the first approach is that new syntax complicates an already overcomplicated language (to parse) and it usually only solves very specific problems.
 
-The problem with the second approach is that, while templating (like [Hugo Shortcodes](https://gohugo.io/content-management/shortcodes/)) does allow you to extend Markdown in a very general way, it usually translates into pulling layouting concerns into the content, which is the exact thing we were trying to minimize by writing Markdown in the first place.
+The issue with the second approach is that, while templating (like [Hugo Shortcodes](https://gohugo.io/content-management/shortcodes/)) does allow you to extend Markdown in a very general way, it usually translates into pulling layouting concerns into the content, which is the exact thing we were trying to minimize by writing Markdown in the first place.
 
 
 ### Two Columns
@@ -89,7 +89,7 @@ Dolor Something Something
 ```
 
 ### Design Goals
-The main design goal of SuperMD is to upgrade Markdown to a full-fledged markup format that is not dependent on HTML anymore.
+The main design goal of SuperMD is to upgrade Markdown to a full-fledged markup format that is not dependent on HTML.
 
 Markdown is [often times](https://buttondown.com/hillelwayne/archive/why-i-prefer-rst-to-markdown/) considered too simplistic for serious markup work (e.g. creating a book) in good part also because of its ties to HTML.
 
@@ -99,8 +99,8 @@ It is planned for Zine to eventually gain support for generating PDFs (and poten
 
 #### Roadmap
 Compared to other parts of Zine, SuperMD is very new and many parts of it are
-still in their first design iteration. The name and general similarity to 
-Markdown are set in stone for SuperMD, but actual CommonMark adherence is not
+still in their first design iteration. The general similarity to 
+Markdown is set in stone for SuperMD, but actual CommonMark adherence is not
 guaranteed.
 
 All other file formats in Zine have a parser written from scratch, except 
@@ -119,7 +119,7 @@ SuperMD uses [Ziggy](https://ziggy-lang.io) as its frontmatter data serializatio
 
 This is the full Ziggy Schema for the frontmatter:
 
-***frontmatter.ziggy-schema***
+***`frontmatter.ziggy-schema`***
 []($code.buildAsset('frontmatter').language('ziggy-schema'))
 
 The frontmatter data fill become available in SuperHTML inside of instances of 
@@ -168,7 +168,10 @@ What we described up until now as "emdedded assets", are called "rendering direc
 
 ## Directives
 
-**NOTE:** Directives are a very recent addition to Zine and new ones will be added over time. Make sure to check this page and the Scripty reference whenever you update Zine.
+>[NOTE]($box.attrs('note'))
+>Directives are a very recent addition to Zine and new ones will be
+>added over time. Make sure to check this page and the Scripty reference whenever
+>you update Zine.
 
 Most Directives are very straight forward to use. The only thing to keep in
 mind is that calling functions on them sets their internal state in a way that
