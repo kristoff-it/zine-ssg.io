@@ -31,7 +31,7 @@ Conversely, accessing an asset *without* calling `link` on it will **not** cause
 >`$image` or `$video`. Referencing an asset in SuperMD will cause it to be 
 >installed just like it does for SuperHTML.
 
-The SuperHTML Scripty reference page lists all other operations that can be performed instances of `Asset`. 
+The SuperHTML Scripty reference page lists all other operations that can be performed on instances of `Asset`. 
 
 One example of where this makes sense is when you have a Ziggy (or JSON) document that you want to use to build a page, but that is not meant to be included the final output.
 
