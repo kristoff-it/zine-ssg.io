@@ -1,0 +1,100 @@
+---
+.title = "Scripty Basics",
+.description = "",
+.author = "Loris Cro",
+.layout = "page.shtml",
+.date = @date("2023-06-16T00:00:00"),
+.draft = false,
+---
+
+## Intro
+Zine uses SuperMD (an extension of Markdown) for content and SuperHTML (an extension of HTML5) for templating.
+
+Both SuperMD and SuperHTML extend their respective original file formats by embedding Scripty expressions in key places.
+
+For example this is how you can print a link to a page in SuperHTML:
+
+```superhtml
+<ctx about="$site.page('about')">
+  <a href="$ctx.about.link()" text="$ctx.about.title"></a>
+</ctx>
+```
+
+And this is how you can do the same in SuperMD:
+
+```markdown
+Check out our [about page]($link.page('about')).
+```
+
+The Scripty expressions in the previous two examples were the following:
+
+- SuperHTML
+  - `$site.page('about')`
+  - `$ctx.about.link()`
+  - `$ctx.about.title`
+- SuperMD
+  - `$link.page('about')`
+
+
+You might be wondering why it's so different to embed a link in the two languages. We'll touch upon this topic more later in this page, but for now suffice to say that **content and templates have vastly different needs** and their respective Super- languages tailor their usage of Scripty accordingly. 
+
+## Scrypty Syntax
+
+Scripty is a very small language designed to be embedded in a string.
+
+For this reason Scripty doesn't have statements or blocks of any kind and can only be used to build expressions.
+
+More precisely, Scripty expressions are always rooted in a global scope from which the expression navigates fields and calls functions.
+
+All variables available in the glboal scope are prefixed with a `$` which means in turn that all Scripty expressions start with a `$`.
+
+### Literals
+Scripty supports also a limited set of literals:
+
+- String  
+  - `"Hello World"`
+  - `'Hello "word"'`
+- Int  *(64-bit signed)*
+  - `1990`
+- Float *(64-bit)*
+  - `120.5`
+- Bool
+  - `true`
+  - `false`
+
+
+### Field navigation
+Navigating fields of structured values can be done with `.` concatenation:
+
+- `$foo.bar.baz`
+
+### Function call
+
+Functions can be called with `()`. 
+
+Any argument can be palced between the parenthesis and separated with a `,` (trailing commas are allowed). Arguments can be both literals and other Scripty expressions.
+
+- `$foo.bar.qux()`
+- `$foo.bar.qux('arg1', "arg2")`
+- `$foo.bar.qux("string", 2, false)`
+- `$foo.bar.qux($foo.bar.baz)`
+- `$foo.bar.qux($foo.bar.baz, "string",)`
+
+## Global Scope and Semantics
+
+Scripty is designed to only produce expressions embedded inside strings because it's meant to be embedded into other languages.
+
+For this reason it's entirely up to the host language to define which variables are available in the global scope and their semantics.
+
+For example, SuperHTML offers (among others) `$page` and `$site` in its global scope and all functions called on them are just meant to navigate all kinds of assets (pages, translations, images, etc) present in the site.
+
+In contrast, SuperMD offers (among others) `$link`, `$image`, and `$video` and calling functions on those values changes their internal state ultimately defining a structured description of a {link, image, video} that must be embedded in the document.
+
+To learn what global variables are available to you in a given context, and the semantics of the operations allowed on them, you must read the documentation specific to the host language that embeds Scripty.
+
+## Next steps
+
+If you haven't done it yet, read the [main Documentation page]($link.page('docs')) fully, otherwise see:
+
+- [SuperMD Basics]($link.page('docs/supermd'))
+- [SuperHTML Basics]($link.page('docs/superhtml'))

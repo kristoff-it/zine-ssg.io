@@ -1,0 +1,48 @@
+---
+.title = "Home",
+.date = @date("2020-07-06T00:00:00"),
+.author = "Loris Cro",
+.layout = "index.shtml",
+.draft = false,
+---
+
+># [Warning]($block.attrs('warning'))
+>Zine is alpha software.  
+>Using Zine today means participating in its development.
+
+## What is Zine?
+A Zine site is a collection of content files and layouts.
+
+Zine turns your content into HTML, styles it using your layouts, and
+finally copies the result (alongside other assets like images) into an output directory
+that you can then publish on static hosting services like GitHub Pages.
+
+Zine uses a **structured approach to content authoring** that helps keeping sizeable
+content collections manageable. Similarly, the build process uses **surgical
+dependency tracking** to ensure minimal rebuilds, keeping the authoring experience
+excellent at all scales.
+
+*Zine is pronounced like in [fan**zine**](https://en.wikipedia.org/wiki/Zine)*.
+    
+## A handcrafted authoring experience
+Zine uses [SuperMD]($link.page('docs/supermd')) for content and 
+[SuperHTML]($link.page('docs/superhtml')) for defining layouts.
+
+SuperMD is an extension of Markdown that allows you to **define embedded assets 
+and semantic constructs that would be impossible to express in Markdown** without
+using inline HTML.
+
+SuperHTML is an extension of HTML5 that focuses on expressing **correct templating
+logic**. With SuperHTML it's **impossible to generate malformed HTML** and most
+mistakes become **build time errors**. 
+
+*[Learn more]($link.page('docs/scripty')) about file formats in Zine.*
+
+## Watch the video
+
+`//TODO: record the video :^)`
+
+Or, for a more hands-on approach, [see our quickstart guide](./quickstart).
+
+
+

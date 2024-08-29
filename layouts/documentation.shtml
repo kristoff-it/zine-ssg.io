@@ -1,5 +1,5 @@
 <extend template="base.shtml">
-<title id="title" var="$page.title"></title>
+<title id="title" :text="$page.title"></title>
 <head id="head"></head>
 <div id="content">
   <style>
@@ -27,8 +27,18 @@
 		#docs h4 {
 			font-size: 1rem;
 		}
+
+  table {
+    font-size: 0.9em;
+  }
+  table th {
+    font-size: 1em;
+  }
+  table td {
+    white-space: nowrap;
+  }
   </style>
   <h3 class="centered">Zine</h3>
-  <h1 var="$page.title"></h1>
-  <div id="docs" var="$page.content"></div>
+  <h1 :text="$page.title"></h1>
+  <div id="docs" :html="$page.content()"></div>
 </div>

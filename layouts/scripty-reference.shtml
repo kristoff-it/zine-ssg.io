@@ -1,5 +1,5 @@
 <extend template="base.shtml">
-<title id="title" var="$page.title"></title>
+<title id="title" :text="$page.title"></title>
 <head id="head"></head>
 <div id="content">
   <style>
@@ -10,21 +10,77 @@
        margin-bottom: 0;
      }
 
-		#reference h2, #reference h3 {
-			font-family: monospace; 
-			text-align: left;
-		}
+	#reference h1 {
+		position: sticky;
+		top: 0;
+		background-color: #111;
+		border-bottom: 2px dashed #aaa;
+		margin-top: 50px;
+	}
 
-		#reference h2 {
-			border-bottom: 1px dashed #aaa;
-			margin-top: 2em;
-		}
-		
-		#reference h3 {
-			margin-top: 2em;
-		}
+	#reference h1 a {
+		text-decoration: none;
+	}
+
+	#reference h2, #reference h3 {
+		font-family: 'Fira Code', monospace;
+		text-align: left;
+		font-size: 1rem;
+	}
+
+	#reference h2 {
+		border-bottom: 1px dashed #aaa;
+		margin-top: 2em;
+	}
+	
+	#reference h3 {
+		margin-top: 2em;
+		background-color: #222;
+		padding: 3px 5px;
+	}
+
+	#reference table {
+		width: 100%;
+		padding: 10px;
+		text-align: center;
+	}
+
+	
+	html {
+		scroll-padding-top: 50px;
+	}
+
+	h3[id]:target {
+	  animation: pulse 2s ease-in-out 2 forwards;
+	}
+
+	@keyframes pulse {
+	  0%,
+	  100% {
+	    background-color: #444;
+	  }
+
+	  50% {
+	    background-color: #222;
+	  }
+	}
+	
+	div[id]:target {
+	  animation: pulse-div 2s ease-in-out 1;
+	}
+
+	@keyframes pulse-div {
+	  0%,
+	  100% {
+	    background-color: #111;
+	  }
+
+	  50% {
+	    background-color: #222;
+	  }
+	}
   </style>
   <h3 class="centered">Zine</h3>
-  <h1 var="$page.title"></h1>
-  <div id="reference" var="$page.content"></div>
+  <h1 :text="$page.title"></h1>
+  <div id="reference" :html="$page.content()"></div>
 </div>

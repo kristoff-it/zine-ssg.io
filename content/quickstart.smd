@@ -1,0 +1,54 @@
+---
+.title = "Quickstart",
+.date = @date("2020-07-06T00:00:00"),
+.author = "Sample Author",
+.layout = "page.shtml",
+.draft = false,
+--- 
+
+># [Warning]($block.attrs('warning'))
+>Zine is alpha software.  
+>Using Zine today means participating in its development.
+
+
+## 1. Get the Zig compiler
+
+**Zine is in the process of becoming a fully self-contained executable**, but for now it heavily leverages the Zig build system, meaning that Zig is the only dependency you need.
+
+We currently track Zig's **latest tagged release (0.13.0)**.
+
+You can download it from from [the official website](https://ziglang.org) or use [zigup](https://github.com/marler8997/zigup).
+
+## 2. Clone Zine's Sample Site
+
+What's a better sample site than the official site itself?
+
+**`shell`**
+```bash
+git clone https://github.com/kristoff-it/zine-ssg.io.git
+cd zine-ssg.io
+zig build serve
+```
+After that, start hacking on it and see how Zine reacts!
+
+Here are a handful of things that you might want to investigate:
+- On first invocation it will take a moment for Zine to load, as it has to compile optimized versions of all its tools. Subsequent runs will be much faster.
+- What happens if you rename `assets/style.css` to something else and try to rebuild the site?
+- What happens if you put a wrong value in a link to a local page [like this one](/community)? (this page is `content/quickstart.md`)
+
+
+## 3. Get developer tooling
+This step is optional but **strongly** recommended as it will give you access
+to syntax hihglighting, autoformatting and language server diagnostics for your
+editor.
+
+- [SuperHTML](/docs/superhtml)
+- SuperMD (coming soon)
+
+## Next Steps
+To learn more about Zine, [see the documentation section]($link.page('docs')).
+
+See the [Community page](/community/) to join our community.
+
+
+

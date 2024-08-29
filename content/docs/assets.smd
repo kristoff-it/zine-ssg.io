@@ -2,55 +2,60 @@
 .title = "Assets",
 .date = @date("2020-07-06T00:00:00"),
 .author = "Sample Author",
-.draft = false,
 .layout = "documentation.shtml",
-.tags = [],
+.draft = false,
 --- 
 
 ## Assets in Zine
 A Zine site can have 3 kinds of assets: **site**, **page**, and **build** assets.
 
+># [Note]($block)
+>SuperMD and SuperHTML have different ways of accessing assets, make sure to 
+>read their respective documentation pages first.
+
 ## Site Assets
 These assets are located under `assets_dir_path`. 
 
-The main way of accessing site assets is by using the following Scripty expression: `$site.asset('logo.png')`.
+In SuperHTML, the main way of accessing site assets is by accessing them through an instance of Site: `$site.asset('logo.png')`.
 
-Once you have an instance of an `Asset`, you can do three main things to it:
+Once you have an `Asset`, the main way to use it is by `link`ing it:
 
-- `$site.asset('logo.png').size()` to obtain its size in bytes
-- `$site.asset('logo.png').bytes()` to obtain its contents
-- `$site.asset('logo.png').link()` to obtain a link to it
+- `$site.asset('logo.png').link()`
 
-With `bytes` you can do clever things such as embedding the asset directly into the page itself, like so:
-
-***clever-and-cursed.html***
-```html
-<img src="$site.asset('foo.png').bytes().base64().prefix('data:image/png;base64,')">
-```
-
-While `link` in comparison seems very boring, it's actually both the preferred
-way in Zine to reference assets, and also its most clever asset feature.
 
 **Calling `link` on an asset will cause Zine to install it in the output directory.** 
-Conversely, accessing an asset *without* calling `link` on it will **not** cause it to be installed. 
+Conversely, accessing an asset *without* calling `link` on it will **not** cause it to be installed.
+
+># [SuperMD]($block)
+>In SuperMD you can reference assets using the appropriate functions of `$link`,
+>`$image` or `$video`. Referencing an asset in SuperMD will cause it to be 
+>installed just like it does for SuperHTML.
+
+The SuperHTML Scripty reference page lists all other operations that can be performed instances of `Asset`. 
 
 One example of where this makes sense is when you have a Ziggy (or JSON) document that you want to use to build a page, but that is not meant to be included the final output.
 
-***songs-list.html***
+**`songs-list.shtml`**
 ```html
 <ul loop="$page.asset('songs.json').ziggy()">
-  <li var="$loop.it.get!('name')"></li>
+  <li var="$loop.it.get('name')"></li>
 </ul>
 ```
 
-**Note:** Zine uses [Ziggy](https://ziggy-lang.io) as its data serialization format of choice, but JSON documents happen to be a valid subset of Ziggy, so you can use them directly. 
+># [NOTE]($block) 
+>Zine uses [Ziggy](https://ziggy-lang.io) as its data serialization 
+>format of choice, but JSON documents happen to be a valid subset of Ziggy, so 
+>you can use them directly. 
+
 
 ### Static Site Assets
 Some assets should be installed even if no layout or page refers to them. 
 
 For example `favicon.ico` might not be referenced, but browsers will automatically try to fetch it.
 
-Another example could be `.well-known` assets or files that might have special meaning for the hosting service that you're using. GitHub uses a file named `CNAME` to keep track of the custom domain configured for a given GitHub Pages website.
+Another example could be [`.well-known`](https://en.wikipedia.org/wiki/Well-known_URI) assets or files that might have special meaning for the hosting service that you're using. 
+
+For example, GitHub uses a file named `CNAME` to keep track of the custom domain configured for a given GitHub Pages website.
 
 One last example would be font files only referenced inside of CSS files, as Zine currently lacks the ability to inspect CSS files.
 
@@ -89,12 +94,12 @@ If you have an asset that is specific to only a single page of your website, you
 ```
 content
 ├── blog
-│   ├── first-post.md
-│   └── index.md
-└── index.md
+│   ├── first-post.smd
+│   └── index.smd
+└── index.smd
 ```
 
-In Zine, pages that are not named `index.md` (i.e. pages that don't define a section) must keep their assets under a directory with the same name.
+In Zine, pages that are not named `index.smd` (i.e. pages that don't define a section) must keep their assets under a directory with the same name.
 
 ***shell***
 ```
@@ -102,38 +107,34 @@ content
 ├── blog
 │   ├── first-post
 │   │   └── C.png
-│   ├── first-post.md
+│   ├── first-post.smd
 │   ├── B.png
-│   └── index.md
+│   └── index.smd
 ├── A.png
-└── index.md
+└── index.smd
 ```
 
-- `A.png` belongs to `content/index.md`
-- `B.png` belongs to `content/blog/index.md`
-- `C.png` belongs to `content/blog/first-post.md`
+- `A.png` belongs to `content/index.smd`
+- `B.png` belongs to `content/blog/index.smd`
+- `C.png` belongs to `content/blog/first-post.smd`
 
 Note how `C.png` lives under `content/blog/first-post/` because it belongs to a non-section page.
 
-Accessing a page asset can be done using `$page.asset('C.png')`.
+Accessing a page asset in SuperHTML can be done using `$page.asset('C.png')`.
 Like all assets, they must be `link`ed to be installed in the output directory.
 
-#### Note 
-Inside of Markdown files you can use standard syntax `![](C.png)` and everything will work as expected (Zine will search for the asset in the right directory and will install it in the output directory). 
-
-That said, Markdown processing in Zine has not yet reached its final form so expect news in the near future.
 
 ## Build Assets
 If you have artifacts built using the Zig build system, you can use them in Zine by setting `build_assets` in your `build.zig`.
 
-Accessing a build asset can be done using `$build.asset('foo')`.
+Accessing a build asset in SuperHTML can be done using `$build.asset('foo')`.
 Like all assets, they must be `link`ed to be installed in the output directory.
 
 See the doc comments for `zine.BuildAsset` for more info.
 
 ## Next Steps
-Make sure to familiarize yourself with the Scripty Reference Documentation in order to know what operations are available for assets and other kinds of data.
+- Read the [SuperMD Basics page](scripty) to learn more about asset-related syntax in SuperMD.
 
-[Read the Scripty Reference Documentation](/documentation/scripty/)
-
+- Read the [SuperHTML Scripty reference page](superhtml/scripty) page to know what operations are available for assets and other kinds of data in SuperHTML. 
+  The [Assets section]($link.sibling('superhtml/scripty').ref('Asset')) might be of particular interest.
 

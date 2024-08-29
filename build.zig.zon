@@ -1,10 +1,10 @@
 .{
-    .name = "Zine Official Website",
+    .name = "Zine Website",
     .version = "0.0.0",
     .dependencies = .{
         .zine = .{
-            .url = "git+https://github.com/kristoff-it/zine?ref=v0.3.0#2bba322c79547fc9ef75bac31fc3e328d7be0375",
-            .hash = "122082799c345efd9630f2f8c55c8a4093125fd10f0f8a7ecd7d768c06c831955483",
+            .url = "git+https://github.com/kristoff-it/zine?ref=v0.4.0#cb659d7ed684c96d4024f91a1d62939527e7e0d9",
+            .hash = "12207167a54b2ec13fa860ff3e41e83e879d03776b314a926cd68f1074cc3c34a366",
         },
     },
     .paths = .{"."},

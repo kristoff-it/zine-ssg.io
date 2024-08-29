@@ -1,5 +1,5 @@
 <extend template="base.shtml">
-<title id="title" var="$page.title"></title>
+<title id="title" :text="$page.title"></title>
 <head id="head"></head>
 <div id="content">
   <style>
@@ -29,6 +29,6 @@
 		}
   </style>
   <h3 class="overtitle centered">Zine</h3>
-  <h1 class="title" var="$page.title"></h1>
-  <div id="page" var="$page.content"></div>
+  <h1 class="title" :text="$page.title"></h1>
+  <div id="page" :html="$page.content()"></div>
 </div>

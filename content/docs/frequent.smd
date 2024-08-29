@@ -1,0 +1,78 @@
+---
+.title = "Frequent Use Cases",
+.date = @date("2020-07-06T00:00:00"),
+.author = "Sample Author",
+.layout = "frequent.shtml",
+.draft = false,
+--- 
+
+# [RSS feed]($section.id('rss'))
+Zine doesn't have direct knowledge of RSS feeds but by combining a handful of
+its features you can add support for the most syndication formats commonly used.
+
+In this example we'll assume that we want to generate an RSS feed for a blog.
+
+## 1. Define an alternative for the post listing page
+Your blog should have a page that lists all posts. We'll generate the RSS feed
+as an alternative version of it.
+
+If you think about it, this is the semantically correct thing to do, since an 
+RSS feed *is* an alternative version of a page that lists your posts.
+
+**`posts.smd` (in the frontmatter)**
+```
+---
+.alternatives = [{
+  .layout = "rss.xml",
+  .output = "index.xml",
+}],
+---
+```
+
+## 2. Create the XML layout
+SuperHTML doesn't support XML officially yet, but there is enough support to
+generate correct feeds.
+
+This is a RSS2.0 example but you can also do the same with Atom, if you prefer.
+
+**`rss.xml`**
+```html
+<rss version="2.0">
+ <channel>
+  <title>My blog</title>
+  <link>https://site.com/</link>
+  <description>Recent content</description>
+  <generator>Zine -- https://zine-ssg.io</generator>
+  <language>en-us</language>
+  <lastBuildDate>Fri, 16 Jun 2023 00:00:00 +0000</lastBuildDate>
+  <ctx :loop="$page.subpages()">
+   <item>
+    <title :text="$loop.it.title"></title>
+    <link :text="$site.host_url.addPath($loop.it.link())"></link>
+    <pubDate :text="$loop.it.date.formatHTTP()"></pubDate>
+    <guid :text="$site.host_url.addPath($loop.it.link())"></guid>
+   </item>
+  </ctx>
+ </channel>
+</rss>
+```
+
+## 3. Link to your RSS feed
+
+```html
+<a href="/index.xml" rel="alternate" type="application/rss+xml">
+  RSS feed
+</a>
+```
+
+# [Preserve old links]($section.id('old-links'))
+You're porting your website to Zine but still want to make sure old links don't
+break?
+
+Use the `aliases` field in the page's 
+[frontmatter]($link.sibling('supermd').ref('frontmatter')) 
+to define a second copy (or more) of the page that can be placed at any 
+location you'd like.
+
+If your old site used so-called *ugly URLs* (i.e. `foo.md` would become `foo.html` instead of `foo/index.html`), then this is your only option since
+Zine has no support for ugly URLs at the moment.
