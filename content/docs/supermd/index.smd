@@ -360,10 +360,10 @@ Absence of leading punctuation means
 
 ### Images
 Full URLs (i.e. inclusive of protocol) map to 
-[`$img.url()`]($link.page('docs/supermd/scripty').ref('Image.url')):
+[`$image.url()`]($link.page('docs/supermd/scripty').ref('Image.url')):
 ```markdown
 ![](https://zine-ssg.io/picture.jpg) 
-└─➤ []($img.url('https://zine-ssg.io/picture.jpg'))
+└─➤ []($image.url('https://zine-ssg.io/picture.jpg'))
 ```
 
 ># [Hotlinking]($block.attrs('warning'))
@@ -375,17 +375,17 @@ Full URLs (i.e. inclusive of protocol) map to
 >preferable in general.
 
 A leading `/` means 
-[`$img.siteAsset()`]($link.page('docs/supermd/scripty').ref('Image.siteAsset')):
+[`$image.siteAsset()`]($link.page('docs/supermd/scripty').ref('Image.siteAsset')):
 ```markdown
 ![](/logo.jpg) 
-└─➤ []($img.siteAsset('logo.jpg'))
+└─➤ []($image.siteAsset('logo.jpg'))
 ```
 
 Absence of a leading `/` means
-[`$img.asset()`]($link.page('docs/supermd/scripty').ref('Image.asset')):
+[`$image.asset()`]($link.page('docs/supermd/scripty').ref('Image.asset')):
 ```markdown
 ![](cat.jpg) 
-└─➤ []($img.asset('cat.jpg'))
+└─➤ []($image.asset('cat.jpg'))
 ```
 ## Inline HTML Escape Hatch
 
