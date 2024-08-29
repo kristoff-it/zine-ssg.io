@@ -6,7 +6,7 @@
 .draft = false,
 --- 
 
->[Warning]($block.attrs('warning'))
+># [Warning]($block.attrs('warning'))
 >Zine is alpha software.  
 >Using Zine today means participating in its development.
 

@@ -15,12 +15,32 @@ that can be rendered individually by a template.
 
 ## `$block` : [Block]($link.ref("Block"))
 
-When placed at the beginning of a quote block, the quote block 
-becomes a generic container for elements that can be styled as 
+When placed at the beginning of a Markdown quote block, the quote 
+block becomes a generic container for elements that can be styled as 
 one wishes.
 
+SuperHTML will automatically give the class `block` when rendering 
+Block directives.
+
+Syntax Example:
+```markdown
+>[]($block.attr('note'))
+>This is now a block note.
+>Lorem ipsum.
+```
 Differently from Sections, Blocks cannot be rendered independently 
 and can be nested.
+
+A block can optionally wrap a Markdown heading element. In this case  
+the generated Block will be rendered with two separate sub-containers: 
+one for the block title and one for the body.
+
+Syntax Example:
+```markdown
+>### [Warning]($block.attr('warning'))
+>This is now a block note.
+>Lorem ipsum.
+```
 
 ## `$heading` : [Heading]($link.ref("Heading"))
 
@@ -74,25 +94,34 @@ Appends to the attributes field of this Directive.
 A content section, used to define a portion of content
 that can be rendered individually by a template. 
 
-## Functions
-
-### []($heading.id("Section.end")) [`fn`]($link.ref("Section.end")) end (bool) -> [Section]($link.ref("Section"))
-
-Calling this function makes this section directive 
-terminate a previous section without opening a new
-one.
-
-An end section directive cannot have any other 
-property set.
-
 # [Block]($section.id('Block'))
 
-When placed at the beginning of a quote block, the quote block 
-becomes a generic container for elements that can be styled as 
+When placed at the beginning of a Markdown quote block, the quote 
+block becomes a generic container for elements that can be styled as 
 one wishes.
 
+SuperHTML will automatically give the class `block` when rendering 
+Block directives.
+
+Syntax Example:
+```markdown
+>[]($block.attr('note'))
+>This is now a block note.
+>Lorem ipsum.
+```
 Differently from Sections, Blocks cannot be rendered independently 
 and can be nested.
+
+A block can optionally wrap a Markdown heading element. In this case  
+the generated Block will be rendered with two separate sub-containers: 
+one for the block title and one for the body.
+
+Syntax Example:
+```markdown
+>### [Warning]($block.attr('warning'))
+>This is now a block note.
+>Lorem ipsum.
+```
 
 # [Heading]($section.id('Heading'))
 
@@ -214,15 +243,15 @@ naming convention is used by the target page.
 
 For example, the value 'foo/bar' will be automatically
 matched by Zine with either:
-  - content/foo/bar.md
-  - content/foo/bar/index.md
+  - content/foo/bar.smd
+  - content/foo/bar/index.smd
 
 ### []($heading.id("Link.sibling")) [`fn`]($link.ref("Link.sibling")) sibling (str, ?str) -> [Link]($link.ref("Link"))
 
 Same as `page()`, but the reference is relative to the section
 the current page belongs to.
 
->[NOTE]($block.attrs('note'))
+># [NOTE]($block)
 >While section pages define a section, *as pages* they don't
 >belong to the section they define.
 
@@ -236,8 +265,8 @@ filename).
 
 ### []($heading.id("Link.new")) [`fn`]($link.ref("Link.new")) new (bool) -> [Link]($link.ref("Link"))
 
-When `true` it asks readers to open the link in a new tab if 
-supported.
+When `true` it asks readers to open the link in a new window or 
+tab.
 
 ### []($heading.id("Link.ref")) [`fn`]($link.ref("Link.ref")) ref (str) -> [Link]($link.ref("Link"))
 

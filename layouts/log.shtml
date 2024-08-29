@@ -29,7 +29,7 @@
 			font-size: 1rem;
 		}
 
-	pre {
+	pre:has(.zig) {
 	  overflow: hidden;
 	  text-overflow: ellipsis;
 	}

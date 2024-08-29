@@ -98,7 +98,7 @@ When creating a multilingual website, the assumption is that the same layouts
 and site assets will be reused across all localized variants, while the 
 content folder will vary for each. 
 
->[NOTE]($block.attrs('note'))
+># [NOTE]($block)
 >To have per-variant assets you can both create appropriate subdirectories
 >in your site assets directory and also leverage page-local assets.
 

@@ -53,6 +53,6 @@ A more manual, but faster approach is to build the website locally and commit it
 
 Currently Zine doesn't offer any help automating this process, but in the future it might.
 
->[Warning]($block.attrs('warning')) 
+># [Warning]($block.attrs('warning')) 
 >Currently Zine doesn't clean `zig-out/` across rebuilds so you will have to
 >do it manually.

@@ -73,7 +73,7 @@ jobs:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           
 ```
->[NOTE]($block.attrs('note'))
+># [NOTE]($block)
 >If you want to have your deployments populate the GitHub deployments menu, you
 >must also enable your Action to have read and write permissions. 
 >
@@ -88,6 +88,6 @@ $ zig build
 $ wrangler pages deploy ./zig-out --project-name PROJECT_NAME
 ```
 
->[Warning]($block.attrs('warning')) 
+># [Warning]($block.attrs('warning')) 
 >Currently Zine doesn't clean `zig-out/` across rebuilds so you will have to
 >do it manually.

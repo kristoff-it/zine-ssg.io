@@ -76,7 +76,7 @@ pub fn build(b: *std.Build) !void {
     // can integrate neatly with other Zig build steps.
     zine.scriptyReferenceDocs(
         b,
-        "content/docs/superhtml/scripty.md",
-        "content/docs/supermd/scripty.md",
+        "content/docs/superhtml/scripty.smd",
+        "content/docs/supermd/scripty.smd",
     );
 }

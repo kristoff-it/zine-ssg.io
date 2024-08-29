@@ -109,7 +109,7 @@ it might be that at some point we'll switch to a more sane (parsing-wise)
 language that still has the same general feeling of writing Markdown.
 
 
->[Concepts vs Syntax]($block.attrs("note"))
+># [Concepts vs Syntax]($block)
 >We are currently using link syntax for embedding Scripty expressions, but there
 >are some limitations in how links are defined in the Markdown grammar that are
 >problematic for our use case.
@@ -185,7 +185,7 @@ What we described up until now as "emdedded assets", are called "rendering direc
 
 ## Directives
 
->[NOTE]($block.attrs('note'))
+># [NOTE]($block)
 >Directives are a very recent addition to Zine and new ones will be
 >added over time. Make sure to check this page and the Scripty reference whenever
 >you update Zine.
@@ -366,7 +366,7 @@ Full URLs (i.e. inclusive of protocol) map to
 └─➤ []($img.url('https://zine-ssg.io/picture.jpg'))
 ```
 
->[Hotlinking]($block.attrs('warning'))
+># [Hotlinking]($block.attrs('warning'))
 >Embedding directly images from the network (sometimes referred to as *hotlinking*)
 >is frowned upon, unless explicitly endorsed by the target host.
 >
@@ -406,13 +406,13 @@ Zine will parse and validate the HTML code before inlining.
 
 
 ## Syntax Highlighting
-Zine comes with a [good list] of Tree Sitter grammars for syntax highlighting,
+Zine comes with a [good list](https://github.com/neurocyte/flow-syntax/) of Tree Sitter grammars for syntax highlighting,
 but not all languages are supported.
 
 When a language is not recognized, Zine will produce an error.
 
 If you'd like to see support for a new language added to Zine, first find 
-(or write :^)) a Tree Sitter grammar for it, and then [let us](/community) know
+(or write `:^)`) a Tree Sitter grammar for it, and then [let us](/community) know
 that you'd like to see it added to Zine.
 
 In the future Zine will support the ability for users to add grammars independently of the main project.

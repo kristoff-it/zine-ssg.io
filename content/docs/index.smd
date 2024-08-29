@@ -6,27 +6,28 @@
 .draft = false,
 --- 
 
->[Warning]($block.attrs('warning'))
+># [Warning]($block.attrs('warning'))
 >Zine is alpha software.  
 >Using Zine today means participating in its development.
 
-## In this page
+## In this section
 This page will guide you through the first few motions of getting a Zine site started.
 
 Once you're familiar with the content of this page you can start venturing into topic deep dives:
 
-- [Scripty Basics](./scripty/)
+- [Scripty Basics](./scripty)
 - Content
-  - [SuperMD Basics](./supermd/)
-  - [Scripty Reference](./supermd/scripty/) *(SuperMD)*
+  - [SuperMD Basics](./supermd)
+  - [Scripty Reference](./supermd/scripty) *(SuperMD)*
 - Layouts 
-  - [SuperHTML Basics](./superhtml/)
-  - [Scripty Reference](./superhtml/scripty/) *(SuperHTML)*
-- [Assets](./assets/)
-- [Multilingual Websites](./i18n/) *(i18n)*
+  - [SuperHTML Basics](./superhtml)
+  - [Scripty Reference](./superhtml/scripty) *(SuperHTML)*
+- [Assets](./assets)
+- [Multilingual Websites](./i18n) *(i18n)*
 - Deploying
-    - [GitHub Pages](./deploying/github-pages/)
-    - [Cloudflare Pages](./deploying/cloudflare-pages/)
+    - [GitHub Pages](./deploying/github-pages)
+    - [Cloudflare Pages](./deploying/cloudflare-pages)
+- [Frequently Encountered Use Cases](./frequent)
 
 ## Requirements
 Zine is a collection of tools orchestrated by the Zig build system.

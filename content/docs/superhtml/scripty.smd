@@ -116,15 +116,15 @@ naming convention is used by the target page.
 
 For example, the value 'foo/bar' will be automatically
 matched by Zine with either:
-        - content/foo/bar.md
-        - content/foo/bar/index.md
+ - content/foo/bar.smd
+ - content/foo/bar/index.smd
 
 #### Examples
 
 ```superhtml
 <a href="$site.page('downloads').link()">Downloads</a>
 ```
-### []($heading.id("Site.pages")) [`fn`]($link.ref("Site.pages")) pages ([[String]($link.ref("String"))...]) -> [Page]($link.ref("Page"))
+### []($heading.id("Site.pages")) [`fn`]($link.ref("Site.pages")) pages ([String]($link.ref("String")), [[String]($link.ref("String"))...]) -> [[Page]($link.ref("Page"))]
 
 Same as `page`, but accepts a variable number of page references and 
 loops over them in the provided order. All pages must exist.
@@ -213,7 +213,7 @@ Alternatives are a good way of implementing RSS feeds, for example.
 Skips any other potential content present in the subdir of the page, 
 as set in the SuperMD frontmatter.
 
-Can only be set to true on section pages (i.e. `index.md` pages).
+Can only be set to true on section pages (i.e. `index.smd` pages).
 
 ### `translation_key` : ?[String]($link.ref("String"))
 
@@ -249,12 +249,12 @@ Retuns an asset by name from inside the page's asset directory.
 Assets for a non-section page must be placed under a subdirectory 
 that shares the same name with the corresponding markdown file.
 
-(as a reminder sections are defined by pages named `index.md`)
+(as a reminder sections are defined by pages named `index.smd`)
 
-| section? |      page path      | asset directory |
-|----------|---------------------|-----------------|
-|   yes    |  blog/foo/index.md  |    blog/foo/    |
-|   no     |  blog/bar.md        |    blog/bar/    |
+| section? |     page path      | asset directory |
+|----------|--------------------|-----------------|
+|   yes    | blog/foo/index.smd |    blog/foo/    |
+|   no     | blog/bar.smd       |    blog/bar/    |
 
 #### Examples
 
@@ -316,7 +316,7 @@ counts all characters and divides the result by 5.
 ### []($heading.id("Page.isSection")) [`fn`]($link.ref("Page.isSection")) isSection () -> [Bool]($link.ref("Bool"))
 
 Returns true if the current page defines a section (i.e. if 
-the current page is an 'index.md' page).
+the current page is an 'index.smd' page).
 
 
 #### Examples
@@ -329,7 +329,7 @@ $page.isSection()
 Returns a list of all the pages in this section. If the page is 
 not a section, returns an empty list.
 
-Sections are defined by `index.md` files, see the content 
+Sections are defined by `index.smd` files, see the content 
 structure section in the official docs for more info.
 
 #### Examples
@@ -596,16 +596,24 @@ Returns true if the map contains the provided key.
 ```superhtml
 <div if="$page.custom.has('myValue')">Yep!</div>
 ```
-### []($heading.id("Map.iterate")) [`fn`]($link.ref("Map.iterate")) iterate (?[String]($link.ref("String"))) -> [[KV]($link.ref("KV"))]
+### []($heading.id("Map.iterate")) [`fn`]($link.ref("Map.iterate")) iterate () -> [[KV]($link.ref("KV"))]
 
 Iterates over key-value pairs of a Ziggy map.
-
-You can optionally pass a string that will be used to filter key names.
 
 #### Examples
 
 ```superhtml
 $page.custom.iterate()
+```
+### []($heading.id("Map.iterPattern")) [`fn`]($link.ref("Map.iterPattern")) iterPattern ([String]($link.ref("String"))) -> [[KV]($link.ref("KV"))]
+
+Iterates over key-value pairs of a Ziggy map where the key
+matches the given pattern.
+
+#### Examples
+
+```superhtml
+$page.custom.iterPattern("user-")
 ```
 # [?any]($section.id('any'))
 
@@ -814,7 +822,7 @@ A boolean value
 If the boolean is `true`, returns the first argument.
 Otherwise, returns the second argument.
 
-Omitting the second argument defaults to an empty string.
+The second argument defaults to an empty string.
 
 
 #### Examples

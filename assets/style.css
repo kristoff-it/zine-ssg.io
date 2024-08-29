@@ -178,51 +178,36 @@ video {
 }
 
 .warning {
-  border: 1px dashed #CCCC49;
-}
-
-.warning p {
-  padding-top: 0;
-  font-size: 0.9em;
-  padding-left: 15px;
-  padding-right: 15px;
+  border-color: #CCCC49 !important;
 }
 
 .warning h1 {
-  position: relative !important;
-  font-size: 1.17em;
-  margin: 0;
-  text-align: left;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-top: 2px;
-  border: 1px solid #CCCC49;
-  color: #111;
-  background-color: #CCCC49;
+  border-color: #CCCC49 !important;
+  background-color: #CCCC49 !important;
 }
 
-.note {
+.block {
   border: 1px dashed #CCC;
 }
 
-.note p {
+.block p {
   padding-top: 0;
   font-size: 0.9em;
   padding-left: 15px;
   padding-right: 15px;
 }
 
-.note h1 {
+.block h1 {
   font-size: 1.17em;
   position: relative !important;
   margin: 0 !important;
   text-align: left;
   padding-left: 15px;
   padding-right: 15px;
-  padding-top: 2px;
-  border: 1px solid #CCC !important;
+  padding-top: 2px !important;
+  border: 1px solid #CCC;
   color: #111;
-  background-color: #CCC !important;
+  background-color: #CCC;
 }
 
 .nopara p {
@@ -234,6 +219,11 @@ video {
 
 li {
   padding: 1px 0;
+}
+
+:root {
+  /* guess which browser needed this */
+  font-size: 1rem;
 }
 
 @media screen and (min-width: 800px) and (max-width: 1000px) {

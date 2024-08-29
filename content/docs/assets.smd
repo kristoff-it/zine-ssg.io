@@ -9,7 +9,7 @@
 ## Assets in Zine
 A Zine site can have 3 kinds of assets: **site**, **page**, and **build** assets.
 
->[Note]($block.attrs('note'))
+># [Note]($block)
 >SuperMD and SuperHTML have different ways of accessing assets, make sure to 
 >read their respective documentation pages first.
 
@@ -26,7 +26,7 @@ Once you have an `Asset`, the main way to use it is by `link`ing it:
 **Calling `link` on an asset will cause Zine to install it in the output directory.** 
 Conversely, accessing an asset *without* calling `link` on it will **not** cause it to be installed.
 
->[SuperMD]($block.attrs('note'))
+># [SuperMD]($block)
 >In SuperMD you can reference assets using the appropriate functions of `$link`,
 >`$image` or `$video`. Referencing an asset in SuperMD will cause it to be 
 >installed just like it does for SuperHTML.
@@ -42,7 +42,7 @@ One example of where this makes sense is when you have a Ziggy (or JSON) documen
 </ul>
 ```
 
->[NOTE]($block.attrs('note')) 
+># [NOTE]($block) 
 >Zine uses [Ziggy](https://ziggy-lang.io) as its data serialization 
 >format of choice, but JSON documents happen to be a valid subset of Ziggy, so 
 >you can use them directly. 

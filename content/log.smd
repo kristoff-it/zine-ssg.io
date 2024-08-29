@@ -12,6 +12,86 @@ Refer to [the repository](https://github.com/kristoff-it/zine) and the [issue tr
 
 ## Changes
 
+### 2024-08-29
+```sh
+zig fetch --save "git+https://github.com/kristoff-it/zine#v0.4.0"
+```
+**The SuperMD update!**
+
+**With this release Zine is now at a point where the development experience is
+representative of what the final product will look like.** 
+
+Error messages need to be improved and a lot of developer tooling is still 
+missing, so take that into account, but the core authoring process is now 
+mostly there.
+
+**Zine is also now featureful enough to begin the porting process for the 
+official Zig website!**
+
+># [Note]($block)
+>This is going to be the last hugely breaking update to Zine in a while,
+>so it's a good moment to try Zine out if the fear of breaking changes has
+>prevented you from attempting before.
+>
+>Breaking changes will still keep coming, don't worry, but for a while they 
+>will be almost exclusively minor changes that will require little work on 
+>your part.
+>
+>Relatedly, I will be at [SquiggleConf this October to talk about Zine](https://2024.squiggleconf.com/sessions#talk-loris-cro) 
+>and related work.
+
+Now onto new features and breaking changes:
+
+- This website has been updated with **a lot of new documentation**. The [docs section](/docs) will now be able to guide you from getting the first few steps of creating a zine website, all the way to learning more advanced concepts.
+
+- The Scripty reference page that was very incomplete in the past has been improved heavily. Additionally, now there are two references: one for 
+  [SuperMD](/docs/supermd/scripty) and one for [SuperHTML](/docs/superhtml/scripty).
+
+- **SuperMD comes with a ton of new features**, too many to fully list here, but 
+  here are some highlights:
+    - A page can now define content sections that can be rendered separately by 
+      the layout. This is huge, so check out the [SuperMD Basics](/docs/supermd)
+      page for more information.
+      
+    - You can now give ids to headings and other elements to enable deep-linking
+      (which will be also checked by Zine!), and you can also give classes for
+      styling purposes.
+      
+    - Did you notice the "NOTE" block above? SuperMD has the concept of blocks,
+      which make it super easy to include something like that in your content 
+      without needing to rely on inlined HTML.
+      
+      ># [So cool]($block.attrs('warning'))
+      >These blocks can also be nested and styled!
+      
+    - Inlined HTML is forbidden now btw, but there's an escape hatch for when
+      you need to embed stuff like YouTube videos. See the SuperHTML docs page
+      for more info.
+
+    - Unfortunately we don't have any tooling for SuperMD available just yet,
+      but it's high up in the list of priorities so stay tuned for updates in
+      the near future.
+      
+- Now that we have SuperMD, the file extension for content files has changed to `.smd`.  
+  If you need to update your Zine site and have a lot of markdown files, our friendly neighborhood LLM suggests to use this command to bulk rename all (run it inside your content dir): 
+  ```
+  find . -type f -name "*.md" -exec bash -c 'mv "$0" "${0%.md}.smd"' {} \;
+  ```
+- The logic attributes in SuperHTML (`if`, `loop`, `var`) have been
+  renamed: 
+    - `:if`, `:loop` are still the same, they just gained a colon prefix
+    - `:text` and `:html` replace `var`. The first escapes HTML, while the second
+      doesn't
+    - `inline-loop` doesn't exist anymore because now we have `<ctx>`
+
+- Introducing `<ctx>`: a special tag that allows you to create a phantom element
+  that doesn't render to anything. This element effectively allows you to implement
+  what `inline-loop` was doing for you before, and more.
+
+  Another cool feature of `<ctx>` is that defining attributes on it makes them
+  available as fields under `$ctx`. See the SuperHTML docs page for more info.
+
+
 ### 2024-08-03
 ```sh
 zig fetch --save "git+https://github.com/kristoff-it/zine#v0.3.0"
