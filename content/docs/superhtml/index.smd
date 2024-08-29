@@ -244,7 +244,7 @@ Used to define template extension hierarchies, see the next section for more inf
 
 ## Extending templates
 
-Let's continue the example from the main documentation page, where we wanted to collect all common boilerplate from `homepage.html` and `page.html` into a single file.
+Let's continue the example from the main documentation page, where we wanted to collect all common boilerplate from `homepage.shtml` and `page.shtml` into a single file.
 
 **`layouts/templates/base.shtml`**
 ```superhtml
@@ -262,7 +262,7 @@ Let's continue the example from the main documentation page, where we wanted to 
 
 **`layouts/homepage.shtml`**
 ```superhtml
-<extend template="base.html">
+<extend template="base.shtml">
 
 <title id="title" :text="$site.title"></title>
 
@@ -274,7 +274,7 @@ Let's continue the example from the main documentation page, where we wanted to 
 
 **`layouts/post.shtml`**
 ```superhtml
-<extend template="base.html">
+<extend template="base.shtml">
 
 <title id="title" :text="$site.title"></title>
 
@@ -295,13 +295,13 @@ Let's analyze what we just saw:
 
 - `layouts/templates/base.shtml` now contains all the main HTML boilerplate and has two `<super>` tags: one inside `<title>` and one inside `<body>` (both parent elements have also gained an `id` attribute).
 
-- both layouts now start with an `<extend>` tag and have lost their original structure (since it was collected in `base.html`), keeping only the parts that each defines differently than the other.
+- both layouts now start with an `<extend>` tag and have lost their original structure (since it was collected in `base.shtml`), keeping only the parts that each defines differently than the other.
 
 ### `<extend>`
 When a layout wants to extend a template, it must declare at the very top the template name using the extend tag, like so: 
 
 ```superhtml
-<extend template="foo.html">
+<extend template="foo.shtml">
 ```
 A template that extends another won't have a normal HTML structure, but rather it will be a list of HTML elements that will replace a correspoding super tag from the base template they're extending.
 
@@ -405,17 +405,17 @@ about where the block contents are going to be placed in
 the extended template.
 
 note: super template block tag:
-(post.html) layouts/post.html:19:2:
+(post.shtml) layouts/post.shtml:19:2:
     <div id="main">
      ^^^
 
 note: extended template block defined here:
-(base.html) layouts/templates/base.html:16:4:
+(base.shtml) layouts/templates/base.shtml:16:4:
     <body id="main">
      ^^^^
 trace:
-    layout `post.html`,
-    content `about.md`.
+    layout `post.shtml`,
+    content `about.smd`.
 ```
 
 So, if we were to give `id`s to super tags, we would have to introduce another
@@ -493,7 +493,7 @@ Let's see an example:
 ```
 **`layouts/page.shtml`**
 ```superhtml
-<extend template="with-menu.html">
+<extend template="with-menu.shtml">
 
 <title id="title" :text="$page.title"></title>
 

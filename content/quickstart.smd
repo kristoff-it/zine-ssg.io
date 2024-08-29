@@ -34,7 +34,7 @@ After that, start hacking on it and see how Zine reacts!
 Here are a handful of things that you might want to investigate:
 - On first invocation it will take a moment for Zine to load, as it has to compile optimized versions of all its tools. Subsequent runs will be much faster.
 - What happens if you rename `assets/style.css` to something else and try to rebuild the site?
-- What happens if you put a wrong value in a link to a local page [like this one](/community)? (this page is `content/quickstart.md`)
+- What happens if you put a wrong value in a link to a local page [like this one](/community)? (this page is `content/quickstart.smd`)
 
 
 ## 3. Get developer tooling
