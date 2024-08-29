@@ -37,6 +37,23 @@ pub fn build(b: *std.Build) !void {
             "fonts/FiraCode-SemiBold.woff2",
             "fonts/FiraCode-VF.woff",
             "fonts/FiraCode-VF.woff2",
+
+            "fonts/jbm/JetBrainsMono-Bold.woff2",
+            "fonts/jbm/JetBrainsMono-BoldItalic.woff2",
+            "fonts/jbm/JetBrainsMono-ExtraBold.woff2",
+            "fonts/jbm/JetBrainsMono-ExtraBoldItalic.woff2",
+            "fonts/jbm/JetBrainsMono-ExtraLight.woff2",
+            "fonts/jbm/JetBrainsMono-ExtraLightItalic.woff2",
+            "fonts/jbm/JetBrainsMono-Italic.woff2",
+            "fonts/jbm/JetBrainsMono-Light.woff2",
+            "fonts/jbm/JetBrainsMono-LightItalic.woff2",
+            "fonts/jbm/JetBrainsMono-Medium.woff2",
+            "fonts/jbm/JetBrainsMono-MediumItalic.woff2",
+            "fonts/jbm/JetBrainsMono-Regular.woff2",
+            "fonts/jbm/JetBrainsMono-SemiBold.woff2",
+            "fonts/jbm/JetBrainsMono-SemiBoldItalic.woff2",
+            "fonts/jbm/JetBrainsMono-Thin.woff2",
+            "fonts/jbm/JetBrainsMono-ThinItalic.woff2",
         },
         .build_assets = &.{
             .{

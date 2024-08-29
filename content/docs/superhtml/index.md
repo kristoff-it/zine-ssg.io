@@ -13,7 +13,7 @@
 
 SuperHTML is a templating language for HTML that uses Scripty to express templating logic.
 
-There is [a](https://gohugo.io/templates/introduction/) [borderline](https://mustache.github.io/) [infinite](https://handlebarsjs.com/) [number](https://jinja.palletsprojects.com/) [of](https://github.com/ruby/erb) HTML templating languages, but the majority of those used by static site generators are a form of macro system that preprocesses the HTML code as unstructured text.
+There is [a](https://gohugo.io/templates/introduction/) [borderline](https://mustache.github.io/) [infinite](https://handlebarsjs.com/) [number](https://jinja.palletsprojects.com/) [of](https://github.com/ruby/erb) HTML templating languages, but the majority of those used by static site generators are a form of `{{ curly braced }}` macro system that preprocesses the HTML code as unstructured text.
 
 This "macro" approach has the upside of making it possible to use the same templating language for other file formats (you *can* use Jinja to template CSV files, for example), but it also has a variety of downsides.
 
@@ -37,14 +37,36 @@ This example can't be recreated faithfully in SuperHTML because it operates with
 ### Design Goals
 SuperHTML is designed to help you write correct HTML by catching mistakes early.
 
-It is [my](https://github.com/kristoff-it) belief that people resort to using JSX for creating static websites even when they don't really have any frontend SPA (Single Page Application) need because the experience of editing vanilla HTML is objectively worse.
+It is [my](/community) belief that people resort to using JSX for creating static websites even when they don't really have any frontend SPA (Single Page Application) need because the experience of editing vanilla HTML is objectively worse.
 
 To this point: as part of my work to create SuperHTML, I wrote an HTML parser from scratch that then I used to implement a [language server for HTML](https://github.com/kristoff-it/superhtml). 
 
-While doing so I discovered that by spring of 2024 no other HTML language server that reports syntax errors exists. Some proprietary editors do have support for reporting HTML syntax errors, and one HTML language server does exist; the one that comes with VSCode (also used by other editors), but it doesn't report errors for malformed HTML.
+While doing so I discovered that, **as of spring of 2024, no other HTML language server that reports syntax errors exists**. 
+
+Some proprietary text editors do have support for reporting HTML syntax errors, and one HTML language server does exist: the one that comes with VSCode (also used by other editors), but it doesn't report errors for malformed HTML.
 
 ## File Extension
 SuperHTML files have a `.shtml` file extension.
+
+
+## Developer Tooling
+
+SuperHTML has both dedicated grammars for syntax highlighting and a language
+server for receiving immediate feedback on syntax errors.
+
+**The SuperHTML language server also supports normal HTML.**
+
+>[Diagnostics]($block.attrs('note','nopara'))
+>![](/superhtml.png)
+
+The language server also has a Zig-style autoformatter:
+
+>[Autoformatting]($block.attrs('note','nopara'))
+>[]($video.siteAsset('vscode-autoformatting.mp4').attrs("big").loop(true).controls(true).muted(true).pip(false).autoplay(true))
+
+
+Checkout [kristoff-it/superhtml](https://github.com/kristoff-it/superhtml) for
+detailed setup information.
 
 
 ## Scripting Attributes
@@ -54,12 +76,12 @@ Any HTML attribute can be scripted (with some restrictions explained later in th
 
 ***template.shtml***
 ```superhtml
-<div class="$page.title.len().gt(25).then('long-title')">...</div>
+<h1 class="$page.title.len().gt(25).then('long')">...</h1>
 ```
 
 ***output***
 ```html
-<div class="long-title">...</div>
+<h1 class="long">...</h1>
 ```
 
 ## [Logic Attributes]($heading.id('attributes'))
@@ -222,9 +244,9 @@ Used to define template extension hierarchies, see the next section for more inf
 
 ## Extending templates
 
-Let's continue the example from the previous section where we try to collect all common boilerplate from `homepage.html` and `page.html`.
+Let's continue the example from the main documentation page, where we wanted to collect all common boilerplate from `homepage.html` and `page.html` into a single file.
 
-***`layouts/templates/base.shtml`***
+**`layouts/templates/base.shtml`**
 ```superhtml
 <!DOCTYPE html>
 <html>
@@ -238,36 +260,40 @@ Let's continue the example from the previous section where we try to collect all
 </html>
 ```
 
-***`layouts/homepage.shtml`***
+**`layouts/homepage.shtml`**
 ```superhtml
 <extend template="base.html">
 
-<title id="title" var="$site.title"></title>
+<title id="title" :text="$site.title"></title>
 
 <body id="main">
-  <h1 var="$page.title"></h1>
-  <div var="$page.content"></div>
+  <h1 :text="$page.title"></h1>
+  <div :html="$page.content()"></div>
 </body>
 ```
 
-***`layouts/post.shtml`***
+**`layouts/post.shtml`**
 ```superhtml
 <extend template="base.html">
 
-<title id="title" var="$site.title"></title>
+<title id="title" :text="$site.title"></title>
 
 <body id="main">
   <h1>Blog</h1>
-  <h2 var="$page.title"></h2>
-  <h3>by <span var="$page.author"></span></h3>
-  <h4>Posted on: <span var="$page.date.format('January 02, 2006')"></span></h4>
-  <div var="$page.content"></div>
+  <h2 :text="$page.title"></h2>
+  <h3>by <span :text="$page.author"></span></h3>
+  <h4>
+    Posted on: 
+    <span :text="$page.date.format('January 02, 2006')">
+    </span>
+  </h4>
+  <div :html="$page.content()"></div>
 </body>
 ```
 
 Let's analyze what we just saw:
 
-- `layouts/templates/base.shtml` now contains all the main HTML boilerplate and has two `<super>` tags: one inside `<title>` and one inside `<body>` (both of which have also gained an `id` attribute).
+- `layouts/templates/base.shtml` now contains all the main HTML boilerplate and has two `<super>` tags: one inside `<title>` and one inside `<body>` (both parent elements have also gained an `id` attribute).
 
 - both layouts now start with an `<extend>` tag and have lost their original structure (since it was collected in `base.html`), keeping only the parts that each defines differently than the other.
 
@@ -353,22 +379,22 @@ Unless you have perfect recollection of what "main" is, you won't know if your c
 
 Contrast this with our previous example:
 
-***`layouts/homepage.html`***
+**`layouts/homepage.shtml`**
 ```html
-<extend template="base.html"/>
+<extend template="base.shtml"/>
 
-<title id="title" var="$site.title"></title>
+<title id="title" :text="$site.title"></title>
 
 <body id="main">
-  <h1 var="$page.title"></h1>
-  <div var="$page.content"></div>
+  <h1 :text="$page.title"></h1>
+  <div :html="$page.content()"></div>
 </body>
 ```
 By looking at the *super template* we know that we are putting content directly into the `body` element of the template we are extending.
 
-In fact if we were to make a mistake and define "main" as a `div` element in our layout, we would get a compile error:
+In fact, if we were to make a mistake and define "main" as a `div` element in our layout, we would get a compile error:
 
-***shell***
+**`shell`**
 ```
 $ zig build
 
@@ -403,13 +429,24 @@ languages have today.
 </content>
 ```
 
-Repeating the parent element is a form of ***typing*** for your templates, in 
-a sense.
+Repeating the parent element is a form of ***type safety*** for your templates,
+in a sense.
+
+
+>[Layout vs Template]($block.attrs('note'))
+>Throughout this document (and in error messages) there is a distinction being made between 'layouts' and 'templates'.
+>
+>In Zine a layout is a template that can be fully evaluated to a complete HTML
+>file (i.e. it has no "extension placeholders" left).
+>
+>The special name for those kinds of templates is used because they define a
+>final, complete *layout* for a set of pages of the same kind.
+
 
 ## Extension chains
 
 In the previous section we saw how a template can extend another. We are now 
-going to see how longer extension chains look like.
+going to see what longer extension chains look like.
 
 At this point it's also useful to think of templates as documents that can do two things:
 
@@ -418,7 +455,7 @@ At this point it's also useful to think of templates as documents that can do tw
 
 Let's see an example: 
 
-***`layouts/templates/base.shtml`***
+**`layouts/templates/base.shtml`**
 ```superhtml
 <!DOCTYPE html>
 <html>
@@ -432,9 +469,9 @@ Let's see an example:
   </body>
 </html>
 ```
-***`layouts/templates/with-menu.shtml`***
+**`layouts/templates/with-menu.shtml`**
 ```superhtml
-<extend template="base.html">
+<extend template="base.shtml">
 
 <title id="title"><super></title>
 
@@ -454,131 +491,21 @@ Let's see an example:
     </div>
 </body>
 ```
-***`layouts/page.shtml`***
+**`layouts/page.shtml`**
 ```superhtml
 <extend template="with-menu.html">
 
-<title id="title" var="$page.title"></title>
+<title id="title" :text="$page.title"></title>
 
-<div id="content" var="$page.content"></div>
+<div id="content" :html="$page.content()"></div>
 ```
 
-Note how `with-menu.shtml` is both fulfilling the *interface* (ie the extension points) of `base.shtml` and at the same time it's creating new ones for another *super template* to fulfill in turn.
-
-
-Let's see now how attributes like `var` work.
-
-## SuperHTML Template Logic
-
-SuperHTML templates implement logic via special attributes that have semantic meaning for the templating language. The values given to those attributes are [Scripty](https://github.com/kristoff-it/scripty) expressions.
-
-Example markdown file:
-
-***`content/foo/index.md`***
-```ziggy
----
-.title = "My Post",
-.date = @date("2020-07-06T00:00:00"),
-.author = "Sample Author",
-.draft = false,
-.layout = "post.html",
-.tags = ["tag1", "tag2", "tag3"],
---- 
-The content
-```
-
-
-#### `var`
-Prints the contents of a Scripty variable.
-
-***`layouts/post.html`***
-```html
-<span var="$page.title"></span>  
-```
-
-***`output`***
-```html
-<span>My Post</span>
-```
-
-
-#### `if`
-Toggles the body of an element based on a condition.
-
-
-***`layouts/post.html`***
-```html
-<div if="$page.title.len().eq(1)" id="foo">
-    <b>Won't be rendered</b>
-</div>  
-```
-
-***`output`***
-```html
-<div id="foo"></div>
-```
-
-#### `loop`
-Repeats the body of an element based on a condition. Inside an element with a `loop` attribute, `$loop` becomes available.
-
-
-***`layouts/post.html`***
-```html
-<ul loop="$page.tags" id="tags">
-   <li var="$loop.it"></li>
-</ul>  
-```
-
-***`output`***
-```html
-<ul id="tags">
-   <li>tag1</li>
-   <li>tag2</li>
-   <li>tag3</li>
-</ul>  
-```
-
-#### `inline-loop`
-Repeats the **entire** element based on a condition. Inside an element with a `inline-loop` attribute, `$loop` becomes available.
-
-***`layouts/post.html`***
-```html
-<div inline-loop="$page.tags" var="$loop.it"></div>
-```
-
-***`output`***
-```html
-<div>tag1</div>
-<div>tag2</div>
-<div>tag3</div>
-```
-
-
-## Assets & Scripty
-You can also use Scripty to add logic to normal attributes.
-
-One notable example is linking to assets.
-
-```html
-<img src="$site.asset('logo.png').link()">
-<link rel="stylesheet" type="text/css" href="$site.asset('style.css').link()">
-```
+Note how `with-menu.shtml` is both fulfilling the *interface* of `base.shtml` and at the same time it's creating a *new interface* for another *super template* to fulfill in turn.
 
 
 ## Next Steps
-
+- [Read the SuperHTML Scripty Reference Documentation](./scripty/)
 - [Learn more about Zine's Asset System](assets/)
-- [Read the Scripty Reference Documentation](scripty/)
 
 
-
-## Layout vs Template
-Throughout this document (and in error messages) you will see a distinction being made between 'layouts' and 'templates'.
-
-We'll see in a bit how templates extend each other by defining "placeholders" that can be then filled out by other templates. Layouts are basically the final link of a "chain" of templates that extend one another.
-
-In Zine a layout is a template that can be fully evaluated to a complete HTML file
-(i.e. it has no "extension placeholders" left).
-
-The special name for those templates is used because, unike other templates, they define a final, complete *layout* for a set of pages of the same kind.
 

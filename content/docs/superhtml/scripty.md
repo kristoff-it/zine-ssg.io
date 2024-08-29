@@ -6,7 +6,7 @@
 .date = @date("2023-06-16T00:00:00"),
 .draft = false,
 ---
-# [Global Scope]($block.id('global'))
+# [Global Scope]($section.id('global'))
 
 ## `$site` : [Site]($link.ref("Site"))
 
@@ -45,7 +45,7 @@ that have a `loop` attribute.
 The current branching variable, only available within elements
 that have an `if` attribute used to unwrap an optional value.
 
-# [Site]($block.id('Site'))
+# [Site]($section.id('Site'))
 
 The global site configuration. The fields come from the call to 
 `website` in your `build.zig`.
@@ -147,7 +147,7 @@ Only available in multilingual websites.
 ```superhtml
 <a href="$site.locale('en-US').link()">Murica</a>
 ```
-# [Page]($block.id('Page'))
+# [Page]($section.id('Page'))
 
 The page currently being rendered.
 
@@ -408,18 +408,15 @@ Renders the full Markdown page to HTML
 ```superhtml
 
 ```
-### []($heading.id("Page.block")) [`fn`]($link.ref("Page.block")) block ([String]($link.ref("String"))) -> [String]($link.ref("String"))
+### []($heading.id("Page.contentSection")) [`fn`]($link.ref("Page.contentSection")) contentSection ([String]($link.ref("String"))) -> [String]($link.ref("String"))
 
-Renders the specified content block of a page.
-
-Example:
- `# [Title]($block.id('section-id'))`
+Renders the specified [content section]($link.page('docs/supermd/scripty').ref('Section')) of a page.
 
 #### Examples
 
 ```superhtml
-<div html="$page.block('section-id')"></div>
-<div html="$page.block('other-section')"></div>
+<div html="$page.contentSection('section-id')"></div>
+<div html="$page.contentSection('other-section')"></div>
 ```
 ### []($heading.id("Page.toc")) [`fn`]($link.ref("Page.toc")) toc () -> [String]($link.ref("String"))
 
@@ -430,7 +427,7 @@ Renders the table of content.
 ```superhtml
 <div html="$page.toc()"></div>
 ```
-# [Ctx]($block.id('Ctx'))
+# [Ctx]($section.id('Ctx'))
 
 A special map that contains all the attributes
  defined on `<ctx>` in the current scope.
@@ -447,7 +444,7 @@ Example:
 </div>
 ```
 
-# [Alternative]($block.id('Alternative'))
+# [Alternative]($section.id('Alternative'))
 
 An alternative version of the current page. Title and type
 can be used when generating `<link rel="alternate">` elements.
@@ -482,7 +479,7 @@ Useful for example to generate RSS links:
 </ctx>
 ```
 
-# [Build]($block.id('Build'))
+# [Build]($section.id('Build'))
 
 Gives you access to build-time assets and other build related info.
 When inside of a git repository it also gives git-related metadata.
@@ -498,7 +495,7 @@ Retuns a build-time asset (i.e. an asset generated through your 'build.zig' file
 ```superhtml
 <div text="$build.asset('foo').bytes()"></div>
 ```
-# [Asset]($block.id('Asset'))
+# [Asset]($section.id('Asset'))
 
 Represents an asset.
 
@@ -550,7 +547,7 @@ Tries to parse the asset as a Ziggy document.
 ```superhtml
 <div text="$page.assets.file('foo.ziggy').ziggy().get('bar')"></div>
 ```
-# [Map]($block.id('Map'))
+# [Map]($section.id('Map'))
 
 A map that can hold any value, used to represent the `custom` field 
 in Page frontmatters or Ziggy / JSON data loaded from assets.
@@ -610,11 +607,11 @@ You can optionally pass a string that will be used to filter key names.
 ```superhtml
 $page.custom.iterate()
 ```
-# [?any]($block.id('any'))
+# [?any]($section.id('any'))
 
 An optional value, to be used in conjunction with `if` attributes.
 
-# [String]($block.id('String'))
+# [String]($section.id('String'))
 
 A string.
 
@@ -748,7 +745,7 @@ Returns a lowercase version of the target string.
 ```superhtml
 $page.title.lower()
 ```
-# [Date]($block.id('Date'))
+# [Date]($section.id('Date'))
 
 A datetime.
 
@@ -806,7 +803,7 @@ Formats a datetime according to the HTTP spec.
 ```superhtml
 $page.date.formatHTTP()
 ```
-# [Bool]($block.id('Bool'))
+# [Bool]($section.id('Bool'))
 
 A boolean value
 
@@ -855,7 +852,7 @@ Computes logical `or` between the receiver value and any other value passed as a
 ```superhtml
 $page.draft.or($site.tags.len().eq(0))
 ```
-# [Int]($block.id('Int'))
+# [Int]($section.id('Int'))
 
 A signed 64-bit integer.
 
@@ -912,11 +909,11 @@ appropriately uses Kilo, Mega, Giga, etc.
 ```superhtml
 $page.asset('photo.jpg').size().byteSize()
 ```
-# [Float]($block.id('Float'))
+# [Float]($section.id('Float'))
 
 A 64bit float value.
 
-# [Iterator]($block.id('Iterator'))
+# [Iterator]($section.id('Iterator'))
 
 An iterator.
 
@@ -954,7 +951,7 @@ In nested loops, accesses the upper `$loop`
 ```superhtml
 $loop.up().it
 ```
-# [KV]($block.id('KV'))
+# [KV]($section.id('KV'))
 
 A key-value pair.
 
@@ -968,7 +965,7 @@ The key string.
 
 The corresponding value.
 
-# [err]($block.id('err'))
+# [err]($section.id('err'))
 
 A Scripty error.
 

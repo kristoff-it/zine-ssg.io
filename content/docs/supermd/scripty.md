@@ -6,12 +6,21 @@
 .date = @date("2023-06-16T00:00:00"),
 .draft = false,
 ---
-# [Global Scope]($block.id('global'))
+# [Global Scope]($section.id('global'))
+
+## `$section` : [Section]($link.ref("Section"))
+
+A content section, used to define a portion of content
+that can be rendered individually by a template. 
 
 ## `$block` : [Block]($link.ref("Block"))
 
-A content block, used to define a portion of content
-that can be rendered separately by a template. 
+When placed at the beginning of a quote block, the quote block 
+becomes a generic container for elements that can be styled as 
+one wishes.
+
+Differently from Sections, Blocks cannot be rendered independently 
+and can be nested.
 
 ## `$heading` : [Heading]($link.ref("Heading"))
 
@@ -33,7 +42,7 @@ A link.
 
 An embedded piece of code.
 
-# [anydirective]($block.id('anydirective'))
+# [anydirective]($section.id('anydirective'))
 
 Each directive's functions will allow you to set the directive's 
 internal fields accordingly using a "builder pattern" / "fluent interface".
@@ -60,27 +69,36 @@ Sets the unique identifier field of this directive.
 
 Appends to the attributes field of this Directive.
 
-# [Block]($block.id('Block'))
+# [Section]($section.id('Section'))
 
-A content block, used to define a portion of content
-that can be rendered separately by a template. 
+A content section, used to define a portion of content
+that can be rendered individually by a template. 
 
 ## Functions
 
-### []($heading.id("Block.end")) [`fn`]($link.ref("Block.end")) end (bool) -> [Block]($link.ref("Block"))
+### []($heading.id("Section.end")) [`fn`]($link.ref("Section.end")) end (bool) -> [Section]($link.ref("Section"))
 
-Calling this function makes this block directive 
-terminate a previous block without opening a new
+Calling this function makes this section directive 
+terminate a previous section without opening a new
 one.
 
-An end block directive cannot have any other 
+An end section directive cannot have any other 
 property set.
 
-# [Heading]($block.id('Heading'))
+# [Block]($section.id('Block'))
+
+When placed at the beginning of a quote block, the quote block 
+becomes a generic container for elements that can be styled as 
+one wishes.
+
+Differently from Sections, Blocks cannot be rendered independently 
+and can be nested.
+
+# [Heading]($section.id('Heading'))
 
 Allows giving an id and attributes to a heading element.
 
-# [Image]($block.id('Image'))
+# [Image]($section.id('Image'))
 
 An embedded image.
 
@@ -115,7 +133,7 @@ Sets the source location of this directive to a site asset.
 
 Sets the source location of this directive to a build asset.
 
-# [Video]($block.id('Video'))
+# [Video]($section.id('Video'))
 
 An embedded video.
 
@@ -159,7 +177,7 @@ Sets the source location of this directive to a site asset.
 
 Sets the source location of this directive to a build asset.
 
-# [Link]($block.id('Link'))
+# [Link]($section.id('Link'))
 
 A link.
 
@@ -181,7 +199,7 @@ Sets the source location of this directive to a site asset.
 
 Sets the source location of this directive to a build asset.
 
-### []($heading.id("Link.page")) [`fn`]($link.ref("Link.page")) page (str, ?[str]($link.ref("str"))) -> [Link]($link.ref("Link"))
+### []($heading.id("Link.page")) [`fn`]($link.ref("Link.page")) page (str, ?str) -> [Link]($link.ref("Link"))
 
 Sets the source location of this directive to a page.
 
@@ -199,16 +217,34 @@ matched by Zine with either:
   - content/foo/bar.md
   - content/foo/bar/index.md
 
-### []($heading.id("Link.target")) [`fn`]($link.ref("Link.target")) target (str) -> [Link]($link.ref("Link"))
+### []($heading.id("Link.sibling")) [`fn`]($link.ref("Link.sibling")) sibling (str, ?str) -> [Link]($link.ref("Link"))
 
-Sets the target HTML attribute of this link. 
+Same as `page()`, but the reference is relative to the section
+the current page belongs to.
+
+>[NOTE]($block.attrs('note'))
+>While section pages define a section, *as pages* they don't
+>belong to the section they define.
+
+### []($heading.id("Link.sub")) [`fn`]($link.ref("Link.sub")) sub (str, ?str) -> [Link]($link.ref("Link"))
+
+Same as `page()`, but the reference is relative to the current 
+page.
+
+Only works on Section pages (i.e. pages with a `index.smd`
+filename).
+
+### []($heading.id("Link.new")) [`fn`]($link.ref("Link.new")) new (bool) -> [Link]($link.ref("Link"))
+
+When `true` it asks readers to open the link in a new tab if 
+supported.
 
 ### []($heading.id("Link.ref")) [`fn`]($link.ref("Link.ref")) ref (str) -> [Link]($link.ref("Link"))
 
 Deep-links to a specific section of either the current
 page or a target page set with `page()`.
 
-# [Code]($block.id('Code'))
+# [Code]($section.id('Code'))
 
 An embedded piece of code.
 

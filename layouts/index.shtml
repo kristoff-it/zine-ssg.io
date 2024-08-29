@@ -74,9 +74,8 @@
   <h1 class="centered title">Zine</h1>
   <h2 class="centered subtitle">Fast, Scalable, and Flexible Static Site Generator</h2>
   <p class="centered tagline">
-    Zine helps you make art with your words.
+    Make art with your words.
   </p>
   <div class="get-started"><a href="/quickstart/">Get Started</a></div>
   <div id="page" :html="$page.content()"></div>
-  <div class="get-started"><a href="/quickstart/">Get Started</a></div>
 </div>

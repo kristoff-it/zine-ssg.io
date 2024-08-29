@@ -16,6 +16,7 @@
       <super>
       - Zine
     </title>
+    <link rel="stylesheet" type="text/css" href="$site.asset('fonts.css').link()">
     <link rel="stylesheet" type="text/css" href="$site.asset('fira_code.css').link()">
     <link rel="stylesheet" type="text/css" href="$site.asset('style.css').link()">
     <link rel="stylesheet" type="text/css" href="$site.asset('highlight.css').link()">
@@ -27,9 +28,9 @@
       •
       <a href="$site.page('quickstart').link()">Get Started</a>
       •
-      <a href="$site.page('docs').link()">Docs</a>
+      <a href="$site.page('docs').link()">Documentation</a>
       •
-      <a href="$site.page('community').link()">Vision & Community</a>
+      <a href="$site.page('community').link()">Community</a>
       •
       <a href="$site.page('log').link()">Changelog</a>
       •

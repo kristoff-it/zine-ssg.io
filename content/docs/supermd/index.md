@@ -69,22 +69,22 @@ For example let's say that you would like to have the middle section of a page t
   {{< /row >}}
   ```
 
-SuperMD takes a completely different approach by allowing the templating language to access the content in *blocks*:
+SuperMD takes a completely different approach by allowing the templating language to access the content in *sections*:
 
 ***`two-columns.smd`***
 ```markdown
-# [Left Section]($block.id('left'))
+# [Left Section]($section.id('left'))
 Lorem Ipsum
 
-# [Right Section]($block.id('right'))
+# [Right Section]($section.id('right'))
 Dolor Something Something
 ```
 
 ***`layout.shtml`***
 ```superhtml
 <div class="flex-row">
-  <div html="$page.block('left')"></div>
-  <div html="$page.block('right')"></div>
+  <div html="$page.contentSection('left')"></div>
+  <div html="$page.contentSection('right')"></div>
 </div>
 ```
 
@@ -109,8 +109,25 @@ it might be that at some point we'll switch to a more sane (parsing-wise)
 language that still has the same general feeling of writing Markdown.
 
 
+>[Concepts vs Syntax]($block.attrs("note"))
+>We are currently using link syntax for embedding Scripty expressions, but there
+>are some limitations in how links are defined in the Markdown grammar that are
+>problematic for our use case.
+>
+>As we gain experience and confidence in the direction of the design we will 
+>address syntax concerns more directly. In other words, we're prioritizing the
+>design of *concepts* and delaying the design of *syntax*.
+
+
 ## File Extension
 SuperMD files have a `.smd` file extension.
+
+## Developer Tooling
+We don't have yet any developer tooling for SuperMD files, but it's high on our
+list of priorities. 
+
+You should expect grammars for syntax highlighting and a language server for immediate feedback on sytnax errors.
+
 
 ## [Frontmatter]($heading.id('frontmatter'))
 As mentioned in the main documentation page, every SuperMD file in Zine must start with a frontmatter that contains all the metadata relative to the page.
@@ -164,11 +181,11 @@ For example this how you can define a video embed:
 []($video.asset('video.mp4').loop(true).autoplay(true))
 ```
 
-What we described up until now as "emdedded assets", are called "rendering directives" in Zine. Most of them do describe embedded assets, but `$block` (as seen in the two columns example) for example does not.
+What we described up until now as "emdedded assets", are called "rendering directives" in Zine. Most of them do describe embedded assets, but `$section` (as seen in the two columns example) for example does not.
 
 ## Directives
 
->[NOTE]($box.attrs('note'))
+>[NOTE]($block.attrs('note'))
 >Directives are a very recent addition to Zine and new ones will be
 >added over time. Make sure to check this page and the Scripty reference whenever
 >you update Zine.
@@ -188,40 +205,40 @@ One last thing to know about Directives is that all allow you to set `id()` and 
 
 You can find the full list of available Directives in the [SuperMD Scripty Reference]($link.page('docs/supermd/scripty')).
 
-### Block Directive
+### Section Directive
 
-The block directive lets you split a page into *content blocks*.
+The section directive lets you split a page into *content sections*.
 
 Doing so has three main benefits: 
 
-- Creates a container element that groups the block's inner elements, useful for styling purposes.
+- Creates a container element that groups the section's inner elements, useful for styling purposes.
 
 - (when given an id) The ability to deep-link content from other pages while also having the deep-linking be validated by Zine.
 
-- (when given an id) The ability to optionally render the page block-by-block, which is critical when the layout needs nuanced control over the content (see the two columns example at the top of this page).
+- (when given an id) The ability to optionally render the page section-by-section, which is critical when the layout needs nuanced control over the content (see the two columns example at the top of this page).
 
 
 #### Usage
 
-There are two main ways to use the block directive:
+There are two main ways to use the section directive:
 
 1. as a top-level element
 2. as a wrapper around  the text of a *heading*
 
-In both cases the block directive will create a container element that wraps all
-subsequent markdown content until another Block Directive is found or the 
+In both cases the section directive will create a container element that wraps all
+subsequent markdown content until another Section Directive is found or the 
 document ends.
 
 ***`example`***
 ```markdown
-[]($block)
+[]($section)
 # First
 Lorem Ipsum
 
 # Second
 []($image.asset('cat.jpg'))
 
-[]($block.id('third'))
+[]($section.id('third'))
 ## Third
 ```
 
@@ -240,11 +257,11 @@ Lorem Ipsum
 </div>
 ```
 
-The second method additionally makes the heading link to the block:
+The second method additionally makes the heading link to the section:
 
 ***`example`***
 ```markdown
-# [First]($block.id('first'))
+# [First]($section.id('first'))
 Lorem Ipsum
 ```
 
@@ -256,35 +273,37 @@ Lorem Ipsum
 </div>
 ```
 
-This second way of defining blocks might trick you into thinking that heading 
-levels are relevant in terms of sectioning, so it's important to keep in mind 
-that **heading levels are not taken into consideration when defining blocks**.
-In other words, blocks don't nest.
+This syntax might seem to suggest that you could create a nested section by attaching it to, say, a `##` heading, but that's not the case.
 
-This second way of defining a Block directive can be seen as syntax sugar for:
+**Heading levels are not taken into consideration when defining sections**.
+In other words, sections don't nest. 
+
+You can "attach" a section to a heading of any level, but that will immediately any previous section.
+
+This second way of defining a Section directive can be seen as syntax sugar for:
 
 ```markdown
-[]($block.id('first'))
+[]($section.id('first'))
 # [First]($link.ref('first'))
 Lorem Ipsum
 ```
 
-#### Rendering content blocks
+#### Rendering content sections
 The previous examples showcased the result of rendering the page in its 
-entirety, but blocks that are given an `id` can also be rendered in isolation.
+entirety, but sections that are given an `id` can also be rendered in isolation.
 
-When rendering a block in isolation you are expected to provide the container
+When rendering a section in isolation you are expected to provide the container
 element in your template.
 
 ***`example`***
 ```markdown
-# [First]($block.id('first'))
+# [First]($section.id('first'))
 Lorem Ipsum
 ```
 
 ***`superhtml`***
 ```html
-<div id="first" :html="$page.block('first')"></div>
+<div id="first" :html="$page.contentSection('first')"></div>
 ```
 
 ***`rendered html`***
@@ -295,6 +314,79 @@ Lorem Ipsum
 </div>
 ```
 
+## Vanilla Image and Link Syntax
+Using vanilla image / link Markdown syntax in SuperMD is allowed, but the syntax
+still has to be resolved to a Directive.
+
+This means that **you can use vanilla syntax as a shortcut for most common use
+cases**.
+
+### Links
+Full URLs (i.e. inclusive of protocol) map to 
+[`$link.url()`]($link.page('docs/supermd/scripty').ref('Link.url')) and
+[`$link.new()`]($link.page('docs/supermd/scripty').ref('Link.new')) :
+```markdown
+[Zine](https://zine-ssg.io) 
+└─➤ [Zine]($link.url('https://zine-ssg.io').new(true))
+```
+
+A leading `#` means 
+[`$link.ref()`]($link.page('docs/supermd/scripty').ref('Link.ref')):
+```markdown
+[Docs](#foo) 
+└─➤ [Docs]($link.ref('foo'))
+```
+
+A leading `/` means 
+[`$link.page()`]($link.page('docs/supermd/scripty').ref('Link.page')):
+```markdown
+[Docs](/docs/) 
+└─➤ [Docs]($link.page('docs'))
+```
+
+A leading `./` means 
+[`$link.sub()`]($link.page('docs/supermd/scripty').ref('Link.sub')):
+```markdown
+[Reference](./scripty) 
+└─➤ [Reference]($link.sub('scripty')) 
+```
+
+Absence of leading punctuation means 
+[`$link.sibling()`]($link.page('docs/supermd/scripty').ref('Link.sibling')):
+```markdown
+[Reference](superhtml) 
+└─➤ [Reference]($link.sibling('superhtml')) 
+```
+
+### Images
+Full URLs (i.e. inclusive of protocol) map to 
+[`$img.url()`]($link.page('docs/supermd/scripty').ref('Image.url')):
+```markdown
+![](https://zine-ssg.io/picture.jpg) 
+└─➤ []($img.url('https://zine-ssg.io/picture.jpg'))
+```
+
+>[Hotlinking]($block.attrs('warning'))
+>Embedding directly images from the network (sometimes referred to as *hotlinking*)
+>is frowned upon, unless explicitly endorsed by the target host.
+>
+>Additionally, links to remote assets can eventually become *temporarily* or
+>*permanently* unavailable, making the choice of copying assets locally 
+>preferable in general.
+
+A leading `/` means 
+[`$img.siteAsset()`]($link.page('docs/supermd/scripty').ref('Image.siteAsset')):
+```markdown
+![](/logo.jpg) 
+└─➤ []($img.siteAsset('logo.jpg'))
+```
+
+Absence of a leading `/` means
+[`$img.asset()`]($link.page('docs/supermd/scripty').ref('Image.asset')):
+```markdown
+![](cat.jpg) 
+└─➤ []($img.asset('cat.jpg'))
+```
 ## Inline HTML Escape Hatch
 
 SuperMD forbids inline HTML in order to make it possible to render
@@ -303,12 +395,29 @@ content files to non-HTML formats.
 That said, sometimes one only plans to target HTML and would like
 to be able to embed, say, a YouTube video without too much fuss.
 
-For those cases, you can still inline HTML in a content page by creating
+For those cases, you can still embed arbitrary HTML in a content page by creating
 a `=html` code block, like so:
 
     ```=html
     <script>alert("Yep, it's inlined alright")</script>
     ```
 
-Zine will parse and validate the code before inlining.
+Zine will parse and validate the HTML code before inlining.
 
+
+## Syntax Highlighting
+Zine comes with a [good list] of Tree Sitter grammars for syntax highlighting,
+but not all languages are supported.
+
+When a language is not recognized, Zine will produce an error.
+
+If you'd like to see support for a new language added to Zine, first find 
+(or write :^)) a Tree Sitter grammar for it, and then [let us](/community) know
+that you'd like to see it added to Zine.
+
+In the future Zine will support the ability for users to add grammars independently of the main project.
+
+## Next Steps
+- [Read the SuperMD Scripty Reference Documentation](./scripty/)
+- [Learn more about SuperHTML](superhtml/)
+- [Learn more about Zine's Asset System](assets/)

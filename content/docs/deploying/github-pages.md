@@ -1,12 +1,9 @@
 ---
-{
-    .title = "Deploying on GitHub Pages",
-    .date = @date("2020-07-06T00:00:00"),
-    .author = "Sample Author",
-    .draft = false,
-    .layout = "documentation.shtml",
-    .tags = [],
-} 
+.title = "Deploying on GitHub Pages",
+.date = @date("2020-07-06T00:00:00"),
+.author = "Sample Author",
+.layout = "documentation.shtml",
+.draft = false,
 --- 
 ## About
 This guide assumes that you're already familiar with GitHub Pages. Please refer [the official GitHub Pages documentation](https://pages.github.com/) for more info.
@@ -15,11 +12,11 @@ This guide assumes that you're already familiar with GitHub Pages. Please refer 
 
 GitHub Actions runner have an inherent overhead and, since Zine is a collection of tools that gets compiled on-demand, your runner will need to do some work that wouldn't be necessary with a single-executable tool.
 
-**Luckily, the build will be cached automatically if you use [mlugg/setup-zig](https://github.com/marketplace/actions/setup-zig-compiler)**.
+**Luckily, the build will be cached automatically by using [mlugg/setup-zig](https://github.com/marketplace/actions/setup-zig-compiler)**.
 
-[This site currently builds in 25-35 seconds](https://github.com/kristoff-it/zine/actions), of which 10 are spent setting up Zig, and 1 for the actual site build (the rest is GitHub Pages overhead).
+[This site currently builds in 25-35 seconds](https://github.com/kristoff-it/zine-ssg.io/actions), of which 12 are spent setting up Zig, and 2 for the actual site build (the rest is GitHub Pages overhead).
 
-***`.github/workflows/gh-pages.yml`***
+**`.github/workflows/gh-pages.yml`**
 ```
 name: github pages
 
@@ -56,4 +53,6 @@ A more manual, but faster approach is to build the website locally and commit it
 
 Currently Zine doesn't offer any help automating this process, but in the future it might.
 
-**NOTE: currently Zine doesn't clean `zig-out/` across rebuilds so you will have to it manually.**
+>[Warning]($block.attrs('warning')) 
+>Currently Zine doesn't clean `zig-out/` across rebuilds so you will have to
+>do it manually.

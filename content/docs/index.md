@@ -2,12 +2,11 @@
 .title = "Documentation",
 .date = @date("2020-07-06T00:00:00"),
 .author = "Sample Author",
-.draft = false,
 .layout = "documentation.shtml",
-.tags = [],
+.draft = false,
 --- 
 
->[Warning]($box.attrs('warning'))
+>[Warning]($block.attrs('warning'))
 >Zine is alpha software.  
 >Using Zine today means participating in its development.
 
@@ -16,18 +15,18 @@ This page will guide you through the first few motions of getting a Zine site st
 
 Once you're familiar with the content of this page you can start venturing into topic deep dives:
 
-- [Scripty Basics](scripty/)
+- [Scripty Basics](./scripty/)
 - Content
-  - [SuperMD Basics](supermd/)
-  - [Scripty Reference](supermd/scripty/)
-- Templating 
-  - [SuperHTML Basics](superhtml/)
-  - [Scripty Reference](superhtml/scripty/)
-- [Assets](assets/)
-- [Multilingual Websites (i18n)](i18n/)
+  - [SuperMD Basics](./supermd/)
+  - [Scripty Reference](./supermd/scripty/) *(SuperMD)*
+- Layouts 
+  - [SuperHTML Basics](./superhtml/)
+  - [Scripty Reference](./superhtml/scripty/) *(SuperHTML)*
+- [Assets](./assets/)
+- [Multilingual Websites](./i18n/) *(i18n)*
 - Deploying
-    - [GitHub Pages](deploying/github-pages/)
-    - [Cloudflare Pages](deploying/cloudflare-pages/)
+    - [GitHub Pages](./deploying/github-pages/)
+    - [Cloudflare Pages](./deploying/cloudflare-pages/)
 
 ## Requirements
 Zine is a collection of tools orchestrated by the Zig build system.
@@ -37,10 +36,10 @@ Zine only depends on the Zig compiler, follow [the quickstart guide](/quickstart
 ## Project Structure
 Your website only needs the following two files to get started:
 
-***build.zig.zon***
+**`build.zig.zon`**
 []($code.buildAsset('zon').language('zig'))
 
-***build.zig***
+**`build.zig`**
 ```zig
 const std = @import("std");
 const zine = @import("zine");
@@ -72,13 +71,17 @@ Later in the page you'll see some examples of both languages.
 The content directory contains your SuperMD files and their structure will be 
 reflected verbatim in the final site.
 
-- `content/index.smd` is the main index page of your website 
+- `content/index.smd`  
+  is the main index page of your website 
   - (i.e. `https://site.com/`).
-- `content/about.smd` will generate `/about/index.html` 
+- `content/about.smd`  
+  will generate `/about/index.html` 
   - (i.e. `https://site.com/about/`)
-- `content/foo/index.smd` will generate `/foo/index.html` 
+- `content/foo/index.smd`  
+  will generate `/foo/index.html` 
   - (i.e. `https://site.com/foo/`)
-- `content/foo/bar.smd` will generate `/foo/bar/index.html` 
+- `content/foo/bar.smd`  
+  will generate `/foo/bar/index.html` 
   - (i.e. `https://site.com/foo/bar/`)
 
 Note that SSGs rely heavily on the implication that webservers will 
@@ -99,6 +102,11 @@ content
 └── index.smd
 ```
 **In Zine every `index.smd` file denotes a section.**
+
+The main use for sections is to group pages together for the purpose of defining
+content lists, like [listing]($link.sub("superhtml/scripty").ref("Page.subpages"))
+all posts in a blog section, for example.
+
 
 In this example there are 2 sections: 
 
@@ -129,7 +137,7 @@ Ziggy is a data serialization language similar to YAML and JSON. You can
 learn more on the official Ziggy website: 
 [https://ziggy-lang.io](https://ziggy-lang.io).
 
-***`index.smd`*** 
+**`index.smd`** 
 ```ziggy
 ---
 .title = "Homepage",
@@ -187,13 +195,13 @@ Zine will default to using port `1990`, pass **`-Dport=8080`** to set the listen
 
 Here's a basic example where we create the homepage of our sample website. 
 
-***`shell`***
+**`shell`**
 ```
 touch content/index.smd
 touch layouts/home.shtml
 ```
 
-***`content/index.smd`*** 
+**`content/index.smd`** 
 ```ziggy
 ---
 .title = "Home",
@@ -205,7 +213,7 @@ touch layouts/home.shtml
 Hello World!
 ```
 
-***`layouts/home.shtml`***
+**`layouts/home.shtml`**
 ```superhtml
 <!DOCTYPE html>
 <html>
@@ -221,7 +229,7 @@ Hello World!
 ```
 
 
-***`zig-out/index.shtml (output)`*** 
+**`zig-out/index.shtml (output)`** 
 ```html
 <!DOCTYPE html>
 <html>
@@ -249,14 +257,14 @@ If you run the dev server now (`zig build serve`), you should see the output pag
 
 Let's imagine now that we want to add a blog section to our website with a first post in it.
 
-***`shell`***
+**`shell`**
 ```bash
 mkdir content/blog
 touch content/blog/first-post.smd
 touch layouts/post.shtml
 ```
 
-***`content/blog/first-post.smd`*** 
+**`content/blog/first-post.smd`**
 ```ziggy
 ---
 .title = "First Post!",
@@ -268,7 +276,7 @@ touch layouts/post.shtml
 This is my first post!
 ```
 
-***`layouts/post.shtml`***
+**`layouts/post.shtml`**
 ```superhtml
 <!DOCTYPE html>
 <html>
@@ -300,12 +308,10 @@ going to have the same structure at the homepage.
 While the structure is indeed different, both `post.shtml` and `home.shtml`
 share a lot of common boilerplate that can be collected into a single template by leveraging SuperHTML template extension features.
 
-You now know enough about Zine to read the remaining documentation pages.
-
+**You now know enough about Zine to read the remaining documentation pages.**
 
 ## Next Steps
 
 Start with [Scripty Basics]($link.page('docs/scripty')) to learn how expression syntax works, then circle back to [the top of this page](#) to read the other documentation pages.
 
-
-
+See the [Community page](/community/) to join our community.

@@ -1,12 +1,9 @@
 ---
-{
-    .title = "Changelog",
-    .date = @date("2020-07-06T00:00:00"),
-    .author = "Sample Author",
-    .draft = false,
-    .layout = "log.shtml",
-    .tags = [],
-} 
+.title = "Changelog",
+.date = @date("2020-07-06T00:00:00"),
+.author = "Sample Author",
+.layout = "log.shtml",
+.draft = false,
 --- 
 ## About
 This is a non-exhaustive, curated list of changes meant to help users quickly see what has improved since they last checked.
@@ -23,7 +20,7 @@ zig fetch --save "git+https://github.com/kristoff-it/zine#v0.3.0"
 
 - Zine has now an asset system with clearly defined semantics. Previously we kinda implemented informally what other static site generators offered (eg a static asset directory), while now Zine gained it's own spin on assets
 
-  There's a new [Assets section in the docs](/documentation/assets/), read it to learn how assets now work in Zine. The most notable changes are:
+  There's a new [Assets section in the docs](/docs/assets/), read it to learn how assets now work in Zine. The most notable changes are:
     - Zine can now make use of artifacts generated via the Zig build system!
     - `static_dir_path` has become `assets_dir_path` (I also recommend renaming `static` to `assets`)
     - Page assets (eg images placed in the content directory next to the page they belong to) __now have one extra rule for file placement__, see the docs for more info on that (or let the error messages *gently* guide you)
@@ -126,7 +123,7 @@ That's mostly it. If you encounter bugs while updating, please don't hesitate to
 .url = "git+https://github.com/kristoff-it/zine#e33a1d79b09e8532db60347a7ec4bd3413888977",
 .hash = "12209f9be74fcc805c0f086e4a81ccca041354448f5b3592e04b6a6d1b4a95da5a26",
 ```
-- Added support for multilingual websites. See the [corresponding docs page](/documentation/i18n/) for more info. Because of this change now the `AddWebsiteOptions` struct is slightly different, here's how to fix it:
+- Added support for multilingual websites. See the [corresponding docs page](/docs/i18n/) for more info. Because of this change now the `AddWebsiteOptions` struct is slightly different, here's how to fix it:
   - Take the contents of `site` and move them top level, rename `base_url` to `host_url`.
 - Related-but-distinct from the above, you can now specify an output prefix for your static site. The feature was added primarily for i18n purposes but can also be used in simple websites to add an arbitrary prefix.
 - The markdown renderer now renders tables!
@@ -178,7 +175,7 @@ That's mostly it. If you encounter bugs while updating, please don't hesitate to
 
 ### 2024-02-13
 - Overhauled the documentation page. Now  it's a little bit easier to get started with Zine.
-- Added deployment guides: [one for GitHub Pages](/documentation/deploying/github-pages/) and [one for Cloudflare Pages](/documentation/deploying/cloudflare-pages/) (thanks `ninja_tron`!)
+- Added deployment guides: [one for GitHub Pages](/docs/deploying/github-pages/) and [one for Cloudflare Pages](/docs/deploying/cloudflare-pages/) (thanks `ninja_tron`!)
 - Started work on the JSON replacement for better frontmatters, [join the Discord server](https://discord.gg/B73sGxF) or [catch me live on Twitch](https://twitch.tv/kristoff_it) for related discussion & sneak peeks.
 
 ### 2024-02-11 

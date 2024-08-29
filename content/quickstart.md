@@ -2,69 +2,53 @@
 .title = "Quickstart",
 .date = @date("2020-07-06T00:00:00"),
 .author = "Sample Author",
-.draft = false,
 .layout = "page.shtml",
-.tags = [],
+.draft = false,
 --- 
 
->[Warning]($box.attrs('warning'))
+>[Warning]($block.attrs('warning'))
 >Zine is alpha software.  
 >Using Zine today means participating in its development.
 
 
-## 1. Get Zig
-Zine has only one dependency: the Zig compiler.
+## 1. Get the Zig compiler
 
-We currently track Zig's latest tagged release (0.13.0 at the moment).
+**Zine is in the process of becoming a fully self-contained executable**, but for now it heavily leverages the Zig build system, meaning that Zig is the only dependency you need.
+
+We currently track Zig's **latest tagged release (0.13.0)**.
 
 You can download it from from [the official website](https://ziglang.org) or use [zigup](https://github.com/marler8997/zigup).
 
 ## 2. Clone Zine's Sample Site
 
-And what's a better sample site than the official site itself?
+What's a better sample site than the official site itself?
 
-***`shell`***
+**`shell`**
 ```bash
-$ git clone https://github.com/kristoff-it/zine-ssg.io.git
-$ cd zine-ssg.io
-$ zig build serve
+git clone https://github.com/kristoff-it/zine-ssg.io.git
+cd zine-ssg.io
+zig build serve
 ```
 After that, start hacking on it and see how Zine reacts!
 
-Here are a couple of things that you might want to observe:
+Here are a handful of things that you might want to investigate:
 - On first invocation it will take a moment for Zine to load, as it has to compile optimized versions of all its tools. Subsequent runs will be much faster.
-- `zig build serve` launches the development server but you can also just generate the site without it. Run `zig build --summary new` to build the website and see which pages ended up being re-rendered. Notice how pages that don't change don't need to be re-rendered.
-- What happens if you delete `assets/style.css` and try to rebuild the site?
+- What happens if you rename `assets/style.css` to something else and try to rebuild the site?
+- What happens if you put a wrong value in a link to a local page [like this one](/community)? (this page is `content/quickstart.md`)
 
 
 ## 3. Get developer tooling
-This step is optional but **strongly** recommended.
+This step is optional but **strongly** recommended as it will give you access
+to syntax hihglighting, autoformatting and language server diagnostics for your
+editor.
 
-
-### Language Server
-Get [SuperHTML](https://github.com/kristoff-it/superhtml) and configure your editor to use it for diagnostics and format-on-save.
-
-[]($image.siteAsset('superhtml.png').attrs("big"))
-
-SuperHTML also implements pretty sweet autoformatting (see the repo's README for more info).
-
-[]($video.siteAsset('vscode-autoformatting.mp4').attrs("big").loop(true).controls(true).muted(true).pip(false).autoplay(true))
-
-
-#### VSCode
-Get the [SuperHTML VSCode Extension](https://marketplace.visualstudio.com/items?itemName=LorisCro.super) (until [#8](https://github.com/kristoff-it/superhtml/issues/8) is implemented you will also need to download the SuperHTML CLI tool).
-
-The extension will also give you syntax highlighting support for `.shtml` files (SuperHTML templates).
-
-### Syntax Highlighting
-SuperHTML template files have a `.shtml` extension. Since it's valid HTML, you can use normal syntax highlighting, but there are dedicated grammars that can help you understand your templates more easily at a glance.
-
-In the SuperHTML repository you will also find a tree-sitter grammar which can be used  by Vim, NeoVim, Helix, etc.
+- [SuperHTML](/docs/superhtml)
+- SuperMD (coming soon)
 
 ## Next Steps
 To learn more about Zine, [see the documentation section]($link.page('docs')).
 
-See the [Vision & Community section](/community/) to join our community.
+See the [Community page](/community/) to join our community.
 
 
 
