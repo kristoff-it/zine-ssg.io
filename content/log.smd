@@ -12,6 +12,13 @@ Refer to [the repository](https://github.com/kristoff-it/zine) and the [issue tr
 
 ## Changes
 
+### 2024-08-29 (later in the day)
+```sh
+zig fetch --save "git+https://github.com/kristoff-it/zine#v0.4.1"
+```
+Fixes a silly but annoyng bug where SuperMD links nested inside of styiling elements would not get analyzed.
+
+
 ### 2024-08-29
 ```sh
 zig fetch --save "git+https://github.com/kristoff-it/zine#v0.4.0"
