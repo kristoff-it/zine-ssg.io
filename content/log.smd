@@ -12,6 +12,12 @@ Refer to [the repository](https://github.com/kristoff-it/zine) and the [issue tr
 
 ## Changes
 
+### 2024-08-30 
+```sh
+zig fetch --save "git+https://github.com/kristoff-it/zine#v0.4.2"
+```
+Fixes a bug that prevented users from accessing `$loop` in the intended way.
+
 ### 2024-08-29 (later in the day)
 ```sh
 zig fetch --save "git+https://github.com/kristoff-it/zine#v0.4.1"
