@@ -39,7 +39,7 @@ Here are a handful of things that you might want to investigate:
 
 ## 3. Get developer tooling
 This step is optional but **strongly** recommended as it will give you access
-to syntax hihglighting, autoformatting and language server diagnostics for your
+to syntax highlighting, autoformatting and language server diagnostics for your
 editor.
 
 - [SuperHTML](/docs/superhtml)
