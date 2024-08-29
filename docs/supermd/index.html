@@ -247,14 +247,14 @@ Lorem Ipsum
 <p>Absence of leading punctuation means <a href="/docs/supermd/scripty/#Link.sibling"><code>$link.sibling()</code></a>:</p><pre><code class="markdown">[Reference](superhtml) 
 └─➤ [Reference]($link.sibling(&apos;superhtml&apos;)) 
 </code></pre>
-<h3>Images</h3><p>Full URLs (i.e. inclusive of protocol) map to <a href="/docs/supermd/scripty/#Image.url"><code>$img.url()</code></a>:</p><pre><code class="markdown">![](https://zine-ssg.io/picture.jpg) 
-└─➤ []($img.url(&apos;https://zine-ssg.io/picture.jpg&apos;))
+<h3>Images</h3><p>Full URLs (i.e. inclusive of protocol) map to <a href="/docs/supermd/scripty/#Image.url"><code>$image.url()</code></a>:</p><pre><code class="markdown">![](https://zine-ssg.io/picture.jpg) 
+└─➤ []($image.url(&apos;https://zine-ssg.io/picture.jpg&apos;))
 </code></pre>
-<div class="block warning"><h1>Hotlinking</h1><p>Embedding directly images from the network (sometimes referred to as <em>hotlinking</em>) is frowned upon, unless explicitly endorsed by the target host.</p><p>Additionally, links to remote assets can eventually become <em>temporarily</em> or <em>permanently</em> unavailable, making the choice of copying assets locally preferable in general.</p></div><p>A leading <code>/</code> means <a href="/docs/supermd/scripty/#Image.siteAsset"><code>$img.siteAsset()</code></a>:</p><pre><code class="markdown">![](/logo.jpg) 
-└─➤ []($img.siteAsset(&apos;logo.jpg&apos;))
+<div class="block warning"><h1>Hotlinking</h1><p>Embedding directly images from the network (sometimes referred to as <em>hotlinking</em>) is frowned upon, unless explicitly endorsed by the target host.</p><p>Additionally, links to remote assets can eventually become <em>temporarily</em> or <em>permanently</em> unavailable, making the choice of copying assets locally preferable in general.</p></div><p>A leading <code>/</code> means <a href="/docs/supermd/scripty/#Image.siteAsset"><code>$image.siteAsset()</code></a>:</p><pre><code class="markdown">![](/logo.jpg) 
+└─➤ []($image.siteAsset(&apos;logo.jpg&apos;))
 </code></pre>
-<p>Absence of a leading <code>/</code> means <a href="/docs/supermd/scripty/#Image.asset"><code>$img.asset()</code></a>:</p><pre><code class="markdown">![](cat.jpg) 
-└─➤ []($img.asset(&apos;cat.jpg&apos;))
+<p>Absence of a leading <code>/</code> means <a href="/docs/supermd/scripty/#Image.asset"><code>$image.asset()</code></a>:</p><pre><code class="markdown">![](cat.jpg) 
+└─➤ []($image.asset(&apos;cat.jpg&apos;))
 </code></pre>
 <h2>Inline HTML Escape Hatch</h2><p>SuperMD forbids inline HTML in order to make it possible to render content files to non-HTML formats.</p><p>That said, sometimes one only plans to target HTML and would like to be able to embed, say, a YouTube video without too much fuss.</p><p>For those cases, you can still embed arbitrary HTML in a content page by creating a <code>=html</code> code block, like so:</p><pre><code>```=html
 &lt;script&gt;alert(&quot;Yep, it&apos;s inlined alright&quot;)&lt;/script&gt;
