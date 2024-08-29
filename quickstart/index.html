@@ -16,6 +16,8 @@
       Quickstart
       - Zine
     </title>
+    <link rel="stylesheet" type="text/css" href="/fonts.css">
+    <link rel="stylesheet" type="text/css" href="/fira_code.css">
     <link rel="stylesheet" type="text/css" href="/style.css">
     <link rel="stylesheet" type="text/css" href="/highlight.css">
     
@@ -26,9 +28,9 @@
       •
       <a href="/quickstart/">Get Started</a>
       •
-      <a href="/documentation/">Docs</a>
+      <a href="/docs/">Documentation</a>
       •
-      <a href="/community/">Vision & Community</a>
+      <a href="/community/">Community</a>
       •
       <a href="/log/">Changelog</a>
       •
@@ -65,15 +67,12 @@
 		}
   </style>
   <h3 class="overtitle centered">Zine</h3>
-  <h1 class="title" >Quickstart</h1>
-  <div id="page" ><h2>Warning</h2><p>Zine is currently alpha software and many features are missing or not complete yet.</p><p><strong>It's recommended to try Zine on a small project first to get a feeling of the limits of the current implementation.</strong></p><p>If Zine turns out to not be ready yet for your needs, check the <a href="/log/">Changelog</a> from time to time to learn of new improvements.</p><h2>1. Get Zig</h2><p>Zine has only one dependency: the Zig compiler.</p><p>We currently track Zig's latest tagged release (0.13.0 at the moment).</p><p>You can download it from from <a href="https://ziglang.org">the official website</a> or use <a href="https://github.com/marler8997/zigup">zigup</a>.</p><h2>2. Clone Zine's Sample Site</h2><p>And what's a better sample site than the official site itself?</p><p><i><strong><code>shell</code></strong></i></p><pre><code class="bash"><span class="constant">$ git</span> <span class="constant">clone</span> <span class="constant">https://github.com/kristoff-it/zine-ssg.io.git</span>
-<span class="constant">$ cd</span> <span class="constant">zine-ssg.io</span>
-<span class="constant">$ zig</span> <span class="constant">build</span> <span class="constant">serve</span>
+  <h1 class="title">Quickstart</h1>
+  <div id="page"><div class="block warning"><h1>Warning</h1><p>Zine is alpha software.<br>Using Zine today means participating in its development.</p></div><h2>1. Get the Zig compiler</h2><p><strong>Zine is in the process of becoming a fully self-contained executable</strong>, but for now it heavily leverages the Zig build system, meaning that Zig is the only dependency you need.</p><p>We currently track Zig's <strong>latest tagged release (0.13.0)</strong>.</p><p>You can download it from from <a href="https://ziglang.org" target="_blank">the official website</a> or use <a href="https://github.com/marler8997/zigup">zigup</a>.</p><h2>2. Clone Zine's Sample Site</h2><p>What's a better sample site than the official site itself?</p><p><strong><code>shell</code></strong></p><pre><code class="bash"><span class="constant">git</span> <span class="constant">clone</span> <span class="constant">https://github.com/kristoff-it/zine-ssg.io.git</span>
+<span class="constant">cd</span> <span class="constant">zine-ssg.io</span>
+<span class="constant">zig</span> <span class="constant">build</span> <span class="constant">serve</span>
 </code></pre>
-<p>After that, start hacking on it and see how Zine reacts!</p><p>Here are a couple of things that you might want to observe:</p><ul><li><p>On first invocation it will take a moment for Zine to load, as it has to compile optimized versions of all its tools. Subsequent runs will be much faster.</p></li><li><p><code>zig build serve</code> launches the development server but you can also just generate the site without it. Run <code>zig build --summary new</code> to build the website and see which pages ended up being re-rendered. Notice how pages that don't change don't need to be re-rendered.</p></li><li><p>What happens if you delete <code>assets/style.css</code> and try to rebuild the site?</p></li></ul><h2>3. Get developer tooling</h2><p>This step is optional but <strong>strongly</strong> recommended.</p><h3>Language Server</h3><p>Get <a href="https://github.com/kristoff-it/superhtml">SuperHTML</a> and configure your editor to use it for diagnostics and format-on-save.</p><p><figure data-title=""><img src="superhtml.png" alt="" title=""></figure></p><p>SuperHTML also implements pretty sweet autoformatting (see the repo's README for more info):</p><video controls autoplay loop disablepictureinpicture muted width=100%>
- <source src="/vscode-autoformatting.mp4">
-</video>
-<h4>VSCode</h4><p>Get the <a href="https://marketplace.visualstudio.com/items?itemName=LorisCro.super">SuperHTML VSCode Extension</a> (until <a href="https://github.com/kristoff-it/superhtml/issues/8">#8</a> is implemented you will also need to download the SuperHTML CLI tool).</p><p>The extension will also give you syntax highlighting support for <code>.shtml</code> files (SuperHTML templates).</p><h3>Syntax Highlighting</h3><p>SuperHTML template files have a <code>.shtml</code> extension. Since it's valid HTML, you can use normal syntax highlighting, but there are dedicated grammars that can help you understand your templates more easily at a glance.</p><p>In the SuperHTML repository you will also find a tree-sitter grammar which can be used  by Vim, NeoVim, Helix, etc.</p><h2>Next Steps</h2><p>To learn more about Zine, <a href="/documentation/">see the documentation section</a>.</p><p>See the <a href="/community/">Vision & Community section</a> to join our community.</p></div>
+<p>After that, start hacking on it and see how Zine reacts!</p><p>Here are a handful of things that you might want to investigate:</p><ul><li>On first invocation it will take a moment for Zine to load, as it has to compile optimized versions of all its tools. Subsequent runs will be much faster.</li><li>What happens if you rename <code>assets/style.css</code> to something else and try to rebuild the site?</li><li>What happens if you put a wrong value in a link to a local page <a href="/community/">like this one</a>? (this page is <code>content/quickstart.md</code>)</li></ul><h2>3. Get developer tooling</h2><p>This step is optional but <strong>strongly</strong> recommended as it will give you access to syntax hihglighting, autoformatting and language server diagnostics for your editor.</p><ul><li><a href="/docs/superhtml/">SuperHTML</a></li><li>SuperMD (coming soon)</li></ul><h2>Next Steps</h2><p>To learn more about Zine, <a href="/docs/">see the documentation section</a>.</p><p>See the <a href="/community/">Community page</a> to join our community.</p></div>
 
     </div>
   </body>

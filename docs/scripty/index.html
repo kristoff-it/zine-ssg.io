@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head id="head">
+    <meta charset="UTF-8">
+    <meta name="description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@croloris">
+    <meta name="twitter:author" content="@croloris">
+    <meta name="twitter:description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+    <meta name="twitter:title" content="Scripty Basics | Zine">
+    <meta property="og:title" content="Scripty Basics">
+    <meta property="og:type" content="website">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title id="title">
+      Scripty Basics
+      - Zine
+    </title>
+    <link rel="stylesheet" type="text/css" href="/fonts.css">
+    <link rel="stylesheet" type="text/css" href="/fira_code.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="stylesheet" type="text/css" href="/highlight.css">
+    
+  </head>
+  <body>
+    <nav id="menu" class="centered">
+      <a href="/">Home</a>
+      •
+      <a href="/quickstart/">Get Started</a>
+      •
+      <a href="/docs/">Documentation</a>
+      •
+      <a href="/community/">Community</a>
+      •
+      <a href="/log/">Changelog</a>
+      •
+      <a href="https://github.com/kristoff-it/zine" target="_blank">
+        Code
+      </a>
+    </nav>
+    <div id="content">
+      
+  <style>
+    h3.overtitle {
+       margin-bottom: 0;
+     }
+     h1.title {
+       margin-top: 0;
+     }
+
+		#page h2, #page h3 {
+			text-align: left;
+		}
+
+		#page h2 {
+			font-size: 1.7rem;
+			border-bottom: 1px dashed #aaa;
+			margin-top: 2em;
+		}
+
+		#page h3 {
+			font-size: 1.5rem;
+		}
+    
+		#page h4 {
+			font-size: 1rem;
+		}
+  </style>
+  <h3 class="overtitle centered">Zine</h3>
+  <h1 class="title">Scripty Basics</h1>
+  <div id="page"><h2>Intro</h2><p>Zine uses SuperMD (an extension of Markdown) for content and SuperHTML (an extension of HTML5) for templating.</p><p>Both SuperMD and SuperHTML extend their respective original file formats by embedding Scripty expressions in key places.</p><p>For example this is how you can print a link to a page in SuperHTML:</p><pre><code class="superhtml"><span class="punctuation bracket">&lt;</span><span class="special">ctx</span> <span class="attribute">about</span><span class="punctuation delimiter">=</span><span class="string">&quot;</span><span class="string">$site.page(&apos;about&apos;)</span><span class="string">&quot;</span><span class="punctuation bracket">&gt;</span>
+  <span class="punctuation bracket">&lt;</span><span class="tag">a</span> <span class="attribute">href</span><span class="punctuation delimiter">=</span><span class="string">&quot;</span><span class="string">$ctx.about.link()</span><span class="string">&quot;</span> <span class="attribute">text</span><span class="punctuation delimiter">=</span><span class="string">&quot;</span><span class="string">$ctx.about.title</span><span class="string">&quot;</span><span class="punctuation bracket">&gt;</span><span class="punctuation bracket">&lt;/</span><span class="special">a</span><span class="punctuation bracket">&gt;</span>
+<span class="punctuation bracket">&lt;/</span><span class="tag error">ctx</span><span class="punctuation bracket">&gt;</span>
+</code></pre>
+<p>And this is how you can do the same in SuperMD:</p><pre><code class="markdown">Check out our [about page]($link.page(&apos;about&apos;)).
+</code></pre>
+<p>The Scripty expressions in the previous two examples were the following:</p><ul><li>SuperHTML<ul><li><code>$site.page(&apos;about&apos;)</code></li><li><code>$ctx.about.link()</code></li><li><code>$ctx.about.title</code></li></ul></li><li>SuperMD<ul><li><code>$link.page(&apos;about&apos;)</code></li></ul></li></ul><p>You might be wondering why it's so different to embed a link in the two languages. We'll touch upon this topic more later in this page, but for now suffice to say that <strong>content and templates have vastly different needs</strong> and their respective Super- languages tailor their usage of Scripty accordingly.</p><h2>Scrypty Syntax</h2><p>Scripty is a very small language designed to be embedded in a string.</p><p>For this reason Scripty doesn't have statements or blocks of any kind and can only be used to build expressions.</p><p>More precisely, Scripty expressions are always rooted in a global scope from which the expression navigates fields and calls functions.</p><p>All variables available in the glboal scope are prefixed with a <code>$</code> which means in turn that all Scripty expressions start with a <code>$</code>.</p><h3>Literals</h3><p>Scripty supports also a limited set of literals:</p><ul><li>String<ul><li><code>&quot;Hello World&quot;</code></li><li><code>&apos;Hello &quot;word&quot;&apos;</code></li></ul></li><li>Int  <em>(64-bit signed)</em><ul><li><code>1990</code></li></ul></li><li>Float <em>(64-bit)</em><ul><li><code>120.5</code></li></ul></li><li>Bool<ul><li><code>true</code></li><li><code>false</code></li></ul></li></ul><h3>Field navigation</h3><p>Navigating fields of structured values can be done with <code>.</code> concatenation:</p><ul><li><code>$foo.bar.baz</code></li></ul><h3>Function call</h3><p>Functions can be called with <code>()</code>.</p><p>Any argument can be palced between the parenthesis and separated with a <code>,</code> (trailing commas are allowed). Arguments can be both literals and other Scripty expressions.</p><ul><li><code>$foo.bar.qux()</code></li><li><code>$foo.bar.qux(&apos;arg1&apos;, &quot;arg2&quot;)</code></li><li><code>$foo.bar.qux(&quot;string&quot;, 2, false)</code></li><li><code>$foo.bar.qux($foo.bar.baz)</code></li><li><code>$foo.bar.qux($foo.bar.baz, &quot;string&quot;,)</code></li></ul><h2>Global Scope and Semantics</h2><p>Scripty is designed to only produce expressions embedded inside strings because it's meant to be embedded into other languages.</p><p>For this reason it's entirely up to the host language to define which variables are available in the global scope and their semantics.</p><p>For example, SuperHTML offers (among others) <code>$page</code> and <code>$site</code> in its global scope and all functions called on them are just meant to navigate all kinds of assets (pages, translations, images, etc) present in the site.</p><p>In contrast, SuperMD offers (among others) <code>$link</code>, <code>$image</code>, and <code>$video</code> and calling functions on those values changes their internal state ultimately defining a structured description of a {link, image, video} that must be embedded in the document.</p><p>To learn what global variables are available to you in a given context, and the semantics of the operations allowed on them, you must read the documentation specific to the host language that embeds Scripty.</p><h2>Next steps</h2><p>If you haven't done it yet, read the <a href="/docs/">main Documentation page</a> fully, otherwise see:</p><ul><li><a href="/docs/supermd/">SuperMD Basics</a></li><li><a href="/docs/superhtml/">SuperHTML Basics</a></li></ul></div>
+
+    </div>
+  </body>
+</html>

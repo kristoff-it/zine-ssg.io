@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head id="head">
+    <meta charset="UTF-8">
+    <meta name="description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@croloris">
+    <meta name="twitter:author" content="@croloris">
+    <meta name="twitter:description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+    <meta name="twitter:title" content="SuperMD Scripty Reference | Zine">
+    <meta property="og:title" content="SuperMD Scripty Reference">
+    <meta property="og:type" content="website">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title id="title">
+      SuperMD Scripty Reference
+      - Zine
+    </title>
+    <link rel="stylesheet" type="text/css" href="/fonts.css">
+    <link rel="stylesheet" type="text/css" href="/fira_code.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="stylesheet" type="text/css" href="/highlight.css">
+    
+  </head>
+  <body>
+    <nav id="menu" class="centered">
+      <a href="/">Home</a>
+      •
+      <a href="/quickstart/">Get Started</a>
+      •
+      <a href="/docs/">Documentation</a>
+      •
+      <a href="/community/">Community</a>
+      •
+      <a href="/log/">Changelog</a>
+      •
+      <a href="https://github.com/kristoff-it/zine" target="_blank">
+        Code
+      </a>
+    </nav>
+    <div id="content">
+      
+  <style>
+    h1 {
+       margin-top: 0;
+     }
+     h3 {
+       margin-bottom: 0;
+     }
+
+	#reference h1 {
+		position: sticky;
+		top: 0;
+		background-color: #111;
+		border-bottom: 2px dashed #aaa;
+		margin-top: 50px;
+	}
+
+	#reference h1 a {
+		text-decoration: none;
+	}
+
+	#reference h2, #reference h3 {
+		font-family: 'Fira Code', monospace;
+		text-align: left;
+		font-size: 1rem;
+	}
+
+	#reference h2 {
+		border-bottom: 1px dashed #aaa;
+		margin-top: 2em;
+	}
+	
+	#reference h3 {
+		margin-top: 2em;
+		background-color: #222;
+		padding: 3px 5px;
+	}
+
+	#reference table {
+		width: 100%;
+		padding: 10px;
+		text-align: center;
+	}
+
+	
+	html {
+		scroll-padding-top: 50px;
+	}
+
+	h3[id]:target {
+	  animation: pulse 2s ease-in-out 2 forwards;
+	}
+
+	@keyframes pulse {
+	  0%,
+	  100% {
+	    background-color: #444;
+	  }
+
+	  50% {
+	    background-color: #222;
+	  }
+	}
+	
+	div[id]:target {
+	  animation: pulse-div 2s ease-in-out 1;
+	}
+
+	@keyframes pulse-div {
+	  0%,
+	  100% {
+	    background-color: #111;
+	  }
+
+	  50% {
+	    background-color: #222;
+	  }
+	}
+  </style>
+  <h3 class="centered">Zine</h3>
+  <h1>SuperMD Scripty Reference</h1>
+  <div id="reference"><div id=global><h1><a class="" href="#global">Global Scope</a></h1><h2><code>$section</code> : <a href="#Section">Section</a></h2><p>A content section, used to define a portion of content that can be rendered individually by a template.</p><h2><code>$block</code> : <a href="#Block">Block</a></h2><p>When placed at the beginning of a Markdown quote block, the quote block becomes a generic container for elements that can be styled as one wishes.</p><p>SuperHTML will automatically give the class <code>block</code> when rendering Block directives.</p><p>Syntax Example:</p><pre><code class="markdown"><span class="punctuation special">&gt;</span>[]($block.attr(&apos;note&apos;))
+<span class="punctuation special">&gt;</span>This is now a block note.
+<span class="punctuation special">&gt;</span>Lorem ipsum.
+</code></pre>
+<p>Differently from Sections, Blocks cannot be rendered independently and can be nested.</p><p>A block can optionally wrap a Markdown heading element. In this case<br>the generated Block will be rendered with two separate sub-containers: one for the block title and one for the body.</p><p>Syntax Example:</p><pre><code class="markdown"><span class="punctuation special">&gt;</span><span class="punctuation special">###</span> <span class="text title">[Warning]($block.attr(&apos;warning&apos;))</span>
+<span class="punctuation special">&gt;</span>This is now a block note.
+<span class="punctuation special">&gt;</span>Lorem ipsum.
+</code></pre>
+<h2><code>$heading</code> : <a href="#Heading">Heading</a></h2><p>Allows giving an id and attributes to a heading element.</p><h2><code>$image</code> : <a href="#Image">Image</a></h2><p>An embedded image.</p><h2><code>$video</code> : <a href="#Video">Video</a></h2><p>An embedded video.</p><h2><code>$link</code> : <a href="#Link">Link</a></h2><p>A link.</p><h2><code>$code</code> : <a href="#Code">Code</a></h2><p>An embedded piece of code.</p></div><div id=anydirective><h1><a class="" href="#anydirective">anydirective</a></h1><p>Each directive's functions will allow you to set the directive's internal fields accordingly using a "builder pattern" / "fluent interface".</p><p>For example, in:</p><pre><code class="markdown">[]($image.asset(&apos;cat.jpg&apos;).id(&apos;meow&apos;))
+</code></pre>
+<p>The call to <code>asset</code> returns a reference to the original <code>$image</code> directive, which in turn then gets modified a second time by <code>id</code>.</p><p>Different kinds of directives will have different functions but all will support the functions listed here.</p><h2>Functions</h2><h3 id=anydirective.id> <a href="#anydirective.id"><code>fn</code></a> id (str) -> <a href="$link.ref("anydirective")">anydirective</a></h3><p>Sets the unique identifier field of this directive.</p><h3 id=anydirective.attrs> <a href="#anydirective.attrs"><code>fn</code></a> attrs (str, [str...]) -> <a href="$link.ref("anydirective")">anydirective</a></h3><p>Appends to the attributes field of this Directive.</p></div><div id=Section><h1><a class="" href="#Section">Section</a></h1><p>A content section, used to define a portion of content that can be rendered individually by a template.</p></div><div id=Block><h1><a class="" href="#Block">Block</a></h1><p>When placed at the beginning of a Markdown quote block, the quote block becomes a generic container for elements that can be styled as one wishes.</p><p>SuperHTML will automatically give the class <code>block</code> when rendering Block directives.</p><p>Syntax Example:</p><pre><code class="markdown"><span class="punctuation special">&gt;</span>[]($block.attr(&apos;note&apos;))
+<span class="punctuation special">&gt;</span>This is now a block note.
+<span class="punctuation special">&gt;</span>Lorem ipsum.
+</code></pre>
+<p>Differently from Sections, Blocks cannot be rendered independently and can be nested.</p><p>A block can optionally wrap a Markdown heading element. In this case<br>the generated Block will be rendered with two separate sub-containers: one for the block title and one for the body.</p><p>Syntax Example:</p><pre><code class="markdown"><span class="punctuation special">&gt;</span><span class="punctuation special">###</span> <span class="text title">[Warning]($block.attr(&apos;warning&apos;))</span>
+<span class="punctuation special">&gt;</span>This is now a block note.
+<span class="punctuation special">&gt;</span>Lorem ipsum.
+</code></pre>
+</div><div id=Heading><h1><a class="" href="#Heading">Heading</a></h1><p>Allows giving an id and attributes to a heading element.</p></div><div id=Image><h1><a class="" href="#Image">Image</a></h1><p>An embedded image.</p><h2>Functions</h2><h3 id=Image.alt> <a href="#Image.alt"><code>fn</code></a> alt (str) -> <a href="$link.ref("Image")">Image</a></h3><p>An alternative description for this image that accessibility tooling can access.</p><h3 id=Image.caption> <a href="#Image.caption"><code>fn</code></a> caption (str) -> <a href="$link.ref("Image")">Image</a></h3><p>A caption for this image.</p><h3 id=Image.linked> <a href="#Image.linked"><code>fn</code></a> linked (bool) -> <a href="$link.ref("Image")">Image</a></h3><p>Wraps the image in a link to itself.</p><h3 id=Image.url> <a href="#Image.url"><code>fn</code></a> url (str) -> <a href="$link.ref("Image")">Image</a></h3><p>Sets the source location of this directive to an external URL.</p><h3 id=Image.asset> <a href="#Image.asset"><code>fn</code></a> asset (str) -> <a href="$link.ref("Image")">Image</a></h3><p>Sets the source location of this directive to a page asset.</p><h3 id=Image.siteAsset> <a href="#Image.siteAsset"><code>fn</code></a> siteAsset (str) -> <a href="$link.ref("Image")">Image</a></h3><p>Sets the source location of this directive to a site asset.</p><h3 id=Image.buildAsset> <a href="#Image.buildAsset"><code>fn</code></a> buildAsset (str) -> <a href="$link.ref("Image")">Image</a></h3><p>Sets the source location of this directive to a build asset.</p></div><div id=Video><h1><a class="" href="#Video">Video</a></h1><p>An embedded video.</p><h2>Functions</h2><h3 id=Video.loop> <a href="#Video.loop"><code>fn</code></a> loop (bool) -> <a href="$link.ref("Video")">Video</a></h3><p>If true, the video will seek back to the start upon reaching the end.</p><h3 id=Video.muted> <a href="#Video.muted"><code>fn</code></a> muted (bool) -> <a href="$link.ref("Video")">Video</a></h3><p>If true, the video will be silenced at start.</p><h3 id=Video.autoplay> <a href="#Video.autoplay"><code>fn</code></a> autoplay (bool) -> <a href="$link.ref("Video")">Video</a></h3><p>If true, the video will start playing automatically.</p><h3 id=Video.controls> <a href="#Video.controls"><code>fn</code></a> controls (bool) -> <a href="$link.ref("Video")">Video</a></h3><p>If true, the video will display controls (e.g. play/pause, volume).</p><h3 id=Video.pip> <a href="#Video.pip"><code>fn</code></a> pip (bool) -> <a href="$link.ref("Video")">Video</a></h3><p>If <strong>false</strong>, clients shouldn't try to display the video in a Picture-in-Picture context.</p><h3 id=Video.url> <a href="#Video.url"><code>fn</code></a> url (str) -> <a href="$link.ref("Video")">Video</a></h3><p>Sets the source location of this directive to an external URL.</p><h3 id=Video.asset> <a href="#Video.asset"><code>fn</code></a> asset (str) -> <a href="$link.ref("Video")">Video</a></h3><p>Sets the source location of this directive to a page asset.</p><h3 id=Video.siteAsset> <a href="#Video.siteAsset"><code>fn</code></a> siteAsset (str) -> <a href="$link.ref("Video")">Video</a></h3><p>Sets the source location of this directive to a site asset.</p><h3 id=Video.buildAsset> <a href="#Video.buildAsset"><code>fn</code></a> buildAsset (str) -> <a href="$link.ref("Video")">Video</a></h3><p>Sets the source location of this directive to a build asset.</p></div><div id=Link><h1><a class="" href="#Link">Link</a></h1><p>A link.</p><h2>Functions</h2><h3 id=Link.url> <a href="#Link.url"><code>fn</code></a> url (str) -> <a href="$link.ref("Link")">Link</a></h3><p>Sets the source location of this directive to an external URL.</p><h3 id=Link.asset> <a href="#Link.asset"><code>fn</code></a> asset (str) -> <a href="$link.ref("Link")">Link</a></h3><p>Sets the source location of this directive to a page asset.</p><h3 id=Link.siteAsset> <a href="#Link.siteAsset"><code>fn</code></a> siteAsset (str) -> <a href="$link.ref("Link")">Link</a></h3><p>Sets the source location of this directive to a site asset.</p><h3 id=Link.buildAsset> <a href="#Link.buildAsset"><code>fn</code></a> buildAsset (str) -> <a href="$link.ref("Link")">Link</a></h3><p>Sets the source location of this directive to a build asset.</p><h3 id=Link.page> <a href="#Link.page"><code>fn</code></a> page (str, ?str) -> <a href="$link.ref("Link")">Link</a></h3><p>Sets the source location of this directive to a page.</p><p>The first argument is a page path, while the second, optional argument is the locale code for mulitlingual websites. In mulitlingual websites, the locale code defaults to the same locale of the current content file.</p><p>The path is relative to the content directory and should exclude the markdown suffix as Zine will automatically infer which file naming convention is used by the target page.</p><p>For example, the value 'foo/bar' will be automatically matched by Zine with either:</p><ul><li>content/foo/bar.smd</li><li>content/foo/bar/index.smd</li></ul><h3 id=Link.sibling> <a href="#Link.sibling"><code>fn</code></a> sibling (str, ?str) -> <a href="$link.ref("Link")">Link</a></h3><p>Same as <code>page()</code>, but the reference is relative to the section the current page belongs to.</p><div class="block"><h1>NOTE</h1><p>While section pages define a section, <em>as pages</em> they don't belong to the section they define.</p></div><h3 id=Link.sub> <a href="#Link.sub"><code>fn</code></a> sub (str, ?str) -> <a href="$link.ref("Link")">Link</a></h3><p>Same as <code>page()</code>, but the reference is relative to the current page.</p><p>Only works on Section pages (i.e. pages with a <code>index.smd</code> filename).</p><h3 id=Link.new> <a href="#Link.new"><code>fn</code></a> new (bool) -> <a href="$link.ref("Link")">Link</a></h3><p>When <code>true</code> it asks readers to open the link in a new window or tab.</p><h3 id=Link.ref> <a href="#Link.ref"><code>fn</code></a> ref (str) -> <a href="$link.ref("Link")">Link</a></h3><p>Deep-links to a specific section of either the current page or a target page set with <code>page()</code>.</p></div><div id=Code><h1><a class="" href="#Code">Code</a></h1><p>An embedded piece of code.</p><h2>Functions</h2><h3 id=Code.asset> <a href="#Code.asset"><code>fn</code></a> asset (str) -> <a href="$link.ref("Code")">Code</a></h3><p>Sets the source location of this directive to a page asset.</p><h3 id=Code.siteAsset> <a href="#Code.siteAsset"><code>fn</code></a> siteAsset (str) -> <a href="$link.ref("Code")">Code</a></h3><p>Sets the source location of this directive to a site asset.</p><h3 id=Code.buildAsset> <a href="#Code.buildAsset"><code>fn</code></a> buildAsset (str) -> <a href="$link.ref("Code")">Code</a></h3><p>Sets the source location of this directive to a build asset.</p><h3 id=Code.language> <a href="#Code.language"><code>fn</code></a> language (str) -> <a href="$link.ref("Code")">Code</a></h3><p>Sets the language of this code snippet, which is also used for syntax highlighting.</p></div></div>
+
+    </div>
+  </body>
+</html>

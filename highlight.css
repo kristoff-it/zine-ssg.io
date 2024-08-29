@@ -117,3 +117,39 @@ code.ziggy .numeric.constant {
 code.ziggy .function {
   color: var(--blue);
 }
+
+
+code.ziggy-schema {
+  color: var(--cyan);
+}
+
+code.ziggy-schema .keyword,
+code.ziggy-schema .type {
+  color: var(--light-yellow);
+}
+
+code.ziggy-schema .string {
+  color: var(--dark-yellow);
+}
+
+code.ziggy-schema .numeric.constant {
+  color: var(--magenta);
+}
+
+code.ziggy-schema .function {
+  color: var(--blue);
+}
+
+
+code.markdown {
+  color: #ccc;
+}
+
+
+code.markdown .text.title {
+  color: var(--light-red);
+}
+
+code.markdown .punctuation {
+  color: var(--light-red);
+}

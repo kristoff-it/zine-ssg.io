@@ -16,6 +16,8 @@
       Deploying on GitHub Pages
       - Zine
     </title>
+    <link rel="stylesheet" type="text/css" href="/fonts.css">
+    <link rel="stylesheet" type="text/css" href="/fira_code.css">
     <link rel="stylesheet" type="text/css" href="/style.css">
     <link rel="stylesheet" type="text/css" href="/highlight.css">
     
@@ -26,9 +28,9 @@
       •
       <a href="/quickstart/">Get Started</a>
       •
-      <a href="/documentation/">Docs</a>
+      <a href="/docs/">Documentation</a>
       •
-      <a href="/community/">Vision & Community</a>
+      <a href="/community/">Community</a>
       •
       <a href="/log/">Changelog</a>
       •
@@ -63,10 +65,20 @@
 		#docs h4 {
 			font-size: 1rem;
 		}
+
+  table {
+    font-size: 0.9em;
+  }
+  table th {
+    font-size: 1em;
+  }
+  table td {
+    white-space: nowrap;
+  }
   </style>
   <h3 class="centered">Zine</h3>
-  <h1 >Deploying on GitHub Pages</h1>
-  <div id="docs" ><h2>About</h2><p>This guide assumes that you're already familiar with GitHub Pages. Please refer <a href="https://pages.github.com/">the official GitHub Pages documentation</a> for more info.</p><h2>1. Use GitHub Actions</h2><p>GitHub Actions runner have an inherent overhead and, since Zine is a collection of tools that gets compiled on-demand, your runner will need to do some work that wouldn't be necessary with a single-executable tool.</p><p><strong>Luckily, the build will be cached automatically if you use <a href="https://github.com/marketplace/actions/setup-zig-compiler">mlugg/setup-zig</a></strong>.</p><p><a href="https://github.com/kristoff-it/zine/actions">This site currently builds in 25-35 seconds</a>, of which 10 are spent setting up Zig, and 1 for the actual site build (the rest is GitHub Pages overhead).</p><p><i><strong><code>.github/workflows/gh-pages.yml</code></strong></i></p><pre><code>name: github pages
+  <h1>Deploying on GitHub Pages</h1>
+  <div id="docs"><h2>About</h2><p>This guide assumes that you're already familiar with GitHub Pages. Please refer <a href="https://pages.github.com/" target="_blank">the official GitHub Pages documentation</a> for more info.</p><h2>1. Use GitHub Actions</h2><p>GitHub Actions runner have an inherent overhead and, since Zine is a collection of tools that gets compiled on-demand, your runner will need to do some work that wouldn't be necessary with a single-executable tool.</p><p><strong>Luckily, the build will be cached automatically by using <a href="https://github.com/marketplace/actions/setup-zig-compiler">mlugg/setup-zig</a></strong>.</p><p><a href="https://github.com/kristoff-it/zine-ssg.io/actions" target="_blank">This site currently builds in 25-35 seconds</a>, of which 12 are spent setting up Zig, and 2 for the actual site build (the rest is GitHub Pages overhead).</p><p><strong><code>.github/workflows/gh-pages.yml</code></strong></p><pre><code>name: github pages
 
 on:
   push:
@@ -90,11 +102,11 @@ jobs:
           
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == &apos;refs/heads/main&apos;
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./zig-out
-</code></pre><h2>2. Build locally</h2><p>A more manual, but faster approach is to build the website locally and commit it to the correct branch/subdir.</p><p>Currently Zine doesn't offer any help automating this process, but in the future it might.</p><p><strong>NOTE: currently Zine doesn't clean <code>zig-out/</code> across rebuilds so you will have to it manually.</strong></p></div>
+</code></pre><h2>2. Build locally</h2><p>A more manual, but faster approach is to build the website locally and commit it to the correct branch/subdir.</p><p>Currently Zine doesn't offer any help automating this process, but in the future it might.</p><div class="block warning"><h1>Warning</h1><p>Currently Zine doesn't clean <code>zig-out/</code> across rebuilds so you will have to do it manually.</p></div></div>
 
     </div>
   </body>

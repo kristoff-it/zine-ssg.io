@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+  <head id="head">
+    <meta charset="UTF-8">
+    <meta name="description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@croloris">
+    <meta name="twitter:author" content="@croloris">
+    <meta name="twitter:description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+    <meta name="twitter:title" content="SuperMD Basics | Zine">
+    <meta property="og:title" content="SuperMD Basics">
+    <meta property="og:type" content="website">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title id="title">
+      SuperMD Basics
+      - Zine
+    </title>
+    <link rel="stylesheet" type="text/css" href="/fonts.css">
+    <link rel="stylesheet" type="text/css" href="/fira_code.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="stylesheet" type="text/css" href="/highlight.css">
+    
+  </head>
+  <body>
+    <nav id="menu" class="centered">
+      <a href="/">Home</a>
+      •
+      <a href="/quickstart/">Get Started</a>
+      •
+      <a href="/docs/">Documentation</a>
+      •
+      <a href="/community/">Community</a>
+      •
+      <a href="/log/">Changelog</a>
+      •
+      <a href="https://github.com/kristoff-it/zine" target="_blank">
+        Code
+      </a>
+    </nav>
+    <div id="content">
+      
+  <style>
+    h1 {
+       margin-top: 0;
+     }
+     h3 {
+       margin-bottom: 0;
+     }
+
+		#docs h2, #docs h3 {
+			text-align: left;
+		}
+
+		#docs h3 {
+			font-size: 1.5rem;
+		}
+
+		#docs h2 {
+			font-size: 1.5rem;
+			border-bottom: 1px dashed #aaa;
+			margin-top: 2em;
+		}
+
+		#docs h4 {
+			font-size: 1rem;
+		}
+
+  table {
+    font-size: 0.9em;
+  }
+  table th {
+    font-size: 1em;
+  }
+  table td {
+    white-space: nowrap;
+  }
+  </style>
+  <h3 class="centered">Zine</h3>
+  <h1>SuperMD Basics</h1>
+  <div id="docs"><h2>Intro</h2><p><strong>Make sure to read <a href="$link.page('docs/scripty')">Scripty Basics</a> first.</strong></p><p>SuperMD is an extension of Markdown that adds Scripty expression support.</p><p>There are <a href="https://github.github.com/gfm/" target="_blank">plenty</a> <a href="https://github.com/iamgio/quarkdown">of</a> Markdown dialects in the wild that add new syntax to it, and there are also <a href="https://mdxjs.com/">plenty</a> <a href="https://gohugo.io/content-management/shortcodes/">of</a> templating languages that allow you to <em>template</em> your Markdown content.</p><p>The issue with the first approach is that new syntax complicates an already overcomplicated language (to parse) and it usually only solves very specific problems.</p><p>The issue with the second approach is that, while templating (like <a href="https://gohugo.io/content-management/shortcodes/" target="_blank">Hugo Shortcodes</a>) does allow you to extend Markdown in a very general way, it usually translates into pulling layouting concerns into the content, which is the exact thing we were trying to minimize by writing Markdown in the first place.</p><h3>Two Columns</h3><p>For example let's say that you would like to have the middle section of a page to have a two column layout, this is how you could solve it:</p><ul><li><p>In <a href="https://commonmark.org/" target="_blank">CommonMark</a> (with inline HTML support enabled):</p><pre><code class="markdown">&lt;div class=&quot;flex-row&quot;&gt;&lt;div&gt;
+<span class="punctuation special"></span>  
+<span class="punctuation special">#</span> <span class="text title">Left side</span>
+
+&lt;/div&gt;&lt;div&gt;
+<span class="punctuation special"></span>
+<span class="punctuation special">#</span> <span class="text title">Right side</span>
+
+&lt;/div&gt;&lt;/div&gt;
+</code></pre>
+</li><li><p>In <a href="https://mdxjs.com" target="_blank">MDX</a> <em>(semi-jokingly)</em>:</p><pre><code class="markdown">import {
+  Row, 
+  Left, 
+  Right
+} from &apos;@leftpad-inc/two-columns&apos;;
+
+&lt;Row&gt;
+<span class="punctuation special"></span>  &lt;Left&gt;
+<span class="punctuation special"></span>
+<span class="punctuation special">  #</span> <span class="text title">Left Side</span>
+  
+  &lt;/Left&gt;&lt;Right&gt;
+
+<span class="punctuation special">  #</span> <span class="text title">Right Side</span>
+
+  &lt;/Right&gt;
+<span class="punctuation special"></span>&lt;/Row&gt;
+</code></pre>
+</li><li><p>In Hugo (using <a href="https://gohugo.io/content-management/shortcodes/" target="_blank">Shortcodes</a>):</p><pre><code class="markdown">{{&lt; row &gt;}}
+  {{% div %}} 
+<span class="punctuation special">  #</span> <span class="text title">Left Side</span> 
+  {{% /div %}}{{% div %}} 
+<span class="punctuation special">  #</span> <span class="text title">Right Side</span> 
+  {{% /div %}}
+{{&lt; /row &gt;}}
+</code></pre>
+</li></ul><p>SuperMD takes a completely different approach by allowing the templating language to access the content in <em>sections</em>:</p><p><em><strong><code>two-columns.smd</code></strong></em></p><pre><code class="markdown"><span class="punctuation special">#</span> <span class="text title">[Left Section]($section.id(&apos;left&apos;))</span>
+Lorem Ipsum
+
+<span class="punctuation special">#</span> <span class="text title">[Right Section]($section.id(&apos;right&apos;))</span>
+Dolor Something Something
+</code></pre>
+<p><em><strong><code>layout.shtml</code></strong></em></p><pre><code class="superhtml"><span class="punctuation bracket">&lt;</span><span class="special">div</span> <span class="attribute">class</span><span class="punctuation delimiter">=</span><span class="string">&quot;</span><span class="string">flex-row</span><span class="string">&quot;</span><span class="punctuation bracket">&gt;</span>
+  <span class="punctuation bracket">&lt;</span><span class="tag">div</span> <span class="attribute">html</span><span class="punctuation delimiter">=</span><span class="string">&quot;</span><span class="string">$page.contentSection(&apos;left&apos;)</span><span class="string">&quot;</span><span class="punctuation bracket">&gt;</span><span class="punctuation bracket">&lt;/</span><span class="special">div</span><span class="punctuation bracket">&gt;</span>
+  <span class="punctuation bracket">&lt;</span><span class="tag">div</span> <span class="attribute">html</span><span class="punctuation delimiter">=</span><span class="string">&quot;</span><span class="string">$page.contentSection(&apos;right&apos;)</span><span class="string">&quot;</span><span class="punctuation bracket">&gt;</span><span class="punctuation bracket">&lt;/</span><span class="special">div</span><span class="punctuation bracket">&gt;</span>
+<span class="punctuation bracket">&lt;/</span><span class="special">div</span><span class="punctuation bracket">&gt;</span>
+</code></pre>
+<h3>Design Goals</h3><p>The main design goal of SuperMD is to upgrade Markdown to a full-fledged markup format that is not dependent on HTML.</p><p>Markdown is <a href="https://buttondown.com/hillelwayne/archive/why-i-prefer-rst-to-markdown/" target="_blank">often times</a> considered too simplistic for serious markup work (e.g. creating a book) in good part also because of its ties to HTML.</p><p>SuperMD doesn't allow inlined HTML and instead gives you the ability to define a variety of "embedded assets" through a unified syntax.</p><p>It is planned for Zine to eventually gain support for generating PDFs (and potentially other file formats), at which point it will be critical for the content markup language to have the ability to define embedded assets (and styling elements) without using HTML as a crutch.</p><h4>Roadmap</h4><p>Compared to other parts of Zine, SuperMD is very new and many parts of it are still in their first design iteration. The general similarity to Markdown is set in stone for SuperMD, but actual CommonMark adherence is not guaranteed.</p><p>All other file formats in Zine have a parser written from scratch, except SuperMD (which uses <a href="https://github.com/kristoff-it/cmark-gfm" target="_blank">cmark-gfm</a>) and it might be that at some point we'll switch to a more sane (parsing-wise) language that still has the same general feeling of writing Markdown.</p><div class="block"><h1>Concepts vs Syntax</h1><p>We are currently using link syntax for embedding Scripty expressions, but there are some limitations in how links are defined in the Markdown grammar that are problematic for our use case.</p><p>As we gain experience and confidence in the direction of the design we will address syntax concerns more directly. In other words, we're prioritizing the design of <em>concepts</em> and delaying the design of <em>syntax</em>.</p></div><h2>File Extension</h2><p>SuperMD files have a <code>.smd</code> file extension.</p><h2>Developer Tooling</h2><p>We don't have yet any developer tooling for SuperMD files, but it's high on our list of priorities.</p><p>You should expect grammars for syntax highlighting and a language server for immediate feedback on sytnax errors.</p><h2 id=frontmatter>Frontmatter</h2><p>As mentioned in the main documentation page, every SuperMD file in Zine must start with a frontmatter that contains all the metadata relative to the page.</p><p>SuperMD uses <a href="https://ziggy-lang.io" target="_blank">Ziggy</a> as its frontmatter data serialization language.</p><p>This is the full Ziggy Schema for the frontmatter:</p><p><em><strong><code>frontmatter.ziggy-schema</code></strong></em> <pre><code class="ziggy-schema"><span class="keyword">root</span> = <span class="type">Frontmatter</span>
+
+<span class="comment line documentation">///A RFC 3339 date string, eg &quot;2024-10-24T00:00:00&quot;.</span>
+<span class="function">@date</span> = <span class="constant builtin">bytes</span><span class="punctuation delimiter">,</span>
+
+<span class="keyword">struct</span> <span class="type">Frontmatter</span> <span class="punctuation bracket">{</span>
+    <span class="comment line documentation">///The title of this page.</span>
+    <span class="keyword">title</span>: <span class="type">?</span><span class="constant builtin">bytes</span><span class="punctuation delimiter">,</span>
+    <span class="comment line documentation">///A short description that the section page has 
+    ///access to.</span>
+    <span class="keyword">description</span>: <span class="type">?</span><span class="constant builtin">bytes</span><span class="punctuation delimiter">,</span>
+    <span class="comment line documentation">///The main author of this page.</span>
+    <span class="keyword">author</span>: <span class="type">?</span><span class="constant builtin">bytes</span><span class="punctuation delimiter">,</span>
+    <span class="keyword">date</span>: <span class="type">?</span><span class="function">@date</span><span class="punctuation delimiter">,</span>
+    <span class="keyword">tags</span>: <span class="type">?</span><span class="punctuation bracket">[</span><span class="constant builtin">bytes</span><span class="punctuation bracket">]</span><span class="punctuation delimiter">,</span>
+    <span class="comment line documentation">///Alternative paths where this content will also be 
+    ///made available.</span>
+    <span class="keyword">aliases</span>: <span class="type">?</span><span class="punctuation bracket">[</span><span class="constant builtin">bytes</span><span class="punctuation bracket">]</span><span class="punctuation delimiter">,</span>
+    <span class="comment line documentation">///When set to true this file will be ignored when 
+    ///bulding the website.</span>
+    <span class="keyword">draft</span>: <span class="type">?</span><span class="constant builtin">bool</span><span class="punctuation delimiter">,</span>
+    <span class="comment line documentation">///Path to a layout file inside of the configured 
+    ///layouts directory. </span>
+    <span class="keyword">layout</span>: <span class="constant builtin">bytes</span><span class="punctuation delimiter">,</span>
+    <span class="comment line documentation">///Alternative versions of this page, created by 
+    ///rendering the content using a different layout. 
+    ///Useful for creating RSS feeds, for example.</span>
+    <span class="keyword">alternatives</span>: <span class="type">?</span><span class="punctuation bracket">[</span><span class="type">Alternative</span><span class="punctuation bracket">]</span><span class="punctuation delimiter">,</span>
+    <span class="comment line documentation">///Ignore other markdown files in this directory and 
+    ///any sub-directory. Can only be meaningfully set to 
+    ///true for &apos;index.smd&apos; pages.</span>
+    <span class="keyword">skip_subdirs</span>: <span class="type">?</span><span class="constant builtin">bool</span><span class="punctuation delimiter">,</span>
+    <span class="comment line documentation">///User-defined properties that you can then reference 
+    ///in templates. </span>
+    <span class="keyword">custom</span>: <span class="type">?</span><span class="keyword">map</span><span class="punctuation bracket">[</span><span class="keyword">any</span><span class="punctuation bracket">]</span><span class="punctuation delimiter">,</span>
+<span class="punctuation bracket">}</span>
+
+<span class="keyword">struct</span> <span class="type">Alternative</span> <span class="punctuation bracket">{</span>
+    <span class="comment line documentation">///Path to a layout file inside of the configured 
+    ///layouts directory.</span>
+    <span class="keyword">layout</span>: <span class="constant builtin">bytes</span><span class="punctuation delimiter">,</span>
+    <span class="comment line documentation">///Output path, relative to the current directory. 
+    ///Use an absolute path to refer to the website&apos;s root 
+    ///directory.</span>
+    <span class="keyword">output</span>: <span class="constant builtin">bytes</span><span class="punctuation delimiter">,</span>
+    <span class="comment line documentation">///Useful when generating `&lt;link rel=&quot;alternate&quot;&gt;` 
+    ///elements.</span>
+    <span class="keyword">title</span>: <span class="type">?</span><span class="constant builtin">bytes</span><span class="punctuation delimiter">,</span>
+    <span class="comment line documentation">///Useful when generating `&lt;link rel=&quot;alternate&quot;&gt;` 
+    ///elements.</span>
+    <span class="keyword">type</span>: <span class="type">?</span><span class="constant builtin">bytes</span><span class="punctuation delimiter">,</span>
+<span class="punctuation bracket">}</span>
+</code></pre></p><p>The frontmatter data fill become available in SuperHTML inside of instances of <a href="/docs/superhtml/scripty/#Page"><code>Page</code></a>.</p><h2>Markdown Syntax</h2><p>SuperMD uses <a href="https://github.com/kristoff-it/cmark-gfm" target="_blank">cmark-gfm</a> so it supports all the common extensions (tables, strikethrough, autolinks, etc) that you can normally find in the wild.</p><p>Currently SuperMD adds only one new syntactical construct: <strong>a Scripty expression embedded in link syntax</strong>.</p><p><em><strong><code>image example</code></strong></em></p><pre><code class="markdown">[]($image.asset(&apos;cat.jpg&apos;))
+</code></pre>
+<p>In normal Markdown this example would result in a (invalid) link element.</p><p>In SuperMD the resulting type of that construct depends on the  value that the embedded Scripty expression evaluates to.</p><p>In the previous example the expression evaluates to an <a href="/docs/supermd/scripty/#Image"><code>Image</code></a>, making it equivalent to the vanilla <code>![](cat.jpg)</code>.</p><p>This might not seem particularly exciting, but things become more interesting once you realize that this way of doing things allows you to easily give <code>id</code>s and other attributes to both emdedded assets and pieces of content.</p><p><em><strong><code>image example</code></strong></em></p><pre><code class="markdown">[]($image.asset(&apos;cat.jpg&apos;).id(&apos;foo&apos;))
+</code></pre>
+<p><em><strong><code>rendered html</code></strong></em></p><pre><code class="html"><span class="punctuation bracket">&lt;</span><span class="tag">img</span> <span class="attribute">id</span>=&quot;<span class="string">foo</span>&quot; <span class="attribute">src</span>=&quot;<span class="string">path/to/cat.jpg</span>&quot;<span class="punctuation bracket">&gt;</span>
+</code></pre>
+<p>Additionally, it also gives you the ability to define embedded assets that are not supported by Markdown without the help of HTML.</p><p>For example this how you can define a video embed:</p><pre><code class="markdown">[]($video.asset(&apos;video.mp4&apos;).loop(true).autoplay(true))
+</code></pre>
+<p>What we described up until now as "emdedded assets", are called "rendering directives" in Zine. Most of them do describe embedded assets, but <code>$section</code> (as seen in the two columns example) for example does not.</p><h2>Directives</h2><div class="block"><h1>NOTE</h1><p>Directives are a very recent addition to Zine and new ones will be added over time. Make sure to check this page and the Scripty reference whenever you update Zine.</p></div><p>Most Directives are very straight forward to use. The only thing to keep in mind is that calling functions on them sets their internal state in a way that is order-independent (some might call this a <em>builder pattern</em> or a <em>fluent interface</em>).</p><p>For example both of these invocations will yield the same final result:</p><pre><code class="markdown">[]($link.page(&apos;foo&apos;).id(&apos;bar&apos;))
+[]($link.id(&apos;bar&apos;).page(&apos;foo&apos;))
+</code></pre>
+<p>One last thing to know about Directives is that all allow you to set <code>id()</code> and <code>attrs()</code> (shorthand for attributes), which will be rendered in HTML as and <code>id</code> and a <code>class</code> attribute respectively.</p><p>You can find the full list of available Directives in the <a href="/docs/supermd/scripty/">SuperMD Scripty Reference</a>.</p><h3>Section Directive</h3><p>The section directive lets you split a page into <em>content sections</em>.</p><p>Doing so has three main benefits:</p><ul><li><p>Creates a container element that groups the section's inner elements, useful for styling purposes.</p></li><li><p>(when given an id) The ability to deep-link content from other pages while also having the deep-linking be validated by Zine.</p></li><li><p>(when given an id) The ability to optionally render the page section-by-section, which is critical when the layout needs nuanced control over the content (see the two columns example at the top of this page).</p></li></ul><h4>Usage</h4><p>There are two main ways to use the section directive:</p><ol><li>as a top-level element</li><li>as a wrapper around  the text of a <em>heading</em></li></ol><p>In both cases the section directive will create a container element that wraps all subsequent markdown content until another Section Directive is found or the document ends.</p><p><em><strong><code>example</code></strong></em></p><pre><code class="markdown">[]($section)
+<span class="punctuation special">#</span> <span class="text title">First</span>
+Lorem Ipsum
+
+<span class="punctuation special">#</span> <span class="text title">Second</span>
+[]($image.asset(&apos;cat.jpg&apos;))
+
+[]($section.id(&apos;third&apos;))
+<span class="punctuation special">##</span> <span class="text title">Third</span>
+</code></pre>
+<p><em><strong><code>rendered html</code></strong></em></p><pre><code class="html"><span class="punctuation bracket">&lt;</span><span class="tag">div</span><span class="punctuation bracket">&gt;</span>
+  <span class="punctuation bracket">&lt;</span><span class="tag">h1</span><span class="punctuation bracket">&gt;</span>First<span class="punctuation bracket">&lt;/</span><span class="tag">h1</span><span class="punctuation bracket">&gt;</span>
+  <span class="punctuation bracket">&lt;</span><span class="tag">p</span><span class="punctuation bracket">&gt;</span>Lorem Ipsum<span class="punctuation bracket">&lt;/</span><span class="tag">p</span><span class="punctuation bracket">&gt;</span>
+  
+  <span class="punctuation bracket">&lt;</span><span class="tag">h1</span><span class="punctuation bracket">&gt;</span>Second<span class="punctuation bracket">&lt;/</span><span class="tag">h1</span><span class="punctuation bracket">&gt;</span>
+  <span class="punctuation bracket">&lt;</span><span class="tag">img</span> <span class="attribute">src</span>=&quot;<span class="string">cat.jpg</span>&quot;<span class="punctuation bracket">&gt;</span>
+<span class="punctuation bracket">&lt;/</span><span class="tag">div</span><span class="punctuation bracket">&gt;</span>
+
+<span class="punctuation bracket">&lt;</span><span class="tag">div</span> <span class="attribute">id</span>=&quot;<span class="string">third</span>&quot;<span class="punctuation bracket">&gt;</span>
+  <span class="punctuation bracket">&lt;</span><span class="tag">h2</span><span class="punctuation bracket">&gt;</span>Third<span class="punctuation bracket">&lt;/</span><span class="tag">h2</span><span class="punctuation bracket">&gt;</span>
+<span class="punctuation bracket">&lt;/</span><span class="tag">div</span><span class="punctuation bracket">&gt;</span>
+</code></pre>
+<p>The second method additionally makes the heading link to the section:</p><p><em><strong><code>example</code></strong></em></p><pre><code class="markdown"><span class="punctuation special">#</span> <span class="text title">[First]($section.id(&apos;first&apos;))</span>
+Lorem Ipsum
+</code></pre>
+<p><em><strong><code>rendered html</code></strong></em></p><pre><code class="html"><span class="punctuation bracket">&lt;</span><span class="tag">div</span> <span class="attribute">id</span>=&quot;<span class="string">first</span>&quot;<span class="punctuation bracket">&gt;</span>
+  <span class="punctuation bracket">&lt;</span><span class="tag">h1</span><span class="punctuation bracket">&gt;</span><span class="punctuation bracket">&lt;</span><span class="tag">a</span> <span class="attribute">href</span>=&quot;<span class="string">#first</span>&quot;<span class="punctuation bracket">&gt;</span>First<span class="punctuation bracket">&lt;/</span><span class="tag">a</span><span class="punctuation bracket">&gt;</span><span class="punctuation bracket">&lt;/</span><span class="tag">h1</span><span class="punctuation bracket">&gt;</span>
+  <span class="punctuation bracket">&lt;</span><span class="tag">p</span><span class="punctuation bracket">&gt;</span>Lorem Ipsum<span class="punctuation bracket">&lt;/</span><span class="tag">p</span><span class="punctuation bracket">&gt;</span>
+<span class="punctuation bracket">&lt;/</span><span class="tag">div</span><span class="punctuation bracket">&gt;</span>
+</code></pre>
+<p>This syntax might seem to suggest that you could create a nested section by attaching it to, say, a <code>##</code> heading, but that's not the case.</p><p><strong>Heading levels are not taken into consideration when defining sections</strong>. In other words, sections don't nest.</p><p>You can "attach" a section to a heading of any level, but that will immediately any previous section.</p><p>This second way of defining a Section directive can be seen as syntax sugar for:</p><pre><code class="markdown">[]($section.id(&apos;first&apos;))
+<span class="punctuation special">#</span> <span class="text title">[First]($link.ref(&apos;first&apos;))</span>
+Lorem Ipsum
+</code></pre>
+<h4>Rendering content sections</h4><p>The previous examples showcased the result of rendering the page in its entirety, but sections that are given an <code>id</code> can also be rendered in isolation.</p><p>When rendering a section in isolation you are expected to provide the container element in your template.</p><p><em><strong><code>example</code></strong></em></p><pre><code class="markdown"><span class="punctuation special">#</span> <span class="text title">[First]($section.id(&apos;first&apos;))</span>
+Lorem Ipsum
+</code></pre>
+<p><em><strong><code>superhtml</code></strong></em></p><pre><code class="html"><span class="punctuation bracket">&lt;</span><span class="tag">div</span> <span class="attribute">id</span>=&quot;<span class="string">first</span>&quot; <span class="attribute">:html</span>=&quot;<span class="string">$page.contentSection(&apos;first&apos;)</span>&quot;<span class="punctuation bracket">&gt;</span><span class="punctuation bracket">&lt;/</span><span class="tag">div</span><span class="punctuation bracket">&gt;</span>
+</code></pre>
+<p><em><strong><code>rendered html</code></strong></em></p><pre><code class="html"><span class="punctuation bracket">&lt;</span><span class="tag">div</span> <span class="attribute">id</span>=&quot;<span class="string">first</span>&quot;<span class="punctuation bracket">&gt;</span>
+  <span class="punctuation bracket">&lt;</span><span class="tag">h1</span><span class="punctuation bracket">&gt;</span><span class="punctuation bracket">&lt;</span><span class="tag">a</span> <span class="attribute">href</span>=&quot;<span class="string">#first</span>&quot;<span class="punctuation bracket">&gt;</span>First<span class="punctuation bracket">&lt;/</span><span class="tag">a</span><span class="punctuation bracket">&gt;</span><span class="punctuation bracket">&lt;/</span><span class="tag">h1</span><span class="punctuation bracket">&gt;</span>
+  <span class="punctuation bracket">&lt;</span><span class="tag">p</span><span class="punctuation bracket">&gt;</span>Lorem Ipsum<span class="punctuation bracket">&lt;/</span><span class="tag">p</span><span class="punctuation bracket">&gt;</span>
+<span class="punctuation bracket">&lt;/</span><span class="tag">div</span><span class="punctuation bracket">&gt;</span>
+</code></pre>
+<h2>Vanilla Image and Link Syntax</h2><p>Using vanilla image / link Markdown syntax in SuperMD is allowed, but the syntax still has to be resolved to a Directive.</p><p>This means that <strong>you can use vanilla syntax as a shortcut for most common use cases</strong>.</p><h3>Links</h3><p>Full URLs (i.e. inclusive of protocol) map to <a href="/docs/supermd/scripty/#Link.url"><code>$link.url()</code></a> and <a href="$link.page('docs/supermd/scripty').ref('Link.new')"><code>$link.new()</code></a> :</p><pre><code class="markdown">[Zine](https://zine-ssg.io) 
+└─➤ [Zine]($link.url(&apos;https://zine-ssg.io&apos;).new(true))
+</code></pre>
+<p>A leading <code>#</code> means <a href="/docs/supermd/scripty/#Link.ref"><code>$link.ref()</code></a>:</p><pre><code class="markdown">[Docs](#foo) 
+└─➤ [Docs]($link.ref(&apos;foo&apos;))
+</code></pre>
+<p>A leading <code>/</code> means <a href="/docs/supermd/scripty/#Link.page"><code>$link.page()</code></a>:</p><pre><code class="markdown">[Docs](/docs/) 
+└─➤ [Docs]($link.page(&apos;docs&apos;))
+</code></pre>
+<p>A leading <code>./</code> means <a href="/docs/supermd/scripty/#Link.sub"><code>$link.sub()</code></a>:</p><pre><code class="markdown">[Reference](./scripty) 
+└─➤ [Reference]($link.sub(&apos;scripty&apos;)) 
+</code></pre>
+<p>Absence of leading punctuation means <a href="/docs/supermd/scripty/#Link.sibling"><code>$link.sibling()</code></a>:</p><pre><code class="markdown">[Reference](superhtml) 
+└─➤ [Reference]($link.sibling(&apos;superhtml&apos;)) 
+</code></pre>
+<h3>Images</h3><p>Full URLs (i.e. inclusive of protocol) map to <a href="/docs/supermd/scripty/#Image.url"><code>$img.url()</code></a>:</p><pre><code class="markdown">![](https://zine-ssg.io/picture.jpg) 
+└─➤ []($img.url(&apos;https://zine-ssg.io/picture.jpg&apos;))
+</code></pre>
+<div class="block warning"><h1>Hotlinking</h1><p>Embedding directly images from the network (sometimes referred to as <em>hotlinking</em>) is frowned upon, unless explicitly endorsed by the target host.</p><p>Additionally, links to remote assets can eventually become <em>temporarily</em> or <em>permanently</em> unavailable, making the choice of copying assets locally preferable in general.</p></div><p>A leading <code>/</code> means <a href="/docs/supermd/scripty/#Image.siteAsset"><code>$img.siteAsset()</code></a>:</p><pre><code class="markdown">![](/logo.jpg) 
+└─➤ []($img.siteAsset(&apos;logo.jpg&apos;))
+</code></pre>
+<p>Absence of a leading <code>/</code> means <a href="/docs/supermd/scripty/#Image.asset"><code>$img.asset()</code></a>:</p><pre><code class="markdown">![](cat.jpg) 
+└─➤ []($img.asset(&apos;cat.jpg&apos;))
+</code></pre>
+<h2>Inline HTML Escape Hatch</h2><p>SuperMD forbids inline HTML in order to make it possible to render content files to non-HTML formats.</p><p>That said, sometimes one only plans to target HTML and would like to be able to embed, say, a YouTube video without too much fuss.</p><p>For those cases, you can still embed arbitrary HTML in a content page by creating a <code>=html</code> code block, like so:</p><pre><code>```=html
+&lt;script&gt;alert(&quot;Yep, it&apos;s inlined alright&quot;)&lt;/script&gt;
+```
+</code></pre><p>Zine will parse and validate the HTML code before inlining.</p><h2>Syntax Highlighting</h2><p>Zine comes with a <a href="https://github.com/neurocyte/flow-syntax/" target="_blank">good list</a> of Tree Sitter grammars for syntax highlighting, but not all languages are supported.</p><p>When a language is not recognized, Zine will produce an error.</p><p>If you'd like to see support for a new language added to Zine, first find (or write <code>:^)</code>) a Tree Sitter grammar for it, and then <a href="/community/">let us</a> know that you'd like to see it added to Zine.</p><p>In the future Zine will support the ability for users to add grammars independently of the main project.</p><h2>Next Steps</h2><ul><li><a href="/docs/supermd/scripty/">Read the SuperMD Scripty Reference Documentation</a></li><li><a href="/docs/superhtml/">Learn more about SuperHTML</a></li><li><a href="/docs/assets/">Learn more about Zine's Asset System</a></li></ul></div>
+
+    </div>
+  </body>
+</html>

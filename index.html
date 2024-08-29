@@ -16,6 +16,8 @@
       Home
       - Zine
     </title>
+    <link rel="stylesheet" type="text/css" href="/fonts.css">
+    <link rel="stylesheet" type="text/css" href="/fira_code.css">
     <link rel="stylesheet" type="text/css" href="/style.css">
     <link rel="stylesheet" type="text/css" href="/highlight.css">
     
@@ -60,11 +62,8 @@
 		.tagline {
 			font-size: 1rem;
 			font-style: italic;
-		}
-
-		.note {
-			border-top: 1px solid white;
-			border-bottom: 1px solid white;
+			border-top: 1px solid #ccc;
+			border-bottom: 1px solid #ccc;
 			padding: 2px 5px;
 			text-align: center;
 		}
@@ -98,9 +97,9 @@
       •
       <a href="/quickstart/">Get Started</a>
       •
-      <a href="/documentation/">Docs</a>
+      <a href="/docs/">Documentation</a>
       •
-      <a href="/community/">Vision & Community</a>
+      <a href="/community/">Community</a>
       •
       <a href="/log/">Changelog</a>
       •
@@ -111,40 +110,12 @@
     <div id="content">
       
   <h1 class="centered title">Zine</h1>
-  <h2 class="centered subtitle">Fast, Scalable and Flexible Static Site Generator</h2>
+  <h2 class="centered subtitle">Fast, Scalable, and Flexible Static Site Generator</h2>
   <p class="centered tagline">
-    Zine is pronounced like in
-    <a href="https://en.wikipedia.org/wiki/Zine">fan<b>zine</b></a>.
+    Make art with your words.
   </p>
-  <div class="note">
-    Zine is alpha software.<br>Using Zine today means participating in its development.
-  </div>
   <div class="get-started"><a href="/quickstart/">Get Started</a></div>
-  <div id="page" ><h1>What is Zine?</h1><p>A Zine site is a collection of markdown files, HTML templates and static assets. Zine turns your markdown content into HTML, styles it using your templates, and finally copies the result alongside your static assets into an output directory that you can then publish on static hosting services like GitHub Pages.</p><p>Zine is "low-code" by default, but once the needs of your project grow, then you will have the full power of the Zig build system at your disposal, allowing you to integrate any kind of pre-processing pipeline.</p><h1>Feature Highlights</h1><h2>A delightful HTML experience</h2><p>Zine uses <a href="https://github.com/kristoff-it/superhtml">SuperHTML</a>, a templating language that extends HTML, instead of the usual <code>{{ curly brace }}</code> languages.</p><p>SuperHTML is also an HTML language server that gives you real-time feedback on syntax errors in your code.</p><p><figure data-title=""><img src="quickstart/superhtml.png" alt="" title=""></figure></p><p>SuperHTML also provides autoformatting (with the <a href="https://marketplace.visualstudio.com/items?itemName=LorisCro.super">SuperHTML VScode extension</a>):</p><video controls autoplay loop disablepictureinpicture muted width=100%>
- <source src="/vscode-autoformatting.mp4">
-</video>
-<br><br>
-<p>And even if you don't want to use the language server, HTML errors are build errors in Zine:</p><p><code>page.html</code></p><pre><code class="html"><span class="punctuation bracket">&lt;</span><span class="tag">div</span> <span class="attribute">id</span>="<span class="string">foo</span>" <span class="attribute">id</span>="<span class="string">oops</span>"<span class="punctuation bracket">&gt;</span><span class="punctuation bracket">&lt;/</span><span class="tag">div</span><span class="punctuation bracket">&gt;</span>
-</code></pre>
-<p><i><strong><code>shell</code></strong></i></p><pre><code>$ zig build
-
----------- DUPLICATE ATTRIBUTE ----------
-HTML elements cannot contain duplicate attributes.
-
-[duplicate_attr]
-(page.html) zine-sample-site/layouts/page.html:19:18:
-    &lt;div id="foo" id="oops"&gt;&lt;/div&gt;
-                  ^^
-
-node: previous instance was here:
-(page.html) zine-sample-site/layouts/page.html:19:9:
-    &lt;div id="foo" id="oops"&gt;&lt;/div&gt;
-         ^^
-trace:
-    layout `page.html`,
-    content `_index.md`.
-</code></pre><h2>The Power Of A Real Build System</h2><p>Zine is a collection of tools (markdown renderer, templating engine, etc) orchestrated by the Zig build system.</p><p>The Zig build system performs <strong>surgical dependency tracking and automatic parallelization of the build</strong>, making Zine very fast and scalable.</p><p>Since Zine tools cooperate via the build system, <strong>each tool can be swapped out</strong> for an alternative implementation provided by you. The Zig build system can also download and compile tools written in C/C++/Zig, so <strong>you can easily depend on open source tools</strong>.</p><p>If your site depends on any kind of build pipeline, like asset pre-processing, it's simple to add it to your Zig build pipeline.</p><h2>...and more</h2><p>Zine is a very young project and many important features are yet to be implemented.</p><p><a href="https://github.com/kristoff-it/zine">Drop us a star on GitHub</a> in the meantime :^)</p><p>To gauge the level of maturity of Zine you might want to check <a href="/log/">the changelog</a> on occasion.</p></div>
-  <div class="get-started"><a href="/quickstart/">Get Started</a></div>
+  <div id="page"><div class="block warning"><h1>Warning</h1><p>Zine is alpha software.<br>Using Zine today means participating in its development.</p></div><h2>What is Zine?</h2><p>A Zine site is a collection of content files and layouts.</p><p>Zine turns your content into HTML, styles it using your layouts, and finally copies the result (alongside other assets like images) into an output directory that you can then publish on static hosting services like GitHub Pages.</p><p>Zine uses a <strong>structured approach to content authoring</strong> that helps keeping sizeable content collections manageable. Similarly, the build process uses <strong>surgical dependency tracking</strong> to ensure minimal rebuilds, keeping the authoring experience excellent at all scales.</p><p><em>Zine is pronounced like in <a href="https://en.wikipedia.org/wiki/Zine">fan<strong>zine</strong></a></em>.</p><h2>A handcrafted authoring experience</h2><p>Zine uses <a href="/docs/supermd/">SuperMD</a> for content and <a href="$link.page('docs/superhtml')">SuperHTML</a> for defining layouts.</p><p>SuperMD is an extension of Markdown that allows you to <strong>define embedded assets and semantic constructs that would be impossible to express in Markdown</strong> without using inline HTML.</p><p>SuperHTML is an extension of HTML5 that focuses on expressing <strong>correct templating logic</strong>. With SuperHTML it's <strong>impossible to generate malformed HTML</strong> and most mistakes become <strong>build time errors</strong>.</p><p><em><a href="$link.page('docs/scripty')">Learn more</a> about file formats in Zine.</em></p><h2>Watch the video</h2><p><code>//TODO: record the video :^)</code></p><p>Or, for a more hands-on approach, <a href="/quickstart/">see our quickstart guide</a>.</p></div>
 
     </div>
   </body>
