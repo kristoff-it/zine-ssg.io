@@ -37,8 +37,8 @@ One example of where this makes sense is when you have a Ziggy (or JSON) documen
 
 **`songs-list.shtml`**
 ```html
-<ul loop="$page.asset('songs.json').ziggy()">
-  <li var="$loop.it.get('name')"></li>
+<ul :loop="$page.asset('songs.json').ziggy()">
+  <li :text="$loop.it.get('name')"></li>
 </ul>
 ```
 
