@@ -190,6 +190,11 @@ video {
   border: 1px dashed #CCC;
 }
 
+.block.padded {
+  margin: 10px;
+  border: 1px solid #CCC;
+}
+
 .block p {
   padding-top: 0;
   font-size: 0.9em;
