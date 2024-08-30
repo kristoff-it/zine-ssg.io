@@ -12,6 +12,14 @@ Refer to [the repository](https://github.com/kristoff-it/zine) and the [issue tr
 
 ## Changes
 
+
+### 2024-08-30 (later in the day)
+```sh
+zig fetch --save "git+https://github.com/kristoff-it/zine#v0.4.3"
+```
+
+Fixes a printing bug related to Int values.
+
 ### 2024-08-30 
 ```sh
 zig fetch --save "git+https://github.com/kristoff-it/zine#v0.4.2"
