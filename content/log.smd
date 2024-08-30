@@ -12,6 +12,15 @@ Refer to [the repository](https://github.com/kristoff-it/zine) and the [issue tr
 
 ## Changes
 
+### 2024-08-30 (later in the day)
+```sh
+zig fetch --save "git+https://github.com/kristoff-it/zine#v0.4.4"
+```
+- Introduced support for captions directly in Markdown link / image syntax.
+  See the updated SuperMD docs for more details.
+- Fixed a bug that prevented users from accessing `$if` in the intended way.
+- Some SuperMD Scripty reference docs were improved.
+
 
 ### 2024-08-30 (later in the day)
 ```sh

@@ -16,43 +16,95 @@ that can be rendered individually by a template.
 ## `$block` : [Block]($link.ref("Block"))
 
 When placed at the beginning of a Markdown quote block, the quote 
-block becomes a generic container for elements that can be styled as 
-one wishes.
+block becomes a styleable container for elements.
 
 SuperHTML will automatically give the class `block` when rendering 
 Block directives.
 
-Syntax Example:
+Example:
 ```markdown
->[]($block.attr('note'))
->This is now a block note.
+>[]($block)
+>This is now a block.
 >Lorem ipsum.
 ```
+
+>[]($block)
+>This is now a block.
+>Lorem ipsum.
+
 Differently from Sections, Blocks cannot be rendered independently 
 and can be nested.
+
+Example:
+```markdown
+>[]($block)
+>This is now a block.
+>
+>>[]($block.attrs('padded'))
+>>This is a nested block.
+>>
+>
+>back to the outer block
+```
+
+>[]($block)
+>This is now a block.
+>
+>>[]($block.attrs('padded'))
+>>This is a nested block.
+>
+>back to the outer block
 
 A block can optionally wrap a Markdown heading element. In this case  
 the generated Block will be rendered with two separate sub-containers: 
 one for the block title and one for the body.
 
-Syntax Example:
+Example:
 ```markdown
->### [Warning]($block.attr('warning'))
+># [Warning]($block.attrs('warning'))
 >This is now a block note.
 >Lorem ipsum.
 ```
+># [Warning]($block.attrs('warning'))
+>This is now a block note.
+>Lorem ipsum.
+
 
 ## `$heading` : [Heading]($link.ref("Heading"))
 
 Allows giving an id and attributes to a heading element.
 
+Example:
+```markdown
+# [Title]($heading.id('foo').attrs('bar', 'baz'))
+```
+
+This will be rendered by SuperHTML as:
+```html
+<h1 id="foo" class="bar baz">Title</h1>
+```
+
 ## `$image` : [Image]($link.ref("Image"))
 
 An embedded image.
 
+Any text placed between `[]` will be used as a caption for the image.
+
+Example:
+```markdown
+[This is the caption]($image.asset('foo.jpg'))
+```
+
 ## `$video` : [Video]($link.ref("Video"))
 
 An embedded video.
+
+Any text placed between `[]` will be used as a caption for the video.
+
+Example:
+```markdown
+[This is the caption]($video.asset('foo.webm'))
+```
 
 ## `$link` : [Link]($link.ref("Link"))
 
@@ -62,22 +114,17 @@ A link.
 
 An embedded piece of code.
 
+Any text placed between `[]` will be used as a caption for the snippet.
+
+Example:
+```markdown
+[This is the caption]($code.asset('foo.zig'))
+```
+
 # [anydirective]($section.id('anydirective'))
 
-Each directive's functions will allow you to set the directive's 
-internal fields accordingly using a "builder pattern" / "fluent interface".
-
-For example, in:
-
-```markdown
-[]($image.asset('cat.jpg').id('meow'))
-```
-The call to `asset` returns a reference to the original
-`$image` directive, which in turn then gets modified a 
-second time by `id`.
-
-Different kinds of directives will have different functions 
-but all will support the functions listed here.
+Each Directive has a different set of properties that can be set.
+Properties that can be set on all directives are listed here.
 
 ## Functions
 
@@ -89,6 +136,11 @@ Sets the unique identifier field of this directive.
 
 Appends to the attributes field of this Directive.
 
+### []($heading.id("anydirective.title")) [`fn`]($link.ref("anydirective.title")) title (str) -> [anydirective]($link.ref("anydirective"))
+
+Title for this directive, mostly used as metadata that does
+not get rendered directly in the page.
+
 # [Section]($section.id('Section'))
 
 A content section, used to define a portion of content
@@ -97,39 +149,84 @@ that can be rendered individually by a template.
 # [Block]($section.id('Block'))
 
 When placed at the beginning of a Markdown quote block, the quote 
-block becomes a generic container for elements that can be styled as 
-one wishes.
+block becomes a styleable container for elements.
 
 SuperHTML will automatically give the class `block` when rendering 
 Block directives.
 
-Syntax Example:
+Example:
 ```markdown
->[]($block.attr('note'))
->This is now a block note.
+>[]($block)
+>This is now a block.
 >Lorem ipsum.
 ```
+
+>[]($block)
+>This is now a block.
+>Lorem ipsum.
+
 Differently from Sections, Blocks cannot be rendered independently 
 and can be nested.
+
+Example:
+```markdown
+>[]($block)
+>This is now a block.
+>
+>>[]($block.attrs('padded'))
+>>This is a nested block.
+>>
+>
+>back to the outer block
+```
+
+>[]($block)
+>This is now a block.
+>
+>>[]($block.attrs('padded'))
+>>This is a nested block.
+>
+>back to the outer block
 
 A block can optionally wrap a Markdown heading element. In this case  
 the generated Block will be rendered with two separate sub-containers: 
 one for the block title and one for the body.
 
-Syntax Example:
+Example:
 ```markdown
->### [Warning]($block.attr('warning'))
+># [Warning]($block.attrs('warning'))
 >This is now a block note.
 >Lorem ipsum.
 ```
+># [Warning]($block.attrs('warning'))
+>This is now a block note.
+>Lorem ipsum.
+
 
 # [Heading]($section.id('Heading'))
 
 Allows giving an id and attributes to a heading element.
 
+Example:
+```markdown
+# [Title]($heading.id('foo').attrs('bar', 'baz'))
+```
+
+This will be rendered by SuperHTML as:
+```html
+<h1 id="foo" class="bar baz">Title</h1>
+```
+
 # [Image]($section.id('Image'))
 
 An embedded image.
+
+Any text placed between `[]` will be used as a caption for the image.
+
+Example:
+```markdown
+[This is the caption]($image.asset('foo.jpg'))
+```
 
 ## Functions
 
@@ -137,10 +234,6 @@ An embedded image.
 
 An alternative description for this image that accessibility
 tooling can access.
-
-### []($heading.id("Image.caption")) [`fn`]($link.ref("Image.caption")) caption (str) -> [Image]($link.ref("Image"))
-
-A caption for this image.
 
 ### []($heading.id("Image.linked")) [`fn`]($link.ref("Image.linked")) linked (bool) -> [Image]($link.ref("Image"))
 
@@ -165,6 +258,13 @@ Sets the source location of this directive to a build asset.
 # [Video]($section.id('Video'))
 
 An embedded video.
+
+Any text placed between `[]` will be used as a caption for the video.
+
+Example:
+```markdown
+[This is the caption]($video.asset('foo.webm'))
+```
 
 ## Functions
 
@@ -276,6 +376,13 @@ page or a target page set with `page()`.
 # [Code]($section.id('Code'))
 
 An embedded piece of code.
+
+Any text placed between `[]` will be used as a caption for the snippet.
+
+Example:
+```markdown
+[This is the caption]($code.asset('foo.zig'))
+```
 
 ## Functions
 

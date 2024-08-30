@@ -387,6 +387,25 @@ Absence of a leading `/` means
 ![](cat.jpg) 
 └─➤ []($image.asset('cat.jpg'))
 ```
+
+Additionally, any text put inside of `![]` will be used as a caption, while the Markdown "title" text will be used to fill the `alt` attribute of the image:
+```markdown
+![Caption](cat.jpg "alt text") 
+└─➤ [Caption]($image.asset('cat.jpg').alt('alt text'))
+```
+># [Warning]($block.attrs('warning'))
+>In Markdown any text inside of `![]` is used as the `alt` attribute,
+>while the extra string after the image location is used as the `title`
+>attribute.
+>
+>We break compatibility because within `![]` you can use 
+>Markdown syntax to style your captions, which is a capability that
+>is lost in Markdown since `alt` only accepts simple strings.
+>
+>As a consequence of this change, `alt` takes the place of `title` 
+>simply because it's more important. You can still give titles to 
+>images (and more) by using explicit directive syntax, if you so wish.
+
 ## Inline HTML Escape Hatch
 
 SuperMD forbids inline HTML in order to make it possible to render
