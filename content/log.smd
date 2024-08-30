@@ -14,6 +14,12 @@ Refer to [the repository](https://github.com/kristoff-it/zine) and the [issue tr
 
 ### 2024-08-30 (later in the day)
 ```sh
+zig fetch --save "git+https://github.com/kristoff-it/zine#v0.4.5"
+```
+- Fix off-by-one error in some iterators (eg in `$page.tags`)
+  
+### 2024-08-30 (later in the day)
+```sh
 zig fetch --save "git+https://github.com/kristoff-it/zine#v0.4.4"
 ```
 - Introduced support for captions directly in Markdown link / image syntax.
