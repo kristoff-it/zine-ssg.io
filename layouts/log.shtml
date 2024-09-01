@@ -47,6 +47,30 @@
 	.sh {
 		font-size: 0.8em;
 	}
+
+    #page>div[id] {
+		padding: 1px 30px;
+	}
+
+	
+    #old {
+		padding: 0 !important;
+	}
+
+	div[id]:target {
+	  animation: pulse-div 2s ease-in-out 1 forwards;
+	}
+
+	@keyframes pulse-div {
+	  0%,
+	  100% {
+	    background-color: #222;
+	  }
+
+	  50% {
+	    background-color: #111;
+	  }
+	}
   </style>
   <h3 class="overtitle centered">Zine</h3>
   <h1 class="title" :text="$page.title"></h1>

@@ -268,7 +268,7 @@ Returns the Site that the page belongs to.
 #### Examples
 
 ```superhtml
-<div text="$page.site().localeName()"></div>
+<div :text="$page.site().localeName()"></div>
 ```
 ### []($heading.id("Page.locale")) [`fn`]($link.ref("Page.locale")) locale ([String]($link.ref("String"))) -> ?[Page]($link.ref("Page"))
 
@@ -290,7 +290,9 @@ To be used in conjunction with an `if` attribute.
 #### Examples
 
 ```superhtml
-<div if="$page.locale?('en-US')"><a href="$if.link()" text="$if.title"></a></div>
+<div :if="$page.locale?('en-US')">
+  <a href="$if.link()" :text="$if.title"></a>
+</div>
 ```
 ### []($heading.id("Page.locales")) [`fn`]($link.ref("Page.locales")) locales () -> [[Page]($link.ref("Page"))]
 
@@ -311,7 +313,7 @@ counts all characters and divides the result by 5.
 #### Examples
 
 ```superhtml
-<div loop="$page.wordCount()"></div>
+<div :loop="$page.wordCount()"></div>
 ```
 ### []($heading.id("Page.isSection")) [`fn`]($link.ref("Page.isSection")) isSection () -> [Bool]($link.ref("Bool"))
 
@@ -335,8 +337,8 @@ structure section in the official docs for more info.
 #### Examples
 
 ```superhtml
-<div loop="$page.subpages()">
-  <span text="$loop.it.title"></span>
+<div :loop="$page.subpages()">
+  <span :text="$loop.it.title"></span>
 </div>
 ```
 ### []($heading.id("Page.nextPage")) [`fn`]($link.ref("Page.nextPage")) nextPage () -> ?[Page]($link.ref("Page"))
@@ -350,8 +352,8 @@ within the `if` block.
 #### Examples
 
 ```superhtml
-<div if="$page.nextPage()">
-  <span text="$if.title"></span>
+<div :if="$page.nextPage()">
+  <span :text="$if.title"></span>
 </div>
 ```
 ### []($heading.id("Page.prevPage")) [`fn`]($link.ref("Page.prevPage")) prevPage () -> ?[Page]($link.ref("Page"))
@@ -415,8 +417,8 @@ Renders the specified [content section]($link.page('docs/supermd/scripty').ref('
 #### Examples
 
 ```superhtml
-<div html="$page.contentSection('section-id')"></div>
-<div html="$page.contentSection('other-section')"></div>
+<div :html="$page.contentSection('section-id')"></div>
+<div :html="$page.contentSection('other-section')"></div>
 ```
 ### []($heading.id("Page.toc")) [`fn`]($link.ref("Page.toc")) toc () -> [String]($link.ref("String"))
 
@@ -482,7 +484,19 @@ Useful for example to generate RSS links:
 # [Build]($section.id('Build'))
 
 Gives you access to build-time assets and other build related info.
-When inside of a git repository it also gives git-related metadata.
+
+## Fields
+
+### `generated` : [Date]($link.ref("Date"))
+
+Returns the current date when the build is taking place.
+
+># [Note]($block.attrs('note'))
+>Using this function will not add a dependency on the current time
+>for the page, hence the name `generated`. 
+>
+>To get the best results, use in conjunction with caching as otherwise
+>the page will be regenerated anew every single time.
 
 ## Functions
 

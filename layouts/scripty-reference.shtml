@@ -45,6 +45,11 @@
 		text-align: center;
 	}
 
+    #reference .note h1 {
+		background-color: #ccc;
+		border: 1px solid #ccc;
+		padding-top: 2px;
+	}
 	
 	html {
 		scroll-padding-top: 50px;

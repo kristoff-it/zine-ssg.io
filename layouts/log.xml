@@ -1,0 +1,19 @@
+<rss version="2.0">
+ <channel>
+  <title>Zine Changelog</title>
+  <link>https://zine-ssg.io/</link>
+  <description>Curated list of changes to Zine</description>
+  <generator>Zine -- https://zine-ssg.io</generator>
+  <language>en-us</language>
+  <lastBuildDate :text="$build.changed.formatHTTP()"></lastBuildDate>
+  <ctx :loop="$page.contentSections()">
+   <item>
+    <pubDate :text="$loop.it.key"></pubDate>
+    <link :text="$site.host_url.addPath($page.link()).suffix('#', $loop.it.key)"></link>
+    <guid :text="$site.host_url.addPath($page.link()).suffix('#', $loop.it.key)"></guid>
+    <title :text="$loop.it.value.title"></title>
+    <description :text="$loop.it.value.content"></description>
+   </item>
+  </ctx>
+ </channel>
+</rss>

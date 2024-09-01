@@ -3,6 +3,10 @@
 .date = @date("2020-07-06T00:00:00"),
 .author = "Sample Author",
 .layout = "log.shtml",
+// .alternatives = [{
+//   .layout = "log.xml",
+//   .output = "log/index.xml",
+// }],
 .draft = false,
 --- 
 ## About
@@ -10,7 +14,28 @@ This is a non-exhaustive, curated list of changes meant to help users quickly se
 
 Refer to [the repository](https://github.com/kristoff-it/zine) and the [issue tracker](https://github.com/kristoff-it/zine/issues) for more in-depth information.
 
+To update Zine to the latest release run:
+```sh
+zig fetch --save "git+https://github.com/kristoff-it/zine#v0.5.0"
+```
+
 ## Changes
+
+
+### [v0.5.0]($section.id('v0.5.0'))
+#### 2024-09-01
+- Added [`$build.generated`]($link.page('docs/superhtml/scripty').ref('Build')) 
+  which evaluates to the date in which the build is taking place. It doesn't
+  add a dependency on the current date so a page will only display a newer
+  date if it actually gets regenerated. 
+
+  Useful for example to set `lastBuildDate` in RSS feeds. Note that without 
+  caching the date will always be updated, potentially resulting in unwanted
+  behavior.
+
+
+
+[]($section.id('old'))
 
 ### 2024-08-30 (later in the day)
 ```sh

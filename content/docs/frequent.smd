@@ -44,7 +44,7 @@ This is a RSS2.0 example but you can also do the same with Atom, if you prefer.
   <description>Recent content</description>
   <generator>Zine -- https://zine-ssg.io</generator>
   <language>en-us</language>
-  <lastBuildDate>Fri, 16 Jun 2023 00:00:00 +0000</lastBuildDate>
+  <lastBuildDate :text="$build.generated.formatHTTP()"></lastBuildDate>
   <ctx :loop="$page.subpages()">
    <item>
     <title :text="$loop.it.title"></title>
