@@ -1,0 +1,35 @@
+<rss version="2.0">
+ <channel>
+  <title>Zine Changelog</title>
+  <link>https://zine-ssg.io/</link>
+  <description>Curated list of changes to Zine</description>
+  <generator>Zine -- https://zine-ssg.io</generator>
+  <language>en-us</language>
+  <lastBuildDate>Wed, 04 Sep 2024 21:36:58 +0000</lastBuildDate>
+  
+   
+  
+   
+    <item>
+     <pubDate>Wed, 04 Sep 2024 00:00:00 +0000</pubDate>
+     <link>https://zine-ssg.io/log/#v0.5.1</link>
+     <guid>https://zine-ssg.io/log/#v0.5.1</guid>
+     <title>v0.5.1</title>
+     <description>&lt;div id=v0.5.1&gt;&lt;ul&gt;&lt;li&gt;&lt;p&gt;Added typst syntax highlighting support.&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;On the topic of RSS feeds, this page &lt;a href=&quot;https://zine-ssg.io/log/index.xml&quot; target=&quot;_blank&quot;&gt;now has an RSS feed&lt;/a&gt; that you can subscribe to. Every entry in this devlog will become an entry in the RSS feed. If you&apos;re curious to see how this is implemented, clone this repo and see how &lt;code&gt;content/log.smd&lt;/code&gt; and &lt;code&gt;layouts/log.xml&lt;/code&gt; work together to make it happen (see &lt;a href=&quot;/quickstart/&quot;&gt;Get Started&lt;/a&gt; for more info).&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;&lt;code&gt;Page&lt;/code&gt; in SuperHTML gained the ability to loop over sections defined by a Page.&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;SuperMD Directives can now store data (key-value fields) that can then be accessed programmtically by SuperHTML.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;</description>
+    </item>
+   
+  
+   
+    <item>
+     <pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate>
+     <link>https://zine-ssg.io/log/#v0.5.0</link>
+     <guid>https://zine-ssg.io/log/#v0.5.0</guid>
+     <title>v0.5.0</title>
+     <description>&lt;div id=v0.5.0&gt;&lt;ul&gt;&lt;li&gt;&lt;p&gt;Added &lt;a href=&quot;/docs/superhtml/scripty/#Build&quot;&gt;&lt;code&gt;$build.generated&lt;/code&gt;&lt;/a&gt; which evaluates to the date in which the build is taking place. It doesn&apos;t add a dependency on the current date so a page will only display a newer date if it actually gets regenerated.&lt;/p&gt;&lt;p&gt;Useful for example to set &lt;code&gt;lastBuildDate&lt;/code&gt; in RSS feeds. Note that without caching the date will always be updated, potentially resulting in unwanted behavior.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;</description>
+    </item>
+   
+  
+   
+  
+ </channel>
+</rss>

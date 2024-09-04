@@ -7,15 +7,15 @@
     <meta name="twitter:site" content="@croloris">
     <meta name="twitter:author" content="@croloris">
     <meta name="twitter:description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
-    <meta name="twitter:title" content="Changelog | Zine">
+    <meta name="twitter:title" content="Devlog | Zine">
     <meta name="twitter:image" content="https://zine-ssg.io/preview.png">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Changelog | Zine">
+    <meta property="og:title" content="Devlog | Zine">
     <meta property="og:image" content="https://zine-ssg.io/preview.png">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title id="title">
-      Changelog
+      Devlog
       - Zine
     </title>
     <link rel="stylesheet" type="text/css" href="/fonts.css">
@@ -34,7 +34,7 @@
       •
       <a href="/community/">Community</a>
       •
-      <a href="/log/">Changelog</a>
+      <a href="/log/">Devlog</a>
       •
       <a href="https://github.com/kristoff-it/zine" target="_blank">
         Code
@@ -112,10 +112,38 @@
 	}
   </style>
   <h3 class="overtitle centered">Zine</h3>
-  <h1 class="title">Changelog</h1>
-  <div id="page"><h2>About</h2><p>This is a non-exhaustive, curated list of changes meant to help users quickly see what has improved since they last checked.</p><p>Refer to <a href="https://github.com/kristoff-it/zine" target="_blank">the repository</a> and the <a href="https://github.com/kristoff-it/zine/issues" target="_blank">issue tracker</a> for more in-depth information.</p><p>To update Zine to the latest release run:</p><pre><code class="sh">zig fetch --save &quot;git+https://github.com/kristoff-it/zine#v0.5.0&quot;
+  <h1 class="title">Devlog</h1>
+  <div id="page">
+    <div id=about><h2>About</h2><p>This is a non-exhaustive, curated list of changes meant to help users quickly see what has improved since they last checked.</p><p>You can <a href="https://zine-ssg.io/log/index.xml" target="_blank">subscribe to this page via RSS</a>.</p><p>To update Zine to the latest release run:</p><pre><code class="sh">zig fetch --save &quot;git+https://github.com/kristoff-it/zine#v0.5.0&quot;
 </code></pre>
-<h2>Changes</h2><div id=v0.5.0><h3><a class="" href="#v0.5.0">v0.5.0</a></h3><h4>2024-09-01</h4><ul><li><p>Added <a href="/docs/superhtml/scripty/#Build"><code>$build.generated</code></a> which evaluates to the date in which the build is taking place. It doesn't add a dependency on the current date so a page will only display a newer date if it actually gets regenerated.</p><p>Useful for example to set <code>lastBuildDate</code> in RSS feeds. Note that without caching the date will always be updated, potentially resulting in unwanted behavior.</p></li></ul></div><div id=old><h3>2024-08-30 (later in the day)</h3><pre><code class="sh">zig fetch --save &quot;git+https://github.com/kristoff-it/zine#v0.4.7&quot;
+<h2>Changes</h2></div>
+    
+    
+  
+    
+    
+      <div id="v0.5.1">
+        <h3><a href="#v0.5.1">v0.5.1</a></h3>
+        <h4>2024-09-04</h4>
+        <div id=v0.5.1><ul><li><p>Added typst syntax highlighting support.</p></li><li><p>On the topic of RSS feeds, this page <a href="https://zine-ssg.io/log/index.xml" target="_blank">now has an RSS feed</a> that you can subscribe to. Every entry in this devlog will become an entry in the RSS feed. If you're curious to see how this is implemented, clone this repo and see how <code>content/log.smd</code> and <code>layouts/log.xml</code> work together to make it happen (see <a href="/quickstart/">Get Started</a> for more info).</p></li><li><p><code>Page</code> in SuperHTML gained the ability to loop over sections defined by a Page.</p></li><li><p>SuperMD Directives can now store data (key-value fields) that can then be accessed programmtically by SuperHTML.</p></li></ul></div>
+      </div>
+    
+    
+  
+    
+    
+      <div id="v0.5.0">
+        <h3><a href="#v0.5.0">v0.5.0</a></h3>
+        <h4>2024-09-01</h4>
+        <div id=v0.5.0><ul><li><p>Added <a href="/docs/superhtml/scripty/#Build"><code>$build.generated</code></a> which evaluates to the date in which the build is taking place. It doesn't add a dependency on the current date so a page will only display a newer date if it actually gets regenerated.</p><p>Useful for example to set <code>lastBuildDate</code> in RSS feeds. Note that without caching the date will always be updated, potentially resulting in unwanted behavior.</p></li></ul></div>
+      </div>
+    
+    
+  
+    
+    
+    
+      <div id="old"><div id=old><h3>2024-08-30 (later in the day)</h3><pre><code class="sh">zig fetch --save &quot;git+https://github.com/kristoff-it/zine#v0.4.7&quot;
 </code></pre>
 <ul><li>Fix an off by one error that gave the wrong value to <code>Iterator.last</code></li></ul><h3>2024-08-30 (later in the day)</h3><pre><code class="sh">zig fetch --save &quot;git+https://github.com/kristoff-it/zine#v0.4.6&quot;
 </code></pre>
@@ -175,6 +203,8 @@
 <span class="punctuation delimiter">.</span><span class="variable builtin">hash</span> = <span class="string">&quot;1220230f7c6abf655ef9b1ec14161bd1c15e55afd14ceaedfe2e0e9cc2471b1dd0ca&quot;</span><span class="punctuation delimiter">,</span>
 </code></pre>
 <ul><li>Removed the <code>_index.md</code> vs <code>index.md</code> naming convention. Now it's always <code>index.md</code> and you can use the <code>skip_subdirs</code> frontmatter property to get the old behavior. See the docs for more information.</li></ul></div></div>
+    
+  </div>
   <script>
     window.onload = function() {
 		document.querySelectorAll("#page > h3").forEach(function (h) {
