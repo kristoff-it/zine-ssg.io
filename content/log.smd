@@ -1,18 +1,19 @@
 ---
-.title = "Changelog",
+.title = "Devlog",
 .date = @date("2020-07-06T00:00:00"),
 .author = "Sample Author",
 .layout = "log.shtml",
-// .alternatives = [{
-//   .layout = "log.xml",
-//   .output = "log/index.xml",
-// }],
+.alternatives = [{
+  .layout = "log.xml",
+  .output = "log/index.xml",
+}],
 .draft = false,
 --- 
+[]($section.id('about'))
 ## About
 This is a non-exhaustive, curated list of changes meant to help users quickly see what has improved since they last checked.
 
-Refer to [the repository](https://github.com/kristoff-it/zine) and the [issue tracker](https://github.com/kristoff-it/zine/issues) for more in-depth information.
+You can [subscribe to this page via RSS](https://zine-ssg.io/log/index.xml).
 
 To update Zine to the latest release run:
 ```sh
@@ -22,8 +23,17 @@ zig fetch --save "git+https://github.com/kristoff-it/zine#v0.5.0"
 ## Changes
 
 
-### [v0.5.0]($section.id('v0.5.0'))
-#### 2024-09-01
+[]($section.id('v0.5.1').data('date','2024-09-04'))
+- Added typst syntax highlighting support.
+
+- On the topic of RSS feeds, this page [now has an RSS feed](https://zine-ssg.io/log/index.xml) that you can subscribe to. Every entry in this devlog will become an entry in the RSS feed. If you're curious to see how this is implemented, clone this repo and see how `content/log.smd` and `layouts/log.xml` work together to make it happen (see [Get Started](/quickstart) for more info).
+
+- `Page` in SuperHTML gained the ability to loop over sections defined by a Page. 
+
+- SuperMD Directives can now store data (key-value fields) that can then be accessed programmtically by SuperHTML.
+
+
+[]($section.id('v0.5.0').data('date','2024-09-01'))
 - Added [`$build.generated`]($link.page('docs/superhtml/scripty').ref('Build')) 
   which evaluates to the date in which the build is taking place. It doesn't
   add a dependency on the current date so a page will only display a newer
@@ -32,8 +42,6 @@ zig fetch --save "git+https://github.com/kristoff-it/zine#v0.5.0"
   Useful for example to set `lastBuildDate` in RSS feeds. Note that without 
   caching the date will always be updated, potentially resulting in unwanted
   behavior.
-
-
 
 []($section.id('old'))
 

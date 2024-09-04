@@ -420,6 +420,19 @@ Renders the specified [content section]($link.page('docs/supermd/scripty').ref('
 <div :html="$page.contentSection('section-id')"></div>
 <div :html="$page.contentSection('other-section')"></div>
 ```
+### []($heading.id("Page.contentSections")) [`fn`]($link.ref("Page.contentSections")) contentSections () -> [[ContentSection]($link.ref("ContentSection"))]
+
+Returns a list of sections for the current page.
+
+A page that doesn't define any section will have
+a default section for the whole document with a 
+null id.
+
+#### Examples
+
+```superhtml
+<div :html="$page.contentSections()"></div>
+```
 ### []($heading.id("Page.toc")) [`fn`]($link.ref("Page.toc")) toc () -> [String]($link.ref("String"))
 
 Renders the table of content.
@@ -481,6 +494,31 @@ Useful for example to generate RSS links:
 </ctx>
 ```
 
+# [ContentSection]($section.id('ContentSection'))
+
+A content section from a page.
+
+## Fields
+
+### `id` : [String]($link.ref("String"))
+
+The id of the current section.
+
+### `data` : [Map]($link.ref("Map"))
+
+A Ziggy Map that contains data key-value pairs set in SuperMD
+
+## Functions
+
+### []($heading.id("ContentSection.html")) [`fn`]($link.ref("ContentSection.html")) html () -> [String]($link.ref("String"))
+
+Renders the section.
+
+#### Examples
+
+```superhtml
+<div html="$page.c()"></div>
+```
 # [Build]($section.id('Build'))
 
 Gives you access to build-time assets and other build related info.
@@ -743,6 +781,15 @@ Parses an integer out of a string
 
 ```superhtml
 $page.custom.get!('not-a-num-for-some-reason').parseInt()
+```
+### []($heading.id("String.parseDate")) [`fn`]($link.ref("String.parseDate")) parseDate () -> [Date]($link.ref("Date"))
+
+Parses a Date out of a string.
+
+#### Examples
+
+```superhtml
+$page.custom.get('foo').parseDate()
 ```
 ### []($heading.id("String.splitN")) [`fn`]($link.ref("String.splitN")) splitN ([String]($link.ref("String")), [Int]($link.ref("Int"))) -> [String]($link.ref("String"))
 

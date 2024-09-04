@@ -141,6 +141,15 @@ Appends to the attributes field of this Directive.
 Title for this directive, mostly used as metadata that does
 not get rendered directly in the page.
 
+### []($heading.id("anydirective.data")) [`fn`]($link.ref("anydirective.data")) data (str, str, [str...]) -> [anydirective]($link.ref("anydirective"))
+
+Adds data key-value pairs of a Directive.
+
+In SuperHTML data key-value pairs can be accessed 
+programmatically in a template when rendering
+a section, while data will turn into `data-foo`
+attributes otherwise. 
+
 # [Section]($section.id('Section'))
 
 A content section, used to define a portion of content

@@ -74,7 +74,21 @@
   </style>
   <h3 class="overtitle centered">Zine</h3>
   <h1 class="title" :text="$page.title"></h1>
-  <div id="page" :html="$page.content()"></div>
+  <div id="page" :loop="$page.contentSections()">
+    <ctx :if="$loop.first" :html="$loop.it.html()"></ctx>
+    <ctx
+      :if="$loop.first.not().and($loop.last.not())"
+    >
+      <div id="$loop.it.id">
+        <h3><a :text="$loop.it.id" href="$loop.it.id.prefix('#')"></a></h3>
+        <h4 :text="$loop.it.data.get('date')"></h4>
+        <ctx :html="$loop.it.html()"></ctx>
+      </div>
+    </ctx>
+    <ctx :if="$loop.last">
+      <div id="old" :html="$loop.it.html()"></div>
+    </ctx>
+  </div>
   <script>
     window.onload = function() {
 		document.querySelectorAll("#page > h3").forEach(function (h) {
