@@ -315,6 +315,18 @@ counts all characters and divides the result by 5.
 ```superhtml
 <div :loop="$page.wordCount()"></div>
 ```
+### []($heading.id("Page.parentSection")) [`fn`]($link.ref("Page.parentSection")) parentSection () -> [Page]($link.ref("Page"))
+
+Returns the parent section of a page. 
+
+It's always an error to call this function on the site's main 
+index page as it doesn't have a parent section.
+
+#### Examples
+
+```superhtml
+$page.parentSection()
+```
 ### []($heading.id("Page.isSection")) [`fn`]($link.ref("Page.isSection")) isSection () -> [Bool]($link.ref("Bool"))
 
 Returns true if the current page defines a section (i.e. if 
@@ -735,6 +747,16 @@ Concatenates strings together (left-to-right).
 
 ```superhtml
 $page.title.suffix("Foo","Bar", "Baz")
+```
+### []($heading.id("String.prefix")) [`fn`]($link.ref("String.prefix")) prefix ([String]($link.ref("String")), [[String]($link.ref("String"))...]) -> [String]($link.ref("String"))
+
+Concatenates strings together (left-to-right) and
+prepends them to the receiver string.
+
+#### Examples
+
+```superhtml
+$page.title.prefix("Foo","Bar", "Baz")
 ```
 ### []($heading.id("String.fmt")) [`fn`]($link.ref("String.fmt")) fmt ([String]($link.ref("String")), [[String]($link.ref("String"))...]) -> [String]($link.ref("String"))
 

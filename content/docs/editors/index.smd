@@ -1,0 +1,58 @@
+---
+.title = "Editor Support",
+.date = @date("2020-07-06T00:00:00"),
+.author = "Sample Author",
+.layout = "documentation.shtml",
+.draft = false,
+--- 
+
+## About
+Zine uses three languages that you will want to add support for in your editor:
+- [Ziggy](https://ziggy-lang.io)
+- [SuperMD](https://github.com/kristoff-it/supermd)
+- [SuperHTML](https://github.com/kristoff-it/superthml)
+
+There are two main components for each that you will want to setup: 
+
+- **Syntax highlighting**  
+  *(mostly provided through tree sitter grammars)*
+- **Language Server support**  
+  *(mostly provided through CLI tools)*
+
+Both Tree Sitter grammars and prebuilt releases of each language's CLI tool are 
+available at the links above, but first make sure to follow the instructions 
+specific to your editor.
+
+># [Note]($block)
+>The SuperHTML CLI tool is also a language server for regular HTML files.
+
+
+## Troubleshooting
+If you encounter issues while setting up your editor, [join the community](/community) and ask for help.
+
+# Editors
+
+## VSCode
+- [Ziggy Extension](https://marketplace.visualstudio.com/items?itemName=LorisCro.ziggy)
+  - Requires the Ziggy CLI tool in your `PATH`.
+- SuperMD Extension *(coming soon)*
+- [SuperHTML Extension](https://marketplace.visualstudio.com/items?itemName=LorisCro.super)
+  - Requires the SuperHTML CLI tool in your `PATH`.
+
+## Neovim
+[See the Neovim dedicated page](./neovim).
+
+## Helix
+[See the Helix dedicated page](./helix).
+
+
+## Flow Control
+[Flow Control](https://github.com/neurocyte/flow) has navive support for all Zine file formats.
+
+Make sure to have all the CLI tools available in your `PATH` to enable LSP support.
+
+## Other editors
+Any editor that supports Tree Sitter for syntax highlighting and the Language Server Protocol can be setup to support Ziggy, SuperMD, and SuperHTML.
+
+We welcome contributions that add support for Zine file formats to editors 
+(or just instructions of how to perform manual setup).

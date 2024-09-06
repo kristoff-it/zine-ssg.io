@@ -153,3 +153,58 @@ code.markdown .text.title {
 code.markdown .punctuation {
   color: var(--light-red);
 }
+
+
+code.toml {
+  color: var(--cyan);
+}
+
+code.toml .property {
+  color: var(--light-yellow);
+}
+
+code.toml .string {
+  color: var(--dark-yellow);
+}
+
+code.toml .numeric.constant {
+  color: var(--magenta);
+}
+
+code.toml .punctuation {
+  color: var(--blue);
+}
+
+
+code.lua {}
+
+code.lua .string {
+  color: var(--dark-yellow);
+}
+
+code.lua .variable,
+code.lua .field {
+  color: var(--light-yellow);
+}
+
+code.lua .keyword.function {
+  color: var(--light-red);
+}
+
+code.lua .bracket {
+  color: var(--cyan);
+}
+
+code.lua .function {
+  color: var(--blue);
+}
+
+code.lua .builtin {
+  color: var(--magenta);
+}
+
+code.lua .operator,
+code.lua .qualifier,
+code.lua .attribute {
+  color: var(--light-red);
+}

@@ -1,0 +1,142 @@
+---
+.title = "Helix Tooling Setup",
+.date = @date("2020-07-06T00:00:00"),
+.author = "Sample Author",
+.layout = "documentation.shtml",
+.draft = false,
+--- 
+
+## 1. Clone all three repositories
+While it is possible to depend directly on remote repositories, cloning locally
+helps both with the initial setup, and also helps you stay up to date with the
+latest changes made to the tooling for each language.
+
+**`shell`**
+```
+git clone https://github.com/kristoff-it/ziggy
+git clone https://github.com/kristoff-it/supermd
+git clone https://github.com/kristoff-it/superhtml
+```
+
+># [Note]($block)
+>If and when Helix will have builtin support for Zine file formats none of these
+>steps will be necessary anymore.
+
+## 2. Link all queries 
+
+In your Helix [**runtime directory**](https://docs.helix-editor.com/install.html#configuring-helixs-runtime-files), create a symbolic link to all the Tree Sitter queries from our parsers.  
+
+  From the directory where you cloned all repos, run the following commands after replacing `HELIX_RUNTIME_PATH`:
+
+**`shell`**
+```
+ln -s ziggy/tree-sitter-ziggy/queries HELIX_RUNTIME_PATH/queries/ziggy
+ln -s ziggy/tree-sitter-ziggy-schema/queries HELIX_RUNTIME_PATH/queries/ziggy_schema
+ln -s supermd/editors/helix/queries/supermd HELIX_RUNTIME_PATH/queries/supermd
+ln -s supermd/editors/helix/queries/supermd_inline HELIX_RUNTIME_PATH/queries/supermd_inline
+ln -s superhtml/tree-sitter-superhtml/queries HELIX_RUNTIME_PATH/queries/superhtml  
+```
+
+## 2. Add all languages to your language config 
+In your Helix **config directory** (usually `~/.config/helix/`) create `languages.toml` and copy the following lines, making sure to replate `PATH_TO_CLONED_REPOSITORIES`:
+
+**`~/.config/helix/languages.toml`**
+```toml
+# Ziggy
+[language-server.ziggy-lsp]
+command = "ziggy"
+args = ["lsp"]
+
+[language-server.ziggy-schema-lsp]
+command = "ziggy"
+args = ["lsp", "--schema"]
+
+[[language]]
+name = "ziggy"
+scope = "text.ziggy"
+roots = []
+injection-regex = "ziggy|zgy"
+file-types = ["ziggy", "zgy"]
+comment-token = "//"
+auto-format = true
+formatter = { command = "ziggy" , args = ["fmt", "--stdin"] }
+language-servers = [ "ziggy-lsp" ]
+
+[[grammar]]
+name = "ziggy"
+source = { path = "PATH_TO_CLONED_REPOSITORIES/ziggy/tree-sitter-ziggy" }
+
+[[language]]
+name = "ziggy_schema"
+scope = "text.ziggy_schema"
+roots = []
+injection-regex = "ziggy-schema|zgy-schema"
+file-types = ["ziggy-schema", "zgy-schema"]
+comment-token = "///"
+indent = { tab-width = 4, unit = "    " }
+formatter = { command = "ziggy" , args = ["fmt", "-", "--type", "schema"] }
+auto-format = true
+language-servers = [ "ziggy-schema-lsp" ]
+
+[[grammar]]
+name = "ziggy_schema"
+source = { path = "PATH_TO_CLONED_REPOSITORIES/ziggy/tree-sitter-ziggy-schema" }
+
+# SuperMD
+[[language]]
+name = "supermd"
+scope = "source.supermd"
+roots = []
+file-types = ["smd"]
+injection-regex = "supermd|smd"
+
+[[grammar]]
+name = "supermd"
+source = { path = "PATH_TO_CLONED_REPOSITORIES/supermd/tree-sitter/supermd" }
+
+[[language]]
+name = "supermd_inline"
+scope = "source.supermd.inline"
+injection-regex = "supermd_inline"
+file-types = []
+grammar = "supermd_inline"
+
+[[grammar]]
+name = "supermd_inline"
+source = { path = "PATH_TO_CLONED_REPOSITORIES/supermd/tree-sitter/supermd-inline" }
+
+
+# SuperHTML
+[language-server.superhtml-lsp]
+command = "superhtml"
+args = ["lsp"]
+
+[[language]]
+name = "html"
+scope = "source.html"
+roots = []
+file-types = ["html"]
+language-servers = [ "superhtml-lsp" ]
+
+[[language]]
+name = "superhtml"
+scope = "source.superhtml"
+roots = []
+file-types = ["shtml"]
+injection-regex = "superhtml|shtml"
+auto-format = true
+language-servers = [ "superhtml-lsp" ]
+
+[[grammar]]
+name = "superhtml"
+source = { path = "PATH_TO_CLONED_REPOSITORIES/superhtml/tree-sitter-superhtml" }
+
+```
+
+ 
+## 3. Build Tree Sitter grammars
+
+Run `hx --grammar build`, it should report that all the new grammars were built 
+successfully.
+
+

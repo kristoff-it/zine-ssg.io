@@ -17,10 +17,20 @@ You can [subscribe to this page via RSS](https://zine-ssg.io/log/index.xml).
 
 To update Zine to the latest release run:
 ```sh
-zig fetch --save "git+https://github.com/kristoff-it/zine#v0.5.0"
+zig fetch --save "git+https://github.com/kristoff-it/zine#v0.6.0"
 ```
 
 ## Changes
+
+
+[]($section.id('v0.6.0').data('date','2024-09-06'))
+- Added `Page.parentSection()` in SuperHTML.
+
+- The website now has a docs section [for editor support](https://zine-ssg.io/docs/editors/).  
+  Follow those instructions to get syntax highlighting and LSP support in your
+  favorite editor.  
+  **If you have trouble setting up your editor feel free to [ask for help in the community](https://zine-ssg.io/community/)**.
+
 
 
 []($section.id('v0.5.1').data('date','2024-09-04'))

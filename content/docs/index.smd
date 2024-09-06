@@ -16,6 +16,7 @@ This page will guide you through the first few motions of getting a Zine site st
 Once you're familiar with the content of this page you can start venturing into topic deep dives:
 
 - [Scripty Basics](./scripty)
+- [Editor Support](./editors)
 - Content
   - [SuperMD Basics](./supermd)
   - [Scripty Reference](./supermd/scripty) *(SuperMD)*
