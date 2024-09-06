@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+  <head id="head">
+    <meta charset="UTF-8">
+    <meta name="description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@croloris">
+    <meta name="twitter:author" content="@croloris">
+    <meta name="twitter:description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+    <meta name="twitter:title" content="Neovim Tooling Setup | Zine">
+    <meta name="twitter:image" content="https://zine-ssg.io/preview.png">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Neovim Tooling Setup | Zine">
+    <meta property="og:image" content="https://zine-ssg.io/preview.png">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title id="title">
+      Neovim Tooling Setup
+      - Zine
+    </title>
+    <link rel="stylesheet" type="text/css" href="/fonts.css">
+    <link rel="stylesheet" type="text/css" href="/fira_code.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="stylesheet" type="text/css" href="/highlight.css">
+    
+  </head>
+  <body>
+    <nav id="menu" class="centered">
+      <a href="/">Home</a>
+      •
+      <a href="/quickstart/">Get Started</a>
+      •
+      <a href="/docs/">Documentation</a>
+      •
+      <a href="/community/">Community</a>
+      •
+      <a href="/log/">Devlog</a>
+      •
+      <a href="https://github.com/kristoff-it/zine" target="_blank">
+        Code
+      </a>
+    </nav>
+    <div id="content">
+      
+  <style>
+    h1 {
+		margin-top: 0;
+	}
+
+	#docs h1 {
+       margin-top: 1.5em;
+     }
+     h3 {
+       margin-bottom: 0;
+     }
+
+		#docs h2, #docs h3 {
+			text-align: left;
+		}
+
+		#docs h3 {
+			font-size: 1.5rem;
+		}
+
+		#docs h2 {
+			font-size: 1.5rem;
+			border-bottom: 1px dashed #aaa;
+			margin-top: 2em;
+		}
+
+		#docs h4 {
+			font-size: 1rem;
+		}
+
+  table {
+    font-size: 0.9em;
+  }
+  table th {
+    font-size: 1em;
+  }
+  table td {
+    white-space: nowrap;
+  }
+  </style>
+  <h3 class="centered">Zine</h3>
+  <h1>Neovim Tooling Setup</h1>
+  <div id="docs"><div class="block warning"><h1>Warning</h1><p>This guide is not battle tested. Corrections and improvements from experienced Neovim users are welcome.</p></div><h2>1. Clone all three repositories</h2><p>While it is possible to depend directly on remote repositories, cloning locally helps both with the initial setup, and also helps you stay up to date with the latest changes made to the tooling for each language.</p><p><strong><code>shell</code></strong></p><pre><code>git clone https://github.com/kristoff-it/ziggy
+git clone https://github.com/kristoff-it/supermd
+git clone https://github.com/kristoff-it/superhtml
+</code></pre><div class="block"><h1>Note</h1><p>If and when Neovim will have builtin support for Zine file formats none of these steps will be necessary anymore.</p></div><h2>2. Link all queries</h2><p>In your Neovim <strong>config directory</strong> (usually <code>~/.config/neovim/</code>), create a symbolic link to all the Tree Sitter queries from our parsers.</p><p>From the directory where you cloned all repos, run the following commands after replacing <code>HELIX_RUNTIME_PATH</code>:</p><p><strong><code>shell</code></strong></p><pre><code>ln -s ziggy/tree-sitter-ziggy/queries ~/.config/neovim/queries/ziggy
+ln -s ziggy/tree-sitter-ziggy-schema/queries ~/.config/neovim/queries/ziggy_schema
+ln -s supermd/editors/neovim/queries/supermd ~/.config/neovim/queries/supermd
+ln -s supermd/editors/neovim/queries/supermd_inline ~/.config/neovim/queries/supermd_inline
+ln -s superhtml/tree-sitter-superhtml/queries ~/.config/neovim/queries/superhtml  
+</code></pre><h2>3. Setup your init scripts</h2><div class="block warning"><h1>Warning</h1><p>This guide assumes you're using <code>nvim-lspconfig</code>, <code>conform.nvim</code>, and <code>nvim-treesitter</code>.</p><p>If you're using different plugins, the specific steps to setup everything will be different.</p></div><p>The following code blocks are snippets that should be placed wherever you are initializing the corresponding plugin.</p><p><strong><code>nvim-lspconfig</code></strong></p><pre><code class="lua"><span class="variable">vim</span><span class="punctuation delimiter">.</span><span class="field">api</span><span class="punctuation delimiter">.</span><span class="function call">nvim_create_autocmd</span><span class="punctuation bracket">(</span><span class="string">&apos;FileType&apos;</span><span class="punctuation delimiter">,</span> <span class="constructor">{</span>
+  <span class="field">group</span> <span class="operator">=</span> <span class="variable">vim</span><span class="punctuation delimiter">.</span><span class="field">api</span><span class="punctuation delimiter">.</span><span class="function call">nvim_create_augroup</span><span class="punctuation bracket">(</span><span class="string">&apos;ziggy&apos;</span><span class="punctuation delimiter">,</span> <span class="constructor">{</span><span class="constructor">}</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">,</span>
+  <span class="field">pattern</span> <span class="operator">=</span> <span class="string">&apos;ziggy&apos;</span><span class="punctuation delimiter">,</span>
+  <span class="field">callback</span> <span class="operator">=</span> <span class="keyword function">function</span><span class="punctuation bracket">(</span><span class="punctuation bracket">)</span>
+    <span class="variable">vim</span><span class="punctuation delimiter">.</span><span class="field">lsp</span><span class="punctuation delimiter">.</span><span class="function call">start</span> <span class="constructor">{</span>
+      <span class="field">name</span> <span class="operator">=</span> <span class="string">&apos;Ziggy LSP&apos;</span><span class="punctuation delimiter">,</span>
+      <span class="field">cmd</span> <span class="operator">=</span> <span class="constructor">{</span> <span class="string">&apos;ziggy&apos;</span><span class="punctuation delimiter">,</span> <span class="string">&apos;lsp&apos;</span> <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+      <span class="field">root_dir</span> <span class="operator">=</span> <span class="variable">vim</span><span class="punctuation delimiter">.</span><span class="field">loop</span><span class="punctuation delimiter">.</span><span class="function call">cwd</span><span class="punctuation bracket">(</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">,</span>
+      <span class="field">flags</span> <span class="operator">=</span> <span class="constructor">{</span> <span class="field">exit_timeout</span> <span class="operator">=</span> <span class="number">1000</span> <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+    <span class="constructor">}</span>
+  <span class="keyword function">end</span><span class="punctuation delimiter">,</span>
+<span class="constructor">}</span><span class="punctuation bracket">)</span>
+
+<span class="variable">vim</span><span class="punctuation delimiter">.</span><span class="field">api</span><span class="punctuation delimiter">.</span><span class="function call">nvim_create_autocmd</span><span class="punctuation bracket">(</span><span class="string">&apos;FileType&apos;</span><span class="punctuation delimiter">,</span> <span class="constructor">{</span>
+  <span class="field">group</span> <span class="operator">=</span> <span class="variable">vim</span><span class="punctuation delimiter">.</span><span class="field">api</span><span class="punctuation delimiter">.</span><span class="function call">nvim_create_augroup</span><span class="punctuation bracket">(</span><span class="string">&apos;ziggy_schema&apos;</span><span class="punctuation delimiter">,</span> <span class="constructor">{</span><span class="constructor">}</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">,</span>
+  <span class="field">pattern</span> <span class="operator">=</span> <span class="string">&apos;ziggy_schema&apos;</span><span class="punctuation delimiter">,</span>
+  <span class="field">callback</span> <span class="operator">=</span> <span class="keyword function">function</span><span class="punctuation bracket">(</span><span class="punctuation bracket">)</span>
+    <span class="variable">vim</span><span class="punctuation delimiter">.</span><span class="field">lsp</span><span class="punctuation delimiter">.</span><span class="function call">start</span> <span class="constructor">{</span>
+      <span class="field">name</span> <span class="operator">=</span> <span class="string">&apos;Ziggy LSP&apos;</span><span class="punctuation delimiter">,</span>
+      <span class="field">cmd</span> <span class="operator">=</span> <span class="constructor">{</span> <span class="string">&apos;ziggy&apos;</span><span class="punctuation delimiter">,</span> <span class="string">&apos;lsp&apos;</span><span class="punctuation delimiter">,</span> <span class="string">&apos;--schema&apos;</span> <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+      <span class="field">root_dir</span> <span class="operator">=</span> <span class="variable">vim</span><span class="punctuation delimiter">.</span><span class="field">loop</span><span class="punctuation delimiter">.</span><span class="function call">cwd</span><span class="punctuation bracket">(</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">,</span>
+      <span class="field">flags</span> <span class="operator">=</span> <span class="constructor">{</span> <span class="field">exit_timeout</span> <span class="operator">=</span> <span class="number">1000</span> <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+    <span class="constructor">}</span>
+  <span class="keyword function">end</span><span class="punctuation delimiter">,</span>
+<span class="constructor">}</span><span class="punctuation bracket">)</span>
+
+<span class="variable">vim</span><span class="punctuation delimiter">.</span><span class="field">api</span><span class="punctuation delimiter">.</span><span class="function call">nvim_create_autocmd</span><span class="punctuation bracket">(</span><span class="string">&apos;FileType&apos;</span><span class="punctuation delimiter">,</span> <span class="constructor">{</span>
+  <span class="field">group</span> <span class="operator">=</span> <span class="variable">vim</span><span class="punctuation delimiter">.</span><span class="field">api</span><span class="punctuation delimiter">.</span><span class="function call">nvim_create_augroup</span><span class="punctuation bracket">(</span><span class="string">&apos;superhtml&apos;</span><span class="punctuation delimiter">,</span> <span class="constructor">{</span><span class="constructor">}</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">,</span>
+  <span class="field">pattern</span> <span class="operator">=</span> <span class="string">&apos;superhtml&apos;</span><span class="punctuation delimiter">,</span>
+  <span class="field">callback</span> <span class="operator">=</span> <span class="keyword function">function</span><span class="punctuation bracket">(</span><span class="punctuation bracket">)</span>
+    <span class="variable">vim</span><span class="punctuation delimiter">.</span><span class="field">lsp</span><span class="punctuation delimiter">.</span><span class="function call">start</span> <span class="constructor">{</span>
+      <span class="field">name</span> <span class="operator">=</span> <span class="string">&apos;SuperHTML LSP&apos;</span><span class="punctuation delimiter">,</span>
+      <span class="field">cmd</span> <span class="operator">=</span> <span class="constructor">{</span> <span class="string">&apos;superhtml&apos;</span><span class="punctuation delimiter">,</span> <span class="string">&apos;lsp&apos;</span> <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+      <span class="field">root_dir</span> <span class="operator">=</span> <span class="variable">vim</span><span class="punctuation delimiter">.</span><span class="field">loop</span><span class="punctuation delimiter">.</span><span class="function call">cwd</span><span class="punctuation bracket">(</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">,</span>
+      <span class="field">flags</span> <span class="operator">=</span> <span class="constructor">{</span> <span class="field">exit_timeout</span> <span class="operator">=</span> <span class="number">1000</span> <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+    <span class="constructor">}</span>
+  <span class="keyword function">end</span><span class="punctuation delimiter">,</span>
+<span class="constructor">}</span><span class="punctuation bracket">)</span>
+</code></pre>
+<p><strong><code>conform.nvim</code></strong></p><pre><code class="lua"><span class="variable">formatters</span> <span class="operator">=</span> <span class="constructor">{</span>
+  <span class="field">superhtml</span> <span class="operator">=</span> <span class="constructor">{</span>
+    <span class="field">inherit</span> <span class="operator">=</span> <span class="boolean">false</span><span class="punctuation delimiter">,</span>
+    <span class="field">command</span> <span class="operator">=</span> <span class="string">&apos;superhtml&apos;</span><span class="punctuation delimiter">,</span>
+    <span class="field">stdin</span> <span class="operator">=</span> <span class="boolean">true</span><span class="punctuation delimiter">,</span>
+    <span class="field">args</span> <span class="operator">=</span> <span class="constructor">{</span> <span class="string">&apos;fmt&apos;</span><span class="punctuation delimiter">,</span> <span class="string">&apos;--stdin&apos;</span> <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+  <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+  <span class="field">ziggy</span> <span class="operator">=</span> <span class="constructor">{</span>
+    <span class="field">inherit</span> <span class="operator">=</span> <span class="boolean">false</span><span class="punctuation delimiter">,</span>
+    <span class="field">command</span> <span class="operator">=</span> <span class="string">&apos;ziggy&apos;</span><span class="punctuation delimiter">,</span>
+    <span class="field">stdin</span> <span class="operator">=</span> <span class="boolean">true</span><span class="punctuation delimiter">,</span>
+    <span class="field">args</span> <span class="operator">=</span> <span class="constructor">{</span> <span class="string">&apos;fmt&apos;</span><span class="punctuation delimiter">,</span> <span class="string">&apos;--stdin&apos;</span> <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+  <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+  <span class="field">ziggy_schema</span> <span class="operator">=</span> <span class="constructor">{</span>
+    <span class="field">inherit</span> <span class="operator">=</span> <span class="boolean">false</span><span class="punctuation delimiter">,</span>
+    <span class="field">command</span> <span class="operator">=</span> <span class="string">&apos;ziggy&apos;</span><span class="punctuation delimiter">,</span>
+    <span class="field">stdin</span> <span class="operator">=</span> <span class="boolean">true</span><span class="punctuation delimiter">,</span>
+    <span class="field">args</span> <span class="operator">=</span> <span class="constructor">{</span> <span class="string">&apos;fmt&apos;</span><span class="punctuation delimiter">,</span> <span class="string">&apos;--stdin-schema&apos;</span> <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+  <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+<span class="constructor">}</span><span class="punctuation delimiter">,</span>
+
+<span class="function call">formatters_by_ft</span> <span class="operator">=</span> <span class="constructor">{</span>
+  <span class="field">shtml</span> <span class="operator">=</span> <span class="constructor">{</span> <span class="string">&apos;superhtml&apos;</span> <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+  <span class="field">ziggy</span> <span class="operator">=</span> <span class="constructor">{</span> <span class="string">&apos;ziggy&apos;</span> <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+  <span class="field">ziggy_schema</span> <span class="operator">=</span> <span class="constructor">{</span> <span class="string">&apos;ziggy_schema&apos;</span> <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+<span class="constructor">}</span><span class="punctuation delimiter">,</span><span class="variable"></span><span class="variable builtin"></span><span class="constant"></span>
+</code></pre>
+<p><strong><code>nvim-treesitter</code></strong></p><pre><code class="lua"><span class="keyword">local</span> <span class="variable">parser_config</span> <span class="operator">=</span> <span class="function call">require</span><span class="punctuation bracket">(</span>
+  <span class="string">&apos;nvim-treesitter.parsers&apos;</span>
+<span class="punctuation bracket">)</span><span class="punctuation delimiter">.</span><span class="function call">get_parser_configs</span><span class="punctuation bracket">(</span><span class="punctuation bracket">)</span>
+
+<span class="variable">parser_config</span><span class="punctuation delimiter">.</span><span class="field">ziggy</span> <span class="operator">=</span> <span class="constructor">{</span>
+  <span class="field">install_info</span> <span class="operator">=</span> <span class="constructor">{</span>
+    <span class="field">url</span> <span class="operator">=</span> <span class="string">&apos;https://github.com/kristoff-it/ziggy&apos;</span><span class="punctuation delimiter">,</span> 
+    <span class="field">includes</span> <span class="operator">=</span> <span class="constructor">{</span> <span class="string">&apos;tree-sitter-ziggy/src&apos;</span> <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+    <span class="field">files</span> <span class="operator">=</span> <span class="constructor">{</span> <span class="string">&apos;tree-sitter-ziggy/src/parser.c&apos;</span> <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+    <span class="field">branch</span> <span class="operator">=</span> <span class="string">&apos;main&apos;</span><span class="punctuation delimiter">,</span>
+    <span class="field">generate_requires_npm</span> <span class="operator">=</span> <span class="boolean">false</span><span class="punctuation delimiter">,</span> 
+    <span class="field">requires_generate_from_grammar</span> <span class="operator">=</span> <span class="boolean">false</span><span class="punctuation delimiter">,</span> 
+  <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+  <span class="field">filetype</span> <span class="operator">=</span> <span class="string">&apos;ziggy&apos;</span><span class="punctuation delimiter">,</span>
+<span class="constructor">}</span>
+
+<span class="variable">parser_config</span><span class="punctuation delimiter">.</span><span class="field">ziggy_schema</span> <span class="operator">=</span> <span class="constructor">{</span>
+  <span class="field">install_info</span> <span class="operator">=</span> <span class="constructor">{</span>
+    <span class="field">url</span> <span class="operator">=</span> <span class="string">&apos;https://github.com/kristoff-it/ziggy&apos;</span><span class="punctuation delimiter">,</span> 
+    <span class="field">files</span> <span class="operator">=</span> <span class="constructor">{</span> <span class="string">&apos;tree-sitter-ziggy-schema/src/parser.c&apos;</span> <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+    <span class="field">branch</span> <span class="operator">=</span> <span class="string">&apos;main&apos;</span><span class="punctuation delimiter">,</span>
+    <span class="field">generate_requires_npm</span> <span class="operator">=</span> <span class="boolean">false</span><span class="punctuation delimiter">,</span> 
+    <span class="field">requires_generate_from_grammar</span> <span class="operator">=</span> <span class="boolean">false</span><span class="punctuation delimiter">,</span>
+  <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+  <span class="field">filetype</span> <span class="operator">=</span> <span class="string">&apos;ziggy-schema&apos;</span><span class="punctuation delimiter">,</span>
+<span class="constructor">}</span>
+
+<span class="variable">parser_config</span><span class="punctuation delimiter">.</span><span class="field">supermd</span> <span class="operator">=</span> <span class="constructor">{</span>
+  <span class="field">install_info</span> <span class="operator">=</span> <span class="constructor">{</span>
+    <span class="field">url</span> <span class="operator">=</span> <span class="string">&apos;https://github.com/kristoff-it/supermd&apos;</span><span class="punctuation delimiter">,</span> 
+    <span class="field">includes</span> <span class="operator">=</span> <span class="constructor">{</span> <span class="string">&apos;tree-sitter/supermd/src&apos;</span> <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+    <span class="field">files</span> <span class="operator">=</span> <span class="constructor">{</span> 
+      <span class="string">&apos;tree-sitter/supermd/src/parser.c&apos;</span><span class="punctuation delimiter">,</span>
+      <span class="string">&apos;tree-sitter/supermd/src/scanner.c&apos;</span>
+    <span class="constructor">}</span><span class="punctuation delimiter">,</span> 
+    <span class="field">branch</span> <span class="operator">=</span> <span class="string">&apos;main&apos;</span><span class="punctuation delimiter">,</span>
+    <span class="field">generate_requires_npm</span> <span class="operator">=</span> <span class="boolean">false</span><span class="punctuation delimiter">,</span> 
+    <span class="field">requires_generate_from_grammar</span> <span class="operator">=</span> <span class="boolean">false</span><span class="punctuation delimiter">,</span> 
+  <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+  <span class="field">filetype</span> <span class="operator">=</span> <span class="string">&apos;supermd&apos;</span><span class="punctuation delimiter">,</span>
+<span class="constructor">}</span>
+
+<span class="variable">parser_config</span><span class="punctuation delimiter">.</span><span class="field">supermd_inline</span> <span class="operator">=</span> <span class="constructor">{</span>
+  <span class="field">install_info</span> <span class="operator">=</span> <span class="constructor">{</span>
+    <span class="field">url</span> <span class="operator">=</span> <span class="string">&apos;https://github.com/kristoff-it/supermd&apos;</span><span class="punctuation delimiter">,</span> 
+    <span class="field">includes</span> <span class="operator">=</span> <span class="constructor">{</span> <span class="string">&apos;tree-sitter/supermd-inline/src&apos;</span> <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+    <span class="field">files</span> <span class="operator">=</span> <span class="constructor">{</span> 
+      <span class="string">&apos;tree-sitter/supermd-inline/src/parser.c&apos;</span><span class="punctuation delimiter">,</span>
+      <span class="string">&apos;tree-sitter/supermd-inline/src/scanner.c&apos;</span>
+    <span class="constructor">}</span><span class="punctuation delimiter">,</span> 
+    <span class="field">branch</span> <span class="operator">=</span> <span class="string">&apos;main&apos;</span><span class="punctuation delimiter">,</span> 
+    <span class="field">generate_requires_npm</span> <span class="operator">=</span> <span class="boolean">false</span><span class="punctuation delimiter">,</span> 
+    <span class="field">requires_generate_from_grammar</span> <span class="operator">=</span> <span class="boolean">false</span><span class="punctuation delimiter">,</span>
+  <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+  <span class="field">filetype</span> <span class="operator">=</span> <span class="string">&apos;supermd_inline&apos;</span><span class="punctuation delimiter">,</span>
+<span class="constructor">}</span>
+
+<span class="variable">parser_config</span><span class="punctuation delimiter">.</span><span class="field">superhtml</span> <span class="operator">=</span> <span class="constructor">{</span>
+  <span class="field">install_info</span> <span class="operator">=</span> <span class="constructor">{</span>
+    <span class="field">url</span> <span class="operator">=</span> <span class="string">&apos;https://github.com/kristoff-it/superhtml&apos;</span><span class="punctuation delimiter">,</span>
+    <span class="field">includes</span> <span class="operator">=</span> <span class="constructor">{</span> <span class="string">&apos;tree-sitter-superhtml/src&apos;</span> <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+    <span class="field">files</span> <span class="operator">=</span> <span class="constructor">{</span> 
+      <span class="string">&apos;tree-sitter-superhtml/src/parser.c&apos;</span><span class="punctuation delimiter">,</span>
+      <span class="string">&apos;tree-sitter-superhtml/src/scanner.c&apos;</span>
+    <span class="constructor">}</span><span class="punctuation delimiter">,</span> 
+    <span class="field">branch</span> <span class="operator">=</span> <span class="string">&apos;main&apos;</span><span class="punctuation delimiter">,</span> 
+    <span class="field">generate_requires_npm</span> <span class="operator">=</span> <span class="boolean">false</span><span class="punctuation delimiter">,</span> 
+    <span class="field">requires_generate_from_grammar</span> <span class="operator">=</span> <span class="boolean">false</span><span class="punctuation delimiter">,</span> 
+  <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+  <span class="field">filetype</span> <span class="operator">=</span> <span class="string">&apos;superhtml&apos;</span><span class="punctuation delimiter">,</span>
+<span class="constructor">}</span>
+
+<span class="variable">vim</span><span class="punctuation delimiter">.</span><span class="field">filetype</span><span class="punctuation delimiter">.</span><span class="function call">add</span> <span class="constructor">{</span>
+  <span class="field">extension</span> <span class="operator">=</span> <span class="constructor">{</span>
+    <span class="field">smd</span> <span class="operator">=</span> <span class="string">&apos;supermd&apos;</span><span class="punctuation delimiter">,</span>
+    <span class="field">shtml</span> <span class="operator">=</span> <span class="string">&apos;superhtml&apos;</span><span class="punctuation delimiter">,</span>
+    <span class="field">ziggy</span> <span class="operator">=</span> <span class="string">&apos;ziggy&apos;</span><span class="punctuation delimiter">,</span>
+    <span class="punctuation bracket">[</span><span class="string">&apos;ziggy-schema&apos;</span><span class="punctuation bracket">]</span> <span class="operator">=</span> <span class="string">&apos;ziggy_schema&apos;</span><span class="punctuation delimiter">,</span>
+  <span class="constructor">}</span><span class="punctuation delimiter">,</span>
+<span class="constructor">}</span>
+</code></pre>
+<h2>4. Get all CLI tools</h2><p>Get all CLI tools from the releases of each repository (or build them yourself), make sure to make them available in <code>PATH</code>, and at that point you should be fully setup!</p></div>
+
+    </div>
+  </body>
+</html>

@@ -44,7 +44,11 @@
       
   <style>
     h1 {
-       margin-top: 0;
+		margin-top: 0;
+	}
+
+	#docs h1 {
+       margin-top: 1.5em;
      }
      h3 {
        margin-bottom: 0;
@@ -80,13 +84,13 @@
   </style>
   <h3 class="centered">Zine</h3>
   <h1>Documentation</h1>
-  <div id="docs"><div class="block warning"><h1>Warning</h1><p>Zine is alpha software.<br>Using Zine today means participating in its development.</p></div><h2>In this section</h2><p>This page will guide you through the first few motions of getting a Zine site started.</p><p>Once you're familiar with the content of this page you can start venturing into topic deep dives:</p><ul><li><a href="/docs/scripty/">Scripty Basics</a></li><li>Content<ul><li><a href="/docs/supermd/">SuperMD Basics</a></li><li><a href="/docs/supermd/scripty/">Scripty Reference</a> <em>(SuperMD)</em></li></ul></li><li>Layouts<ul><li><a href="/docs/superhtml/">SuperHTML Basics</a></li><li><a href="/docs/superhtml/scripty/">Scripty Reference</a> <em>(SuperHTML)</em></li></ul></li><li><a href="/docs/assets/">Assets</a></li><li><a href="/docs/i18n/">Multilingual Websites</a> <em>(i18n)</em></li><li>Deploying<ul><li><a href="/docs/deploying/github-pages/">GitHub Pages</a></li><li><a href="/docs/deploying/cloudflare-pages/">Cloudflare Pages</a></li></ul></li><li><a href="/docs/frequent/">Frequently Encountered Use Cases</a></li></ul><h2>Requirements</h2><p>Zine is a collection of tools orchestrated by the Zig build system.</p><p>Zine only depends on the Zig compiler, follow <a href="/quickstart/">the quickstart guide</a> to learn how to setup Zig and other optional developer tooling.</p><h2>Project Structure</h2><p>Your website only needs the following two files to get started:</p><p><strong><code>build.zig.zon</code></strong> <pre><code class="zig"><span class="punctuation delimiter">.</span><span class="punctuation bracket">{</span>
+  <div id="docs"><div class="block warning"><h1>Warning</h1><p>Zine is alpha software.<br>Using Zine today means participating in its development.</p></div><h2>In this section</h2><p>This page will guide you through the first few motions of getting a Zine site started.</p><p>Once you're familiar with the content of this page you can start venturing into topic deep dives:</p><ul><li><a href="/docs/scripty/">Scripty Basics</a></li><li><a href="/docs/editors/">Editor Support</a></li><li>Content<ul><li><a href="/docs/supermd/">SuperMD Basics</a></li><li><a href="/docs/supermd/scripty/">Scripty Reference</a> <em>(SuperMD)</em></li></ul></li><li>Layouts<ul><li><a href="/docs/superhtml/">SuperHTML Basics</a></li><li><a href="/docs/superhtml/scripty/">Scripty Reference</a> <em>(SuperHTML)</em></li></ul></li><li><a href="/docs/assets/">Assets</a></li><li><a href="/docs/i18n/">Multilingual Websites</a> <em>(i18n)</em></li><li>Deploying<ul><li><a href="/docs/deploying/github-pages/">GitHub Pages</a></li><li><a href="/docs/deploying/cloudflare-pages/">Cloudflare Pages</a></li></ul></li><li><a href="/docs/frequent/">Frequently Encountered Use Cases</a></li></ul><h2>Requirements</h2><p>Zine is a collection of tools orchestrated by the Zig build system.</p><p>Zine only depends on the Zig compiler, follow <a href="/quickstart/">the quickstart guide</a> to learn how to setup Zig and other optional developer tooling.</p><h2>Project Structure</h2><p>Your website only needs the following two files to get started:</p><p><strong><code>build.zig.zon</code></strong> <pre><code class="zig"><span class="punctuation delimiter">.</span><span class="punctuation bracket">{</span>
     <span class="punctuation delimiter">.</span><span class="field">name</span> = <span class="string">&quot;Zine Website&quot;</span><span class="punctuation delimiter">,</span>
     <span class="punctuation delimiter">.</span><span class="field">version</span> = <span class="string">&quot;0.0.0&quot;</span><span class="punctuation delimiter">,</span>
     <span class="punctuation delimiter">.</span><span class="field">dependencies</span> = <span class="punctuation delimiter">.</span><span class="punctuation bracket">{</span>
         <span class="punctuation delimiter">.</span><span class="field">zine</span> = <span class="punctuation delimiter">.</span><span class="punctuation bracket">{</span>
-            <span class="punctuation delimiter">.</span><span class="field">url</span> = <span class="string">&quot;git+https://github.com/kristoff-it/zine?ref=v0.5.1#d7a581384a62e040bcd77d26fb1487c6aa425fdd&quot;</span><span class="punctuation delimiter">,</span>
-            <span class="punctuation delimiter">.</span><span class="field">hash</span> = <span class="string">&quot;1220c063fd048b86f6ca115c10b4da7349571d7fceedbae937ebfe14426c330aa009&quot;</span><span class="punctuation delimiter">,</span>
+            <span class="punctuation delimiter">.</span><span class="field">url</span> = <span class="string">&quot;git+https://github.com/kristoff-it/zine?ref=v0.6.0#2d375f0d88ae201d975bc45fca97ef1a2073bbb7&quot;</span><span class="punctuation delimiter">,</span>
+            <span class="punctuation delimiter">.</span><span class="field">hash</span> = <span class="string">&quot;122029d7408459dd2816fbc0f8859c00f20bca3fda202999a32ab0e3d6306dec6577&quot;</span><span class="punctuation delimiter">,</span>
         <span class="punctuation bracket">}</span><span class="punctuation delimiter">,</span>
     <span class="punctuation bracket">}</span><span class="punctuation delimiter">,</span>
     <span class="punctuation delimiter">.</span><span class="field">paths</span> = <span class="punctuation delimiter">.</span><span class="punctuation bracket">{</span><span class="string">&quot;.&quot;</span><span class="punctuation bracket">}</span><span class="punctuation delimiter">,</span>

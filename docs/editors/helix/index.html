@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+  <head id="head">
+    <meta charset="UTF-8">
+    <meta name="description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@croloris">
+    <meta name="twitter:author" content="@croloris">
+    <meta name="twitter:description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+    <meta name="twitter:title" content="Helix Tooling Setup | Zine">
+    <meta name="twitter:image" content="https://zine-ssg.io/preview.png">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Helix Tooling Setup | Zine">
+    <meta property="og:image" content="https://zine-ssg.io/preview.png">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title id="title">
+      Helix Tooling Setup
+      - Zine
+    </title>
+    <link rel="stylesheet" type="text/css" href="/fonts.css">
+    <link rel="stylesheet" type="text/css" href="/fira_code.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="stylesheet" type="text/css" href="/highlight.css">
+    
+  </head>
+  <body>
+    <nav id="menu" class="centered">
+      <a href="/">Home</a>
+      •
+      <a href="/quickstart/">Get Started</a>
+      •
+      <a href="/docs/">Documentation</a>
+      •
+      <a href="/community/">Community</a>
+      •
+      <a href="/log/">Devlog</a>
+      •
+      <a href="https://github.com/kristoff-it/zine" target="_blank">
+        Code
+      </a>
+    </nav>
+    <div id="content">
+      
+  <style>
+    h1 {
+		margin-top: 0;
+	}
+
+	#docs h1 {
+       margin-top: 1.5em;
+     }
+     h3 {
+       margin-bottom: 0;
+     }
+
+		#docs h2, #docs h3 {
+			text-align: left;
+		}
+
+		#docs h3 {
+			font-size: 1.5rem;
+		}
+
+		#docs h2 {
+			font-size: 1.5rem;
+			border-bottom: 1px dashed #aaa;
+			margin-top: 2em;
+		}
+
+		#docs h4 {
+			font-size: 1rem;
+		}
+
+  table {
+    font-size: 0.9em;
+  }
+  table th {
+    font-size: 1em;
+  }
+  table td {
+    white-space: nowrap;
+  }
+  </style>
+  <h3 class="centered">Zine</h3>
+  <h1>Helix Tooling Setup</h1>
+  <div id="docs"><h2>1. Clone all three repositories</h2><p>While it is possible to depend directly on remote repositories, cloning locally helps both with the initial setup, and also helps you stay up to date with the latest changes made to the tooling for each language.</p><p><strong><code>shell</code></strong></p><pre><code>git clone https://github.com/kristoff-it/ziggy
+git clone https://github.com/kristoff-it/supermd
+git clone https://github.com/kristoff-it/superhtml
+</code></pre><div class="block"><h1>Note</h1><p>If and when Helix will have builtin support for Zine file formats none of these steps will be necessary anymore.</p></div><h2>2. Link all queries</h2><p>In your Helix <a href="https://docs.helix-editor.com/install.html#configuring-helixs-runtime-files" target="_blank"><strong>runtime directory</strong></a>, create a symbolic link to all the Tree Sitter queries from our parsers.</p><p>From the directory where you cloned all repos, run the following commands after replacing <code>HELIX_RUNTIME_PATH</code>:</p><p><strong><code>shell</code></strong></p><pre><code>ln -s ziggy/tree-sitter-ziggy/queries HELIX_RUNTIME_PATH/queries/ziggy
+ln -s ziggy/tree-sitter-ziggy-schema/queries HELIX_RUNTIME_PATH/queries/ziggy_schema
+ln -s supermd/editors/helix/queries/supermd HELIX_RUNTIME_PATH/queries/supermd
+ln -s supermd/editors/helix/queries/supermd_inline HELIX_RUNTIME_PATH/queries/supermd_inline
+ln -s superhtml/tree-sitter-superhtml/queries HELIX_RUNTIME_PATH/queries/superhtml  
+</code></pre><h2>2. Add all languages to your language config</h2><p>In your Helix <strong>config directory</strong> (usually <code>~/.config/helix/</code>) create <code>languages.toml</code> and copy the following lines, making sure to replate <code>PATH_TO_CLONED_REPOSITORIES</code>:</p><p><strong><code>~/.config/helix/languages.toml</code></strong></p><pre><code class="toml"><span class="comment"># Ziggy</span>
+<span class="punctuation bracket">[</span><span class="property">language-server</span><span class="punctuation delimiter">.</span><span class="property">ziggy-lsp</span><span class="punctuation bracket">]</span>
+<span class="property">command</span> <span class="operator">=</span> <span class="string">&quot;ziggy&quot;</span>
+<span class="property">args</span> <span class="operator">=</span> <span class="punctuation bracket">[</span><span class="string">&quot;lsp&quot;</span><span class="punctuation bracket">]</span>
+
+<span class="punctuation bracket">[</span><span class="property">language-server</span><span class="punctuation delimiter">.</span><span class="property">ziggy-schema-lsp</span><span class="punctuation bracket">]</span>
+<span class="property">command</span> <span class="operator">=</span> <span class="string">&quot;ziggy&quot;</span>
+<span class="property">args</span> <span class="operator">=</span> <span class="punctuation bracket">[</span><span class="string">&quot;lsp&quot;</span><span class="punctuation delimiter">,</span> <span class="string">&quot;--schema&quot;</span><span class="punctuation bracket">]</span>
+
+<span class="punctuation bracket">[[</span><span class="property">language</span><span class="punctuation bracket">]]</span>
+<span class="property">name</span> <span class="operator">=</span> <span class="string">&quot;ziggy&quot;</span>
+<span class="property">scope</span> <span class="operator">=</span> <span class="string">&quot;text.ziggy&quot;</span>
+<span class="property">roots</span> <span class="operator">=</span> <span class="punctuation bracket">[</span><span class="punctuation bracket">]</span>
+<span class="property">injection-regex</span> <span class="operator">=</span> <span class="string">&quot;ziggy|zgy&quot;</span>
+<span class="property">file-types</span> <span class="operator">=</span> <span class="punctuation bracket">[</span><span class="string">&quot;ziggy&quot;</span><span class="punctuation delimiter">,</span> <span class="string">&quot;zgy&quot;</span><span class="punctuation bracket">]</span>
+<span class="property">comment-token</span> <span class="operator">=</span> <span class="string">&quot;//&quot;</span>
+<span class="property">auto-format</span> <span class="operator">=</span> <span class="constant builtin">true</span>
+<span class="property">formatter</span> <span class="operator">=</span> <span class="punctuation bracket">{</span> <span class="property">command</span> <span class="operator">=</span> <span class="string">&quot;ziggy&quot;</span> <span class="punctuation delimiter">,</span> <span class="property">args</span> <span class="operator">=</span> <span class="punctuation bracket">[</span><span class="string">&quot;fmt&quot;</span><span class="punctuation delimiter">,</span> <span class="string">&quot;--stdin&quot;</span><span class="punctuation bracket">]</span> <span class="punctuation bracket">}</span>
+<span class="property">language-servers</span> <span class="operator">=</span> <span class="punctuation bracket">[</span> <span class="string">&quot;ziggy-lsp&quot;</span> <span class="punctuation bracket">]</span>
+
+<span class="punctuation bracket">[[</span><span class="property">grammar</span><span class="punctuation bracket">]]</span>
+<span class="property">name</span> <span class="operator">=</span> <span class="string">&quot;ziggy&quot;</span>
+<span class="property">source</span> <span class="operator">=</span> <span class="punctuation bracket">{</span> <span class="property">path</span> <span class="operator">=</span> <span class="string">&quot;PATH_TO_CLONED_REPOSITORIES/ziggy/tree-sitter-ziggy&quot;</span> <span class="punctuation bracket">}</span>
+
+<span class="punctuation bracket">[[</span><span class="property">language</span><span class="punctuation bracket">]]</span>
+<span class="property">name</span> <span class="operator">=</span> <span class="string">&quot;ziggy_schema&quot;</span>
+<span class="property">scope</span> <span class="operator">=</span> <span class="string">&quot;text.ziggy_schema&quot;</span>
+<span class="property">roots</span> <span class="operator">=</span> <span class="punctuation bracket">[</span><span class="punctuation bracket">]</span>
+<span class="property">injection-regex</span> <span class="operator">=</span> <span class="string">&quot;ziggy-schema|zgy-schema&quot;</span>
+<span class="property">file-types</span> <span class="operator">=</span> <span class="punctuation bracket">[</span><span class="string">&quot;ziggy-schema&quot;</span><span class="punctuation delimiter">,</span> <span class="string">&quot;zgy-schema&quot;</span><span class="punctuation bracket">]</span>
+<span class="property">comment-token</span> <span class="operator">=</span> <span class="string">&quot;///&quot;</span>
+<span class="property">indent</span> <span class="operator">=</span> <span class="punctuation bracket">{</span> <span class="property">tab-width</span> <span class="operator">=</span> <span class="number">4</span><span class="punctuation delimiter">,</span> <span class="property">unit</span> <span class="operator">=</span> <span class="string">&quot;    &quot;</span> <span class="punctuation bracket">}</span>
+<span class="property">formatter</span> <span class="operator">=</span> <span class="punctuation bracket">{</span> <span class="property">command</span> <span class="operator">=</span> <span class="string">&quot;ziggy&quot;</span> <span class="punctuation delimiter">,</span> <span class="property">args</span> <span class="operator">=</span> <span class="punctuation bracket">[</span><span class="string">&quot;fmt&quot;</span><span class="punctuation delimiter">,</span> <span class="string">&quot;-&quot;</span><span class="punctuation delimiter">,</span> <span class="string">&quot;--type&quot;</span><span class="punctuation delimiter">,</span> <span class="string">&quot;schema&quot;</span><span class="punctuation bracket">]</span> <span class="punctuation bracket">}</span>
+<span class="property">auto-format</span> <span class="operator">=</span> <span class="constant builtin">true</span>
+<span class="property">language-servers</span> <span class="operator">=</span> <span class="punctuation bracket">[</span> <span class="string">&quot;ziggy-schema-lsp&quot;</span> <span class="punctuation bracket">]</span>
+
+<span class="punctuation bracket">[[</span><span class="property">grammar</span><span class="punctuation bracket">]]</span>
+<span class="property">name</span> <span class="operator">=</span> <span class="string">&quot;ziggy_schema&quot;</span>
+<span class="property">source</span> <span class="operator">=</span> <span class="punctuation bracket">{</span> <span class="property">path</span> <span class="operator">=</span> <span class="string">&quot;PATH_TO_CLONED_REPOSITORIES/ziggy/tree-sitter-ziggy-schema&quot;</span> <span class="punctuation bracket">}</span>
+
+<span class="comment"># SuperMD</span>
+<span class="punctuation bracket">[[</span><span class="property">language</span><span class="punctuation bracket">]]</span>
+<span class="property">name</span> <span class="operator">=</span> <span class="string">&quot;supermd&quot;</span>
+<span class="property">scope</span> <span class="operator">=</span> <span class="string">&quot;source.supermd&quot;</span>
+<span class="property">roots</span> <span class="operator">=</span> <span class="punctuation bracket">[</span><span class="punctuation bracket">]</span>
+<span class="property">file-types</span> <span class="operator">=</span> <span class="punctuation bracket">[</span><span class="string">&quot;smd&quot;</span><span class="punctuation bracket">]</span>
+<span class="property">injection-regex</span> <span class="operator">=</span> <span class="string">&quot;supermd|smd&quot;</span>
+
+<span class="punctuation bracket">[[</span><span class="property">grammar</span><span class="punctuation bracket">]]</span>
+<span class="property">name</span> <span class="operator">=</span> <span class="string">&quot;supermd&quot;</span>
+<span class="property">source</span> <span class="operator">=</span> <span class="punctuation bracket">{</span> <span class="property">path</span> <span class="operator">=</span> <span class="string">&quot;PATH_TO_CLONED_REPOSITORIES/supermd/tree-sitter/supermd&quot;</span> <span class="punctuation bracket">}</span>
+
+<span class="punctuation bracket">[[</span><span class="property">language</span><span class="punctuation bracket">]]</span>
+<span class="property">name</span> <span class="operator">=</span> <span class="string">&quot;supermd_inline&quot;</span>
+<span class="property">scope</span> <span class="operator">=</span> <span class="string">&quot;source.supermd.inline&quot;</span>
+<span class="property">injection-regex</span> <span class="operator">=</span> <span class="string">&quot;supermd_inline&quot;</span>
+<span class="property">file-types</span> <span class="operator">=</span> <span class="punctuation bracket">[</span><span class="punctuation bracket">]</span>
+<span class="property">grammar</span> <span class="operator">=</span> <span class="string">&quot;supermd_inline&quot;</span>
+
+<span class="punctuation bracket">[[</span><span class="property">grammar</span><span class="punctuation bracket">]]</span>
+<span class="property">name</span> <span class="operator">=</span> <span class="string">&quot;supermd_inline&quot;</span>
+<span class="property">source</span> <span class="operator">=</span> <span class="punctuation bracket">{</span> <span class="property">path</span> <span class="operator">=</span> <span class="string">&quot;PATH_TO_CLONED_REPOSITORIES/supermd/tree-sitter/supermd-inline&quot;</span> <span class="punctuation bracket">}</span>
+
+
+<span class="comment"># SuperHTML</span>
+<span class="punctuation bracket">[</span><span class="property">language-server</span><span class="punctuation delimiter">.</span><span class="property">superhtml-lsp</span><span class="punctuation bracket">]</span>
+<span class="property">command</span> <span class="operator">=</span> <span class="string">&quot;superhtml&quot;</span>
+<span class="property">args</span> <span class="operator">=</span> <span class="punctuation bracket">[</span><span class="string">&quot;lsp&quot;</span><span class="punctuation bracket">]</span>
+
+<span class="punctuation bracket">[[</span><span class="property">language</span><span class="punctuation bracket">]]</span>
+<span class="property">name</span> <span class="operator">=</span> <span class="string">&quot;html&quot;</span>
+<span class="property">scope</span> <span class="operator">=</span> <span class="string">&quot;source.html&quot;</span>
+<span class="property">roots</span> <span class="operator">=</span> <span class="punctuation bracket">[</span><span class="punctuation bracket">]</span>
+<span class="property">file-types</span> <span class="operator">=</span> <span class="punctuation bracket">[</span><span class="string">&quot;html&quot;</span><span class="punctuation bracket">]</span>
+<span class="property">language-servers</span> <span class="operator">=</span> <span class="punctuation bracket">[</span> <span class="string">&quot;superhtml-lsp&quot;</span> <span class="punctuation bracket">]</span>
+
+<span class="punctuation bracket">[[</span><span class="property">language</span><span class="punctuation bracket">]]</span>
+<span class="property">name</span> <span class="operator">=</span> <span class="string">&quot;superhtml&quot;</span>
+<span class="property">scope</span> <span class="operator">=</span> <span class="string">&quot;source.superhtml&quot;</span>
+<span class="property">roots</span> <span class="operator">=</span> <span class="punctuation bracket">[</span><span class="punctuation bracket">]</span>
+<span class="property">file-types</span> <span class="operator">=</span> <span class="punctuation bracket">[</span><span class="string">&quot;shtml&quot;</span><span class="punctuation bracket">]</span>
+<span class="property">injection-regex</span> <span class="operator">=</span> <span class="string">&quot;superhtml|shtml&quot;</span>
+<span class="property">auto-format</span> <span class="operator">=</span> <span class="constant builtin">true</span>
+<span class="property">language-servers</span> <span class="operator">=</span> <span class="punctuation bracket">[</span> <span class="string">&quot;superhtml-lsp&quot;</span> <span class="punctuation bracket">]</span>
+
+<span class="punctuation bracket">[[</span><span class="property">grammar</span><span class="punctuation bracket">]]</span>
+<span class="property">name</span> <span class="operator">=</span> <span class="string">&quot;superhtml&quot;</span>
+<span class="property">source</span> <span class="operator">=</span> <span class="punctuation bracket">{</span> <span class="property">path</span> <span class="operator">=</span> <span class="string">&quot;PATH_TO_CLONED_REPOSITORIES/superhtml/tree-sitter-superhtml&quot;</span> <span class="punctuation bracket">}</span>
+
+</code></pre>
+<h2>3. Build Tree Sitter grammars</h2><p>Run <code>hx --grammar build</code>, it should report that all the new grammars were built successfully.</p></div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head id="head">
+    <meta charset="UTF-8">
+    <meta name="description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@croloris">
+    <meta name="twitter:author" content="@croloris">
+    <meta name="twitter:description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+    <meta name="twitter:title" content="Editor Support | Zine">
+    <meta name="twitter:image" content="https://zine-ssg.io/preview.png">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Editor Support | Zine">
+    <meta property="og:image" content="https://zine-ssg.io/preview.png">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title id="title">
+      Editor Support
+      - Zine
+    </title>
+    <link rel="stylesheet" type="text/css" href="/fonts.css">
+    <link rel="stylesheet" type="text/css" href="/fira_code.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="stylesheet" type="text/css" href="/highlight.css">
+    
+  </head>
+  <body>
+    <nav id="menu" class="centered">
+      <a href="/">Home</a>
+      •
+      <a href="/quickstart/">Get Started</a>
+      •
+      <a href="/docs/">Documentation</a>
+      •
+      <a href="/community/">Community</a>
+      •
+      <a href="/log/">Devlog</a>
+      •
+      <a href="https://github.com/kristoff-it/zine" target="_blank">
+        Code
+      </a>
+    </nav>
+    <div id="content">
+      
+  <style>
+    h1 {
+		margin-top: 0;
+	}
+
+	#docs h1 {
+       margin-top: 1.5em;
+     }
+     h3 {
+       margin-bottom: 0;
+     }
+
+		#docs h2, #docs h3 {
+			text-align: left;
+		}
+
+		#docs h3 {
+			font-size: 1.5rem;
+		}
+
+		#docs h2 {
+			font-size: 1.5rem;
+			border-bottom: 1px dashed #aaa;
+			margin-top: 2em;
+		}
+
+		#docs h4 {
+			font-size: 1rem;
+		}
+
+  table {
+    font-size: 0.9em;
+  }
+  table th {
+    font-size: 1em;
+  }
+  table td {
+    white-space: nowrap;
+  }
+  </style>
+  <h3 class="centered">Zine</h3>
+  <h1>Editor Support</h1>
+  <div id="docs"><h2>About</h2><p>Zine uses three languages that you will want to add support for in your editor:</p><ul><li><a href="https://ziggy-lang.io" target="_blank">Ziggy</a></li><li><a href="https://github.com/kristoff-it/supermd" target="_blank">SuperMD</a></li><li><a href="https://github.com/kristoff-it/superthml" target="_blank">SuperHTML</a></li></ul><p>There are two main components for each that you will want to setup:</p><ul><li><strong>Syntax highlighting</strong><br><em>(mostly provided through tree sitter grammars)</em></li><li><strong>Language Server support</strong><br><em>(mostly provided through CLI tools)</em></li></ul><p>Both Tree Sitter grammars and prebuilt releases of each language's CLI tool are available at the links above, but first make sure to follow the instructions specific to your editor.</p><div class="block"><h1>Note</h1><p>The SuperHTML CLI tool is also a language server for regular HTML files.</p></div><h2>Troubleshooting</h2><p>If you encounter issues while setting up your editor, <a href="/community/">join the community</a> and ask for help.</p><h1>Editors</h1><h2>VSCode</h2><ul><li><a href="https://marketplace.visualstudio.com/items?itemName=LorisCro.ziggy" target="_blank">Ziggy Extension</a><ul><li>Requires the Ziggy CLI tool in your <code>PATH</code>.</li></ul></li><li>SuperMD Extension <em>(coming soon)</em></li><li><a href="https://marketplace.visualstudio.com/items?itemName=LorisCro.super" target="_blank">SuperHTML Extension</a><ul><li>Requires the SuperHTML CLI tool in your <code>PATH</code>.</li></ul></li></ul><h2>Neovim</h2><p><a href="/docs/editors/neovim/">See the Neovim dedicated page</a>.</p><h2>Helix</h2><p><a href="/docs/editors/helix/">See the Helix dedicated page</a>.</p><h2>Flow Control</h2><p><a href="https://github.com/neurocyte/flow" target="_blank">Flow Control</a> has navive support for all Zine file formats.</p><p>Make sure to have all the CLI tools available in your <code>PATH</code> to enable LSP support.</p><h2>Other editors</h2><p>Any editor that supports Tree Sitter for syntax highlighting and the Language Server Protocol can be setup to support Ziggy, SuperMD, and SuperHTML.</p><p>We welcome contributions that add support for Zine file formats to editors (or just instructions of how to perform manual setup).</p></div>
+
+    </div>
+  </body>
+</html>
