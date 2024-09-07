@@ -92,7 +92,7 @@ ln -s ziggy/tree-sitter-ziggy-schema/queries HELIX_RUNTIME_PATH/queries/ziggy_sc
 ln -s supermd/editors/helix/queries/supermd HELIX_RUNTIME_PATH/queries/supermd
 ln -s supermd/editors/helix/queries/supermd_inline HELIX_RUNTIME_PATH/queries/supermd_inline
 ln -s superhtml/tree-sitter-superhtml/queries HELIX_RUNTIME_PATH/queries/superhtml  
-</code></pre><h2>2. Add all languages to your language config</h2><p>In your Helix <strong>config directory</strong> (usually <code>~/.config/helix/</code>) create <code>languages.toml</code> and copy the following lines, making sure to replate <code>PATH_TO_CLONED_REPOSITORIES</code>:</p><p><strong><code>~/.config/helix/languages.toml</code></strong></p><pre><code class="toml"><span class="comment"># Ziggy</span>
+</code></pre><h2>2. Add all languages to your language config</h2><p>In your Helix <strong>config directory</strong> (usually <code>~/.config/helix/</code>) create <code>languages.toml</code> and copy the following lines, making sure to replace <code>PATH_TO_CLONED_REPOSITORIES</code>:</p><p><strong><code>~/.config/helix/languages.toml</code></strong></p><pre><code class="toml"><span class="comment"># Ziggy</span>
 <span class="punctuation bracket">[</span><span class="property">language-server</span><span class="punctuation delimiter">.</span><span class="property">ziggy-lsp</span><span class="punctuation bracket">]</span>
 <span class="property">command</span> <span class="operator">=</span> <span class="string">&quot;ziggy&quot;</span>
 <span class="property">args</span> <span class="operator">=</span> <span class="punctuation bracket">[</span><span class="string">&quot;lsp&quot;</span><span class="punctuation bracket">]</span>
@@ -182,7 +182,7 @@ ln -s superhtml/tree-sitter-superhtml/queries HELIX_RUNTIME_PATH/queries/superht
 <span class="property">source</span> <span class="operator">=</span> <span class="punctuation bracket">{</span> <span class="property">path</span> <span class="operator">=</span> <span class="string">&quot;PATH_TO_CLONED_REPOSITORIES/superhtml/tree-sitter-superhtml&quot;</span> <span class="punctuation bracket">}</span>
 
 </code></pre>
-<h2>3. Build Tree Sitter grammars</h2><p>Run <code>hx --grammar build</code>, it should report that all the new grammars were built successfully.</p></div>
+<h2>3. Build Tree Sitter grammars</h2><p>Run <code>hx --grammar build</code>, it should report that all the new grammars were built successfully.</p><h2>4. Get all the CLI tools</h2><p>Either build them from the cloned repositories or download prebuilt versions from GitHub, and then put them in your <code>PATH</code>.</p></div>
 
     </div>
   </body>
