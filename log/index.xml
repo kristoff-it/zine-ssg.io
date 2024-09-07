@@ -5,8 +5,18 @@
   <description>Curated list of changes to Zine</description>
   <generator>Zine -- https://zine-ssg.io</generator>
   <language>en-us</language>
-  <lastBuildDate>Fri, 06 Sep 2024 15:51:03 +0000</lastBuildDate>
+  <lastBuildDate>Sat, 07 Sep 2024 15:09:41 +0000</lastBuildDate>
   
+   
+  
+   
+    <item>
+     <pubDate>Sat, 07 Sep 2024 00:00:00 +0000</pubDate>
+     <link>https://zine-ssg.io/log/#v0.6.1</link>
+     <guid>https://zine-ssg.io/log/#v0.6.1</guid>
+     <title>v0.6.1</title>
+     <description>&lt;div id=v0.6.1&gt;&lt;ul&gt;&lt;li&gt;Updated &lt;a href=&quot;https://github.com/rockorager/zeit&quot; target=&quot;_blank&quot;&gt;&lt;code&gt;rockorager/zeit&lt;/code&gt;&lt;/a&gt;, which now includes full support for date formatting strings based on the Go magic date. Previously Zine hardcoded only a very small subset of possible formatting styles. See the reference docs for &lt;a href=&quot;https://zine-ssg.io/docs/superhtml/scripty#Date.format&quot; target=&quot;_blank&quot;&gt;&lt;code&gt;Date.format&lt;/code&gt;&lt;/a&gt; for more info.&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;</description>
+    </item>
    
   
    

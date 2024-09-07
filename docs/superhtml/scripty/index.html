@@ -290,9 +290,10 @@ $site.host_url.addPath(&quot;foo/bar&quot;, &quot;/baz&quot;)
 </code></pre>
 <h3 id=Date.eq> <a href="#Date.eq"><code>fn</code></a> eq (<a href="#Date">Date</a>) -> <a href="#Bool">Bool</a></h3><p>Return true if lhs is the same instant as the rhs (the argument).</p><h4>Examples</h4><pre><code class="superhtml">$page.date.eq($page.custom.expiry_date)
 </code></pre>
-<h3 id=Date.format> <a href="#Date.format"><code>fn</code></a> format (<a href="#String">String</a>) -> <a href="#String">String</a></h3><p>Formats a datetime according to the specified format string.</p><h4>Examples</h4><pre><code class="superhtml">$page.date.format(&quot;January 02, 2006&quot;)
+<h3 id=Date.format> <a href="#Date.format"><code>fn</code></a> format (<a href="#String">String</a>) -> <a href="#String">String</a></h3><p>Formats a datetime according to the specified format string.</p><p>Zine uses Go-style format strings, which are all variations based on a "magic date":</p><ul><li><code>Mon Jan 2 15:04:05 MST 2006</code></li></ul><p>By tweaking its components you can specify various formatting styles.</p><h4>Examples</h4><pre><code class="superhtml">$page.date.format(&quot;January 02, 2006&quot;)
 $page.date.format(&quot;06-Jan-02&quot;)
 $page.date.format(&quot;2006/01/02&quot;)
+$page.date.format(&quot;2006/01/02 15:04 MST&quot;)
 </code></pre>
 <h3 id=Date.formatHTTP> <a href="#Date.formatHTTP"><code>fn</code></a> formatHTTP () -> <a href="#String">String</a></h3><p>Formats a datetime according to the HTTP spec.</p><h4>Examples</h4><pre><code class="superhtml">$page.date.formatHTTP()
 </code></pre>
