@@ -33,9 +33,7 @@ If you encounter issues while setting up your editor, [join the community](/comm
 # Editors
 
 ## VSCode
-- [Ziggy Extension](https://marketplace.visualstudio.com/items?itemName=LorisCro.ziggy)
-  - Requires the Ziggy CLI tool in your `PATH`.
-- SuperMD Extension *(coming soon)*
+- [SuperMD Extension](https://marketplace.visualstudio.com/items?itemName=LorisCro.supermd)
 - [SuperHTML Extension](https://marketplace.visualstudio.com/items?itemName=LorisCro.super)
   - Requires the SuperHTML CLI tool in your `PATH`.
 
