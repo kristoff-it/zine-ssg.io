@@ -5,8 +5,18 @@
   <description>Curated list of changes to Zine</description>
   <generator>Zine -- https://zine-ssg.io</generator>
   <language>en-us</language>
-  <lastBuildDate>Sat, 07 Sep 2024 15:09:41 +0000</lastBuildDate>
+  <lastBuildDate>Sat, 07 Sep 2024 19:20:21 +0000</lastBuildDate>
   
+   
+  
+   
+    <item>
+     <pubDate>Sat, 07 Sep 2024 00:00:00 +0000</pubDate>
+     <link>https://zine-ssg.io/log/#v0.6.1-vscode</link>
+     <guid>https://zine-ssg.io/log/#v0.6.1-vscode</guid>
+     <title>v0.6.1-vscode</title>
+     <description>&lt;div id=v0.6.1-vscode&gt;&lt;ul&gt;&lt;li&gt;The VSCode marketplace now has a &lt;a href=&quot;https://marketplace.visualstudio.com/items?itemName=LorisCro.supermd&quot; target=&quot;_blank&quot;&gt;SuperMD Extension&lt;/a&gt; that gives you syntax highlighting for SuperMD files (no LSP for it yet though, sorry!).&lt;/li&gt;&lt;li&gt;Similarly, the VSCode &lt;a href=&quot;https://marketplace.visualstudio.com/items?itemName=LorisCro.supermd&quot; target=&quot;_blank&quot;&gt;SuperHTML Extension&lt;/a&gt; would not provide you with syntax highlighting before, but now it does.&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;</description>
+    </item>
    
   
    
