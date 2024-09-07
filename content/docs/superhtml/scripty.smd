@@ -876,6 +876,12 @@ $page.date.eq($page.custom.expiry_date)
 
 Formats a datetime according to the specified format string.
 
+Zine uses Go-style format strings, which are all variations based
+on a "magic date":
+
+- `Mon Jan 2 15:04:05 MST 2006`
+
+By tweaking its components you can specify various formatting styles.
 
 #### Examples
 
@@ -883,6 +889,7 @@ Formats a datetime according to the specified format string.
 $page.date.format("January 02, 2006")
 $page.date.format("06-Jan-02")
 $page.date.format("2006/01/02")
+$page.date.format("2006/01/02 15:04 MST")
 ```
 ### []($heading.id("Date.formatHTTP")) [`fn`]($link.ref("Date.formatHTTP")) formatHTTP () -> [String]($link.ref("String"))
 

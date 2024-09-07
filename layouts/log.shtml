@@ -89,20 +89,4 @@
       <div id="old" :html="$loop.it.html()"></div>
     </ctx>
   </div>
-  <script>
-    window.onload = function() {
-		document.querySelectorAll("#page > h3").forEach(function (h) {
-
-            let btn = document.createElement("button");
-			btn.innerText = "copy";
-            h.insertAdjacentElement('afterend', btn);
-		
-			btn.addEventListener("click", function () {
-				navigator.clipboard.writeText(
-					btn.nextElementSibling.textContent
-				);
-			});
-		});
-	}
-  </script>
 </div>

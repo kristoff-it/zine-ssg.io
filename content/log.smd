@@ -1,6 +1,6 @@
 ---
 .title = "Devlog",
-.date = @date("2020-07-06T00:00:00"),
+.date = @date("2021-07-06T00:00:00"),
 .author = "Sample Author",
 .layout = "log.shtml",
 .alternatives = [{
@@ -17,11 +17,16 @@ You can [subscribe to this page via RSS](https://zine-ssg.io/log/index.xml).
 
 To update Zine to the latest release run:
 ```sh
-zig fetch --save "git+https://github.com/kristoff-it/zine#v0.6.0"
+zig fetch --save "git+https://github.com/kristoff-it/zine#v0.6.1"
 ```
 
 ## Changes
 
+[]($section.id('v0.6.1').data('date','2024-09-07'))
+- Updated [`rockorager/zeit`](https://github.com/rockorager/zeit), which now includes full support for date formatting
+  strings based on the Go magic date. Previously Zine hardcoded only a very small
+  subset of possible formatting styles. See the reference docs for 
+  [`Date.format`](https://zine-ssg.io/docs/superhtml/scripty#Date.format) for more info.
 
 []($section.id('v0.6.0').data('date','2024-09-06'))
 - Added `Page.parentSection()` in SuperHTML.
