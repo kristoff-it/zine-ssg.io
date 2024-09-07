@@ -38,7 +38,7 @@ ln -s superhtml/tree-sitter-superhtml/queries HELIX_RUNTIME_PATH/queries/superht
 ```
 
 ## 2. Add all languages to your language config 
-In your Helix **config directory** (usually `~/.config/helix/`) create `languages.toml` and copy the following lines, making sure to replate `PATH_TO_CLONED_REPOSITORIES`:
+In your Helix **config directory** (usually `~/.config/helix/`) create `languages.toml` and copy the following lines, making sure to replace `PATH_TO_CLONED_REPOSITORIES`:
 
 **`~/.config/helix/languages.toml`**
 ```toml
@@ -140,3 +140,6 @@ Run `hx --grammar build`, it should report that all the new grammars were built
 successfully.
 
 
+## 4. Get all the CLI tools
+Either build them from the cloned repositories or download prebuilt versions
+from GitHub, and then put them in your `PATH`.

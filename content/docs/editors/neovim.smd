@@ -30,7 +30,7 @@ git clone https://github.com/kristoff-it/superhtml
 
 In your Neovim **config directory** (usually `~/.config/neovim/`), create a symbolic link to all the Tree Sitter queries from our parsers.  
 
-  From the directory where you cloned all repos, run the following commands after replacing `HELIX_RUNTIME_PATH`:
+  From the directory where you cloned all repos, run the following commands:
 
 **`shell`**
 ```
