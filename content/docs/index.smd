@@ -296,7 +296,7 @@ This is my first post!
         :text="$page.date.format('January 02, 2006')"
       ></span>
     </h4>
-    <div :html="$page.content"></div>
+    <div :html="$page.content()"></div>
   </body>
 </html>
 ```
