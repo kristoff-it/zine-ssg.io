@@ -209,7 +209,7 @@ touch layouts/home.shtml
 .title = "Home",
 .date = @date("2020-07-06T00:00:00"),
 .author = "Sample Author",
-.layout = "homepage.shtml",
+.layout = "home.shtml",
 .draft = false,
 --- 
 Hello World!
