@@ -10,7 +10,7 @@
 Zine uses three languages that you will want to add support for in your editor:
 - [Ziggy](https://ziggy-lang.io)
 - [SuperMD](https://github.com/kristoff-it/supermd)
-- [SuperHTML](https://github.com/kristoff-it/superthml)
+- [SuperHTML](https://github.com/kristoff-it/superhtml)
 
 There are two main components for each that you will want to setup: 
 
