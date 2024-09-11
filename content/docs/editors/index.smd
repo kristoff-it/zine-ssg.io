@@ -35,7 +35,7 @@ If you encounter issues while setting up your editor, [join the community](/comm
 ## VSCode
 - [SuperMD Extension](https://marketplace.visualstudio.com/items?itemName=LorisCro.supermd)
 - [SuperHTML Extension](https://marketplace.visualstudio.com/items?itemName=LorisCro.super)
-  - Requires the SuperHTML CLI tool in your `PATH`.
+  - The extension bundles a WASM build of the Language Server
 
 ## Neovim
 [See the Neovim dedicated page](./neovim).
