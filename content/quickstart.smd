@@ -42,8 +42,7 @@ This step is optional but **strongly** recommended as it will give you access
 to syntax highlighting, autoformatting and language server diagnostics for your
 editor.
 
-- [SuperHTML](/docs/superhtml)
-- SuperMD (coming soon)
+See the [Editor support](/docs/editor/) section.
 
 ## Next Steps
 To learn more about Zine, [see the documentation section]($link.page('docs')).
