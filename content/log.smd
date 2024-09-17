@@ -22,6 +22,9 @@ zig fetch --save "git+https://github.com/kristoff-it/zine#v0.6.1"
 
 ## Changes
 
+[]($section.id('v0.6.2').data('date','2024-09-17'))
+- `$image.linked()` is now implemented and allows you to quickly create an image that links to itself.
+
 []($section.id('v0.6.1-vscode').data('date','2024-09-07'))
 - The VSCode marketplace now has a [SuperMD Extension](https://marketplace.visualstudio.com/items?itemName=LorisCro.supermd) that gives you syntax highlighting for SuperMD files (no LSP for it yet though, sorry!).
 - Similarly, the VSCode [SuperHTML Extension](https://marketplace.visualstudio.com/items?itemName=LorisCro.superhtml) would not provide you with syntax highlighting before, but now it does. 
