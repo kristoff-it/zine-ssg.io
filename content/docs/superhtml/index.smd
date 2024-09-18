@@ -19,7 +19,7 @@ This "macro" approach has the upside of making it possible to use the same templ
 
 The most important downside is that it makes it unnecessarily easy to generate HTML in an unstructured manner:
 
-- making it harder for homans to understand what the templating logic is doing
+- making it harder for humans to understand what the templating logic is doing
 - making it easier for humans to output malformed html
 - making it prohibitively complex for tooling to catch mistakes statically (i.e. in your editor)
 
