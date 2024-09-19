@@ -5,8 +5,18 @@
   <description>Curated list of changes to Zine</description>
   <generator>Zine -- https://zine-ssg.io</generator>
   <language>en-us</language>
-  <lastBuildDate>Thu, 19 Sep 2024 11:51:36 +0000</lastBuildDate>
+  <lastBuildDate>Thu, 19 Sep 2024 12:47:44 +0000</lastBuildDate>
   
+   
+  
+   
+    <item>
+     <pubDate>Thu, 19 Sep 2024 00:00:00 +0000</pubDate>
+     <link>https://zine-ssg.io/log/#v0.6.3</link>
+     <guid>https://zine-ssg.io/log/#v0.6.3</guid>
+     <title>v0.6.3</title>
+     <description>&lt;div id=v0.6.3&gt;&lt;ul&gt;&lt;li&gt;When iterating &lt;strong&gt;content sections&lt;/strong&gt; with &lt;code&gt;$page.contentSections()&lt;/code&gt;, you can now obtain the section&apos;s attached heading by calling &lt;a href=&quot;/docs/superhtml/scripty/#ContentSection.heading&quot;&gt;&lt;code&gt;heading&lt;/code&gt;&lt;/a&gt; or &lt;a href=&quot;/docs/superhtml/scripty/#ContentSection.heading?&quot;&gt;&lt;code&gt;heading?&lt;/code&gt;&lt;/a&gt; on it. This was added mainly to support the usecase of giving titles to RSS entries generated from sections.&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;</description>
+    </item>
    
   
    
