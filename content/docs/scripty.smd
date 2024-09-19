@@ -46,7 +46,7 @@ For this reason Scripty doesn't have statements or blocks of any kind and can on
 
 More precisely, Scripty expressions are always rooted in a global scope from which the expression navigates fields and calls functions.
 
-All variables available in the glboal scope are prefixed with a `$` which means in turn that all Scripty expressions start with a `$`.
+All variables available in the global scope are prefixed with a `$` which means in turn that all Scripty expressions start with a `$`.
 
 ### Literals
 Scripty supports also a limited set of literals:
