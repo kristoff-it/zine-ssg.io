@@ -17,10 +17,16 @@ You can [subscribe to this page via RSS](https://zine-ssg.io/log/index.xml).
 
 To update Zine to the latest release run:
 ```sh
-zig fetch --save "git+https://github.com/kristoff-it/zine#v0.6.2"
+zig fetch --save "git+https://github.com/kristoff-it/zine#v0.6.3"
 ```
 
 ## Changes
+
+[]($section.id('v0.6.3').data('date','2024-09-19'))
+- When iterating **content sections** with `$page.contentSections()`, you can now obtain the section's attached heading by calling 
+  [`heading`]($link.page('docs/superhtml/scripty').ref('ContentSection.heading')) or
+  [`heading?`]($link.page('docs/superhtml/scripty').ref('ContentSection.heading?')) 
+  on it. This was added mainly to support the usecase of giving titles to RSS entries generated from sections.
 
 []($section.id('v0.6.2').data('date','2024-09-17'))
 - `$image.linked()` is now implemented and allows you to quickly create an image that links to itself.

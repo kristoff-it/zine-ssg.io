@@ -522,6 +522,26 @@ A Ziggy Map that contains data key-value pairs set in SuperMD
 
 ## Functions
 
+### []($heading.id("ContentSection.heading")) [`fn`]($link.ref("ContentSection.heading")) heading () -> [String]($link.ref("String"))
+
+If the section starts with a heading element,
+this function returns the heading as simple text.           
+
+#### Examples
+
+```superhtml
+<div html="$loop.it.heading()"></div>
+```
+### []($heading.id("ContentSection.heading?")) [`fn`]($link.ref("ContentSection.heading?")) heading? () -> ?[String]($link.ref("String"))
+
+If the section starts with a heading element,
+this function returns the heading as simple text.           
+
+#### Examples
+
+```superhtml
+<div html="$loop.it.heading()"></div>
+```
 ### []($heading.id("ContentSection.html")) [`fn`]($link.ref("ContentSection.html")) html () -> [String]($link.ref("String"))
 
 Renders the section.
@@ -529,7 +549,7 @@ Renders the section.
 #### Examples
 
 ```superhtml
-<div html="$page.c()"></div>
+<div html="$loop.it.html()"></div>
 ```
 # [Build]($section.id('Build'))
 
