@@ -17,7 +17,7 @@ You can [subscribe to this page via RSS](https://zine-ssg.io/log/index.xml).
 
 To update Zine to the latest release run:
 ```sh
-zig fetch --save "git+https://github.com/kristoff-it/zine#v0.6.1"
+zig fetch --save "git+https://github.com/kristoff-it/zine#v0.6.2"
 ```
 
 ## Changes
