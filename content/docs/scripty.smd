@@ -72,7 +72,7 @@ Navigating fields of structured values can be done with `.` concatenation:
 
 Functions can be called with `()`. 
 
-Any argument can be palced between the parenthesis and separated with a `,` (trailing commas are allowed). Arguments can be both literals and other Scripty expressions.
+Any argument can be placed between the parenthesis and separated with a `,` (trailing commas are allowed). Arguments can be both literals and other Scripty expressions.
 
 - `$foo.bar.qux()`
 - `$foo.bar.qux('arg1', "arg2")`
