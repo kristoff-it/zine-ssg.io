@@ -177,7 +177,7 @@ Scripty global variable.
   <li>
     <a href="$loop.it.link()" :text="$loop.it.title"></a>
   </li>
-</div>
+</ul>
 ```
 
 ***output***
