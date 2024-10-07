@@ -62,30 +62,30 @@ h2,
 h3 {
   font-family: 'Bebas Neue', sans-serif;
   font-weight: normal;
-  color: #eee;
+  color: var(--accent-color);
   align-self: center;
   text-align: center;
 }
 
 h4 {
-  color: #eee;
+  color: var(--accent-color);
 }
 
 b,
 strong {
-  color: #eee;
+  color: var(--accent-color);
 }
 
 a {
-  color: #ccc;
+  color: var(--main-fg-color);
   font-weight: bold;
 }
 
 
 body {
   font-family: 'Merriweather', serif;
-  background-color: #111;
-  color: #ccc;
+  background-color: var(--main-bg-color);
+  color: var(--main-fg-color);
   display: flex;
   flex-direction: column;
   padding-bottom: 20px;
@@ -103,7 +103,7 @@ nav {
 }
 
 nav a {
-  color: white;
+  color: var(--strong-accent-color);
   text-decoration: none;
 }
 
@@ -134,10 +134,10 @@ p+pre {
 
 pre {
   overflow: auto;
-  border-top: 1px solid #aaa;
-  border-bottom: 1px solid #aaa;
+  border-top: 1px solid var(--secondary-fg-color);
+  border-bottom: 1px solid var(--secondary-fg-color);
   padding: 4px 0;
-  background-color: #111;
+  background-color: var(--main-bg-color);
 
 }
 
@@ -157,7 +157,7 @@ h4>code,
 h5>code,
 li>code {
   font-weight: bold;
-  color: #ddd;
+  color: var(--secondary-accent-color);
   font-size: 1em;
 }
 
@@ -168,7 +168,7 @@ li>code {
 }
 
 table th {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--main-fg-color);
 }
 
 img,
@@ -178,21 +178,21 @@ video {
 }
 
 .warning {
-  border-color: #CCCC49 !important;
+  border-color: var(--warning-color) !important;
 }
 
 .warning h1 {
-  border-color: #CCCC49 !important;
-  background-color: #CCCC49 !important;
+  border-color: var(--warning-color) !important;
+  background-color: var(--warning-color) !important;
 }
 
 .block {
-  border: 1px dashed #CCC;
+  border: 1px dashed var(--main-fg-color);
 }
 
 .block.padded {
   margin: 10px;
-  border: 1px solid #CCC;
+  border: 1px solid var(--main-fg-color);
 }
 
 .block p {
@@ -210,9 +210,9 @@ video {
   padding-left: 15px;
   padding-right: 15px;
   padding-top: 2px !important;
-  border: 1px solid #CCC;
-  color: #111;
-  background-color: #CCC;
+  border: 1px solid var(--main-fg-color);
+  color: var(--main-bf-color);
+  background-color: var(--main-fg-color);
 }
 
 .nopara p {
@@ -227,8 +227,29 @@ li {
 }
 
 :root {
+  --main-bg-color: #111;
+  --main-fg-color: #ccc;
+  --secondary-fg-color: #aaa;
+  --accent-color: #eee;
+  --strong-accent-color: #fff;
+  --secondary-accent-color: #ddd;
+  --warning-color: #CCCC49;
   /* guess which browser needed this */
   font-size: 1rem;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --main-bg-color: #fff;
+    --main-fg-color: #111;
+    --secondary-fg-color: #333;
+    --accent-color: #444;
+    --strong-accent-color: #000;
+    --secondary-accent-color: #000;
+    --warning-color: #CCCC49;
+    /* guess which browser needed this */
+    font-size: 1rem;
+  }
 }
 
 @media screen and (min-width: 800px) and (max-width: 1000px) {
