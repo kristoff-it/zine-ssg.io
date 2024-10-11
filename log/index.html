@@ -114,9 +114,19 @@
   <h3 class="overtitle centered">Zine</h3>
   <h1 class="title">Devlog</h1>
   <div id="page">
-    <div id=about><h2>About</h2><p>This is a non-exhaustive, curated list of changes meant to help users quickly see what has improved since they last checked.</p><p>You can <a href="https://zine-ssg.io/log/index.xml" target="_blank">subscribe to this page via RSS</a>.</p><p>To update Zine to the latest release run:</p><pre><code class="sh">zig fetch --save &quot;git+https://github.com/kristoff-it/zine#v0.6.3&quot;
+    <div id=about><h2>About</h2><p>This is a non-exhaustive, curated list of changes meant to help users quickly see what has improved since they last checked.</p><p>You can <a href="https://zine-ssg.io/log/index.xml" target="_blank">subscribe to this page via RSS</a>.</p><p>To update Zine to the latest release run:</p><pre><code class="sh">zig fetch --save &quot;git+https://github.com/kristoff-it/zine#v0.7.0&quot;
 </code></pre>
 <h2>Changes</h2></div>
+    
+    
+  
+    
+    
+      <div id="v0.7.0">
+        <h3><a href="#v0.7.0">v0.7.0</a></h3>
+        <h4>2024-10-11</h4>
+        <div id=v0.7.0><ul><li><p>Introduced actual arrays in Zine. Previously we would immediately evaluate Scripty expressions into iterators, which made it awkward to implement bulitin functions such as <code>sort</code>. Zine now has a real concept of Array with dedicated builtins, you can read more in the reference for <a href="/docs/superhtml/scripty/#Array"><code>[any]</code></a>. Note that arrays don't yet offer a sorting builtin (figuring out the interface to expose to the user has been left as work for a subsequent release), but they do support other basic stuff like slicing. I'm happy to work with users to implement functions that would unblock them, even if the design of the function will have to be changed in the future.</p></li><li><p>Zine currently has a limitation that prevents it from correctly rendering (calling <code>content()</code> on) pages that have been loaded through Scripty. Over time this limitation has been mitigated, but it's not fully gone yet. Unfortunately the check that told you that this was the case was not working correctly, and has now been fixed. The most likely situation where you might encounter this problem is when trying to render the content of various pages in an RSS template. Previously it might have worked for simple cases and caused a panic in others, now you will get a consistent error message that tells you that the feature is not available yet.</p></li><li><p>The webserver now properly parses percent encoding in URLs, used whenever files have funky names. Thank you GigaGrunch! (<a href="https://github.com/kristoff-it/zine/pull/65" target="_blank">#65</a>)</p></li><li><p>Paths with spaces were not handled correctly when tracking dependencies, causing some failures that might have looked like cache issues, now fixed thanks to brandondyck (<a href="https://github.com/kristoff-it/zine/pull/68" target="_blank">#68</a>)</p></li></ul></div>
+      </div>
     
     
   

@@ -5,8 +5,18 @@
   <description>Curated list of changes to Zine</description>
   <generator>Zine -- https://zine-ssg.io</generator>
   <language>en-us</language>
-  <lastBuildDate>Tue, 01 Oct 2024 15:02:38 +0000</lastBuildDate>
+  <lastBuildDate>Fri, 11 Oct 2024 17:09:49 +0000</lastBuildDate>
   
+   
+  
+   
+    <item>
+     <pubDate>Fri, 11 Oct 2024 00:00:00 +0000</pubDate>
+     <link>https://zine-ssg.io/log/#v0.7.0</link>
+     <guid>https://zine-ssg.io/log/#v0.7.0</guid>
+     <title>v0.7.0</title>
+     <description>&lt;div id=v0.7.0&gt;&lt;ul&gt;&lt;li&gt;&lt;p&gt;Introduced actual arrays in Zine. Previously we would immediately evaluate Scripty expressions into iterators, which made it awkward to implement bulitin functions such as &lt;code&gt;sort&lt;/code&gt;. Zine now has a real concept of Array with dedicated builtins, you can read more in the reference for &lt;a href=&quot;/docs/superhtml/scripty/#Array&quot;&gt;&lt;code&gt;[any]&lt;/code&gt;&lt;/a&gt;. Note that arrays don&apos;t yet offer a sorting builtin (figuring out the interface to expose to the user has been left as work for a subsequent release), but they do support other basic stuff like slicing. I&apos;m happy to work with users to implement functions that would unblock them, even if the design of the function will have to be changed in the future.&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;Zine currently has a limitation that prevents it from correctly rendering (calling &lt;code&gt;content()&lt;/code&gt; on) pages that have been loaded through Scripty. Over time this limitation has been mitigated, but it&apos;s not fully gone yet. Unfortunately the check that told you that this was the case was not working correctly, and has now been fixed. The most likely situation where you might encounter this problem is when trying to render the content of various pages in an RSS template. Previously it might have worked for simple cases and caused a panic in others, now you will get a consistent error message that tells you that the feature is not available yet.&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;The webserver now properly parses percent encoding in URLs, used whenever files have funky names. Thank you GigaGrunch! (&lt;a href=&quot;https://github.com/kristoff-it/zine/pull/65&quot; target=&quot;_blank&quot;&gt;#65&lt;/a&gt;)&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;Paths with spaces were not handled correctly when tracking dependencies, causing some failures that might have looked like cache issues, now fixed thanks to brandondyck (&lt;a href=&quot;https://github.com/kristoff-it/zine/pull/68&quot; target=&quot;_blank&quot;&gt;#68&lt;/a&gt;)&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;</description>
+    </item>
    
   
    
