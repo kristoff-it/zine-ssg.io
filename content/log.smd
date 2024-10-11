@@ -17,10 +17,39 @@ You can [subscribe to this page via RSS](https://zine-ssg.io/log/index.xml).
 
 To update Zine to the latest release run:
 ```sh
-zig fetch --save "git+https://github.com/kristoff-it/zine#v0.6.3"
+zig fetch --save "git+https://github.com/kristoff-it/zine#v0.7.0"
 ```
 
 ## Changes
+
+
+[]($section.id('v0.7.0').data('date','2024-10-11'))
+- Introduced actual arrays in Zine. Previously we would immediately evaluate
+  Scripty expressions into iterators, which made it awkward to implement bulitin
+  functions such as `sort`. Zine now has a real concept of Array with dedicated
+  builtins, you can read more in the reference for 
+  [`[any]`]($link.page('docs/superhtml/scripty').ref('Array')). 
+  Note that arrays don't yet offer a sorting builtin (figuring out 
+  the interface to expose to the user has been left as work for a subsequent 
+  release), but they do support other basic stuff like slicing. I'm happy to 
+  work with users to implement functions that would unblock them, even if the 
+  design of the function will have to be changed in the future.
+  
+- Zine currently has a limitation that prevents it from correctly rendering 
+  (calling `content()` on) pages that have been loaded through Scripty. Over 
+  time this limitation has been mitigated, but it's not fully gone yet. 
+  Unfortunately the check that told you that this was the case was not working 
+  correctly, and has now been fixed. The most likely situation where you might
+  encounter this problem is when trying to render the content of various pages
+  in an RSS template. Previously it might have worked for simple cases and caused
+  a panic in others, now you will get a consistent error message that tells you 
+  that the feature is not available yet.
+  
+- The webserver now properly parses percent encoding in URLs, used whenever files
+  have funky names. Thank you GigaGrunch! ([#65](https://github.com/kristoff-it/zine/pull/65))
+  
+- Paths with spaces were not handled correctly when tracking dependencies, causing
+  some failures that might have looked like cache issues, now fixed thanks to brandondyck ([#68](https://github.com/kristoff-it/zine/pull/68))
 
 []($section.id('v0.6.3').data('date','2024-09-19'))
 - When iterating **content sections** with `$page.contentSections()`, you can now obtain the section's attached heading by calling 

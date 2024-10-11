@@ -4,6 +4,7 @@
 .author = "Loris Cro",
 .layout = "index.shtml",
 .draft = false,
+.tags = ["foo", "bar", "baz"],
 ---
 
 ># [Warning]($block.attrs('warning'))

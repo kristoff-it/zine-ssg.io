@@ -83,7 +83,7 @@ variant as defined in your `build.zig` file.
 #### Examples
 
 ```superhtml
-<span text="$site.localeName()"></span>
+<span :text="$site.localeName()"></span>
 ```
 ### []($heading.id("Site.link")) [`fn`]($link.ref("Site.link")) link () -> [String]($link.ref("String"))
 
@@ -95,7 +95,7 @@ multilingual website.
 #### Examples
 
 ```superhtml
-<a href="$site.link()" text="$site.title"></a>
+<a href="$site.link()" :text="$site.title"></a>
 ```
 ### []($heading.id("Site.asset")) [`fn`]($link.ref("Site.asset")) asset ([String]($link.ref("String"))) -> [Asset]($link.ref("Asset"))
 
@@ -124,7 +124,7 @@ matched by Zine with either:
 ```superhtml
 <a href="$site.page('downloads').link()">Downloads</a>
 ```
-### []($heading.id("Site.pages")) [`fn`]($link.ref("Site.pages")) pages ([String]($link.ref("String")), [[String]($link.ref("String"))...]) -> [[Page]($link.ref("Page"))]
+### []($heading.id("Site.pages")) [`fn`]($link.ref("Site.pages")) pages ([String]($link.ref("String")), [[String]($link.ref("String"))...]) -> [[Page]($link.ref("Page"))] *(see also [[any]]($link.ref("Array")))*   
 
 Same as `page`, but accepts a variable number of page references and 
 loops over them in the provided order. All pages must exist.
@@ -134,7 +134,7 @@ To be used in conjunction with a `loop` attribute.
 #### Examples
 
 ```superhtml
-<ul loop="$site.pages('a', 'b', 'c')"><li text="$loop.it.title"></li></ul>
+<ul :loop="$site.pages('a', 'b', 'c')"><li :text="$loop.it.title"></li></ul>
 ```
 ### []($heading.id("Site.locale")) [`fn`]($link.ref("Site.locale")) locale ([String]($link.ref("String"))) -> [Site]($link.ref("Site"))
 
@@ -185,12 +185,12 @@ as set in the SuperMD frontmatter.
 When set to true the page will not be rendered in release mode, 
 as set in the SuperMD frontmatter.
 
-### `tags` : [[String]($link.ref("String"))]
+### `tags` : [[String]($link.ref("String"))] *(see also [[any]]($link.ref("Array")))*   
 
 Tags associated with the page, 
 as set in the SuperMD frontmatter.
 
-### `aliases` : [[String]($link.ref("String"))]
+### `aliases` : [[String]($link.ref("String"))] *(see also [[any]]($link.ref("Array")))*   
 
 Aliases of the current page, 
 as set in the SuperMD frontmatter.
@@ -201,7 +201,7 @@ from different locations.
 Every entry in the list is an output location where the 
 rendered page will be copied to.
 
-### `alternatives` : [[Alternative]($link.ref("Alternative"))]
+### `alternatives` : [[Alternative]($link.ref("Alternative"))] *(see also [[any]]($link.ref("Array")))*   
 
 Alternative versions of the page, 
 as set in the SuperMD frontmatter.
@@ -278,7 +278,7 @@ Returns a reference to a localized variant of the target page.
 #### Examples
 
 ```superhtml
-<div text="$page.locale('en-US').title"></div>
+<div :text="$page.locale('en-US').title"></div>
 ```
 ### []($heading.id("Page.locale?")) [`fn`]($link.ref("Page.locale?")) locale? ([String]($link.ref("String"))) -> ?[Page]($link.ref("Page"))
 
@@ -294,14 +294,14 @@ To be used in conjunction with an `if` attribute.
   <a href="$if.link()" :text="$if.title"></a>
 </div>
 ```
-### []($heading.id("Page.locales")) [`fn`]($link.ref("Page.locales")) locales () -> [[Page]($link.ref("Page"))]
+### []($heading.id("Page.locales")) [`fn`]($link.ref("Page.locales")) locales () -> [[Page]($link.ref("Page"))] *(see also [[any]]($link.ref("Array")))*   
 
 Returns the list of localized variants of the current page.
 
 #### Examples
 
 ```superhtml
-<div loop="$page.locales()"><a href="$loop.it.link()" text="$loop.it.title"></a></div>
+<div :loop="$page.locales()"><a href="$loop.it.link()" :text="$loop.it.title"></a></div>
 ```
 ### []($heading.id("Page.wordCount")) [`fn`]($link.ref("Page.wordCount")) wordCount () -> [Int]($link.ref("Int"))
 
@@ -338,7 +338,7 @@ the current page is an 'index.smd' page).
 ```superhtml
 $page.isSection()
 ```
-### []($heading.id("Page.subpages")) [`fn`]($link.ref("Page.subpages")) subpages () -> [[Page]($link.ref("Page"))]
+### []($heading.id("Page.subpages")) [`fn`]($link.ref("Page.subpages")) subpages () -> [[Page]($link.ref("Page"))] *(see also [[any]]($link.ref("Array")))*   
 
 Returns a list of all the pages in this section. If the page is 
 not a section, returns an empty list.
@@ -375,7 +375,7 @@ Tries to return the page before the target one (sorted by date), to be used with
 #### Examples
 
 ```superhtml
-<div if="$page.prevPage()"></div>
+<div :if="$page.prevPage()"></div>
 ```
 ### []($heading.id("Page.hasNext")) [`fn`]($link.ref("Page.hasNext")) hasNext () -> [Bool]($link.ref("Bool"))
 
@@ -432,7 +432,7 @@ Renders the specified [content section]($link.page('docs/supermd/scripty').ref('
 <div :html="$page.contentSection('section-id')"></div>
 <div :html="$page.contentSection('other-section')"></div>
 ```
-### []($heading.id("Page.contentSections")) [`fn`]($link.ref("Page.contentSections")) contentSections () -> [[ContentSection]($link.ref("ContentSection"))]
+### []($heading.id("Page.contentSections")) [`fn`]($link.ref("Page.contentSections")) contentSections () -> [[ContentSection]($link.ref("ContentSection"))] *(see also [[any]]($link.ref("Array")))*   
 
 Returns a list of sections for the current page.
 
@@ -452,7 +452,7 @@ Renders the table of content.
 #### Examples
 
 ```superhtml
-<div html="$page.toc()"></div>
+<div :html="$page.toc()"></div>
 ```
 # [Ctx]($section.id('Ctx'))
 
@@ -501,7 +501,7 @@ Useful for example to generate RSS links:
 <ctx alt="$page.alternative('rss')"
   <a href="$ctx.alt.link()" 
      type="$ctx.alt.type" 
-     text="$ctx.alt.name"
+     :text="$ctx.alt.name"
   ></a>
 </ctx>
 ```
@@ -530,7 +530,7 @@ this function returns the heading as simple text.
 #### Examples
 
 ```superhtml
-<div html="$loop.it.heading()"></div>
+<div :html="$loop.it.heading()"></div>
 ```
 ### []($heading.id("ContentSection.heading?")) [`fn`]($link.ref("ContentSection.heading?")) heading? () -> ?[String]($link.ref("String"))
 
@@ -540,7 +540,7 @@ this function returns the heading as simple text.
 #### Examples
 
 ```superhtml
-<div html="$loop.it.heading()"></div>
+<div :html="$loop.it.heading()"></div>
 ```
 ### []($heading.id("ContentSection.html")) [`fn`]($link.ref("ContentSection.html")) html () -> [String]($link.ref("String"))
 
@@ -549,7 +549,7 @@ Renders the section.
 #### Examples
 
 ```superhtml
-<div html="$loop.it.html()"></div>
+<div :html="$loop.it.html()"></div>
 ```
 # [Build]($section.id('Build'))
 
@@ -577,7 +577,7 @@ Retuns a build-time asset (i.e. an asset generated through your 'build.zig' file
 #### Examples
 
 ```superhtml
-<div text="$build.asset('foo').bytes()"></div>
+<div :text="$build.asset('foo').bytes()"></div>
 ```
 # [Asset]($section.id('Asset'))
 
@@ -611,7 +611,7 @@ Returns the size of an asset file in bytes.
 #### Examples
 
 ```superhtml
-<div text="$site.asset('foo.json').size()"></div>
+<div :text="$site.asset('foo.json').size()"></div>
 ```
 ### []($heading.id("Asset.bytes")) [`fn`]($link.ref("Asset.bytes")) bytes () -> [String]($link.ref("String"))
 
@@ -620,7 +620,7 @@ Returns the raw contents of an asset.
 #### Examples
 
 ```superhtml
-<div text="$page.assets.file('foo.json').bytes()"></div>
+<div :text="$page.assets.file('foo.json').bytes()"></div>
 ```
 ### []($heading.id("Asset.ziggy")) [`fn`]($link.ref("Asset.ziggy")) ziggy () -> [any]($link.ref("any"))
 
@@ -629,7 +629,7 @@ Tries to parse the asset as a Ziggy document.
 #### Examples
 
 ```superhtml
-<div text="$page.assets.file('foo.ziggy').ziggy().get('bar')"></div>
+<div :text="$page.assets.file('foo.ziggy').ziggy().get('bar')"></div>
 ```
 # [Map]($section.id('Map'))
 
@@ -666,8 +666,8 @@ Tries to get a dynamic value, to be used in conjuction with an `if` attribute.
 #### Examples
 
 ```superhtml
-<div if="$page.custom.get?('myValue')">
-  <span text="$if"></span>
+<div :if="$page.custom.get?('myValue')">
+  <span :text="$if"></span>
 </div>
 ```
 ### []($heading.id("Map.has")) [`fn`]($link.ref("Map.has")) has ([String]($link.ref("String"))) -> [Bool]($link.ref("Bool"))
@@ -678,9 +678,9 @@ Returns true if the map contains the provided key.
 #### Examples
 
 ```superhtml
-<div if="$page.custom.has('myValue')">Yep!</div>
+<div :if="$page.custom.has('myValue')">Yep!</div>
 ```
-### []($heading.id("Map.iterate")) [`fn`]($link.ref("Map.iterate")) iterate () -> [[KV]($link.ref("KV"))]
+### []($heading.id("Map.iterate")) [`fn`]($link.ref("Map.iterate")) iterate () -> [[KV]($link.ref("KV"))] *(see also [[any]]($link.ref("Array")))*   
 
 Iterates over key-value pairs of a Ziggy map.
 
@@ -689,7 +689,7 @@ Iterates over key-value pairs of a Ziggy map.
 ```superhtml
 $page.custom.iterate()
 ```
-### []($heading.id("Map.iterPattern")) [`fn`]($link.ref("Map.iterPattern")) iterPattern ([String]($link.ref("String"))) -> [[KV]($link.ref("KV"))]
+### []($heading.id("Map.iterPattern")) [`fn`]($link.ref("Map.iterPattern")) iterPattern ([String]($link.ref("String"))) -> [[KV]($link.ref("KV"))] *(see also [[any]]($link.ref("Array")))*   
 
 Iterates over key-value pairs of a Ziggy map where the key
 matches the given pattern.
@@ -810,7 +810,7 @@ The argument specifies the language name.
 ```superhtml
 <pre>
   <code class="ziggy" 
-        html="$page.custom.get('sample').syntaxHighLight('ziggy')"
+        :html="$page.custom.get('sample').syntaxHighLight('ziggy')"
   ></code>
 </pre>
 ```
@@ -1068,6 +1068,48 @@ In nested loops, accesses the upper `$loop`
 
 ```superhtml
 $loop.up().it
+```
+# [Array]($section.id('Array'))
+
+An array of items.
+
+## Fields
+
+### `len` : [Int]($link.ref("Int"))
+
+The length of the array.
+
+### `empty` : [Bool]($link.ref("Bool"))
+
+True when len is 0.
+
+## Functions
+
+### []($heading.id("Array.slice")) [`fn`]($link.ref("Array.slice")) slice ([Int]($link.ref("Int")), ?[Int]($link.ref("Int"))) -> [[any]($link.ref("any"))]
+
+Slices an array from the first value (inclusive) to the
+second value (exclusive).
+
+The second value can be omitted and defaults to the array's
+length, meaning that invoking `slice` with one argunent 
+produces **suffixes** of the original sequence (i.e. it 
+removes a prefix from the original sequence).
+
+Note that negative values are not allowed at the moment.
+
+#### Examples
+
+```superhtml
+$page.tags.slice(0,1)
+```
+### []($heading.id("Array.at")) [`fn`]($link.ref("Array.at")) at ([Int]($link.ref("Int"))) -> [any]($link.ref("any"))
+
+Returns the value at the provided index. 
+
+#### Examples
+
+```superhtml
+$page.tags.at(0)
 ```
 # [KV]($section.id('KV'))
 
