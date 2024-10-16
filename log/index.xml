@@ -5,8 +5,18 @@
   <description>Curated list of changes to Zine</description>
   <generator>Zine -- https://zine-ssg.io</generator>
   <language>en-us</language>
-  <lastBuildDate>Fri, 11 Oct 2024 17:09:49 +0000</lastBuildDate>
+  <lastBuildDate>Wed, 16 Oct 2024 18:49:06 +0000</lastBuildDate>
   
+   
+  
+   
+    <item>
+     <pubDate>Wed, 16 Oct 2024 00:00:00 +0000</pubDate>
+     <link>https://zine-ssg.io/log/#v0.7.1</link>
+     <guid>https://zine-ssg.io/log/#v0.7.1</guid>
+     <title>v0.7.1</title>
+     <description>&lt;div id=v0.7.1&gt;&lt;ul&gt;&lt;li&gt;&lt;p&gt;When using the simplified &lt;code&gt;website()&lt;/code&gt; / &lt;code&gt;multilingualWebsite()&lt;/code&gt; interface, you can now pass &lt;code&gt;-Dinclude-drafts&lt;/code&gt; flag to enable rendering of content pages that have &lt;code&gt;.draft = true&lt;/code&gt; set in their frontmatter. Thank you nihklas (&lt;a href=&quot;https://github.com/kristoff-it/zine/pull/70&quot; target=&quot;_blank&quot;&gt;#70&lt;/a&gt;).&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;New SuperHTML Scripty builtin functions:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;code&gt;$page.hasContentSection&lt;/code&gt;: You can now query a page to see if it contains a content section with a given id. Thanks nihklas (&lt;a href=&quot;https://github.com/kristoff-it/zine/pull/76&quot; target=&quot;_blank&quot;&gt;#76&lt;/a&gt;).&lt;/li&gt;&lt;li&gt;&lt;code&gt;$page.subpagesAlphabetic&lt;/code&gt;: lists sub pages sorted in alphabetic order. Unblocks rockorager&apos;s &lt;a href=&quot;https://culver.house/recipes/&quot; target=&quot;_blank&quot;&gt;recipe website&lt;/a&gt;. Recipe websites are good, make more of them.&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;New SuperMD Scripty directive:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;code&gt;$text&lt;/code&gt;, which can be used to give an id and attributes to a inline piece of text.&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;</description>
+    </item>
    
   
    

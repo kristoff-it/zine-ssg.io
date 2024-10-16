@@ -114,9 +114,19 @@
   <h3 class="overtitle centered">Zine</h3>
   <h1 class="title">Devlog</h1>
   <div id="page">
-    <div id=about><h2>About</h2><p>This is a non-exhaustive, curated list of changes meant to help users quickly see what has improved since they last checked.</p><p>You can <a href="https://zine-ssg.io/log/index.xml" target="_blank">subscribe to this page via RSS</a>.</p><p>To update Zine to the latest release run:</p><pre><code class="sh">zig fetch --save &quot;git+https://github.com/kristoff-it/zine#v0.7.0&quot;
+    <div id=about><h2>About</h2><p>This is a non-exhaustive, curated list of changes meant to help users quickly see what has improved since they last checked.</p><p>You can <a href="https://zine-ssg.io/log/index.xml" target="_blank">subscribe to this page via RSS</a>.</p><p>To update Zine to the latest release run:</p><pre><code class="sh">zig fetch --save &quot;git+https://github.com/kristoff-it/zine#v0.7.1&quot;
 </code></pre>
 <h2>Changes</h2></div>
+    
+    
+  
+    
+    
+      <div id="v0.7.1">
+        <h3><a href="#v0.7.1">v0.7.1</a></h3>
+        <h4>2024-10-16</h4>
+        <div id=v0.7.1><ul><li><p>When using the simplified <code>website()</code> / <code>multilingualWebsite()</code> interface, you can now pass <code>-Dinclude-drafts</code> flag to enable rendering of content pages that have <code>.draft = true</code> set in their frontmatter. Thank you nihklas (<a href="https://github.com/kristoff-it/zine/pull/70" target="_blank">#70</a>).</p></li><li><p>New SuperHTML Scripty builtin functions:</p><ul><li><code>$page.hasContentSection</code>: You can now query a page to see if it contains a content section with a given id. Thanks nihklas (<a href="https://github.com/kristoff-it/zine/pull/76" target="_blank">#76</a>).</li><li><code>$page.subpagesAlphabetic</code>: lists sub pages sorted in alphabetic order. Unblocks rockorager's <a href="https://culver.house/recipes/" target="_blank">recipe website</a>. Recipe websites are good, make more of them.</li></ul></li><li><p>New SuperMD Scripty directive:</p><ul><li><code>$text</code>, which can be used to give an id and attributes to a inline piece of text.</li></ul></li></ul></div>
+      </div>
     
     
   
