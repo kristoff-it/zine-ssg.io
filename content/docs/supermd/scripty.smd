@@ -84,6 +84,35 @@ This will be rendered by SuperHTML as:
 <h1 id="foo" class="bar baz">Title</h1>
 ```
 
+## `$text` : [Text]($link.ref("Text"))
+
+Allows giving an id and attributes to some text.
+
+Example:
+```markdown
+Hello [World]($text.id('foo').attrs('bar', 'baz'))!
+```
+
+This will be rendered by SuperHTML as:
+```html
+Hello <span id="foo" class="bar baz">World</span>!
+```
+
+## `$link` : [Link]($link.ref("Link"))
+
+A link.
+
+## `$code` : [Code]($link.ref("Code"))
+
+An embedded piece of code.
+
+Any text placed between `[]` will be used as a caption for the snippet.
+
+Example:
+```markdown
+[This is the caption]($code.asset('foo.zig'))
+```
+
 ## `$image` : [Image]($link.ref("Image"))
 
 An embedded image.
@@ -104,21 +133,6 @@ Any text placed between `[]` will be used as a caption for the video.
 Example:
 ```markdown
 [This is the caption]($video.asset('foo.webm'))
-```
-
-## `$link` : [Link]($link.ref("Link"))
-
-A link.
-
-## `$code` : [Code]($link.ref("Code"))
-
-An embedded piece of code.
-
-Any text placed between `[]` will be used as a caption for the snippet.
-
-Example:
-```markdown
-[This is the caption]($code.asset('foo.zig'))
 ```
 
 # [anydirective]($section.id('anydirective'))
@@ -411,4 +425,18 @@ Sets the source location of this directive to a build asset.
 
 Sets the language of this code snippet, which is also used for
 syntax highlighting.
+
+# [Text]($section.id('Text'))
+
+Allows giving an id and attributes to some text.
+
+Example:
+```markdown
+Hello [World]($text.id('foo').attrs('bar', 'baz'))!
+```
+
+This will be rendered by SuperHTML as:
+```html
+Hello <span id="foo" class="bar baz">World</span>!
+```
 

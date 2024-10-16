@@ -353,6 +353,18 @@ structure section in the official docs for more info.
   <span :text="$loop.it.title"></span>
 </div>
 ```
+### []($heading.id("Page.subpagesAlphabetic")) [`fn`]($link.ref("Page.subpagesAlphabetic")) subpagesAlphabetic () -> [[Page]($link.ref("Page"))] *(see also [[any]]($link.ref("Array")))*   
+
+Same as `subpages`, but returns the pages in alphabetic order by
+comparing their titles. 
+
+#### Examples
+
+```superhtml
+<div :loop="$page.subpagesAlphabetic()">
+  <span :text="$loop.it.title"></span>
+</div>
+```
 ### []($heading.id("Page.nextPage")) [`fn`]($link.ref("Page.nextPage")) nextPage () -> ?[Page]($link.ref("Page"))
 
 Returns the next page in the same section, sorted by date. 
@@ -431,6 +443,16 @@ Renders the specified [content section]($link.page('docs/supermd/scripty').ref('
 ```superhtml
 <div :html="$page.contentSection('section-id')"></div>
 <div :html="$page.contentSection('other-section')"></div>
+```
+### []($heading.id("Page.hasContentSection")) [`fn`]($link.ref("Page.hasContentSection")) hasContentSection ([String]($link.ref("String"))) -> [String]($link.ref("String"))
+
+Returns true if the page contains a content-section with the given id
+
+#### Examples
+
+```superhtml
+<div :html="$page.hasContentSection('section-id')"></div>
+<div :html="$page.hasContentSection('other-section')"></div>
 ```
 ### []($heading.id("Page.contentSections")) [`fn`]($link.ref("Page.contentSections")) contentSections () -> [[ContentSection]($link.ref("ContentSection"))] *(see also [[any]]($link.ref("Array")))*   
 

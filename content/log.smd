@@ -17,12 +17,28 @@ You can [subscribe to this page via RSS](https://zine-ssg.io/log/index.xml).
 
 To update Zine to the latest release run:
 ```sh
-zig fetch --save "git+https://github.com/kristoff-it/zine#v0.7.0"
+zig fetch --save "git+https://github.com/kristoff-it/zine#v0.7.1"
 ```
 
 ## Changes
 
 
+[]($section.id('v0.7.1').data('date','2024-10-16'))
+- When using the simplified `website()` / `multilingualWebsite()` interface, 
+  you can now pass `-Dinclude-drafts` flag to enable rendering of content pages
+  that have `.draft = true` set in their frontmatter. Thank you nihklas ([#70](https://github.com/kristoff-it/zine/pull/70)).
+
+- New SuperHTML Scripty builtin functions: 
+  - `$page.hasContentSection`: You can now query a page to see if it contains a 
+    content section with a given id. Thanks nihklas ([#76](https://github.com/kristoff-it/zine/pull/76)).
+  - `$page.subpagesAlphabetic`: lists sub pages sorted in alphabetic order. 
+    Unblocks rockorager's [recipe website](https://culver.house/recipes/).
+    Recipe websites are good, make more of them.
+
+- New SuperMD Scripty directive:
+  - `$text`, which can be used to give an id and attributes to a inline piece 
+    of text.
+   
 []($section.id('v0.7.0').data('date','2024-10-11'))
 - Introduced actual arrays in Zine. Previously we would immediately evaluate
   Scripty expressions into iterators, which made it awkward to implement bulitin
