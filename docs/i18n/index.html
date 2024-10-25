@@ -110,7 +110,7 @@
     <span class="punctuation bracket">}</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
 <span class="punctuation bracket">}</span>
 </code></pre>
-<h2>Localized variants</h2><p>Each variant can define the following fields:</p><h4><code>locale_code</code></h4><p>A <code>language-NATION</code> string, e.g. <code>en-US</code>, <code>en-UK</code>, <code>it-IT</code>, <code>ja-JP</code>.</p><h4><code>title</code></h4><p>Site title for this variant.</p><h4><code>content_dir_path</code></h4><p>Content directory with localized versions of your content.</p><h4><code>host_url_override</code> (optional)</h4><p>The default assumption in Zine is that all your localized variants will be deployed on the same host, with each localization made available under a <code>locale_code</code> prefix:</p><ul><li><code>https://site.com/en-US/about/</code></li><li><code>https://site.com/it-IT/about/</code></li></ul><p>Some users might want instead to serve each localization from a different hostname:</p><ul><li><code>https://us.site.com/about/</code></li><li><code>https://it.site.com/about/</code></li></ul><p>Setting <code>host_url_override</code> for each localized variant will make Zine generate permalinks accordingly.</p><h4><code>output_prefix_override</code> (optional)</h4><p>This field can be used to override the path prefix for a localized variant. When <code>host_url_override</code> is set to null, the default prefix for each localized variant is <code>locale_code</code>. When <code>host_url_override</code> is set to a non-null value, the default prefix is <code>&quot;&quot;</code> (empty string).</p><p>You can set <code>output_prefix_override</code> to any string to place a localized variant under an arbitrary prefix. Setting it to an empty string is a good way of creating a "default variant" of the website.</p><p>For example by setting <code>ouptput_prefix_override</code> to empty string in <code>en_US</code> this is the resulting site layout:</p><ul><li><code>https://site.com/about/</code></li><li><code>https://site.com/it-IT/about/</code></li></ul><p>Here's a table with more examples:</p><table>
+<h2>Localized variants</h2><p>Each variant can define the following fields:</p><h4><code>locale_code</code></h4><p>A <code>language-NATION</code> string, e.g. <code>en-US</code>, <code>en-UK</code>, <code>it-IT</code>, <code>ja-JP</code>.</p><h4><code>title</code></h4><p>Site title for this variant.</p><h4><code>content_dir_path</code></h4><p>Content directory with localized versions of your content.</p><h4><code>host_url_override</code> (optional)</h4><p>The default assumption in Zine is that all your localized variants will be deployed on the same host, with each localization made available under a <code>locale_code</code> prefix:</p><ul><li><code>https://site.com/en-US/about/</code></li><li><code>https://site.com/it-IT/about/</code></li></ul><p>Some users might want instead to serve each localization from a different hostname:</p><ul><li><code>https://us.site.com/about/</code></li><li><code>https://it.site.com/about/</code></li></ul><p>Setting <code>host_url_override</code> for each localized variant will make Zine generate permalinks accordingly.</p><h4><code>output_prefix_override</code> (optional)</h4><p>This field can be used to override the path prefix for a localized variant. When <code>host_url_override</code> is set to null, the default prefix for each localized variant is <code>locale_code</code>. When <code>host_url_override</code> is set to a non-null value, the default prefix is <code>&quot;&quot;</code> (empty string).</p><p>You can set <code>output_prefix_override</code> to any string to place a localized variant under an arbitrary prefix. Setting it to an empty string is a good way of creating a “default variant” of the website.</p><p>For example by setting <code>ouptput_prefix_override</code> to empty string in <code>en_US</code> this is the resulting site layout:</p><ul><li><code>https://site.com/about/</code></li><li><code>https://site.com/it-IT/about/</code></li></ul><p>Here’s a table with more examples:</p><table>
 <thead>
 <tr>
 <th align="center">output prefix override</th>
@@ -128,24 +128,24 @@
 </tr>
 <tr>
 <td align="center">null</td>
-<td align="center">&quot;us.site.com&quot;</td>
+<td align="center">“us.site.com”</td>
 <td align="left">/</td>
 <td align="left">zig-out/en-US/</td>
 </tr>
 <tr>
-<td align="center">&quot;foo&quot;</td>
+<td align="center">“foo”</td>
 <td align="center">null</td>
 <td align="left">/foo/</td>
 <td align="left">zig-out/foo/</td>
 </tr>
 <tr>
-<td align="center">&quot;foo&quot;</td>
-<td align="center">&quot;us.site.com&quot;</td>
+<td align="center">“foo”</td>
+<td align="center">“us.site.com”</td>
 <td align="left">/foo/</td>
 <td align="left">zig-out/foo/</td>
 </tr>
 <tr>
-<td align="center">&quot;&quot;</td>
+<td align="center">“”</td>
 <td align="center">null</td>
 <td align="left">/</td>
 <td align="left">zig-out/</td>
@@ -181,7 +181,7 @@
     ├── pasta.smd
     ├── docs.smd
     └── index.smd
-</code></pre><ul><li><code>index.smd</code> and <code>about.smd</code> are both respectively matched with their corresponding variant because they have the same path (i.e. <code>en-US/about.smd</code>, <code>it-IT/about.smd</code>).</li><li><code>pasta.smd</code> is not matched with any other page because it has a unique relative path.</li><li><code>docs.smd</code> is not matched with any other page because, even though the resulting url path would be the same as <code>docs/index.smd</code>, the <em>content path</em> is different.</li></ul><p>That said, it is possible to match any page with any other by setting <code>translation_key</code> in the Ziggy frontmatter of each page.</p><p>This last way of matching pages is meant to be used when URL paths are also localized, for example:</p><ul><li><code>https://site.com/en-US/contact-us/</code></li><li><code>https://site.com/it-IT/contattaci/</code></li></ul><p>The following frontmatter key must be set in both "contact us" pages:</p><pre><code class="ziggy">.<span class="keyword">translation_key</span> = <span class="string">&quot;contact page&quot;</span>
+</code></pre><ul><li><code>index.smd</code> and <code>about.smd</code> are both respectively matched with their corresponding variant because they have the same path (i.e. <code>en-US/about.smd</code>, <code>it-IT/about.smd</code>).</li><li><code>pasta.smd</code> is not matched with any other page because it has a unique relative path.</li><li><code>docs.smd</code> is not matched with any other page because, even though the resulting url path would be the same as <code>docs/index.smd</code>, the <em>content path</em> is different.</li></ul><p>That said, it is possible to match any page with any other by setting <code>translation_key</code> in the Ziggy frontmatter of each page.</p><p>This last way of matching pages is meant to be used when URL paths are also localized, for example:</p><ul><li><code>https://site.com/en-US/contact-us/</code></li><li><code>https://site.com/it-IT/contattaci/</code></li></ul><p>The following frontmatter key must be set in both “contact us” pages:</p><pre><code class="ziggy">.<span class="keyword">translation_key</span> = <span class="string">&quot;contact page&quot;</span>
 </code></pre>
 <p>The translation key can be any string value, as long as it is unique per each localized variant.</p></div>
 

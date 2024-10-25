@@ -112,13 +112,13 @@
 <li><a href="#rss"><a href="#rss">RSS feed</a><ul><li>
 1. Define an alternative for the post listing page</li><li>2. Create the XML layout</li><li>3. Link to your RSS feed</li></ul></li><li><a href="#old-links"><a href="#old-links">Preserve old links</a></ul></div>
     </div>
-    <div id=rss><h1><a class="" href="#rss">RSS feed</a></h1><p>Zine doesn't have direct knowledge of RSS feeds but by combining a handful of its features you can add support for the most syndication formats commonly used.</p><p>In this example we'll assume that we want to generate an RSS feed for a blog.</p><h2>1. Define an alternative for the post listing page</h2><p>Your blog should have a page that lists all posts. We'll generate the RSS feed as an alternative version of it.</p><p>If you think about it, this is the semantically correct thing to do, since an RSS feed <em>is</em> an alternative version of a page that lists your posts.</p><p><strong><code>posts.smd</code> (in the frontmatter)</strong></p><pre><code>---
+    <div id=rss><h1><a class="" href="#rss">RSS feed</a></h1><p>Zine doesn’t have direct knowledge of RSS feeds but by combining a handful of its features you can add support for the most syndication formats commonly used.</p><p>In this example we’ll assume that we want to generate an RSS feed for a blog.</p><h2>1. Define an alternative for the post listing page</h2><p>Your blog should have a page that lists all posts. We’ll generate the RSS feed as an alternative version of it.</p><p>If you think about it, this is the semantically correct thing to do, since an RSS feed <em>is</em> an alternative version of a page that lists your posts.</p><p><strong><code>posts.smd</code> (in the frontmatter)</strong></p><pre><code>---
 .alternatives = [{
   .layout = &quot;rss.xml&quot;,
   .output = &quot;index.xml&quot;,
 }],
 ---
-</code></pre><h2>2. Create the XML layout</h2><p>SuperHTML doesn't support XML officially yet, but there is enough support to generate correct feeds.</p><p>This is a RSS2.0 example but you can also do the same with Atom, if you prefer.</p><p><strong><code>rss.xml</code></strong></p><pre><code class="html"><span class="punctuation bracket">&lt;</span><span class="tag">rss</span> <span class="attribute">version</span>=&quot;<span class="string">2.0</span>&quot;<span class="punctuation bracket">&gt;</span>
+</code></pre><h2>2. Create the XML layout</h2><p>SuperHTML doesn’t support XML officially yet, but there is enough support to generate correct feeds.</p><p>This is a RSS2.0 example but you can also do the same with Atom, if you prefer.</p><p><strong><code>rss.xml</code></strong></p><pre><code class="html"><span class="punctuation bracket">&lt;</span><span class="tag">rss</span> <span class="attribute">version</span>=&quot;<span class="string">2.0</span>&quot;<span class="punctuation bracket">&gt;</span>
  <span class="punctuation bracket">&lt;</span><span class="tag">channel</span><span class="punctuation bracket">&gt;</span>
   <span class="punctuation bracket">&lt;</span><span class="tag">title</span><span class="punctuation bracket">&gt;</span>My blog<span class="punctuation bracket">&lt;/</span><span class="tag">title</span><span class="punctuation bracket">&gt;</span>
   <span class="punctuation bracket">&lt;</span><span class="tag">link</span><span class="punctuation bracket">&gt;</span>https://site.com/<span class="punctuation bracket">&lt;/</span><span class="tag">link</span><span class="punctuation bracket">&gt;</span>
@@ -141,7 +141,7 @@
   RSS feed
 <span class="punctuation bracket">&lt;/</span><span class="tag">a</span><span class="punctuation bracket">&gt;</span>
 </code></pre>
-</div><div id=old-links><h1><a class="" href="#old-links">Preserve old links</a></h1><p>You're porting your website to Zine but still want to make sure old links don't break?</p><p>Use the <code>aliases</code> field in the page's <a href="/docs/supermd/#frontmatter">frontmatter</a> to define a second copy (or more) of the page that can be placed at any location you'd like.</p><p>If your old site used so-called <em>ugly URLs</em> (i.e. <code>foo.md</code> would become <code>foo.html</code> instead of <code>foo/index.html</code>), then this is your only option since Zine has no support for ugly URLs at the moment.</p></div>
+</div><div id=old-links><h1><a class="" href="#old-links">Preserve old links</a></h1><p>You’re porting your website to Zine but still want to make sure old links don’t break?</p><p>Use the <code>aliases</code> field in the page’s <a href="/docs/supermd/#frontmatter">frontmatter</a> to define a second copy (or more) of the page that can be placed at any location you’d like.</p><p>If your old site used so-called <em>ugly URLs</em> (i.e. <code>foo.md</code> would become <code>foo.html</code> instead of <code>foo/index.html</code>), then this is your only option since Zine has no support for ugly URLs at the moment.</p></div>
   </div>
 
     </div>
