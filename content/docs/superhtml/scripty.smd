@@ -416,6 +416,23 @@ Returns the URL of the target page.
 ```superhtml
 $page.link()
 ```
+### []($heading.id("Page.linkRef")) [`fn`]($link.ref("Page.linkRef")) linkRef () -> [String]($link.ref("String"))
+
+Returns the URL of the target page, allowing you 
+to specify a fragment id to deep-link to a specific
+element of the content page.
+
+The id will be checked by Zine and an error will be  
+reported if it does not exist.
+
+See the SuperMD reference documentation to learn how to give
+ids to elements.
+
+#### Examples
+
+```superhtml
+$page.linkRef('foo')
+```
 ### []($heading.id("Page.permalink")) [`fn`]($link.ref("Page.permalink")) permalink () -> [String]($link.ref("String"))
 
 Deprecated, use `link()`
@@ -576,6 +593,7 @@ Renders the section.
 # [Build]($section.id('Build'))
 
 Gives you access to build-time assets and other build related info.
+When inside of a git repository it also gives git-related metadata.
 
 ## Fields
 
@@ -600,6 +618,100 @@ Retuns a build-time asset (i.e. an asset generated through your 'build.zig' file
 
 ```superhtml
 <div :text="$build.asset('foo').bytes()"></div>
+```
+### []($heading.id("Build.git")) [`fn`]($link.ref("Build.git")) git () -> [Git]($link.ref("Git"))
+
+Returns git-related metadata if you are inside a git repository.
+If you are not or the parsing failes, it will return an error.
+Packed object are not supported, commit anything to get the metadata.
+
+#### Examples
+
+```superhtml
+<div :text="$build.git()..."></div>
+```
+### []($heading.id("Build.git?")) [`fn`]($link.ref("Build.git?")) git? () -> [Git]($link.ref("Git"))
+
+Returns git-related metadata if you are inside a git repository.
+If you are not or the parsing failes, it will return null.
+Packed object are not supported, commit anything to get the metadata.
+
+#### Examples
+
+```superhtml
+<div :if="$build.git?()">...</div>
+```
+# [Git]($section.id('Git'))
+
+Information about the current git repository.
+
+## Fields
+
+### `commit_hash` : [String]($link.ref("String"))
+
+The current commit hash.
+
+### `commit_date` : [Date]($link.ref("Date"))
+
+The date of the current commit.
+
+### `commit_message` : [String]($link.ref("String"))
+
+The commit message of the current commit.
+
+### `author_name` : [String]($link.ref("String"))
+
+The name of the author of the current commit.
+
+### `author_email` : [String]($link.ref("String"))
+
+The email of the author of the current commit.
+
+## Functions
+
+### []($heading.id("Git.tag")) [`fn`]($link.ref("Git.tag")) tag () -> [String]($link.ref("String"))
+
+Returns the tag of the current commit.
+If the current commit does not have a tag, an error is returned.
+
+#### Examples
+
+```superhtml
+<div :text="$build.git().tag()"></div>
+<div :if="$build.git?()"><span :text="$if.tag()"></span></div>
+```
+### []($heading.id("Git.tag?")) [`fn`]($link.ref("Git.tag?")) tag? () -> [String]($link.ref("String"))
+
+Returns the tag of the current commit.
+If the current commit does not have a tag, null is returned.
+
+#### Examples
+
+```superhtml
+<div :if="$build.git().tag?()"><span :text="$if"></span></div>
+<div :if="$build.git?()"><span :if="$if.tag?()"><span :text="$if"></span></span></div>
+```
+### []($heading.id("Git.branch")) [`fn`]($link.ref("Git.branch")) branch () -> [String]($link.ref("String"))
+
+Returns the branch of the current commit.
+If the current commit does not have a branch, an error is returned.
+
+#### Examples
+
+```superhtml
+<div :text="$build.git().branch()"></div>
+<div :if="$build.git?()"><span :text="$if.branch()"></span></div>
+```
+### []($heading.id("Git.branch?")) [`fn`]($link.ref("Git.branch?")) branch? () -> [String]($link.ref("String"))
+
+Returns the branch of the current commit.
+If the current commit does not have a branch, null is returned.
+
+#### Examples
+
+```superhtml
+<div :if="$build.git().branch?()"><span :text="$if"></span></div>
+<div :if="$build.git?()"><span :if="$if.branch?()"><span :text="$if"></span></span></div>
 ```
 # [Asset]($section.id('Asset'))
 
@@ -643,6 +755,15 @@ Returns the raw contents of an asset.
 
 ```superhtml
 <div :text="$page.assets.file('foo.json').bytes()"></div>
+```
+### []($heading.id("Asset.sriHash")) [`fn`]($link.ref("Asset.sriHash")) sriHash () -> [String]($link.ref("String"))
+
+Returns the Base64-encoded SHA384 hash of an asset, prefixed with `sha384-`, for use with Subresource Integrity.
+
+#### Examples
+
+```superhtml
+<script src="$site.asset('foo.js').link()" integrity="$site.asset('foo.js').sriHash()"></script>
 ```
 ### []($heading.id("Asset.ziggy")) [`fn`]($link.ref("Asset.ziggy")) ziggy () -> [any]($link.ref("any"))
 

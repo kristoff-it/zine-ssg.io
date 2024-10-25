@@ -17,11 +17,30 @@ You can [subscribe to this page via RSS](https://zine-ssg.io/log/index.xml).
 
 To update Zine to the latest release run:
 ```sh
-zig fetch --save "git+https://github.com/kristoff-it/zine#v0.7.1"
+zig fetch --save "git+https://github.com/kristoff-it/zine#v0.7.2"
 ```
 
 ## Changes
 
+[]($section.id('v0.7.2').data('date','2024-10-25'))
+- Windows should now work well. A path-related bug that caused assets to not 
+  be detected correctly has now been fixed, and a second bug that caused the
+  webserver to fail to update when a new change happened has also been "fixed" 
+  (it's actually an annoying networking bug unrelated to Zine, so we implemented
+  a workaround). In any case, **Windows should now be a first-class citizen for 
+  Zine** so please consider *rawdogging* Zine on Windows instead of using Docker/WSL (also report any issue you find!).
+  
+- In the previous release I added by mistake some debug logs that could not be 
+  silenced and that caused the webserver to show your the error window even when
+  no error had happened, this is now fixed, sorry!
+
+- Creating duplicate ids inside of a content file is now properly reported as 
+  an error by Zine. Some ids would also not be correctly recorded (for the purpose of deeplinking) before, and that too has been fixed now.
+  
+- New SuperHTML Scripty builtins:
+  - `$page.linkRef('foo')` can be used to deep-link from SuperHTML templates
+  - `sriHash()` can be called on assets to generate a hash for [Subresource Integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity), thanks Shardion ([#73](https://github.com/kristoff-it/zine/pull/73))!
+  - `$build.git()` can be used to access repo information when in a repository, see the SuperHTML Scripty reference for more information, thanks Sc3l3t0n ([#77](https://github.com/kristoff-it/zine/pull/77))!
 
 []($section.id('v0.7.1').data('date','2024-10-16'))
 - When using the simplified `website()` / `multilingualWebsite()` interface, 
