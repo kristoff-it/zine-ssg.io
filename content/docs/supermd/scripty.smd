@@ -393,8 +393,21 @@ tab.
 
 ### []($heading.id("Link.ref")) [`fn`]($link.ref("Link.ref")) ref (str) -> [Link]($link.ref("Link"))
 
-Deep-links to a specific section of either the current
+Deep-links to a specific element (like a section or any
+directive that specifies an `id`) of either the current
 page or a target page set with `page()`.
+
+Zine tracks all ids defined in content files so referencing 
+an id that doesn't exist will result in a build error.
+
+Zine does not track ids defined inside of templates so 
+use `unsafeRef` to deep-link to those. 
+
+### []($heading.id("Link.unsafeRef")) [`fn`]($link.ref("Link.unsafeRef")) unsafeRef (str) -> [Link]($link.ref("Link"))
+
+Like `ref` but Zine will not perform any id checking.
+
+Can be used to deep-link to ids specified in templates. 
 
 # [Code]($section.id('Code'))
 

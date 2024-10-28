@@ -4,6 +4,7 @@
 .author = "Sample Author",
 .layout = "log.shtml",
 .alternatives = [{
+  .name = "rss",
   .layout = "log.xml",
   .output = "log/index.xml",
 }],
@@ -13,14 +14,36 @@
 ## About
 This is a non-exhaustive, curated list of changes meant to help users quickly see what has improved since they last checked.
 
-You can [subscribe to this page via RSS](https://zine-ssg.io/log/index.xml).
+You can [subscribe to this page via RSS]($link.alternative("rss")).
 
 To update Zine to the latest release run:
 ```sh
-zig fetch --save "git+https://github.com/kristoff-it/zine#v0.7.2"
+zig fetch --save "git+https://github.com/kristoff-it/zine#v0.8.0"
 ```
 
 ## Changes
+[]($section.id('v0.8.0').data('date','2024-10-28'))
+- **Page alternatives now require you to set the `name` field.** You will get a 
+  build error if the name is not defined. It would previously default to an
+  empty string, but now it's mandatory because of the newly added builtins.
+- SuperMD
+  - Added some error checking to SuperMD builtins that relate to links, like
+    trying to use `$link.ref` in combination with `$link.url`.
+  - `$link.alternative('rss')` to link to a page alternative 
+- SuperHTML
+  - Fixed documentation for `linkRef`, which wrongly reported it did not accept
+    any argument.
+  - Added `$page.alternative('rss')` which allows you to obtain an `Alternative`
+    value by name (instead of looping over all `$page.alternatives`).
+  - Added `link()` to `Alternative` so you can now link to RSS feeds like so:
+    ```html
+    <ctx alt="$page.alternative('rss')">
+      <a href="$ctx.alt.link()" type="$ctx.alt.type">
+        RSS feed
+      </a>
+    </ctx>
+    ```
+    (the Frequently Asked Questions section was updated accordingly)
 
 []($section.id('v0.7.2').data('date','2024-10-25'))
 - Windows should now work well. A path-related bug that caused assets to not 

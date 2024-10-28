@@ -23,6 +23,8 @@ RSS feed *is* an alternative version of a page that lists your posts.
 ```
 ---
 .alternatives = [{
+  .name = "rss",
+  .type = "application/rss+xml",
   .layout = "rss.xml",
   .output = "index.xml",
 }],
@@ -59,10 +61,24 @@ This is a RSS2.0 example but you can also do the same with Atom, if you prefer.
 
 ## 3. Link to your RSS feed
 
+### In SuperMD
+
+Same page:
+```md
+[Follow my RSS feed]($link.alternative('rss'))
+```
+Different page (see the reference docs for more variations):
+```md
+[Follow my RSS feed]($link.page('other/page').alternative('rss'))
+```
+
+### In SuperHTML
 ```html
-<a href="/index.xml" rel="alternate" type="application/rss+xml">
-  RSS feed
-</a>
+<ctx alt="$page.alternative('rss')">
+  <a href="$ctx.alt.link()" type="$ctx.alt.type">
+    RSS feed
+  </a>
+</ctx>
 ```
 
 # [Preserve old links]($section.id('old-links'))
