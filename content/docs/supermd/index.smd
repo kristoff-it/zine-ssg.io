@@ -278,7 +278,7 @@ This syntax might seem to suggest that you could create a nested section by atta
 **Heading levels are not taken into consideration when defining sections**.
 In other words, sections don't nest. 
 
-You can "attach" a section to a heading of any level, but that will immediately any previous section.
+You can "attach" a section to a heading of any level, but that will immediately end any previous section.
 
 This second way of defining a Section directive can be seen as syntax sugar for:
 
