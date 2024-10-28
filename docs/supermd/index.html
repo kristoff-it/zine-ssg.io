@@ -224,7 +224,7 @@ Lorem Ipsum
   <span class="punctuation bracket">&lt;</span><span class="tag">p</span><span class="punctuation bracket">&gt;</span>Lorem Ipsum<span class="punctuation bracket">&lt;/</span><span class="tag">p</span><span class="punctuation bracket">&gt;</span>
 <span class="punctuation bracket">&lt;/</span><span class="tag">div</span><span class="punctuation bracket">&gt;</span>
 </code></pre>
-<p>This syntax might seem to suggest that you could create a nested section by attaching it to, say, a <code>##</code> heading, but that’s not the case.</p><p><strong>Heading levels are not taken into consideration when defining sections</strong>. In other words, sections don’t nest.</p><p>You can “attach” a section to a heading of any level, but that will immediately any previous section.</p><p>This second way of defining a Section directive can be seen as syntax sugar for:</p><pre><code class="markdown">[]($section.id(&apos;first&apos;))
+<p>This syntax might seem to suggest that you could create a nested section by attaching it to, say, a <code>##</code> heading, but that’s not the case.</p><p><strong>Heading levels are not taken into consideration when defining sections</strong>. In other words, sections don’t nest.</p><p>You can “attach” a section to a heading of any level, but that will immediately end any previous section.</p><p>This second way of defining a Section directive can be seen as syntax sugar for:</p><pre><code class="markdown">[]($section.id(&apos;first&apos;))
 <span class="punctuation special">#</span> <span class="text title">[First]($link.ref(&apos;first&apos;))</span>
 Lorem Ipsum
 </code></pre>
