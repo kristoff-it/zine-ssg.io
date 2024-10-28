@@ -114,9 +114,25 @@
   <h3 class="overtitle centered">Zine</h3>
   <h1 class="title">Devlog</h1>
   <div id="page">
-    <div id=about><h2>About</h2><p>This is a non-exhaustive, curated list of changes meant to help users quickly see what has improved since they last checked.</p><p>You can <a href="https://zine-ssg.io/log/index.xml" target="_blank">subscribe to this page via RSS</a>.</p><p>To update Zine to the latest release run:</p><pre><code class="sh">zig fetch --save &quot;git+https://github.com/kristoff-it/zine#v0.7.2&quot;
+    <div id=about><h2>About</h2><p>This is a non-exhaustive, curated list of changes meant to help users quickly see what has improved since they last checked.</p><p>You can <a href="/log/index.xml/">subscribe to this page via RSS</a>.</p><p>To update Zine to the latest release run:</p><pre><code class="sh">zig fetch --save &quot;git+https://github.com/kristoff-it/zine#v0.8.0&quot;
 </code></pre>
 <h2>Changes</h2></div>
+    
+    
+  
+    
+    
+      <div id="v0.8.0">
+        <h3><a href="#v0.8.0">v0.8.0</a></h3>
+        <h4>2024-10-28</h4>
+        <div id=v0.8.0><ul><li><strong>Page alternatives now require you to set the <code>name</code> field.</strong> You will get a build error if the name is not defined. It would previously default to an empty string, but now it’s mandatory because of the newly added builtins.</li><li>SuperMD<ul><li>Added some error checking to SuperMD builtins that relate to links, like trying to use <code>$link.ref</code> in combination with <code>$link.url</code>.</li><li><code>$link.alternative(&apos;rss&apos;)</code> to link to a page alternative</li></ul></li><li>SuperHTML<ul><li>Fixed documentation for <code>linkRef</code>, which wrongly reported it did not accept any argument.</li><li>Added <code>$page.alternative(&apos;rss&apos;)</code> which allows you to obtain an <code>Alternative</code> value by name (instead of looping over all <code>$page.alternatives</code>).</li><li>Added <code>link()</code> to <code>Alternative</code> so you can now link to RSS feeds like so:<pre><code class="html"><span class="punctuation bracket">&lt;</span><span class="tag">ctx</span> <span class="attribute">alt</span>=&quot;<span class="string">$page.alternative(&apos;rss&apos;)</span>&quot;<span class="punctuation bracket">&gt;</span>
+  <span class="punctuation bracket">&lt;</span><span class="tag">a</span> <span class="attribute">href</span>=&quot;<span class="string">$ctx.alt.link()</span>&quot; <span class="attribute">type</span>=&quot;<span class="string">$ctx.alt.type</span>&quot;<span class="punctuation bracket">&gt;</span>
+    RSS feed
+  <span class="punctuation bracket">&lt;/</span><span class="tag">a</span><span class="punctuation bracket">&gt;</span>
+<span class="punctuation bracket">&lt;/</span><span class="tag">ctx</span><span class="punctuation bracket">&gt;</span>
+</code></pre>
+(the Frequently Asked Questions section was updated accordingly)</li></ul></li></ul></div>
+      </div>
     
     
   

@@ -5,8 +5,24 @@
   <description>Curated list of changes to Zine</description>
   <generator>Zine -- https://zine-ssg.io</generator>
   <language>en-us</language>
-  <lastBuildDate>Fri, 25 Oct 2024 16:36:38 +0000</lastBuildDate>
+  <lastBuildDate>Mon, 28 Oct 2024 19:19:55 +0000</lastBuildDate>
   
+   
+  
+   
+    <item>
+     <pubDate>Mon, 28 Oct 2024 00:00:00 +0000</pubDate>
+     <link>https://zine-ssg.io/log/#v0.8.0</link>
+     <guid>https://zine-ssg.io/log/#v0.8.0</guid>
+     <title>v0.8.0</title>
+     <description>&lt;div id=v0.8.0&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;Page alternatives now require you to set the &lt;code&gt;name&lt;/code&gt; field.&lt;/strong&gt; You will get a build error if the name is not defined. It would previously default to an empty string, but now it’s mandatory because of the newly added builtins.&lt;/li&gt;&lt;li&gt;SuperMD&lt;ul&gt;&lt;li&gt;Added some error checking to SuperMD builtins that relate to links, like trying to use &lt;code&gt;$link.ref&lt;/code&gt; in combination with &lt;code&gt;$link.url&lt;/code&gt;.&lt;/li&gt;&lt;li&gt;&lt;code&gt;$link.alternative(&amp;apos;rss&amp;apos;)&lt;/code&gt; to link to a page alternative&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;SuperHTML&lt;ul&gt;&lt;li&gt;Fixed documentation for &lt;code&gt;linkRef&lt;/code&gt;, which wrongly reported it did not accept any argument.&lt;/li&gt;&lt;li&gt;Added &lt;code&gt;$page.alternative(&amp;apos;rss&amp;apos;)&lt;/code&gt; which allows you to obtain an &lt;code&gt;Alternative&lt;/code&gt; value by name (instead of looping over all &lt;code&gt;$page.alternatives&lt;/code&gt;).&lt;/li&gt;&lt;li&gt;Added &lt;code&gt;link()&lt;/code&gt; to &lt;code&gt;Alternative&lt;/code&gt; so you can now link to RSS feeds like so:&lt;pre&gt;&lt;code class=&quot;html&quot;&gt;&lt;span class=&quot;punctuation bracket&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;ctx&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;alt&lt;/span&gt;=&amp;quot;&lt;span class=&quot;string&quot;&gt;$page.alternative(&amp;apos;rss&amp;apos;)&lt;/span&gt;&amp;quot;&lt;span class=&quot;punctuation bracket&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;punctuation bracket&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;href&lt;/span&gt;=&amp;quot;&lt;span class=&quot;string&quot;&gt;$ctx.alt.link()&lt;/span&gt;&amp;quot; &lt;span class=&quot;attribute&quot;&gt;type&lt;/span&gt;=&amp;quot;&lt;span class=&quot;string&quot;&gt;$ctx.alt.type&lt;/span&gt;&amp;quot;&lt;span class=&quot;punctuation bracket&quot;&gt;&amp;gt;&lt;/span&gt;
+    RSS feed
+  &lt;span class=&quot;punctuation bracket&quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;punctuation bracket&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;punctuation bracket&quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;ctx&lt;/span&gt;&lt;span class=&quot;punctuation bracket&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+(the Frequently Asked Questions section was updated accordingly)&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;</description>
+    </item>
    
   
    

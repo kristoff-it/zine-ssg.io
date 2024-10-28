@@ -110,10 +110,13 @@
       <h1>Table of Contents</h1>
       <div><ul>
 <li><a href="#rss"><a href="#rss">RSS feed</a><ul><li>
-1. Define an alternative for the post listing page</li><li>2. Create the XML layout</li><li>3. Link to your RSS feed</li></ul></li><li><a href="#old-links"><a href="#old-links">Preserve old links</a></ul></div>
+1. Define an alternative for the post listing page</li><li>2. Create the XML layout</li><li>3. Link to your RSS feed<ul><li>
+In SuperMD</li><li>In SuperHTML</li></ul></li></ul></li><li><a href="#old-links"><a href="#old-links">Preserve old links</a></ul></div>
     </div>
     <div id=rss><h1><a class="" href="#rss">RSS feed</a></h1><p>Zine doesn’t have direct knowledge of RSS feeds but by combining a handful of its features you can add support for the most syndication formats commonly used.</p><p>In this example we’ll assume that we want to generate an RSS feed for a blog.</p><h2>1. Define an alternative for the post listing page</h2><p>Your blog should have a page that lists all posts. We’ll generate the RSS feed as an alternative version of it.</p><p>If you think about it, this is the semantically correct thing to do, since an RSS feed <em>is</em> an alternative version of a page that lists your posts.</p><p><strong><code>posts.smd</code> (in the frontmatter)</strong></p><pre><code>---
 .alternatives = [{
+  .name = &quot;rss&quot;,
+  .type = &quot;application/rss+xml&quot;,
   .layout = &quot;rss.xml&quot;,
   .output = &quot;index.xml&quot;,
 }],
@@ -137,9 +140,15 @@
  <span class="punctuation bracket">&lt;/</span><span class="tag">channel</span><span class="punctuation bracket">&gt;</span>
 <span class="punctuation bracket">&lt;/</span><span class="tag">rss</span><span class="punctuation bracket">&gt;</span>
 </code></pre>
-<h2>3. Link to your RSS feed</h2><pre><code class="html"><span class="punctuation bracket">&lt;</span><span class="tag">a</span> <span class="attribute">href</span>=&quot;<span class="string">/index.xml</span>&quot; <span class="attribute">rel</span>=&quot;<span class="string">alternate</span>&quot; <span class="attribute">type</span>=&quot;<span class="string">application/rss+xml</span>&quot;<span class="punctuation bracket">&gt;</span>
-  RSS feed
-<span class="punctuation bracket">&lt;/</span><span class="tag">a</span><span class="punctuation bracket">&gt;</span>
+<h2>3. Link to your RSS feed</h2><h3>In SuperMD</h3><p>Same page:</p><pre><code class="md">[Follow my RSS feed]($link.alternative(&apos;rss&apos;))
+</code></pre>
+<p>Different page (see the reference docs for more variations):</p><pre><code class="md">[Follow my RSS feed]($link.page(&apos;other/page&apos;).alternative(&apos;rss&apos;))
+</code></pre>
+<h3>In SuperHTML</h3><pre><code class="html"><span class="punctuation bracket">&lt;</span><span class="tag">ctx</span> <span class="attribute">alt</span>=&quot;<span class="string">$page.alternative(&apos;rss&apos;)</span>&quot;<span class="punctuation bracket">&gt;</span>
+  <span class="punctuation bracket">&lt;</span><span class="tag">a</span> <span class="attribute">href</span>=&quot;<span class="string">$ctx.alt.link()</span>&quot; <span class="attribute">type</span>=&quot;<span class="string">$ctx.alt.type</span>&quot;<span class="punctuation bracket">&gt;</span>
+    RSS feed
+  <span class="punctuation bracket">&lt;/</span><span class="tag">a</span><span class="punctuation bracket">&gt;</span>
+<span class="punctuation bracket">&lt;/</span><span class="tag">ctx</span><span class="punctuation bracket">&gt;</span>
 </code></pre>
 </div><div id=old-links><h1><a class="" href="#old-links">Preserve old links</a></h1><p>You’re porting your website to Zine but still want to make sure old links don’t break?</p><p>Use the <code>aliases</code> field in the page’s <a href="/docs/supermd/#frontmatter">frontmatter</a> to define a second copy (or more) of the page that can be placed at any location you’d like.</p><p>If your old site used so-called <em>ugly URLs</em> (i.e. <code>foo.md</code> would become <code>foo.html</code> instead of <code>foo/index.html</code>), then this is your only option since Zine has no support for ugly URLs at the moment.</p></div>
   </div>
