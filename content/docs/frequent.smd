@@ -92,3 +92,37 @@ location you'd like.
 
 If your old site used so-called *ugly URLs* (i.e. `foo.md` would become `foo.html` instead of `foo/index.html`), then this is your only option since
 Zine has no support for ugly URLs at the moment.
+
+# Inline generated HTML content in a SuperMD document
+
+The SuperMD docs show that you can inline HTML content in a SuperMD document 
+by creating a `=html` code block:
+
+    ```=hml
+	<h1>Hello</h1>
+	```
+
+The SuperMD reference shows that among the assets that can be embedded in a document there's also `$code`, which allows you to embed a source file like so:
+
+```
+[]($code.asset("foo.zig"))	
+```
+
+You can also specify the language of this code block by adding a call to `language()`:
+
+```
+[]($code.asset("foo.zig").language("zig"))	
+```
+
+This SuperMD directive is the equivalent of embedding the contents of `foo.zig` into a codeblock in the document:
+
+    ```zig
+	std.debug.print("hello world", .{});
+	```
+
+You might see where we're going with this: if you specify `=html` as the language,
+you can inline an HTML asset into your page.
+
+```
+[]($code.asset("my-generated-snippet.html").language("=html"))	
+```
