@@ -111,7 +111,7 @@
       <div><ul>
 <li><a href="#rss"><a href="#rss">RSS feed</a><ul><li>
 1. Define an alternative for the post listing page</li><li>2. Create the XML layout</li><li>3. Link to your RSS feed<ul><li>
-In SuperMD</li><li>In SuperHTML</li></ul></li></ul></li><li><a href="#old-links"><a href="#old-links">Preserve old links</a></ul></div>
+In SuperMD</li><li>In SuperHTML</li></ul></li></ul></li><li><a href="#old-links"><a href="#old-links">Preserve old links</a></li><li>Inline generated HTML content in a SuperMD document</ul></div>
     </div>
     <div id=rss><h1><a class="" href="#rss">RSS feed</a></h1><p>Zine doesn’t have direct knowledge of RSS feeds but by combining a handful of its features you can add support for the most syndication formats commonly used.</p><p>In this example we’ll assume that we want to generate an RSS feed for a blog.</p><h2>1. Define an alternative for the post listing page</h2><p>Your blog should have a page that lists all posts. We’ll generate the RSS feed as an alternative version of it.</p><p>If you think about it, this is the semantically correct thing to do, since an RSS feed <em>is</em> an alternative version of a page that lists your posts.</p><p><strong><code>posts.smd</code> (in the frontmatter)</strong></p><pre><code>---
 .alternatives = [{
@@ -150,7 +150,16 @@ In SuperMD</li><li>In SuperHTML</li></ul></li></ul></li><li><a href="#old-links"
   <span class="punctuation bracket">&lt;/</span><span class="tag">a</span><span class="punctuation bracket">&gt;</span>
 <span class="punctuation bracket">&lt;/</span><span class="tag">ctx</span><span class="punctuation bracket">&gt;</span>
 </code></pre>
-</div><div id=old-links><h1><a class="" href="#old-links">Preserve old links</a></h1><p>You’re porting your website to Zine but still want to make sure old links don’t break?</p><p>Use the <code>aliases</code> field in the page’s <a href="/docs/supermd/#frontmatter">frontmatter</a> to define a second copy (or more) of the page that can be placed at any location you’d like.</p><p>If your old site used so-called <em>ugly URLs</em> (i.e. <code>foo.md</code> would become <code>foo.html</code> instead of <code>foo/index.html</code>), then this is your only option since Zine has no support for ugly URLs at the moment.</p></div>
+</div><div id=old-links><h1><a class="" href="#old-links">Preserve old links</a></h1><p>You’re porting your website to Zine but still want to make sure old links don’t break?</p><p>Use the <code>aliases</code> field in the page’s <a href="/docs/supermd/#frontmatter">frontmatter</a> to define a second copy (or more) of the page that can be placed at any location you’d like.</p><p>If your old site used so-called <em>ugly URLs</em> (i.e. <code>foo.md</code> would become <code>foo.html</code> instead of <code>foo/index.html</code>), then this is your only option since Zine has no support for ugly URLs at the moment.</p><h1>Inline generated HTML content in a SuperMD document</h1><p>The SuperMD docs show that you can inline HTML content in a SuperMD document by creating a <code>=html</code> code block:</p><pre><code>```=hml
+&lt;h1&gt;Hello&lt;/h1&gt;
+```
+</code></pre><p>The SuperMD reference shows that among the assets that can be embedded in a document there’s also <code>$code</code>, which allows you to embed a source file like so:</p><pre><code>[]($code.asset(&quot;foo.zig&quot;))	
+</code></pre><p>You can also specify the language of this code block by adding a call to <code>language()</code>:</p><pre><code>[]($code.asset(&quot;foo.zig&quot;).language(&quot;zig&quot;))	
+</code></pre><p>This SuperMD directive is the equivalent of embedding the contents of <code>foo.zig</code> into a codeblock in the document:</p><pre><code>```zig
+std.debug.print(&quot;hello world&quot;, .{});
+```
+</code></pre><p>You might see where we’re going with this: if you specify <code>=html</code> as the language, you can inline an HTML asset into your page.</p><pre><code>[]($code.asset(&quot;my-generated-snippet.html&quot;).language(&quot;=html&quot;))	
+</code></pre></div>
   </div>
 
     </div>
