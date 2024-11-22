@@ -102,7 +102,7 @@ formatters = {
     inherit = false,
     command = 'superhtml',
     stdin = true,
-    args = { 'fmt', '--stdin' },
+    args = { 'fmt', '--stdin-super' },
   },
   ziggy = {
     inherit = false,
