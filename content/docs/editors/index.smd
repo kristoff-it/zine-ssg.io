@@ -45,7 +45,7 @@ If you encounter issues while setting up your editor, [join the community](/comm
 
 
 ## Flow Control
-[Flow Control](https://github.com/neurocyte/flow) has navive support for all Zine file formats.
+[Flow Control](https://github.com/neurocyte/flow) has native support for all Zine file formats.
 
 Make sure to have all the CLI tools available in your `PATH` to enable LSP support.
 
