@@ -36,7 +36,7 @@ Once we have created our Cloudflare Pages project, we will need a few things fro
 - [An API Token](https://github.com/cloudflare/pages-action#generate-an-api-token)
 - The project name created in the previous command
 
-Replace `ACCOUNT_ID` with your Cloudflare Account ID and add your API key as a GitHub Actions secret. In the example below, this would be set to `CLOUDFLARE_API_TOKEN`.
+Add your API key and account ID as a GitHub Actions secrets. In the example below, this would be set to `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
 
 ***`.github/workflows/cf-pages.yml`***
 ```
@@ -63,16 +63,16 @@ jobs:
         run: zig build --summary new
           
       - name: Deploy
-        uses: cloudflare/pages-action@v1
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ACCOUNT_ID
-          projectName: PROJECT_NAME
-          directory: ./zig-out
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy ./zig-out --project-name PROJECT_NAME
           # Optional: Adds GitHub deployments support
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           
 ```
+Reference: https://github.com/cloudflare/wrangler-action?tab=readme-ov-file#deploy-your-pages-site-production--preview
 ># [NOTE]($block)
 >If you want to have your deployments populate the GitHub deployments menu, you
 >must also enable your Action to have read and write permissions. 
