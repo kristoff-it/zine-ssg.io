@@ -76,7 +76,7 @@ zig fetch --save "git+https://github.com/kristoff-it/zine#v0.9.0"
   This feature was contributed in [#88](https://github.com/kristoff-it/zine/pull/88),
   thank you pfg!
   ># [NOTE]($block)
-  >If you wereusing main branch Zine, this might be perceived as a breaking
+  >If you were using main branch Zine, this might be perceived as a breaking
   >change because this feature was enabled by default when first added (but it
   >was never part of a full release so it's not listed under breaking changes). 
 
