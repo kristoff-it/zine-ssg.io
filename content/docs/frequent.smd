@@ -59,6 +59,13 @@ This is a RSS2.0 example but you can also do the same with Atom, if you prefer.
 </rss>
 ```
 
+># [Warning]($block.attrs('warning'))
+>Zine at the moment is not able to render pages loaded via Scripty, which
+>means that currently you can't embed full articles in your RSS feed.
+>
+>This limitation will be lifted in the future.
+
+
 ## 3. Link to your RSS feed
 
 ### In SuperMD
@@ -126,3 +133,73 @@ you can inline an HTML asset into your page.
 ```
 []($code.asset("my-generated-snippet.html").language("=html"))	
 ```
+
+# [Advanced Prev/Next Page]($section.id('prev-next'))
+
+It's trivial to add prev/next navigation to a page, but what if you would like
+for that logic to cross site section boundaries?
+
+More concretely, consider the following setup:
+
+```
+content
+├── archive
+│   ├── 2024
+│   │   ├── first.smd
+│   │   └── index.smd
+│   ├── 2025
+│   │   ├── index.smd
+│   │   └── second.smd
+│   └── index.smd
+└── index.smd
+```
+
+In this example `archive` is a section that in turn contains two other sections: `2024` and `2025`.
+
+Let's say that you want posts in each year's archive to link to their next and previous post but also across years.
+
+In the example above this would mean that:
+
+- `2024/first.smd` would have `2025/second.smd` at its next page
+- `2025/second.smd` would have `2024/first.smd` as its previous page
+
+
+Here's how you can express this in SuperHTML:
+
+```superhtml
+
+<ctx :if="$page.prevPage?()">
+  <div>
+    Prev:
+    <a href="$if.link()" :html="$if.title"></a>
+  </div>
+</ctx>
+<ctx :if="$page.hasPrev().not()">
+  <ctx :if="$page.parentSection().prevPage?()">
+    <ctx :if="$if.subpages().first?()">
+      Prev:
+      <a href="$if.link()" :html="$if.title"></a>
+    </ctx>
+  </ctx>
+</ctx>
+<ctx :if="$page.nextPage?()">
+  <div>
+    Next:
+    <a href="$if.link()" :html="$if.title"></a>
+  </div>
+</ctx>
+<ctx :if="$page.hasNext().not()">
+  <ctx :if="$page.parentSection().nextPage?()">
+    <ctx :if="$if.subpages().last?()">
+      Next:
+      <a href="$if.link()" :html="$if.title"></a>
+    </ctx>
+  </ctx>
+</ctx>
+```
+
+This logic can be roughly summed up as: if there's no {prev, next} page go up
+one level (`parentSection()`), go to the {prev, next} section, and then
+navigate down (`subpages()`) to the {first, last} page contained.
+
+

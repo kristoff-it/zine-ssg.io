@@ -22,6 +22,113 @@ zig fetch --save "git+https://github.com/kristoff-it/zine#v0.8.0"
 ```
 
 ## Changes
+[]($section.id('v0.9.0').data('date','2025-03-11'))
+
+># [NEW ZINE]($block.attrs('warning'))
+>At some point after the last release I started working on a standalone version of Zine that doesn't depend on the Zig build system anymore, meaning that you will be able to download a [`zine`]($text.attrs('important')) executable and run [`zine serve`]($text.attrs('important')) without even needing to have Zig installed. I will write more on it once the work is done, but you should expect plenty of improvement with no downsides as it will still be optionally possible to integrate with the Zig build system as needed. [ETA is a few weeks from now]($text.attrs('important')).
+
+**THIS MEANS** that this is the last big release of Zine in its current form. Unless current users of Zine report regressions, I will focus entirely on the new standalone version.
+
+#### Let's start with the BREAKING CHANGES:
+
+- **Zine now depends on Zig 0.14.0**, which means that you will also need to change
+  your website's `build.zig.zon`. [Starting from the next version of Zine this
+  will not be necessary anymore as you will only need a `zine.ziggy` file to
+  define your website's configuration]($text.attrs('important')).
+  That said, here are the changes you will need to make to your `build.zig.zon`
+  for this version of Zine after upgrading to Zig 0.14.0:
+  1. Change `name` from a string to a Zig enum, like so: `.name = .site`. Note
+     that this field is required by Zig but not used by Zine so any valid value
+     is fine.
+  2. Run `zig build` after fixing the name field and watch the compiler report
+     a new error. This error will tell you that you need to add a `fingerprint`
+     field. What's important is that **it will also suggest a value** to give to
+     the new field. Copy it and paste it into your Zon file (right below `version`
+     is a good place wheret to put it) like so: `.fingerprint = 0xAAAAAAAAAA`
+     (where `0xAAAAAAAAAA` is the value suggested by Zig).
+
+- `$page.prevPage()` and `$page.nextPage()` have been renamed to `$page.prevPage?()`
+  and `$page.nextPage?()` respectively. The policy in Zine is to have all
+  builtin functions that return an `Optional` to end with a question mark.
+
+
+#### Other [new features]($text.attrs('important')) in Zine:
+
+- Zine is now MIT licensed. It was actually intended to be that from the start
+  but I forgor to add the file. Consider this a reverse rugpull where from
+  proprietary we went to open source. A rug has been pushed under your feet, in
+  a sense.
+  
+- Zine can now render footnotes in SuperMD files! Note that you will need to
+  change your SuperHTML templates to explicitly print footnotes (if present).
+  See [`$page.footnotes?()`]($link.page('docs/superhtml/scripty').ref('Page.footnotes?'))
+  for more info. This change was contributed by Brandon in
+  [#90](https://github.com/kristoff-it/zine/pull/90).
+
+- Introduced opt-in automated image size attributes for local images! When enabled,
+  this feature will make Zine add automatically `height` and `width` attributes
+  to image assets embedded in SuperMD files. Doing so will mean that the browser
+  will be able to know the size of all images even before downloading them,
+  completely removing the need for reflowing the page, and overall giving the
+  impression of a much faster page load. See
+  [this section]($link.page('docs/assets').ref('autosize')) for more info on how
+  to enable it.
+  This feature was contributed in [#88](https://github.com/kristoff-it/zine/pull/88),
+  thank you pfg!
+  ># [NOTE]($block)
+  >If you wereusing main branch Zine, this might be perceived as a breaking
+  >change because this feature was enabled by default when first added (but it
+  >was never part of a full release so it's not listed under breaking changes). 
+
+- Added `Array.first?()` and `Array.last?()`, which will return the first and
+  last item in an array, respectively, or `null` if the array is empty. This
+  can be useful to implement advanced prev-next page navivagation that crosses
+  site section boundaries, [as explained here]($link.page('docs/frequent').ref('prev-next')).
+
+- Added in SuperMD [`$link.alternative`]($link.page('docs/supermd/scripty').ref('Link.alternative')), which allows liking to an alternative version specified in the
+  target page (by using the `alternatives` frontmatter field).
+
+- The Zine dev server now implements debouncing in order to avoid issuing a
+  flurry of rebuilds when an editor splits a file save operation into multiple
+  file system level events. The dev server has a new related CLI flag, run
+  `zig build help` for more info. 
+  
+- New version of flow-syntax by neurocyte bring syntax highlighting support for:
+  - Gleam
+  - CMake (to make it easier for you to port CMake to build.zig using
+    [flow](https://github.com/neurocyte/flow))
+  - Astro (not sure what that's used for, probably nothing interesting)
+  
+
+#### Here are the bugfixes:
+
+- Git information parsing would error out when a repo only had one commit in it.
+  This has been fixed in [#85](https://github.com/kristoff-it/zine/pull/85),
+  thank you Brandon!
+  
+- The Zig stdlib has a bug that causes the webserver to deadlock on Windows,
+  Zine has a temporary workaround in it but I had left a mistake in the code
+  that was fixed in [#89](https://github.com/kristoff-it/zine/pull/86),
+  thank you again Brandon!
+  
+- Added support for query parameters in URLs in Zine's dev server
+  ([#87](https://github.com/kristoff-it/zine/pull/87])), thank you Techatrix!
+
+- Zine now uses a new version of [Zeit](https://github.com/rockorager/zeit) by
+  rockorarger which fixes a couple minor bugs in date time handling
+  ([#91](https://github.com/kristoff-it/zine/pull/91)).
+
+- Links generated for page `alternatives` would erroneously add a trailing slash,
+  fixed in ([#103](https://github.com/kristoff-it/zine/pull/103)) by Anthon,
+  thanks!
+
+- Fixed hot-reloading support in the Zine dev server on Windows in
+  ([#116](https://github.com/kristoff-it/zine/pull/116)), thanks MiXiPi!
+
+- Previously, defining a page alias that contained new directories would cause
+  an error when outputting the website. This has been fixed in ([#122](https://github.com/kristoff-it/zine/pull/122)), thanks deevus!
+
+
 []($section.id('v0.8.0').data('date','2024-10-28'))
 - **Page alternatives now require you to set the `name` field.** You will get a 
   build error if the name is not defined. It would previously default to an

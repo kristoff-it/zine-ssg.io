@@ -365,7 +365,7 @@ comparing their titles.
   <span :text="$loop.it.title"></span>
 </div>
 ```
-### []($heading.id("Page.nextPage")) [`fn`]($link.ref("Page.nextPage")) nextPage () -> ?[Page]($link.ref("Page"))
+### []($heading.id("Page.nextPage?")) [`fn`]($link.ref("Page.nextPage?")) nextPage? () -> ?[Page]($link.ref("Page"))
 
 Returns the next page in the same section, sorted by date. 
 
@@ -380,7 +380,7 @@ within the `if` block.
   <span :text="$if.title"></span>
 </div>
 ```
-### []($heading.id("Page.prevPage")) [`fn`]($link.ref("Page.prevPage")) prevPage () -> ?[Page]($link.ref("Page"))
+### []($heading.id("Page.prevPage?")) [`fn`]($link.ref("Page.prevPage?")) prevPage? () -> ?[Page]($link.ref("Page"))
 
 Tries to return the page before the target one (sorted by date), to be used with an `if` attribute.
 
@@ -416,7 +416,7 @@ Returns the URL of the target page.
 ```superhtml
 $page.link()
 ```
-### []($heading.id("Page.linkRef")) [`fn`]($link.ref("Page.linkRef")) linkRef () -> [String]($link.ref("String"))
+### []($heading.id("Page.linkRef")) [`fn`]($link.ref("Page.linkRef")) linkRef ([String]($link.ref("String"))) -> [String]($link.ref("String"))
 
 Returns the URL of the target page, allowing you 
 to specify a fragment id to deep-link to a specific
@@ -433,14 +433,18 @@ ids to elements.
 ```superhtml
 $page.linkRef('foo')
 ```
-### []($heading.id("Page.permalink")) [`fn`]($link.ref("Page.permalink")) permalink () -> [String]($link.ref("String"))
+### []($heading.id("Page.alternative")) [`fn`]($link.ref("Page.alternative")) alternative ([String]($link.ref("String"))) -> [Alternative]($link.ref("Alternative"))
 
-Deprecated, use `link()`
+Returns an alternative by name.
 
 #### Examples
 
 ```superhtml
-
+<ctx alt="$page.alternative('rss')">
+  <a href="$ctx.alt.link()" 
+     type="$ctx.alt.type" 
+     :text="$ctx.alt.name"
+  ></a>
 ```
 ### []($heading.id("Page.content")) [`fn`]($link.ref("Page.content")) content () -> [String]($link.ref("String"))
 
@@ -483,6 +487,24 @@ null id.
 
 ```superhtml
 <div :html="$page.contentSections()"></div>
+```
+### []($heading.id("Page.footnotes?")) [`fn`]($link.ref("Page.footnotes?")) footnotes? () -> ?[[Footnote]($link.ref("Footnote"))]
+
+Returns a list of footnotes for the current page, if any exist.
+
+#### Examples
+
+```superhtml
+<ctx :if="$page.footnotes?()">
+  <ol :loop="$if">
+    <li id="$loop.it.def_id">
+      <ctx :html="$loop.it.html()"></ctx>
+      <ctx :loop="$loop.it.ref_ids">
+        <a href="$loop.it.prefix('#')" :html="$loop.idx"></a>
+      </ctx>
+    </li>
+  </ol>
+</ctx>
 ```
 ### []($heading.id("Page.toc")) [`fn`]($link.ref("Page.toc")) toc () -> [String]($link.ref("String"))
 
@@ -537,7 +559,7 @@ A metadata field that can be used to set the content-type of this alternative ve
 Useful for example to generate RSS links:
 
 ```superhtml
-<ctx alt="$page.alternative('rss')"
+<ctx alt="$page.alternative('rss')">
   <a href="$ctx.alt.link()" 
      type="$ctx.alt.type" 
      :text="$ctx.alt.name"
@@ -545,6 +567,17 @@ Useful for example to generate RSS links:
 </ctx>
 ```
 
+## Functions
+
+### []($heading.id("Alternative.link")) [`fn`]($link.ref("Alternative.link")) link () -> [String]($link.ref("String"))
+
+Returns the URL of the target alternative.
+
+#### Examples
+
+```superhtml
+$page.alternative("rss").link()
+```
 # [ContentSection]($section.id('ContentSection'))
 
 A content section from a page.
@@ -589,6 +622,32 @@ Renders the section.
 
 ```superhtml
 <div :html="$loop.it.html()"></div>
+```
+# [Footnote]($section.id('Footnote'))
+
+A footnote from a page.
+
+## Fields
+
+### `def_id` : [String]($link.ref("String"))
+
+The ID for the footnote definition.
+
+### `ref_ids` : [[String]($link.ref("String"))] *(see also [[any]]($link.ref("Array")))*   
+
+The IDs of the footnote's references,
+to be used for creating backlinks.
+
+## Functions
+
+### []($heading.id("Footnote.html")) [`fn`]($link.ref("Footnote.html")) html () -> [String]($link.ref("String"))
+
+Renders the footnote definition.
+
+#### Examples
+
+```superhtml
+
 ```
 # [Build]($section.id('Build'))
 
@@ -723,13 +782,13 @@ Represents an asset.
 
 Returns a link to the asset.
 
-Calling `link` on an asset will cause it to be installed 
+Calling `link` on an asset will cause it to be installed
 under the same relative path into the output directory.
 
     `content/post/bar.jpg` -> `zig-out/post/bar.jpg`
   `assets/foo/bar/baz.jpg` -> `zig-out/foo/bar/baz.jpg`
 
-Build assets will be installed under the path defined in 
+Build assets will be installed under the path defined in
 your `build.zig`.
 
 #### Examples
@@ -1235,8 +1294,7 @@ second value (exclusive).
 
 The second value can be omitted and defaults to the array's
 length, meaning that invoking `slice` with one argunent 
-produces **suffixes** of the original sequence (i.e. it 
-removes a prefix from the original sequence).
+produces **suffixes** of the original sequence.
 
 Note that negative values are not allowed at the moment.
 
@@ -1253,6 +1311,24 @@ Returns the value at the provided index.
 
 ```superhtml
 $page.tags.at(0)
+```
+### []($heading.id("Array.first?")) [`fn`]($link.ref("Array.first?")) first? () -> [[any]($link.ref("any"))]
+
+Returns the the first value of the array or null if the array is empty. 
+
+#### Examples
+
+```superhtml
+$page.tags.first?()
+```
+### []($heading.id("Array.last?")) [`fn`]($link.ref("Array.last?")) last? () -> [[any]($link.ref("any"))]
+
+Returns the the last value of the array or null if the array is empty. 
+
+#### Examples
+
+```superhtml
+$page.tags.last?()
 ```
 # [KV]($section.id('KV'))
 

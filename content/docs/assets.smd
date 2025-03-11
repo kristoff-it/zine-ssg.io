@@ -132,6 +132,28 @@ Like all assets, they must be `link`ed to be installed in the output directory.
 
 See the doc comments for `zine.BuildAsset` for more info.
 
+## [Automatic Size Attributes]($section.id('autosize'))
+
+To enable this feature, set `image_size_attributes = true` in your website's
+`build.zig`.
+
+When enabled, Zine will automatically add `height` and `width` attributes to
+the generated `<img>` elements of local images embedded in SuperMD documents.
+
+Doing so will mean that the browser will be able to know the size of all images
+even before downloading them, completely removing the need for reflowing the
+page, and overall giving the impression of a faster page load, especially if a
+page has many heavy images in it.
+
+#### This feature has one big quirk:
+
+For some reason browsers will distort images that specify `height` and `width`
+then resizing them to fit their parent element. You can fix this by applying
+the following CSS "patch":
+```css
+img { height: auto; }
+```
+
 ## Next Steps
 - Read the [SuperMD Basics page](scripty) to learn more about asset-related syntax in SuperMD.
 

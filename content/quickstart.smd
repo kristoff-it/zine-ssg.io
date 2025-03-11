@@ -15,7 +15,7 @@
 
 **Zine is in the process of becoming a fully self-contained executable**, but for now it heavily leverages the Zig build system, meaning that Zig is the only dependency you need.
 
-We currently track Zig's **latest tagged release (0.13.0)**.
+We currently track Zig's **latest tagged release (0.14.0)**.
 
 You can download it from from [the official website](https://ziglang.org) or use [zigup](https://github.com/marler8997/zigup).
 
