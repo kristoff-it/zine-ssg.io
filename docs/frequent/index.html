@@ -109,11 +109,11 @@
     <div>
       <h1>Table of Contents</h1>
       <div><ul>
-<li><a href="#rss"><a href="#rss">RSS feed</a><ul><li>
+<li><a href="#rss">RSS feed</a><ul><li>
 1. Define an alternative for the post listing page</li><li>2. Create the XML layout</li><li>3. Link to your RSS feed<ul><li>
-In SuperMD</li><li>In SuperHTML</li></ul></li></ul></li><li><a href="#old-links"><a href="#old-links">Preserve old links</a></li><li>Inline generated HTML content in a SuperMD document</ul></div>
+In SuperMD</li><li>In SuperHTML</li></ul></li></ul></li><li><a href="#old-links">Preserve old links</a></li><li>Inline generated HTML content in a SuperMD document</li><li><a href="#prev-next">Advanced Prev/Next Page</a></ul></div>
     </div>
-    <div id=rss><h1><a class="" href="#rss">RSS feed</a></h1><p>Zine doesn’t have direct knowledge of RSS feeds but by combining a handful of its features you can add support for the most syndication formats commonly used.</p><p>In this example we’ll assume that we want to generate an RSS feed for a blog.</p><h2>1. Define an alternative for the post listing page</h2><p>Your blog should have a page that lists all posts. We’ll generate the RSS feed as an alternative version of it.</p><p>If you think about it, this is the semantically correct thing to do, since an RSS feed <em>is</em> an alternative version of a page that lists your posts.</p><p><strong><code>posts.smd</code> (in the frontmatter)</strong></p><pre><code>---
+    <div id="rss"><h1><a class="" href="#rss">RSS feed</a></h1><p>Zine doesn’t have direct knowledge of RSS feeds but by combining a handful of its features you can add support for the most syndication formats commonly used.</p><p>In this example we’ll assume that we want to generate an RSS feed for a blog.</p><h2>1. Define an alternative for the post listing page</h2><p>Your blog should have a page that lists all posts. We’ll generate the RSS feed as an alternative version of it.</p><p>If you think about it, this is the semantically correct thing to do, since an RSS feed <em>is</em> an alternative version of a page that lists your posts.</p><p><strong><code>posts.smd</code> (in the frontmatter)</strong></p><pre><code>---
 .alternatives = [{
   .name = &quot;rss&quot;,
   .type = &quot;application/rss+xml&quot;,
@@ -140,7 +140,7 @@ In SuperMD</li><li>In SuperHTML</li></ul></li></ul></li><li><a href="#old-links"
  <span class="punctuation bracket">&lt;/</span><span class="tag">channel</span><span class="punctuation bracket">&gt;</span>
 <span class="punctuation bracket">&lt;/</span><span class="tag">rss</span><span class="punctuation bracket">&gt;</span>
 </code></pre>
-<h2>3. Link to your RSS feed</h2><h3>In SuperMD</h3><p>Same page:</p><pre><code class="md">[Follow my RSS feed]($link.alternative(&apos;rss&apos;))
+<div class="block warning"><h1>Warning</h1><p>Zine at the moment is not able to render pages loaded via Scripty, which means that currently you can’t embed full articles in your RSS feed.</p><p>This limitation will be lifted in the future.</p></div><h2>3. Link to your RSS feed</h2><h3>In SuperMD</h3><p>Same page:</p><pre><code class="md">[Follow my RSS feed]($link.alternative(&apos;rss&apos;))
 </code></pre>
 <p>Different page (see the reference docs for more variations):</p><pre><code class="md">[Follow my RSS feed]($link.page(&apos;other/page&apos;).alternative(&apos;rss&apos;))
 </code></pre>
@@ -150,7 +150,7 @@ In SuperMD</li><li>In SuperHTML</li></ul></li></ul></li><li><a href="#old-links"
   <span class="punctuation bracket">&lt;/</span><span class="tag">a</span><span class="punctuation bracket">&gt;</span>
 <span class="punctuation bracket">&lt;/</span><span class="tag">ctx</span><span class="punctuation bracket">&gt;</span>
 </code></pre>
-</div><div id=old-links><h1><a class="" href="#old-links">Preserve old links</a></h1><p>You’re porting your website to Zine but still want to make sure old links don’t break?</p><p>Use the <code>aliases</code> field in the page’s <a href="/docs/supermd/#frontmatter">frontmatter</a> to define a second copy (or more) of the page that can be placed at any location you’d like.</p><p>If your old site used so-called <em>ugly URLs</em> (i.e. <code>foo.md</code> would become <code>foo.html</code> instead of <code>foo/index.html</code>), then this is your only option since Zine has no support for ugly URLs at the moment.</p><h1>Inline generated HTML content in a SuperMD document</h1><p>The SuperMD docs show that you can inline HTML content in a SuperMD document by creating a <code>=html</code> code block:</p><pre><code>```=hml
+</div><div id="old-links"><h1><a class="" href="#old-links">Preserve old links</a></h1><p>You’re porting your website to Zine but still want to make sure old links don’t break?</p><p>Use the <code>aliases</code> field in the page’s <a href="/docs/supermd/#frontmatter">frontmatter</a> to define a second copy (or more) of the page that can be placed at any location you’d like.</p><p>If your old site used so-called <em>ugly URLs</em> (i.e. <code>foo.md</code> would become <code>foo.html</code> instead of <code>foo/index.html</code>), then this is your only option since Zine has no support for ugly URLs at the moment.</p><h1>Inline generated HTML content in a SuperMD document</h1><p>The SuperMD docs show that you can inline HTML content in a SuperMD document by creating a <code>=html</code> code block:</p><pre><code>```=hml
 &lt;h1&gt;Hello&lt;/h1&gt;
 ```
 </code></pre><p>The SuperMD reference shows that among the assets that can be embedded in a document there’s also <code>$code</code>, which allows you to embed a source file like so:</p><pre><code>[]($code.asset(&quot;foo.zig&quot;))	
@@ -159,7 +159,47 @@ In SuperMD</li><li>In SuperHTML</li></ul></li></ul></li><li><a href="#old-links"
 std.debug.print(&quot;hello world&quot;, .{});
 ```
 </code></pre><p>You might see where we’re going with this: if you specify <code>=html</code> as the language, you can inline an HTML asset into your page.</p><pre><code>[]($code.asset(&quot;my-generated-snippet.html&quot;).language(&quot;=html&quot;))	
-</code></pre></div>
+</code></pre></div><div id="prev-next"><h1><a class="" href="#prev-next">Advanced Prev/Next Page</a></h1><p>It’s trivial to add prev/next navigation to a page, but what if you would like for that logic to cross site section boundaries?</p><p>More concretely, consider the following setup:</p><pre><code>content
+├── archive
+│   ├── 2024
+│   │   ├── first.smd
+│   │   └── index.smd
+│   ├── 2025
+│   │   ├── index.smd
+│   │   └── second.smd
+│   └── index.smd
+└── index.smd
+</code></pre><p>In this example <code>archive</code> is a section that in turn contains two other sections: <code>2024</code> and <code>2025</code>.</p><p>Let’s say that you want posts in each year’s archive to link to their next and previous post but also across years.</p><p>In the example above this would mean that:</p><ul><li><code>2024/first.smd</code> would have <code>2025/second.smd</code> at its next page</li><li><code>2025/second.smd</code> would have <code>2024/first.smd</code> as its previous page</li></ul><p>Here’s how you can express this in SuperHTML:</p><pre><code class="superhtml">
+<span class="punctuation bracket">&lt;</span><span class="special">ctx</span> <span class="attribute">:if</span><span class="punctuation delimiter">=</span><span class="string">&quot;</span><span class="string">$page.prevPage?()</span><span class="string">&quot;</span><span class="punctuation bracket">&gt;</span>
+  <span class="punctuation bracket">&lt;</span><span class="special">div</span><span class="punctuation bracket">&gt;</span>
+    Prev:
+    <span class="punctuation bracket">&lt;</span><span class="special">a</span> <span class="attribute">href</span><span class="punctuation delimiter">=</span><span class="string">&quot;</span><span class="string">$if.link()</span><span class="string">&quot;</span> <span class="attribute">:html</span><span class="punctuation delimiter">=</span><span class="string">&quot;</span><span class="string">$if.title</span><span class="string">&quot;</span><span class="punctuation bracket">&gt;</span><span class="punctuation bracket">&lt;/</span><span class="special">a</span><span class="punctuation bracket">&gt;</span>
+  <span class="punctuation bracket">&lt;/</span><span class="special">div</span><span class="punctuation bracket">&gt;</span>
+<span class="punctuation bracket">&lt;/</span><span class="tag error">ctx</span><span class="punctuation bracket">&gt;</span>
+<span class="punctuation bracket">&lt;</span><span class="special">ctx</span> <span class="attribute">:if</span><span class="punctuation delimiter">=</span><span class="string">&quot;</span><span class="string">$page.hasPrev().not()</span><span class="string">&quot;</span><span class="punctuation bracket">&gt;</span>
+  <span class="punctuation bracket">&lt;</span><span class="special">ctx</span> <span class="attribute">:if</span><span class="punctuation delimiter">=</span><span class="string">&quot;</span><span class="string">$page.parentSection().prevPage?()</span><span class="string">&quot;</span><span class="punctuation bracket">&gt;</span>
+    <span class="punctuation bracket">&lt;</span><span class="special">ctx</span> <span class="attribute">:if</span><span class="punctuation delimiter">=</span><span class="string">&quot;</span><span class="string">$if.subpages().first?()</span><span class="string">&quot;</span><span class="punctuation bracket">&gt;</span>
+      Prev:
+      <span class="punctuation bracket">&lt;</span><span class="special">a</span> <span class="attribute">href</span><span class="punctuation delimiter">=</span><span class="string">&quot;</span><span class="string">$if.link()</span><span class="string">&quot;</span> <span class="attribute">:html</span><span class="punctuation delimiter">=</span><span class="string">&quot;</span><span class="string">$if.title</span><span class="string">&quot;</span><span class="punctuation bracket">&gt;</span><span class="punctuation bracket">&lt;/</span><span class="special">a</span><span class="punctuation bracket">&gt;</span>
+    <span class="punctuation bracket">&lt;/</span><span class="tag error">ctx</span><span class="punctuation bracket">&gt;</span>
+  <span class="punctuation bracket">&lt;/</span><span class="tag error">ctx</span><span class="punctuation bracket">&gt;</span>
+<span class="punctuation bracket">&lt;/</span><span class="tag error">ctx</span><span class="punctuation bracket">&gt;</span>
+<span class="punctuation bracket">&lt;</span><span class="special">ctx</span> <span class="attribute">:if</span><span class="punctuation delimiter">=</span><span class="string">&quot;</span><span class="string">$page.nextPage?()</span><span class="string">&quot;</span><span class="punctuation bracket">&gt;</span>
+  <span class="punctuation bracket">&lt;</span><span class="special">div</span><span class="punctuation bracket">&gt;</span>
+    Next:
+    <span class="punctuation bracket">&lt;</span><span class="special">a</span> <span class="attribute">href</span><span class="punctuation delimiter">=</span><span class="string">&quot;</span><span class="string">$if.link()</span><span class="string">&quot;</span> <span class="attribute">:html</span><span class="punctuation delimiter">=</span><span class="string">&quot;</span><span class="string">$if.title</span><span class="string">&quot;</span><span class="punctuation bracket">&gt;</span><span class="punctuation bracket">&lt;/</span><span class="special">a</span><span class="punctuation bracket">&gt;</span>
+  <span class="punctuation bracket">&lt;/</span><span class="special">div</span><span class="punctuation bracket">&gt;</span>
+<span class="punctuation bracket">&lt;/</span><span class="tag error">ctx</span><span class="punctuation bracket">&gt;</span>
+<span class="punctuation bracket">&lt;</span><span class="special">ctx</span> <span class="attribute">:if</span><span class="punctuation delimiter">=</span><span class="string">&quot;</span><span class="string">$page.hasNext().not()</span><span class="string">&quot;</span><span class="punctuation bracket">&gt;</span>
+  <span class="punctuation bracket">&lt;</span><span class="special">ctx</span> <span class="attribute">:if</span><span class="punctuation delimiter">=</span><span class="string">&quot;</span><span class="string">$page.parentSection().nextPage?()</span><span class="string">&quot;</span><span class="punctuation bracket">&gt;</span>
+    <span class="punctuation bracket">&lt;</span><span class="special">ctx</span> <span class="attribute">:if</span><span class="punctuation delimiter">=</span><span class="string">&quot;</span><span class="string">$if.subpages().last?()</span><span class="string">&quot;</span><span class="punctuation bracket">&gt;</span>
+      Next:
+      <span class="punctuation bracket">&lt;</span><span class="special">a</span> <span class="attribute">href</span><span class="punctuation delimiter">=</span><span class="string">&quot;</span><span class="string">$if.link()</span><span class="string">&quot;</span> <span class="attribute">:html</span><span class="punctuation delimiter">=</span><span class="string">&quot;</span><span class="string">$if.title</span><span class="string">&quot;</span><span class="punctuation bracket">&gt;</span><span class="punctuation bracket">&lt;/</span><span class="special">a</span><span class="punctuation bracket">&gt;</span>
+    <span class="punctuation bracket">&lt;/</span><span class="tag error">ctx</span><span class="punctuation bracket">&gt;</span>
+  <span class="punctuation bracket">&lt;/</span><span class="tag error">ctx</span><span class="punctuation bracket">&gt;</span>
+<span class="punctuation bracket">&lt;/</span><span class="tag error">ctx</span><span class="punctuation bracket">&gt;</span>
+</code></pre>
+<p>This logic can be roughly summed up as: if there’s no {prev, next} page go up one level (<code>parentSection()</code>), go to the {prev, next} section, and then navigate down (<code>subpages()</code>) to the {first, last} page contained.</p></div>
   </div>
 
     </div>
