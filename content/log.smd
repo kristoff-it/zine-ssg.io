@@ -44,7 +44,7 @@ zig fetch --save "git+https://github.com/kristoff-it/zine#v0.8.0"
      a new error. This error will tell you that you need to add a `fingerprint`
      field. What's important is that **it will also suggest a value** to give to
      the new field. Copy it and paste it into your Zon file (right below `version`
-     is a good place wheret to put it) like so: `.fingerprint = 0xAAAAAAAAAA`
+     is a good place where to put it) like so: `.fingerprint = 0xAAAAAAAAAA`
      (where `0xAAAAAAAAAA` is the value suggested by Zig).
 
 - `$page.prevPage()` and `$page.nextPage()` have been renamed to `$page.prevPage?()`
