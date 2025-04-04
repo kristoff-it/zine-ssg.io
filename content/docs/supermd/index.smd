@@ -7,7 +7,7 @@
 .draft = false,
 ---
 
-## Intro
+# [Intro]($section.id('intro'))
 
 **Make sure to read [Scripty Basics]($link.page('docs/scripty')) first.**
 
@@ -21,7 +21,7 @@ The issue with the first approach is that new syntax complicates an already over
 The issue with the second approach is that, while templating (like [Hugo Shortcodes](https://gohugo.io/content-management/shortcodes/)) does allow you to extend Markdown in a very general way, it usually translates into pulling layouting concerns into the content, which is the exact thing we were trying to minimize by writing Markdown in the first place.
 
 
-### Two Columns
+## [Two Columns]($section.id('two-columns'))
 For example let's say that you would like to have the middle section of a page to have a two column layout, this is how you could solve it:
 
 - In [CommonMark](https://commonmark.org/) (with inline HTML support enabled):
@@ -88,7 +88,7 @@ Dolor Something Something
 </div>
 ```
 
-### Design Goals
+## [Design Goals]($section.id('design-goals'))
 The main design goal of SuperMD is to upgrade Markdown to a full-fledged markup format that is not dependent on HTML.
 
 Markdown is [often times](https://buttondown.com/hillelwayne/archive/why-i-prefer-rst-to-markdown/) considered too simplistic for serious markup work (e.g. creating a book) in good part also because of its ties to HTML.
@@ -97,7 +97,7 @@ SuperMD doesn't allow inlined HTML and instead gives you the ability to define a
 
 It is planned for Zine to eventually gain support for generating PDFs (and potentially other file formats), at which point it will be critical for the content markup language to have the ability to define embedded assets (and styling elements) without using HTML as a crutch.
 
-#### Roadmap
+### [Roadmap]($section.id('roadmap'))
 Compared to other parts of Zine, SuperMD is very new and many parts of it are
 still in their first design iteration. The general similarity to 
 Markdown is set in stone for SuperMD, but actual CommonMark adherence is not
@@ -119,17 +119,17 @@ language that still has the same general feeling of writing Markdown.
 >design of *concepts* and delaying the design of *syntax*.
 
 
-## File Extension
+# [File Extension]($section.id('file-extension'))
 SuperMD files have a `.smd` file extension.
 
-## Developer Tooling
+# [Developer Tooling]($section.id('devtools'))
 We don't have yet any developer tooling for SuperMD files, but it's high on our
 list of priorities. 
 
 You should expect grammars for syntax highlighting and a language server for immediate feedback on sytnax errors.
 
 
-## [Frontmatter]($heading.id('frontmatter'))
+# [Frontmatter]($section.id('frontmatter'))
 As mentioned in the main documentation page, every SuperMD file in Zine must start with a frontmatter that contains all the metadata relative to the page.
 
 SuperMD uses [Ziggy](https://ziggy-lang.io) as its frontmatter data serialization language.
@@ -137,12 +137,12 @@ SuperMD uses [Ziggy](https://ziggy-lang.io) as its frontmatter data serializatio
 This is the full Ziggy Schema for the frontmatter:
 
 ***`frontmatter.ziggy-schema`***
-[]($code.buildAsset('frontmatter').language('ziggy-schema'))
+[]($code.siteAsset('frontmatter.ziggy-schema').language('ziggy-schema'))
 
 The frontmatter data fill become available in SuperHTML inside of instances of 
 [`Page`]($link.page('docs/superhtml/scripty').ref('Page')).
 
-## Markdown Syntax
+# [Markdown Syntax]($section.id('md-syntax'))
 SuperMD uses [cmark-gfm](https://github.com/kristoff-it/cmark-gfm) so it supports all the common extensions (tables, strikethrough, autolinks, etc) that you can normally find in the wild.
 
 Currently SuperMD adds only one new syntactical construct: **a Scripty expression embedded in link syntax**.
@@ -183,7 +183,7 @@ For example this how you can define a video embed:
 
 What we described up until now as "emdedded assets", are called "rendering directives" in Zine. Most of them do describe embedded assets, but `$section` (as seen in the two columns example) for example does not.
 
-## Directives
+# [Directives]($section.id('directives'))
 
 ># [NOTE]($block)
 >Directives are a very recent addition to Zine and new ones will be
@@ -205,7 +205,7 @@ One last thing to know about Directives is that all allow you to set `id()` and 
 
 You can find the full list of available Directives in the [SuperMD Scripty Reference]($link.page('docs/supermd/scripty')).
 
-### Section Directive
+## [Section Directive]($section.id('section-directive'))
 
 The section directive lets you split a page into *content sections*.
 
@@ -218,7 +218,7 @@ Doing so has three main benefits:
 - (when given an id) The ability to optionally render the page section-by-section, which is critical when the layout needs nuanced control over the content (see the two columns example at the top of this page).
 
 
-#### Usage
+### [Usage]($section.id('usage'))
 
 There are two main ways to use the section directive:
 
@@ -239,7 +239,7 @@ Lorem Ipsum
 []($image.asset('cat.jpg'))
 
 []($section.id('third'))
-## Third
+# Third
 ```
 
 ***`rendered html`***
@@ -288,7 +288,7 @@ This second way of defining a Section directive can be seen as syntax sugar for:
 Lorem Ipsum
 ```
 
-#### Rendering content sections
+### [Rendering content sections]($section.id('rendering-content-sections'))
 The previous examples showcased the result of rendering the page in its 
 entirety, but sections that are given an `id` can also be rendered in isolation.
 
@@ -314,14 +314,14 @@ Lorem Ipsum
 </div>
 ```
 
-## Vanilla Image and Link Syntax
+# [Vanilla Image and Link Syntax]($section.id('vanilla-syntax'))
 Using vanilla image / link Markdown syntax in SuperMD is allowed, but the syntax
 still has to be resolved to a Directive.
 
 This means that **you can use vanilla syntax as a shortcut for most common use
 cases**.
 
-### Links
+## [Links]($section.id('links'))
 Full URLs (i.e. inclusive of protocol) map to 
 [`$link.url()`]($link.page('docs/supermd/scripty').ref('Link.url')) and
 [`$link.new()`]($link.page('docs/supermd/scripty').ref('Link.new')) :
@@ -358,7 +358,7 @@ Absence of leading punctuation means
 └─➤ [Reference]($link.sibling('superhtml')) 
 ```
 
-### Images
+## [Images]($section.id('images'))
 Full URLs (i.e. inclusive of protocol) map to 
 [`$image.url()`]($link.page('docs/supermd/scripty').ref('Image.url')):
 ```markdown
@@ -406,7 +406,7 @@ Additionally, any text put inside of `![]` will be used as a caption, while the 
 >simply because it's more important. You can still give titles to 
 >images (and more) by using explicit directive syntax, if you so wish.
 
-## Inline HTML Escape Hatch
+# [Inline HTML Escape Hatch]($section.id('inline-html'))
 
 SuperMD forbids inline HTML in order to make it possible to render
 content files to non-HTML formats. 
@@ -424,7 +424,7 @@ a `=html` code block, like so:
 Zine will parse and validate the HTML code before inlining.
 
 
-## Syntax Highlighting
+# [Syntax Highlighting]($section.id('syntax-highlighting'))
 Zine comes with a [good list](https://github.com/neurocyte/flow-syntax/) of Tree Sitter grammars for syntax highlighting,
 but not all languages are supported.
 
@@ -436,7 +436,7 @@ that you'd like to see it added to Zine.
 
 In the future Zine will support the ability for users to add grammars independently of the main project.
 
-## Next Steps
+# [Next Steps]($section.id('next-steps'))
 - [Read the SuperMD Scripty Reference Documentation](./scripty/)
 - [Learn more about SuperHTML](superhtml/)
 - [Learn more about Zine's Asset System](assets/)

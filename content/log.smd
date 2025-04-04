@@ -6,7 +6,7 @@
 .alternatives = [{
   .name = "rss",
   .layout = "log.xml",
-  .output = "log/index.xml",
+  .output = "/log/index.xml",
 }],
 .draft = false,
 --- 

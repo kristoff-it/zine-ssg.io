@@ -88,8 +88,79 @@
 	    background-color: #222;
 	  }
 	}
+
+	.container {
+		display: flex;
+		flex-direction: row;
+	
+	}
+
+		#sidebar {
+			flex: 0 0 260px;
+			padding-top: 0.67em;
+		}
+
+		#sidebar details {
+			list-style: none;
+		}
+
+		#sidebar summary {
+			border-top: 1px solid var(--border-color);
+			list-style: none;
+			padding: 10px 0;
+			color: #333;
+			font-weight: bold;
+			padding-left: 10px;
+		}
+
+		#sidebar summary:hover {
+			color: #fff;
+			background-color: #111;
+		}
+
+		#sidebar ul {
+			list-style: none;
+			padding: 0;
+			margin: 0 0 10px;
+		}
+
+		#sidebar a {
+			display: block;
+			text-decoration: none;
+			padding: 5px 0;
+			color: inherit;
+			padding-left: 10px;
+		}
+
+		#sidebar a:hover, #sidebar .selected { 
+			background-color: #333;
+		}
+
+		#sidebar-content {
+			position: sticky;
+			top: 110px;
+		}
+
+		ul>li>ul>li>ul>li>ul {
+			display: none;
+		}
+
+		#reference {
+			max-width: 600px;
+		}
+		#sidebar em {
+			display: none;
+		}
+		#content {
+			max-width: 1200px;
+		}
   </style>
   <h3 class="centered">Zine</h3>
   <h1 :text="$page.title"></h1>
-  <div id="reference" :html="$page.content()"></div>
+  <div class="container">
+    <div id="sidebar">
+      <div :html="$page.toc()"></div>
+    </div>
+    <div id="reference" :html="$page.content()"></div>
+  </div>
 </div>

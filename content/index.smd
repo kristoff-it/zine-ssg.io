@@ -14,9 +14,9 @@
 ## What is Zine?
 A Zine site is a collection of content files and layouts.
 
-Zine turns your content into HTML, styles it using your layouts, and
-finally copies the result (alongside other assets like images) into an output directory
-that you can then publish on static hosting services like GitHub Pages.
+Zine turns your content into HTML, styles it using your layouts, and finally
+copies the result into an output directory that you can then publish on static
+hosting services like GitHub Pages.
 
 Zine uses a **structured approach to content authoring** that helps keeping sizeable
 content collections manageable. Similarly, the build process uses **surgical
@@ -30,11 +30,10 @@ Zine uses [SuperMD]($link.page('docs/supermd')) for content and
 [SuperHTML]($link.page('docs/superhtml')) for defining layouts.
 
 SuperMD is an extension of Markdown that allows you to **define embedded assets 
-and semantic constructs that would be impossible to express in Markdown** without
-using inline HTML.
+and semantic constructs that would be impossible to express in Markdown** without using inline HTML.
 
-SuperHTML is an extension of HTML5 that focuses on expressing **correct templating
-logic**. With SuperHTML it's **impossible to generate malformed HTML** and most
+SuperHTML is an extension of HTML that focuses on expressing **correct templating
+logic**. With SuperHTML it's **impossible to generate syntactically malformed HTML** and most
 mistakes become **build time errors**. 
 
 *[Learn more]($link.page('docs/scripty')) about file formats in Zine.*

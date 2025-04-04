@@ -1,0 +1,63 @@
+---
+.title = "Integrating with Zig",
+.date = @date("2020-07-06T00:00:00"),
+.author = "Sample Author",
+.layout = "documentation.shtml",
+.draft = false,
+.custom = {
+  "toc": false,
+}
+--- 
+
+# Intro
+Zine is a Zig project and thus can be added as a dependency to your Zig project.
+
+Integrating Zine this way will give you the ability not only to build Zine from
+source on demand, but also to expose to Zine build assets that you generated in
+your `build.zig`, as well as performing operations after Zine has built your site.
+
+># [NOTE]($block)
+>In the future Zine will also offer you the ability to extend its functionality
+>by providing a Zig module at build time.
+
+
+# Adding Zine as a dependency
+
+To add Zine to your `build.zig.zon`, run:
+
+***`shell`***
+```bash
+$ zig fetch --save git+https://github.com/kristoff-it/zine#VERSION
+```
+
+Where `VERSION` should be replaced with the specific version of Zine you want to
+depend on.
+
+
+# Invoking Zine
+
+In your `build.zig` you will want to import Zine and create steps to build your
+website and serve it via the Zine development server.
+
+We provide you with convenience functions for that:
+
+***`build.zig`***
+```zig
+const std = @import("std");
+const zine = @import("zine");
+
+pub fn build(b: *std.Build) !void {
+   b.getInstallStep().dependOn(&zine.website(b, .{}).step);
+
+   const serve = b.step("serve", "Start the Zine dev server");
+   const run_zine = zine.serve(b, .{});
+   serve.dependOn(&run_zine.step);
+}
+```
+
+# Build Assets
+
+Anything that you can generate a `LazyPath` for can be used as a build asset
+in Zine. See Zine's `build.zig` code to learn how to pass build assets to Zine.
+
+

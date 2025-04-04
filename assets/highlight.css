@@ -38,6 +38,11 @@ code.html .punctuation {
 
 code.superhtml {}
 
+code.superhtml .string.markup_link_url {
+  text-decoration: underline;
+  color: var(--blue);
+}
+
 code.superhtml .string {
   color: var(--dark-yellow);
 }

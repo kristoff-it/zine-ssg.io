@@ -7,28 +7,33 @@
 		margin-top: 0;
 	}
 
-	#docs h1 {
-       margin-top: 1.5em;
-     }
      h3 {
        margin-bottom: 0;
      }
 
-		#docs h2, #docs h3 {
+	.docs .block h1 {
+		font-size: 1.2rem;
+	}
+
+		.docs h1, .docs h2, .docs h3 {
 			text-align: left;
 		}
 
-		#docs h3 {
+		.docs h3 {
 			font-size: 1.5rem;
 		}
 
-		#docs h2 {
+		.docs h2 {
 			font-size: 1.5rem;
+		}
+
+		.docs h1 {
+			font-size: 1.8rem;
 			border-bottom: 1px dashed #aaa;
 			margin-top: 2em;
 		}
 
-		#docs h4 {
+		.docs h4 {
 			font-size: 1rem;
 		}
 
@@ -44,5 +49,9 @@
   </style>
   <h3 class="centered">Zine</h3>
   <h1 :text="$page.title"></h1>
-  <div id="docs" :html="$page.content()"></div>
+  <div class="docs" :if="$page.custom.getOr('toc', true)">
+    <h1>Table of Contents</h1>
+    <div :html="$page.toc()"></div>
+  </div>
+  <div class="docs" :html="$page.content()"></div>
 </div>

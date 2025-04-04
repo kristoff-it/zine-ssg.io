@@ -1,0 +1,152 @@
+---
+.title = "Site Structure",
+.date = @date("2020-07-06T00:00:00"),
+.author = "Sample Author",
+.layout = "documentation.shtml",
+.draft = false,
+.custom = {
+  "toc": false,
+}
+--- 
+
+# Main configuration file 
+
+A Zine website is defined by a `zine.ziggy` config file.
+
+Here's what the config of `zine-ssg.io` looks like:
+
+***`zine.ziggy`***
+```ziggy
+Site {
+   .title = "Zine - Static Site Generator",
+   .host_url = "https://zine-ssg.io",
+   .content_dir_path = "content",
+   .layouts_dir_path = "layouts",
+   .assets_dir_path = "assets",
+   .static_assets = [
+      // omitted for brevity
+   ],
+}
+```
+Once you put a `zine.ziggy` file in a directory, you're able to run `zine` to 
+start the dev server and begin edit your website.
+
+
+## File formats used by Zine
+Zine uses [SuperMD]($link.page('docs/supermd')) for content and [SuperHTML]($link.page('docs/superhtml')) for defining layouts.
+
+- File extensions:
+  - SuperMD: `.smd`
+  - SuperHTML: `.shtml`
+
+Each file format has a dedicated page in the docs section.
+
+# The Content Directory
+
+The content directory contains your SuperMD files and their structure will be 
+reflected verbatim in the final site.
+
+- `content/index.smd`  
+  is the main index page of your website 
+  - (i.e. `https://site.com/`).
+- `content/about.smd`  
+  will generate `/about/index.html` 
+  - (i.e. `https://site.com/about/`)
+- `content/foo/index.smd`  
+  will generate `/foo/index.html` 
+  - (i.e. `https://site.com/foo/`)
+- `content/foo/bar.smd`  
+  will generate `/foo/bar/index.html` 
+  - (i.e. `https://site.com/foo/bar/`)
+
+Note that SSGs rely heavily on the implication that webservers will 
+automatically serve `index.html` when a directory (usually indicated 
+by a final `/` in the URL) is requested. 
+
+## Site Sections
+Consider the following content structure:
+```
+content
+├── about
+│   └── contacts.smd
+├── about.smd
+├── blog
+│   ├── a.smd
+│   ├── b.smd
+│   └── index.smd
+└── index.smd
+```
+**In Zine every `index.smd` file denotes a section.**
+
+The main use for sections is to group pages together for the purpose of defining
+content lists, like [listing]($link.sibling("superhtml/scripty").ref("Page.subpages"))
+all posts in a blog section, for example.
+
+
+In this example there are 2 sections: 
+
+The first one is the "root" section, defined by `content/index.smd`, containing:
+
+- `about/contacts.smd`
+- `about.smd`
+- `blog/index.smd`
+
+The second section is the "blog" section, defined by `content/blog/index.smd`, containing:
+
+- `blog/a.smd`
+- `blog/b.smd`
+
+Note how an `index.smd` file defines a section but as a page it is not included
+in the list of pages that belong to that same section.
+
+Lastly, note how pages in a section don't all share the same basepath. In the
+absence of a nested `index.smd`, all pages are considered siblings regardless of
+how deeply they are nested inside of different directories.
+
+
+## Frontmatter
+Each SuperMD file must start with a Ziggy frontmatter delimited by `---` (three
+dashes in a row).
+
+Ziggy is a data serialization language similar to YAML and JSON. You can
+learn more on the official Ziggy website: 
+[https://ziggy-lang.io](https://ziggy-lang.io).
+
+**`index.smd`** 
+```ziggy
+---
+.title = "Homepage",
+.date = @date("2020-07-06T00:00:00"),
+.author = "Sample Author",
+.layout = "home.shtml",
+.draft = false,
+--- 
+Your **SuperMD** content goes here.
+```
+
+Some fields, like `title`, and `layout` are mandatory, while others have default values. You can find a complete list of  
+[frontmatter fields]($link.page('docs/supermd/').ref('frontmatter')) 
+in the SuperMD documentation page.
+
+A very important required field is `layout`. This field must point at the layout
+that you want to use to style your content. In Zine this field must always be
+explicitly filled out and there is no implicit naming convention (like in Hugo,
+for example).
+
+# The Layouts Directory
+Layouts are used to style your content files. You can learn more about layouts 
+in the [SuperHTML Basics](superhtml) section.
+
+# The Assets Directory
+
+This directory collects various assets (images, css files, etc) necessary to
+build the website. Note that unlike other mainstream static site generators,
+Zine doesn't have a "static" asset folder as all assets are managed explicitly
+through Zine's [Asset System]($link.page('docs/assets')).
+
+# Multilingual sites
+
+In this page we showed you the structure of a simple Zine website, but it's 
+also possible to use Zine to generate multilingual websites. 
+
+You can loarn more about that in the [Multilingual (i18n)](i18n) section.

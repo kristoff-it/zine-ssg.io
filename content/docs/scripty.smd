@@ -8,7 +8,7 @@
 ---
 
 ## Intro
-Zine uses SuperMD (an extension of Markdown) for content and SuperHTML (an extension of HTML5) for templating.
+Zine uses SuperMD (an extension of Markdown) for content and SuperHTML (an extension of HTML) for templating.
 
 Both SuperMD and SuperHTML extend their respective original file formats by embedding Scripty expressions in key places.
 

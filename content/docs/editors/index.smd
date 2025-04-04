@@ -4,6 +4,9 @@
 .author = "Sample Author",
 .layout = "documentation.shtml",
 .draft = false,
+.custom = {
+  "toc": false,
+}
 --- 
 
 ## About
@@ -35,7 +38,8 @@ If you encounter issues while setting up your editor, [join the community](/comm
 ## VSCode
 - [SuperMD Extension](https://marketplace.visualstudio.com/items?itemName=LorisCro.supermd)
 - [SuperHTML Extension](https://marketplace.visualstudio.com/items?itemName=LorisCro.super)
-  - The extension bundles a WASM build of the Language Server
+  - The extension bundles a WASM build of the Language Server, so you won't need
+    to install the CLI tool to use it.
 
 ## Neovim
 [See the Neovim dedicated page](./neovim).

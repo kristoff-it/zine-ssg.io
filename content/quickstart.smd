@@ -11,41 +11,54 @@
 >Using Zine today means participating in its development.
 
 
-## 1. Get the Zig compiler
+## 1. Get Zine
 
-**Zine is in the process of becoming a fully self-contained executable**, but for now it heavily leverages the Zig build system, meaning that Zig is the only dependency you need.
+[Download Zine](https://github.com/kristoff-it/zine/releases/) for your platform. 
 
-We currently track Zig's **latest tagged release (0.14.0)**.
+If instead you prefer compiling from [source](https://github.com/kristoff-it/zine/), you will need [Zig](https://ziglang.org).
 
-You can download it from from [the official website](https://ziglang.org) or use [zigup](https://github.com/marler8997/zigup).
 
-## 2. Clone Zine's Sample Site
-
-What's a better sample site than the official site itself?
+## 2. Init a new Zine site
 
 **`shell`**
 ```bash
-git clone https://github.com/kristoff-it/zine-ssg.io.git
-cd zine-ssg.io
-zig build serve
+$ mkdir example.com
+$ cd example.com
+$ zine init
 ```
-After that, start hacking on it and see how Zine reacts!
+Running `zine init` will create all the files required to get a Zine site up and running.
 
-Here are a handful of things that you might want to investigate:
-- On first invocation it will take a moment for Zine to load, as it has to compile optimized versions of all its tools. Subsequent runs will be much faster.
-- What happens if you rename `assets/style.css` to something else and try to rebuild the site?
-- What happens if you put a wrong value in a link to a local page [like this one](/community)? (this page is `content/quickstart.smd`)
+The Zine sample site will contain a couple basic pages and two already made sections: 
+- a blog 
+- a devlog
 
+The devlog is a form of microblogging powered by Zine's expressive templating system where you add new entries not by creating new pages (like in a blog), but rather by adding a new paragraph within a single content page. The devlog has its own
+dedicated RSS feed where every post has a separate entry.
+
+[Zine has a devlog](/log/) as well and a few other projects are also starting to adopt 
+this communication format. If you too are developing an Open Source project,
+or just like microblogging, consider giving it a try as an alternative to
+gifting your content to social media platforms.
 
 ## 3. Get developer tooling
 This step is optional but **strongly** recommended as it will give you access
 to syntax highlighting, autoformatting and language server diagnostics for your
 editor.
 
-See the [Editor support](/docs/editors/) section.
+If you have VSCode, install `Ziggy`, `SuperMD` and `SuperHTML` from the VSCode 
+Extensions tab (the right extensions are all from `Loris Cro`).
 
-## Next Steps
-To learn more about Zine, [see the documentation section]($link.page('docs')).
+If you don't use VSCode, see the [Editor support](/docs/editors/) section.
+
+## Start editing your Zine site
+
+Run `zine` (without subcommand) to start the development server and begin editing
+your new Zine site. 
+
+Every time you save a file the dev server will automatically
+rebuild the site and reload your browser page.
+
+To learn more about Zine, [see the docs section]($link.page('docs')).
 
 See the [Community page](/community/) to join our community.
 

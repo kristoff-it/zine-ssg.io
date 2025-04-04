@@ -2,12 +2,12 @@
 .title = "SuperHTML Basics",
 .description = "",
 .author = "Loris Cro",
-.layout = "page.shtml",
+.layout = "documentation.shtml",
 .date = @date("2023-06-16T00:00:00"),
 .draft = false,
 ---
 
-## Intro
+# [Intro]($section.id('intro'))
 
 **Make sure to read [Scripty Basics]($link.page('docs/scripty')) first.**
 
@@ -34,7 +34,7 @@ The following is an extremely tame example of what is possible with curly braced
 
 This example can't be recreated faithfully in SuperHTML because it operates within the limits of well-formed HTML.
 
-### Design Goals
+## [Design Goals]($section.id('design-goals'))
 SuperHTML is designed to help you write correct HTML by catching mistakes early.
 
 It is [my](/community) belief that people resort to using JSX for creating static websites even when they don't really have any frontend SPA (Single Page Application) need because the experience of editing vanilla HTML is objectively worse.
@@ -45,11 +45,11 @@ While doing so I discovered that, **as of spring of 2024, no other HTML language
 
 Some proprietary text editors do have support for reporting HTML syntax errors, and one HTML language server does exist: the one that comes with VSCode (also used by other editors), but it doesn't report errors for malformed HTML.
 
-## File Extension
+# [File Extension]($section.id('file-extension'))
 SuperHTML files have a `.shtml` file extension.
 
 
-## Developer Tooling
+# [Developer Tooling]($section.id('devtools'))
 
 SuperHTML has both dedicated grammars for syntax highlighting and a language
 server for receiving immediate feedback on syntax errors.
@@ -69,7 +69,7 @@ Checkout [kristoff-it/superhtml](https://github.com/kristoff-it/superhtml) for
 detailed setup information.
 
 
-## Scripting Attributes
+# [Scripting Attributes]($section.id('scripting-attrs'))
 The main way of expressing logic in SuperHTML is by giving Scripty expressions to HTML attributes.
 
 Any HTML attribute can be scripted (with some restrictions explained later in this page).
@@ -84,11 +84,11 @@ Any HTML attribute can be scripted (with some restrictions explained later in th
 <h1 class="long">...</h1>
 ```
 
-## [Logic Attributes]($heading.id('attributes'))
+# [Logic Attributes]($section.id('attributes'))
 
 SuperHTML defines a list of special attributes that drive templating logic.
 
-### `:text` 
+## [`:text`]($section.id(':text')) 
 The `:text` attribute sets the content of an element to the result of its Scripty expression. The value is HTML-escaped before printing.
 
 The expression must evaluate to either 
@@ -109,7 +109,7 @@ Requires the element to have an empty body.
 <div>Page Title</div>
 ```
 
-### `:html`
+## [`:html`]($section.id(':html'))
 Same as `:text`, but it doesn't escape HTML. Avoid using it with untrusted data.
 
 ***template.shtml***
@@ -126,7 +126,7 @@ Same as `:text`, but it doesn't escape HTML. Avoid using it with untrusted data.
 ```
 
 
-### `:if`
+## [`:if`]($section.id(':if'))
 Toggles the body of an element based on the value of its Scripty expression. 
 
 The expression must evaluate to either 
@@ -162,7 +162,7 @@ Scripty global variable.
 </div>
 ```
 
-### `:loop`
+## [`:loop`]($section.id(':loop'))
 Evaluates the body of an element once for every element in the value of its Scripty expression.
 
 The expression must evaluate to `[any]`.
@@ -193,10 +193,10 @@ In nested loops the inner iterator will shadow the outer `$loop`, but you can us
 [`$loop.up()`]($link.page('docs/superhtml/scripty').ref('Iterator'))
 to access it.
 
-## Elements
+# [Elements]($section.id('elements'))
 SuperHTML also defines a small number of custom elements.
 
-### `<ctx>`
+## [`<ctx>`]($section.id('ctx'))
 This element supports all the logic attributes but has the property that its start/end tags will not be rendered.
 
 One use of this property is to put text at a specific location of an element:
@@ -236,13 +236,13 @@ Nested instances of `<ctx>` will have all their attributes merged in `$ctx` (i.e
 
 Shadowing is not allowed for `<ctx>` attributes and will be reported as an error if two definitions of the same attribute are active in the same scope.
 
-### `<super>`
+## [`<super>`]($section.id('super'))
 Used to define template extension hierarchies, see the next section for more information.
 
-### `<extend>`
+## [`<extend>`]($section.id('extend'))
 Used to define template extension hierarchies, see the next section for more information.
 
-## Extending templates
+# [Extending templates]($section.id('extending-templates'))
 
 Let's continue the example from the main documentation page, where we wanted to collect all common boilerplate from `homepage.shtml` and `page.shtml` into a single file.
 
@@ -297,7 +297,7 @@ Let's analyze what we just saw:
 
 - both layouts now start with an `<extend>` tag and have lost their original structure (since it was collected in `base.shtml`), keeping only the parts that each defines differently than the other.
 
-### `<extend>`
+## [`<extend>`]($section.id('extend'))
 When a layout wants to extend a template, it must declare at the very top the template name using the extend tag, like so: 
 
 ```superhtml
@@ -306,7 +306,7 @@ When a layout wants to extend a template, it must declare at the very top the te
 A template that extends another won't have a normal HTML structure, but rather it will be a list of HTML elements that will replace a correspoding super tag from the base template they're extending.
 
 
-### `<super>`
+## [`<super>`]($section.id('super'))
 
 The super tag defines an extension point in a template. The direct parent of a super tag must have an `id` attribute.
 
@@ -331,7 +331,7 @@ Since super tags don't have any id of their own, **the *super template* uses the
 <title id="title">Home - Sample Site</title>
 ```
 
-#### Why not just give `id`s to super tags?
+### [Why not just give `id`s to super tags?]($section.id('why-no-ids'))
 
 Matching via parent elements is admittedly an uncommon choice, but it has some very real upsides over the alternatives.
 
@@ -443,7 +443,7 @@ in a sense.
 >final, complete *layout* for a set of pages of the same kind.
 
 
-## Extension chains
+# [Extension chains]($section.id('extension-chains'))
 
 In the previous section we saw how a template can extend another. We are now 
 going to see what longer extension chains look like.
@@ -503,7 +503,7 @@ Let's see an example:
 Note how `with-menu.shtml` is both fulfilling the *interface* of `base.shtml` and at the same time it's creating a *new interface* for another *super template* to fulfill in turn.
 
 
-## Next Steps
+# [Next Steps]($section.id('next-steps'))
 - [Read the SuperHTML Scripty Reference Documentation](./scripty/)
 - [Learn more about Zine's Asset System](assets/)
 

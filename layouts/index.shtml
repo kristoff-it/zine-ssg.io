@@ -32,7 +32,8 @@
 		}
 
 		.title {
-			font-size: 3rem;
+			font-size: 4rem;
+			margin-top: 1rem;
 		}
 
 		.subtitle {
@@ -68,6 +69,7 @@
 		.get-started a:hover {
 			background-color: white;
 		}
+
   </style>
 </head>
 <div id="content">
