@@ -1,58 +1,101 @@
 ---
-.title = "Deploying on GitHub Pages",
+.title = "Deploying to GitHub Pages",
 .date = @date("2020-07-06T00:00:00"),
 .author = "Sample Author",
 .layout = "documentation.shtml",
 .draft = false,
+.custom = {
+  "toc": false,
+},
 --- 
-## About
-This guide assumes that you're already familiar with GitHub Pages. Please refer [the official GitHub Pages documentation](https://pages.github.com/) for more info.
+# About
+This guide assumes that you're already familiar with GitHub Pages.
 
-## 1. Use GitHub Actions
 
-GitHub Actions runner have an inherent overhead and, since Zine is a collection of tools that gets compiled on-demand, your runner will need to do some work that wouldn't be necessary with a single-executable tool.
+# The setup Zine action
+Zine has an official GitHub action to obtain Zine in a GitHub Actions runner [which can be found here](https://github.com/marketplace/actions/setup-zine).
 
-**Luckily, the build will be cached automatically by using [mlugg/setup-zig](https://github.com/marketplace/actions/setup-zig-compiler)**.
+In the example below we will use it to have the GitHub Actions runner build your Zine website before deploying to GitHub Pages.
 
-[This site currently builds in 25-35 seconds](https://github.com/kristoff-it/zine-ssg.io/actions), of which 12 are spent setting up Zig, and 2 for the actual site build (the rest is GitHub Pages overhead).
+# GitHub Actions Workflow
+
+To make this work you will need to enable GitHub Pages and set it to deploy from GitHub Actions.
+
+1. Navigate to the Settings page of your website's repo
+2. Select the "Pages" tab from the vertical menu on the left of the page.
+3. In the GitHub Pages settings page select as source of deployment "GitHub Actions".
+
+After you select the right dropdown menu entry, GitHub will immediately save your changes.
+
+Once that's done, you can now add a new GitHub Actions Workflow file in your repository:
+
 
 **`.github/workflows/gh-pages.yml`**
-```
-name: github pages
+```yaml
+name: Deploy the website to Github Pages
 
 on:
+  # Runs on pushes targeting the default branch
   push:
-    branches:
-      - main  # Set a branch to deploy
+    branches: ["main"]
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Change if you need git info
 
-      - name: Setup Zig
-        uses: mlugg/setup-zig@v1
+      - name: Setup Zine
+        uses: kristoff-it/setup-zine@v1
         with:
-          version: 0.14.0
-          
+          version: v0.10.0
+
       - name: Build
-        run: zig build --summary new
-          
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        if: github.ref == 'refs/heads/main'
+        run: zine release
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./zig-out
+          path: 'public'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 ```
 
-## 2. Build locally
-A more manual, but faster approach is to build the website locally and commit it to the correct branch/subdir. 
+Once you commit and push this new file, you should be able to see in the "Actions" tab of your repository a new job being run.
 
-Currently Zine doesn't offer any help automating this process, but in the future it might.
+On success, your website will have been deployed to GitHub Pages.
 
-># [Warning]($block.attrs('warning')) 
->Currently Zine doesn't clean `zig-out/` across rebuilds so you will have to
->do it manually.
+If you encounter any issue, or to learn how to setup a custom domain, please refer [the official GitHub Pages documentation](https://pages.github.com/).
+
+
+> # [WARNING]($block.attrs('warning'))
+>If your GitHub Pages website is going to be deployed under
+>a subpath (e.g. `nickname.github.io/repo-name/`),
+>make sure to set `url_path_prefix` correctly in your
+>`zine.ziggy` config file, otherwise Zine will not be able
+>to generate correct links.
+
+
+

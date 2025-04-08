@@ -35,10 +35,9 @@ The Zine sample site will contain a couple basic pages and two already made sect
 The devlog is a form of microblogging powered by Zine's expressive templating system where you add new entries not by creating new pages (like in a blog), but rather by adding a new paragraph within a single content page. The devlog has its own
 dedicated RSS feed where every post has a separate entry.
 
-[Zine has a devlog](/log/) as well and a few other projects are also starting to adopt 
+[Zine has a devlog](/log/) as well, and a few other projects are also starting to adopt 
 this communication format. If you too are developing an Open Source project,
-or just like microblogging, consider giving it a try as an alternative to
-gifting your content to social media platforms.
+or just like microblogging, consider giving it a try as a zen alternative to mainstream social media platforms.
 
 ## 3. Get developer tooling
 This step is optional but **strongly** recommended as it will give you access
@@ -55,7 +54,7 @@ If you don't use VSCode, see the [Editor support](/docs/editors/) section.
 Run `zine` (without subcommand) to start the development server and begin editing
 your new Zine site. 
 
-Every time you save a file the dev server will automatically
+Every time you save a file, the dev server will automatically
 rebuild the site and reload your browser page.
 
 To learn more about Zine, [see the docs section]($link.page('docs')).

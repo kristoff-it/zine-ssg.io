@@ -144,6 +144,135 @@ build the website. Note that unlike other mainstream static site generators,
 Zine doesn't have a "static" asset folder as all assets are managed explicitly
 through Zine's [Asset System]($link.page('docs/assets')).
 
+
+# First Steps
+
+The quickest way to start a Zine site is to run `zine init`, which will generate a sample site for you.
+
+In this section we will instead go through the motions of bootstrapping a Zine website entirely from scratch.
+
+First of all you need to create a `zine.ziggy` file and place it in an empty directory. The `zine.ziggy` file must be structured like the one at the top of this page.
+
+
+Once that's done, let's create a home page and a relative template.
+
+**`shell`**
+```
+$ touch content/index.smd
+$ touch layouts/home.shtml
+```
+
+**`content/index.smd`** 
+```ziggy
+---
+.title = "Home",
+.date = @date("2020-07-06T00:00:00"),
+.author = "Sample Author",
+.layout = "home.shtml",
+.draft = false,
+--- 
+Hello World!
+```
+
+**`layouts/home.shtml`**
+```superhtml
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title :text="$site.title"></title>
+  </head>
+  <body>
+    <h1 :text="$page.title"></h1>
+    <div :html="$page.content()"></div>
+  </body>
+</html>
+```
+
+
+**`public/index.shtml (output)`** 
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Sample Site</title>
+  </head>
+  <body>
+    <h1>Home</h1>
+    <div><p>Hello World!</p></div>
+  </body>
+</html>
+```
+
+In this example we just saw:
+- `index.smd` defines that its layout is `home.shtml`
+- `home.shtml` defines some HTML and uses 
+   [special attributes]($link.page('docs/superhtml').ref('attributes')) 
+   to pull in the contents of `index.smd` 
+- the final output is going to be the homepage of our website 
+
+If you start the dev server now by running `zine`, you should see the output page at `http://localhost:1990/`.
+
+### Adding more pages
+
+Let's imagine now that we want to add a blog section to our website with a first post in it.
+
+**`shell`**
+```bash
+$ mkdir content/blog
+$ touch content/blog/first-post.smd
+$ touch layouts/post.shtml
+```
+
+**`content/blog/first-post.smd`**
+```ziggy
+---
+.title = "First Post!",
+.date = @date("2020-07-06T00:00:00"),
+.author = "Sample Author",
+.layout = "post.shtml",
+.draft = false,
+--- 
+This is my first post!
+```
+
+**`layouts/post.shtml`**
+```superhtml
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title :text="$site.title"></title>
+  </head>
+  <body>
+    <h1>Blog</h1>
+    <h2 :text="$page.title"></h2>
+    <h3>by <span :text="$page.author"></span></h3>
+    <h4>
+      Posted on: 
+      <span 
+        :text="$page.date.format('January 02, 2006')"
+      ></span>
+    </h4>
+    <div :html="$page.content()"></div>
+  </body>
+</html>
+```
+
+At this point you should be able to navigate to
+`http://localhost:1990/blog/first-post/` and see the result.
+
+Note how we needed a new layout (`post.shtml`) since the blog post is not
+going to have the same structure as the homepage.
+
+While the structure is indeed different, both `post.shtml` and `home.shtml`
+share a lot of common boilerplate that can be collected into a single template by leveraging SuperHTML template extension features.
+
+You can learn more about extending templates in the docs section dedicated to SuperHTML.
+
+
+
 # Multilingual sites
 
 In this page we showed you the structure of a simple Zine website, but it's 

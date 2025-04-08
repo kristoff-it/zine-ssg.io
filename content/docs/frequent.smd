@@ -50,6 +50,7 @@ This is a RSS2.0 example but you can also do the same with Atom, if you prefer.
   <ctx :loop="$page.subpages()">
    <item>
     <title :text="$loop.it.title"></title>
+    <description :text="$loop.it.content()"></description>
     <link :text="$site.host_url.addPath($loop.it.link())"></link>
     <pubDate :text="$loop.it.date.formatHTTP()"></pubDate>
     <guid :text="$site.host_url.addPath($loop.it.link())"></guid>
@@ -59,12 +60,15 @@ This is a RSS2.0 example but you can also do the same with Atom, if you prefer.
 </rss>
 ```
 
-># [Warning]($block.attrs('warning'))
->Zine at the moment is not able to render pages loaded via Scripty, which
->means that currently you can't embed full articles in your RSS feed.
+># [NOTE]($block)
+>The `<description>` element will contain the entire contents
+>of each page listed, which will contain HTML code.
 >
->This limitation will be lifted in the future.
-
+>Note how we are purposely doing something weird: we are using
+>`:text` instead of `:html`. This would normally be a mistake
+>on our part, but in this case it's how we succinctly request
+>Zine to escape our HTML, which is required to output a
+>correct RSS feed.
 
 ## 3. Link to your RSS feed
 
@@ -133,6 +137,8 @@ you can inline an HTML asset into your page.
 ```
 []($code.asset("my-generated-snippet.html").language("=html"))	
 ```
+
+*P.S. This works with SVGs!*
 
 # [Advanced Prev/Next Page]($section.id('prev-next'))
 

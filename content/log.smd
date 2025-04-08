@@ -16,12 +16,76 @@ This is a non-exhaustive, curated list of changes meant to help users quickly se
 
 You can [subscribe to this page via RSS]($link.alternative("rss")).
 
-To update Zine to the latest release run:
-```sh
-zig fetch --save "git+https://github.com/kristoff-it/zine#v0.9.0"
-```
-
 ## Changes
+[]($section.id('v0.10.0').data('date','2025-04-08'))
+### Standalone Zine is here!
+
+It's finally time to release the standalone version of Zine:
+ - it's *stupid* fast
+ - it's more strict than before
+ - it removed almost all limitations (e.g. rendering other pages via scripty)
+ - *it might have added new bugs as many things were reimplemented, sorry!* 
+
+[Download](https://github.com/kristoff-it/zine/releases/) a prebuilt version to try it out.
+
+> # [WARNING]($block.attrs('warning'))
+>We have updated the suggested way of deploying to GitHub Pages, and for all GitHub
+>based deployments you will want to check out [`kristoff-it/setup-zine`](https://github.com/marketplace/actions/setup-zine).
+
+**If you're a new user of Zine, I highly recommend you start by running `zine init`
+in an empty folder to get a sample website bootstrapped for you by Zine.**
+
+For existing users, here's the upgrade guide after you have downloaded Zine and put it in PATH:
+1. Create a `zine.ziggy` file in your website's root directory. Every option
+   your original build.zig can be ported over except `build_assets` (but
+   [build.zig integration still exists](/docs/zig/) if you need that), here's an example:
+   ```ziggy
+   Site {
+      .title = "Zine - Static Site Generator",
+      .host_url = "https://zine-ssg.io",
+      .content_dir_path = "content",
+      .layouts_dir_path = "layouts",
+      .assets_dir_path = "assets",
+      .static_assets = [
+         // omitted for brevity
+      ],
+   }
+   ```
+2. Run `zine` to activate the development server and watch the errors that it
+   reports. Zine has become a bit more strict when it comes to paths and it
+   might complain about absolute paths in locations where it previously accepted
+   them. Most errors should be straight forward to fix. The only breaking change
+   that will silently cause issues is that previously `aliases` and `alternatives`
+   output paths were always relative to the website root, while now a relative
+   path will place the alias / alternative in a subdir of the current page if
+   the output path provided is relative. 
+  
+3. If your website is complex enough, you might want to diff the new version
+   against the old. Assuming you have a build in `zig-out/` or a similar
+   location, you can run these commands to get a diff:
+   ```bash
+   $ zine release
+   $ git diff --word-diff=color --no-index zig-out public
+   ```
+   The first command will output your website to `public/` which then you can
+   diff against an older build of your website. **You should not expect the diff
+   to be perfectly empty**, as some minor rendering details have changed, **but all
+   the changes should be positive once you inspect them**. If you see a change
+   that seems wrong, please open an issue with a reproducer. We don't need the
+   full diff, just the sources to produce the new output and an indication of
+   what is wrong (and why you think the output is wrong). 
+
+This release adds a ton of improvements to Zine, here are just a couple
+highlights for brevity:
+
+- The official docs have been rewritten to reflect the changes, and most
+  importantly I've finally added navigation to the Scripty references. Go take
+  a look, they're pretty cool in my opinion :^)
+- Added support for math formulas in SuperMD via `$mathtex`. Unfortunately we
+  depend on JavaScript for runtime rendering, but eventually we will have our
+  own parser to do everything at build time. 
+- TreeSitter highlighting now captures more classes for tokens thanks to Willians Faria ([#131](https://github.com/kristoff-it/zine/pull/131))
+
 []($section.id('v0.9.0').data('date','2025-03-11'))
 
 ># [NEW ZINE]($block.attrs('warning'))

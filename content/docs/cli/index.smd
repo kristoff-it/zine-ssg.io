@@ -1,5 +1,5 @@
 ---
-.title = "Integrating with Zig",
+.title = "Command Line Interface",
 .date = @date("2020-07-06T00:00:00"),
 .author = "Sample Author",
 .layout = "documentation.shtml",
@@ -8,4 +8,38 @@
   "toc": false,
 }
 --- 
+
+
+# See all commands
+Run `zine help` to see the full list of available commands.
+
+
+# Starting the dev server
+
+Running `zine` without any sub command will start the Zine development server, which will serve your website at `http://localhost:1990`.
+
+Run `zine help` to learn how to change the default listening address and port.
+
+While the dev server is active, it will listen for file changes in your content, layouts, and assets dir paths. Every time a file changes, it will rebuild the entire site and refresh any page open in a browser.
+
+For the browser reload feature to work you will need to have JavaScript enabled.
+
+If an error is encountered while building the website, you will see the error printed both in your terminal window and also in your browser tab. As soon as you fix the error, the page will reload correctly.
+
+> # [NOTE]($block)
+>The dev server will serve all generated assets directly from
+>memory.
+
+# Building your Zine website
+
+Run `zine release` to build your website. By default Zine will place your site under `public/`, next to where your `zine.ziggy` file lives.
+
+Run `zine release --help` to see all related options. 
+
+> # [WARNING]($block.attrs('warning'))
+>The `zine release` command will not clear the
+>output directory before installing newly built files
+>in it.
+>
+>It's your responsibility to clear it if desired. 
 

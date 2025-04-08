@@ -6,14 +6,92 @@
 .date = @date("2023-06-16T00:00:00"),
 .draft = false,
 ---
-# [Global Scope]($section.id('global'))
+[]($section.id('menu'))
 
-## `$section` : [Section]($link.ref("Section"))
+># [Directives]($block.collapsible(true))
+>- [`$section`]($link.unsafeRef("$section"))
+>- [`$block`]($link.unsafeRef("$block"))
+>- [`$heading`]($link.unsafeRef("$heading"))
+>- [`$text`]($link.unsafeRef("$text"))
+>- [`$mathtex`]($link.unsafeRef("$mathtex"))
+>- [`$link`]($link.unsafeRef("$link"))
+>- [`$code`]($link.unsafeRef("$code"))
+>- [`$image`]($link.unsafeRef("$image"))
+>- [`$video`]($link.unsafeRef("$video"))
+
+># [anydirective]($block.collapsible(false))
+>- [`description`]($link.ref("anydirective"))
+>- [`fn id()`]($link.ref("anydirective.id")) 
+>- [`fn attrs()`]($link.ref("anydirective.attrs")) 
+>- [`fn title()`]($link.ref("anydirective.title")) 
+>- [`fn data()`]($link.ref("anydirective.data")) 
+
+># [Section]($block.collapsible(false))
+>- [`description`]($link.ref("Section"))
+
+># [Block]($block.collapsible(false))
+>- [`description`]($link.ref("Block"))
+>- [`fn collapsible()`]($link.ref("Block.collapsible")) 
+
+># [Heading]($block.collapsible(false))
+>- [`description`]($link.ref("Heading"))
+
+># [Image]($block.collapsible(false))
+>- [`description`]($link.ref("Image"))
+>- [`fn alt()`]($link.ref("Image.alt")) 
+>- [`fn linked()`]($link.ref("Image.linked")) 
+>- [`fn url()`]($link.ref("Image.url")) 
+>- [`fn asset()`]($link.ref("Image.asset")) 
+>- [`fn siteAsset()`]($link.ref("Image.siteAsset")) 
+>- [`fn buildAsset()`]($link.ref("Image.buildAsset")) 
+
+># [Video]($block.collapsible(false))
+>- [`description`]($link.ref("Video"))
+>- [`fn loop()`]($link.ref("Video.loop")) 
+>- [`fn muted()`]($link.ref("Video.muted")) 
+>- [`fn autoplay()`]($link.ref("Video.autoplay")) 
+>- [`fn controls()`]($link.ref("Video.controls")) 
+>- [`fn pip()`]($link.ref("Video.pip")) 
+>- [`fn url()`]($link.ref("Video.url")) 
+>- [`fn asset()`]($link.ref("Video.asset")) 
+>- [`fn siteAsset()`]($link.ref("Video.siteAsset")) 
+>- [`fn buildAsset()`]($link.ref("Video.buildAsset")) 
+
+># [Link]($block.collapsible(false))
+>- [`description`]($link.ref("Link"))
+>- [`fn url()`]($link.ref("Link.url")) 
+>- [`fn asset()`]($link.ref("Link.asset")) 
+>- [`fn siteAsset()`]($link.ref("Link.siteAsset")) 
+>- [`fn buildAsset()`]($link.ref("Link.buildAsset")) 
+>- [`fn page()`]($link.ref("Link.page")) 
+>- [`fn sibling()`]($link.ref("Link.sibling")) 
+>- [`fn sub()`]($link.ref("Link.sub")) 
+>- [`fn new()`]($link.ref("Link.new")) 
+>- [`fn alternative()`]($link.ref("Link.alternative")) 
+>- [`fn ref()`]($link.ref("Link.ref")) 
+>- [`fn unsafeRef()`]($link.ref("Link.unsafeRef")) 
+
+># [Code]($block.collapsible(false))
+>- [`description`]($link.ref("Code"))
+>- [`fn asset()`]($link.ref("Code.asset")) 
+>- [`fn siteAsset()`]($link.ref("Code.siteAsset")) 
+>- [`fn buildAsset()`]($link.ref("Code.buildAsset")) 
+>- [`fn language()`]($link.ref("Code.language")) 
+>- [`fn lines()`]($link.ref("Code.lines")) 
+
+># [Text]($block.collapsible(false))
+>- [`description`]($link.ref("Text"))
+
+># [Mathtex]($block.collapsible(false))
+>- [`description`]($link.ref("Mathtex"))
+# [Directives]($section.id('directives'))
+
+## [`$section`]($text.id("$section")) : [Section]($link.ref("Section"))
 
 A content section, used to define a portion of content
 that can be rendered individually by a template. 
 
-## `$block` : [Block]($link.ref("Block"))
+## [`$block`]($text.id("$block")) : [Block]($link.ref("Block"))
 
 When placed at the beginning of a Markdown quote block, the quote 
 block becomes a styleable container for elements.
@@ -70,7 +148,7 @@ Example:
 >Lorem ipsum.
 
 
-## `$heading` : [Heading]($link.ref("Heading"))
+## [`$heading`]($text.id("$heading")) : [Heading]($link.ref("Heading"))
 
 Allows giving an id and attributes to a heading element.
 
@@ -84,7 +162,7 @@ This will be rendered by SuperHTML as:
 <h1 id="foo" class="bar baz">Title</h1>
 ```
 
-## `$text` : [Text]($link.ref("Text"))
+## [`$text`]($text.id("$text")) : [Text]($link.ref("Text"))
 
 Allows giving an id and attributes to some text.
 
@@ -98,11 +176,44 @@ This will be rendered by SuperHTML as:
 Hello <span id="foo" class="bar baz">World</span>!
 ```
 
-## `$link` : [Link]($link.ref("Link"))
+## [`$mathtex`]($text.id("$mathtex")) : [Mathtex]($link.ref("Mathtex"))
+
+Outputs the given LaTeX formula as a script tag that can be rendered
+at runtime by JavaScript tools such as [Katex](https://katex.org),
+[MathJax](https://www.mathjax.org/), [Temml](https://temml.org/), etc.
+Note that the formula must be enclosed in backticks to avoid
+collisions with SuperMD.
+
+This JS based solution is temporary. Zine will eventually implement
+its own way of outputting MathML at buildtime so that clients won't 
+need to have JS enabled.
+
+To render math formulas as separate blocks, use this syntax:
+
+    ```=mathtex
+    x+\sqrt{1-x^2}
+    ```
+
+Example:
+```markdown
+Here's some [`x+\sqrt{1-x^2}`]($mathtex) math. 
+```
+
+This will be rendered by SuperHTML as:
+```html
+Here's some <script type="math/tex">x+\sqrt{1-x^2}</script> math.
+```
+
+It's then the user's responsibility to wire in the necessary JS/CSS
+dependencies to obtain runtime rendering of math formulas.
+
+The Zine sample site shows a basic setup that uses Temml.
+
+## [`$link`]($text.id("$link")) : [Link]($link.ref("Link"))
 
 A link.
 
-## `$code` : [Code]($link.ref("Code"))
+## [`$code`]($text.id("$code")) : [Code]($link.ref("Code"))
 
 An embedded piece of code.
 
@@ -113,7 +224,7 @@ Example:
 [This is the caption]($code.asset('foo.zig'))
 ```
 
-## `$image` : [Image]($link.ref("Image"))
+## [`$image`]($text.id("$image")) : [Image]($link.ref("Image"))
 
 An embedded image.
 
@@ -124,7 +235,7 @@ Example:
 [This is the caption]($image.asset('foo.jpg'))
 ```
 
-## `$video` : [Video]($link.ref("Video"))
+## [`$video`]($text.id("$video")) : [Video]($link.ref("Video"))
 
 An embedded video.
 
@@ -225,6 +336,13 @@ Example:
 >This is now a block note.
 >Lorem ipsum.
 
+
+## Functions
+
+### []($heading.id("Block.collapsible")) [`fn`]($link.ref("Block.collapsible")) collapsible (bool) -> [Block]($link.ref("Block"))
+
+Render the block as a collapsible element. The argument defines
+if the block should be open by default or not.
 
 # [Heading]($section.id('Heading'))
 
@@ -448,6 +566,16 @@ Sets the source location of this directive to a build asset.
 Sets the language of this code snippet, which is also used for
 syntax highlighting.
 
+### []($heading.id("Code.lines")) [`fn`]($link.ref("Code.lines")) lines (int, int) -> [Code]($link.ref("Code"))
+
+ Limit the included code asset to the specified lines.
+ The second argument is inclusive.
+
+ ```
+ []($code.asset("main.zig").lines(10, 15))
+ ```
+ This will include only lines 10 - 15 from the main.zig asset file.
+
 # [Text]($section.id('Text'))
 
 Allows giving an id and attributes to some text.
@@ -461,4 +589,37 @@ This will be rendered by SuperHTML as:
 ```html
 Hello <span id="foo" class="bar baz">World</span>!
 ```
+
+# [Mathtex]($section.id('Mathtex'))
+
+Outputs the given LaTeX formula as a script tag that can be rendered
+at runtime by JavaScript tools such as [Katex](https://katex.org),
+[MathJax](https://www.mathjax.org/), [Temml](https://temml.org/), etc.
+Note that the formula must be enclosed in backticks to avoid
+collisions with SuperMD.
+
+This JS based solution is temporary. Zine will eventually implement
+its own way of outputting MathML at buildtime so that clients won't 
+need to have JS enabled.
+
+To render math formulas as separate blocks, use this syntax:
+
+    ```=mathtex
+    x+\sqrt{1-x^2}
+    ```
+
+Example:
+```markdown
+Here's some [`x+\sqrt{1-x^2}`]($mathtex) math. 
+```
+
+This will be rendered by SuperHTML as:
+```html
+Here's some <script type="math/tex">x+\sqrt{1-x^2}</script> math.
+```
+
+It's then the user's responsibility to wire in the necessary JS/CSS
+dependencies to obtain runtime rendering of math formulas.
+
+The Zine sample site shows a basic setup that uses Temml.
 

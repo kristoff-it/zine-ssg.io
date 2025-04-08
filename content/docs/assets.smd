@@ -6,14 +6,14 @@
 .draft = false,
 --- 
 
-## Assets in Zine
+# [Assets in Zine]($section.id('assets-in-zine'))
 A Zine site can have 3 kinds of assets: **site**, **page**, and **build** assets.
 
 ># [Note]($block)
 >SuperMD and SuperHTML have different ways of accessing assets, make sure to 
->read their respective documentation pages first.
+>read their respective documentation pages.
 
-## Site Assets
+# [Site Assets]($section.id('site-asset'))
 These assets are located under `assets_dir_path`. 
 
 In SuperHTML, the main way of accessing site assets is by accessing them through an instance of Site: `$site.asset('logo.png')`.
@@ -27,8 +27,8 @@ Once you have an `Asset`, the main way to use it is by `link`ing it:
 Conversely, accessing an asset *without* calling `link` on it will **not** cause it to be installed.
 
 ># [SuperMD]($block)
->In SuperMD you can reference assets using the appropriate functions of `$link`,
->`$image` or `$video`. Referencing an asset in SuperMD will cause it to be 
+>In SuperMD you can reference assets using the appropriate functions of `$link.siteAsset()`,
+>`$image.siteAsset()` or `$video.siteAsset()`. Referencing an asset in SuperMD will cause it to be 
 >installed just like it does for SuperHTML.
 
 The SuperHTML Scripty reference page lists all other operations that can be performed on instances of `Asset`. 
@@ -48,7 +48,7 @@ One example of where this makes sense is when you have a Ziggy (or JSON) documen
 >you can use them directly. 
 
 
-### Static Site Assets
+## [Static Site Assets]($section.id('static-assets'))
 Some assets should be installed even if no layout or page refers to them. 
 
 For example `favicon.ico` might not be referenced, but browsers will automatically try to fetch it.
@@ -85,7 +85,7 @@ pub fn build(b: *std.Build) !void {
 } 
 ```
 
-## Page Assets
+# [Page Assets]($section.id('page-assets'))
 Page assets are the same as site assets, but are located inside of `content_dir_path`, next to the page that references them.
 
 If you have an asset that is specific to only a single page of your website, you can conveniently place it next to it inside the content directory, but beware of respecting the expected content structure.
@@ -124,15 +124,27 @@ Accessing a page asset in SuperHTML can be done using `$page.asset('C.png')`.
 Like all assets, they must be `link`ed to be installed in the output directory.
 
 
-## Build Assets
+In SuperMD you can reference page assets like so:
+- `$link.asset()`
+- `$image.asset()`
+- etc
+
+Since in SuperMD the default context is "the page", *page assets* are simply called *assets*.
+
+# [Build Assets]($section.id('build-assets'))
 If you have artifacts built using the Zig build system, you can use them in Zine by setting `build_assets` in your `build.zig`.
 
 Accessing a build asset in SuperHTML can be done using `$build.asset('foo')`.
 Like all assets, they must be `link`ed to be installed in the output directory.
 
+In SuperMD you can reference build assets like so:
+- `$link.buildAsset()`
+- `$image.buildAsset()`
+- etc
+
 See the doc comments for `zine.BuildAsset` for more info.
 
-## [Automatic Size Attributes]($section.id('autosize'))
+# [Automatic Size Attributes]($section.id('autosize'))
 
 To enable this feature, set `image_size_attributes = true` in your website's
 `build.zig`.
@@ -145,18 +157,17 @@ even before downloading them, completely removing the need for reflowing the
 page, and overall giving the impression of a faster page load, especially if a
 page has many heavy images in it.
 
-#### This feature has one big quirk:
+## This feature has one big quirk
 
 For some reason browsers will distort images that specify `height` and `width`
-then resizing them to fit their parent element. You can fix this by applying
+when resizing them to fit their parent element. You can fix this by applying
 the following CSS "patch":
 ```css
 img { height: auto; }
 ```
 
-## Next Steps
-- Read the [SuperMD Basics page](scripty) to learn more about asset-related syntax in SuperMD.
-
+# Next Steps
 - Read the [SuperHTML Scripty reference page](superhtml/scripty) page to know what operations are available for assets and other kinds of data in SuperHTML. 
   The [Assets section]($link.sibling('superhtml/scripty').ref('Asset')) might be of particular interest.
 
+- Read the [SuperMD Scripty reference page](supermd/scripty) page to do the same relatively to SuperMD.
