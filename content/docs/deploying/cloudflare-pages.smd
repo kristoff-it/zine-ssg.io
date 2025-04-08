@@ -1,14 +1,17 @@
 ---
-.title = "Deploying on Cloudflare Pages",
+.title = "Deploying to Cloudflare Pages",
 .date = @date("2023-02-12T00:00:00"),
 .author = "Etahn Holz",
 .layout = "documentation.shtml",
 .draft = false,
+.custom = {
+  "toc": false,
+},
 ---
-## About
+# About
 This guide assumes that you're already familiar with using Cloudflare Pages and the Wrangler CLI. Please refer [the official Cloudflare Pages documentation](https://developers.cloudflare.com/pages/) for more info.
 
-## Getting Started
+# Getting Started
 To get started you will need to first create a new Cloudflare Pages project.
 
 ***`shell`***
@@ -19,18 +22,29 @@ $ wrangler pages project create PROJECT_NAME
 This will create a new Cloudflare Pages project that you can deploy to, which can be done in two different ways.
 
 
-## 2. Use GitHub Actions
+# The setup Zine action
+Zine has an official GitHub action to obtain Zine in a GitHub Actions runner [which can be found here](https://github.com/marketplace/actions/setup-zine).
+
+In the example below we will use it to have the GitHub Actions runner build your Zine website before deploying to GitHub Pages.
+
+Below you will also find a guide on how to deploy to Clouldflare Pages directly from your computer.
+
+# 1. Using GitHub Actions
 
 This method uses GitHub Actions to build the site and then uploads the output to Cloudflare Pages (instead of GitHub Pages).
 
 This section assumes that you're already familiar with GitHub Actions. Please refer [the official GitHub Actions documentation](https://docs.github.com/en/actions) for more info.
 
-GitHub Actions runner have an inherent overhead and, since Zine is a collection of tools that gets compiled on-demand, your runner will need to do some work that wounldn't be necessary with a single-executable tool.
+## Enabling GitHub Pages
+To make this work you will need to enable GitHub Pages and set it to deploy from GitHub Actions.
 
-**Luckly, the build will be cached automatically by using [mlugg/setup-zig](https://github.com/marketplace/actions/setup-zig-compiler)**.
+1. Navigate to the Settings page of your website's repo
+2. Select the "Pages" tab from the vertical menu on the left of the page.
+3. In the GitHub Pages settings page select as source of deployment "GitHub Actions".
 
-[This site currently builds in 25-35 seconds](https://github.com/kristoff-it/zine/actions), of which 12 are spent setting up Zig, and 2 for the actual site build (the rest is GitHub Pages overhead).
+After you select the right dropdown menu entry, GitHub will immediately save your changes.
 
+## Obtaining credentials from Cloudflare
 Once we have created our Cloudflare Pages project, we will need a few things from Cloudflare:
 - [Your Cloudflare Account ID](https://github.com/cloudflare/pages-action#get-account-id)
 - [An API Token](https://github.com/cloudflare/pages-action#generate-an-api-token)
@@ -48,26 +62,26 @@ on:
       - main  # Set a branch to deploy
 jobs:
   deploy:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Change if you need git info
 
-      - name: Setup Zig
-        uses: mlugg/setup-zig@v1
+      - name: Setup Zine
+        uses: kristoff-it/setup-zine@v1
         with:
-          version: 0.14.0
+          version: 0.10.0
           
       - name: Build
-        run: zig build --summary new
+        run: zine release
           
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy ./zig-out --project-name PROJECT_NAME
+          command: pages deploy public/ --project-name PROJECT_NAME
           # Optional: Adds GitHub deployments support
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           
@@ -79,15 +93,19 @@ Reference: https://github.com/cloudflare/wrangler-action?tab=readme-ov-file#depl
 >
 >This can be by going to Settings -> Actions -> General -> Workflow Permissions.
 
-## 2. Build locally and deploy directly with wrangler
+# 2. Build locally and deploy directly with wrangler
 To publish from your computer you will need fist to build your Zine site, and then upload the output to Cloudflare Pages using `wrangler`.
 
 ***`shell`***
 ```bash
-$ zig build 
-$ wrangler pages deploy ./zig-out --project-name PROJECT_NAME
+$ zine release
+$ wrangler pages deploy public/ --project-name PROJECT_NAME
 ```
 
-># [Warning]($block.attrs('warning')) 
->Currently Zine doesn't clean `zig-out/` across rebuilds so you will have to
->do it manually.
+> # [WARNING]($block.attrs('warning'))
+>The `zine release` command will not clear the
+>output directory before installing newly built files
+>in it.
+>
+>It's your responsibility to clear it if desired. 
+

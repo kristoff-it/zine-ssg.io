@@ -97,7 +97,11 @@ body {
   display: flex;
   flex-direction: column;
   padding-bottom: 20px;
+}
+
+html {
   scrollbar-gutter: stable;
+  scrollbar-color: #CCCC49 #222;
   overflow-y: scroll;
 }
 

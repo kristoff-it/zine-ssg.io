@@ -94,7 +94,5 @@ To learn what global variables are available to you in a given context, and the 
 
 ## Next steps
 
-If you haven't done it yet, read the [main Documentation page]($link.page('docs')) fully, otherwise see:
-
 - [SuperMD Basics]($link.page('docs/supermd'))
 - [SuperHTML Basics]($link.page('docs/superhtml'))

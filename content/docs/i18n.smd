@@ -5,51 +5,63 @@
 .layout = "documentation.shtml",
 .draft = false,
 --- 
-## Creating Multilingual Websites 
+# [Creating Multilingual Websites]($section.id('multilingual')) 
 
-To create a multilingual website, use `multilingualWebsite` in your
-`build.zig`, like in the following example.
+To create a multilingual website you will need to structure your `zine.ziggy`
+differently. This is for example the config file of https://ziglang.org, which
+is a multilingual Zine site.
 
-```zig
-const std = @import("std");
-const zine = @import("zine");
 
-pub fn build(b: *std.Build) !void {
-    zine.multilingualWebsite(b, .{
-        .host_url = "https://kristoff.it",
-        .layouts_dir_path = "layouts",
-        .assets_dir_path = "assets",
-        .i18n_dir_path = "i18n",
-        .localized_variants = &.{
-            .{
-                .locale_code = "en-US",
-                .output_prefix_override = "",
-                .title = "Loris Cro's Blog",
-                .content_dir_path = "content/en-US",
-            },
-
-            .{
-                .locale_code = "it-IT",
-                .title = "Loris 🤌 Cro's 🤌 Blog",
-                .content_dir_path = "content/it-IT",
-            },
+```ziggy
+Multilingual {
+    .host_url = "https://ziglang.org",
+    .i18n_dir_path = "i18n",
+    .layouts_dir_path = "layouts",
+    .assets_dir_path = "assets",
+    .static_assets = [
+        // omitted for brevity
+    ],
+    .locales = [
+        {
+            .code = "en-US",
+            .name = "English (original)",
+            .site_title = "Zig Programming Language",
+            .content_dir_path = "content/en-US",
+            .output_prefix_override = "",
         },
-    });
+        {
+            .code = "es-AR",
+            .name = "Español",
+            .site_title = "El Lenguaje de Programación Zig",
+            .content_dir_path = "content/es-AR",
+        },
+        {
+            .code = "it-IT",
+            .name = "Italiano",
+            .site_title = "Zig Programming Language",
+            .content_dir_path = "content/it-IT",
+        },
+
+        // other locales omitted for brevity
+    ],
 }
 ```
-## Localized variants
+# [Localized variants]($section.id('variants'))
 Each variant can define the following fields:
 
-#### `locale_code`
+## `locale_code`
 A `language-NATION` string, e.g. `en-US`, `en-UK`, `it-IT`, `ja-JP`.
 
-#### `title`
+## `title`
 Site title for this variant.
 
-#### `content_dir_path` 
+## `content_dir_path` 
 Content directory with localized versions of your content.
 
-#### `host_url_override` (optional)
+## `host_url_override`
+This field is optional.
+
+
 The default assumption in Zine is that all your localized variants will be
 deployed on the same host, with each localization made available under a `locale_code` prefix:
 
@@ -64,7 +76,10 @@ Some users might want instead to serve each localization from a different hostna
 Setting `host_url_override` for each localized variant will make Zine generate
 permalinks accordingly. 
 
-#### `output_prefix_override` (optional)
+## `output_prefix_override`
+This field is optional.
+
+
 This field can be used to override the path prefix for a localized variant.
 When `host_url_override` is set to null, the default prefix for each localized
 variant is `locale_code`. When `host_url_override` is set to a non-null value,
@@ -74,7 +89,7 @@ You can set `output_prefix_override` to any string to place a localized variant
 under an arbitrary prefix. Setting it to an empty string is a good way of creating
 a "default variant" of the website.
 
-For example by setting `ouptput_prefix_override` to empty string in `en_US` this
+For example by setting `output_prefix_override` to empty string in `en_US` this
 is the resulting site layout:
 
 - `https://site.com/about/`
@@ -93,7 +108,7 @@ Here's a table with more examples:
 |    ""    |      null     | /        | zig-out/        |
 
 
-## The i18n Directory
+# [The i18n Directory]($section.id('i18n-dir'))
 When creating a multilingual website, the assumption is that the same layouts
 and site assets will be reused across all localized variants, while the 
 content folder will vary for each. 
@@ -154,7 +169,7 @@ Normal Scripty builtin functions are perfect for basic access to translations in
 <p :text="$i18n.get('hello').fmt($page.author)"></p>
 ```
 
-### Discovering localizations
+# [Discovering localizations]($section.id('discovering-localizations'))
 To discover other localized variants for the same page, you can use 
 `$page.locales()`.
 

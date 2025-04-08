@@ -6,41 +6,236 @@
 .date = @date("2023-06-16T00:00:00"),
 .draft = false,
 ---
-# [Global Scope]($section.id('global'))
+[]($section.id('menu'))
 
-## `$site` : [Site]($link.ref("Site"))
+># [Global Context]($block.collapsible(true))
+>- [`$site`]($link.unsafeRef("$site"))
+>- [`$page`]($link.unsafeRef("$page"))
+>- [`$build`]($link.unsafeRef("$build"))
+>- [`$i18n`]($link.unsafeRef("$i18n"))
+>- [`$ctx`]($link.unsafeRef("$ctx"))
+>- [`$loop`]($link.unsafeRef("$loop"))
+>- [`$if`]($link.unsafeRef("$if"))
+
+># [Site]($block.collapsible(false))
+>- [`description`]($link.unsafeRef("Site"))
+>- [`.host_url`]($link.unsafeRef("Site.host_url"))
+>- [`.title`]($link.unsafeRef("Site.title"))
+>- [`fn localeCode()`]($link.ref("Site.localeCode")) 
+>- [`fn localeName()`]($link.ref("Site.localeName")) 
+>- [`fn link()`]($link.ref("Site.link")) 
+>- [`fn asset()`]($link.ref("Site.asset")) 
+>- [`fn page()`]($link.ref("Site.page")) 
+>- [`fn pages()`]($link.ref("Site.pages")) 
+>- [`fn locale()`]($link.ref("Site.locale")) 
+
+># [Page]($block.collapsible(false))
+>- [`description`]($link.unsafeRef("Page"))
+>- [`.title`]($link.unsafeRef("Page.title"))
+>- [`.description`]($link.unsafeRef("Page.description"))
+>- [`.author`]($link.unsafeRef("Page.author"))
+>- [`.date`]($link.unsafeRef("Page.date"))
+>- [`.layout`]($link.unsafeRef("Page.layout"))
+>- [`.draft`]($link.unsafeRef("Page.draft"))
+>- [`.tags`]($link.unsafeRef("Page.tags"))
+>- [`.aliases`]($link.unsafeRef("Page.aliases"))
+>- [`.alternatives`]($link.unsafeRef("Page.alternatives"))
+>- [`.skip_subdirs`]($link.unsafeRef("Page.skip_subdirs"))
+>- [`.translation_key`]($link.unsafeRef("Page.translation_key"))
+>- [`.custom`]($link.unsafeRef("Page.custom"))
+>- [`fn isCurrent()`]($link.ref("Page.isCurrent")) 
+>- [`fn asset()`]($link.ref("Page.asset")) 
+>- [`fn site()`]($link.ref("Page.site")) 
+>- [`fn locale()`]($link.ref("Page.locale")) 
+>- [`fn locale?()`]($link.ref("Page.locale?")) 
+>- [`fn locales()`]($link.ref("Page.locales")) 
+>- [`fn wordCount()`]($link.ref("Page.wordCount")) 
+>- [`fn parentSection()`]($link.ref("Page.parentSection")) 
+>- [`fn isSection()`]($link.ref("Page.isSection")) 
+>- [`fn subpages()`]($link.ref("Page.subpages")) 
+>- [`fn subpagesAlphabetic()`]($link.ref("Page.subpagesAlphabetic")) 
+>- [`fn nextPage?()`]($link.ref("Page.nextPage?")) 
+>- [`fn prevPage?()`]($link.ref("Page.prevPage?")) 
+>- [`fn hasNext()`]($link.ref("Page.hasNext")) 
+>- [`fn hasPrev()`]($link.ref("Page.hasPrev")) 
+>- [`fn link()`]($link.ref("Page.link")) 
+>- [`fn linkRef()`]($link.ref("Page.linkRef")) 
+>- [`fn alternative()`]($link.ref("Page.alternative")) 
+>- [`fn content()`]($link.ref("Page.content")) 
+>- [`fn contentSection()`]($link.ref("Page.contentSection")) 
+>- [`fn hasContentSection()`]($link.ref("Page.hasContentSection")) 
+>- [`fn contentSections()`]($link.ref("Page.contentSections")) 
+>- [`fn footnotes?()`]($link.ref("Page.footnotes?")) 
+>- [`fn toc()`]($link.ref("Page.toc")) 
+
+># [Ctx]($block.collapsible(false))
+>- [`description`]($link.unsafeRef("Ctx"))
+
+># [Alternative]($block.collapsible(false))
+>- [`description`]($link.unsafeRef("Alternative"))
+>- [`.name`]($link.unsafeRef("Alternative.name"))
+>- [`.layout`]($link.unsafeRef("Alternative.layout"))
+>- [`.output`]($link.unsafeRef("Alternative.output"))
+>- [`.type`]($link.unsafeRef("Alternative.type"))
+>- [`fn link()`]($link.ref("Alternative.link")) 
+
+># [ContentSection]($block.collapsible(false))
+>- [`description`]($link.unsafeRef("ContentSection"))
+>- [`.id`]($link.unsafeRef("ContentSection.id"))
+>- [`.data`]($link.unsafeRef("ContentSection.data"))
+>- [`fn heading()`]($link.ref("ContentSection.heading")) 
+>- [`fn heading?()`]($link.ref("ContentSection.heading?")) 
+>- [`fn html()`]($link.ref("ContentSection.html")) 
+>- [`fn htmlNoHeading()`]($link.ref("ContentSection.htmlNoHeading")) 
+
+># [Footnote]($block.collapsible(false))
+>- [`description`]($link.unsafeRef("Footnote"))
+>- [`.def_id`]($link.unsafeRef("Footnote.def_id"))
+>- [`.ref_ids`]($link.unsafeRef("Footnote.ref_ids"))
+>- [`fn html()`]($link.ref("Footnote.html")) 
+
+># [Build]($block.collapsible(false))
+>- [`description`]($link.unsafeRef("Build"))
+>- [`.generated`]($link.unsafeRef("Build.generated"))
+>- [`fn asset()`]($link.ref("Build.asset")) 
+>- [`fn git()`]($link.ref("Build.git")) 
+>- [`fn git?()`]($link.ref("Build.git?")) 
+
+># [Git]($block.collapsible(false))
+>- [`description`]($link.unsafeRef("Git"))
+>- [`.commit_hash`]($link.unsafeRef("Git.commit_hash"))
+>- [`.commit_date`]($link.unsafeRef("Git.commit_date"))
+>- [`.commit_message`]($link.unsafeRef("Git.commit_message"))
+>- [`.author_name`]($link.unsafeRef("Git.author_name"))
+>- [`.author_email`]($link.unsafeRef("Git.author_email"))
+>- [`fn tag()`]($link.ref("Git.tag")) 
+>- [`fn tag?()`]($link.ref("Git.tag?")) 
+>- [`fn branch()`]($link.ref("Git.branch")) 
+>- [`fn branch?()`]($link.ref("Git.branch?")) 
+
+># [Asset]($block.collapsible(false))
+>- [`description`]($link.unsafeRef("Asset"))
+>- [`fn link()`]($link.ref("Asset.link")) 
+>- [`fn size()`]($link.ref("Asset.size")) 
+>- [`fn bytes()`]($link.ref("Asset.bytes")) 
+>- [`fn sriHash()`]($link.ref("Asset.sriHash")) 
+>- [`fn ziggy()`]($link.ref("Asset.ziggy")) 
+
+># [Map]($block.collapsible(false))
+>- [`description`]($link.unsafeRef("Map"))
+>- [`fn getOr()`]($link.ref("Map.getOr")) 
+>- [`fn get()`]($link.ref("Map.get")) 
+>- [`fn get?()`]($link.ref("Map.get?")) 
+>- [`fn has()`]($link.ref("Map.has")) 
+>- [`fn iterate()`]($link.ref("Map.iterate")) 
+>- [`fn iterPattern()`]($link.ref("Map.iterPattern")) 
+
+># [?any]($block.collapsible(false))
+>- [`description`]($link.unsafeRef("?any"))
+
+># [String]($block.collapsible(false))
+>- [`description`]($link.unsafeRef("String"))
+>- [`fn len()`]($link.ref("String.len")) 
+>- [`fn contains()`]($link.ref("String.contains")) 
+>- [`fn endsWith()`]($link.ref("String.endsWith")) 
+>- [`fn eql()`]($link.ref("String.eql")) 
+>- [`fn basename()`]($link.ref("String.basename")) 
+>- [`fn suffix()`]($link.ref("String.suffix")) 
+>- [`fn prefix()`]($link.ref("String.prefix")) 
+>- [`fn fmt()`]($link.ref("String.fmt")) 
+>- [`fn addPath()`]($link.ref("String.addPath")) 
+>- [`fn syntaxHighlight()`]($link.ref("String.syntaxHighlight")) 
+>- [`fn parseInt()`]($link.ref("String.parseInt")) 
+>- [`fn parseDate()`]($link.ref("String.parseDate")) 
+>- [`fn splitN()`]($link.ref("String.splitN")) 
+>- [`fn lower()`]($link.ref("String.lower")) 
+
+># [Date]($block.collapsible(false))
+>- [`description`]($link.unsafeRef("Date"))
+>- [`fn gt()`]($link.ref("Date.gt")) 
+>- [`fn lt()`]($link.ref("Date.lt")) 
+>- [`fn eq()`]($link.ref("Date.eq")) 
+>- [`fn format()`]($link.ref("Date.format")) 
+>- [`fn formatHTTP()`]($link.ref("Date.formatHTTP")) 
+
+># [Bool]($block.collapsible(false))
+>- [`description`]($link.unsafeRef("Bool"))
+>- [`fn then()`]($link.ref("Bool.then")) 
+>- [`fn not()`]($link.ref("Bool.not")) 
+>- [`fn and()`]($link.ref("Bool.and")) 
+>- [`fn or()`]($link.ref("Bool.or")) 
+
+># [Int]($block.collapsible(false))
+>- [`description`]($link.unsafeRef("Int"))
+>- [`fn eq()`]($link.ref("Int.eq")) 
+>- [`fn gt()`]($link.ref("Int.gt")) 
+>- [`fn plus()`]($link.ref("Int.plus")) 
+>- [`fn div()`]($link.ref("Int.div")) 
+>- [`fn byteSize()`]($link.ref("Int.byteSize")) 
+
+># [Float]($block.collapsible(false))
+>- [`description`]($link.unsafeRef("Float"))
+
+># [Iterator]($block.collapsible(false))
+>- [`description`]($link.unsafeRef("Iterator"))
+>- [`.it`]($link.unsafeRef("Iterator.it"))
+>- [`.idx`]($link.unsafeRef("Iterator.idx"))
+>- [`.first`]($link.unsafeRef("Iterator.first"))
+>- [`.last`]($link.unsafeRef("Iterator.last"))
+>- [`.len`]($link.unsafeRef("Iterator.len"))
+>- [`fn up()`]($link.ref("Iterator.up")) 
+
+># [Array]($block.collapsible(false))
+>- [`description`]($link.unsafeRef("Array"))
+>- [`.len`]($link.unsafeRef("Array.len"))
+>- [`.empty`]($link.unsafeRef("Array.empty"))
+>- [`fn slice()`]($link.ref("Array.slice")) 
+>- [`fn at()`]($link.ref("Array.at")) 
+>- [`fn first?()`]($link.ref("Array.first?")) 
+>- [`fn last?()`]($link.ref("Array.last?")) 
+
+># [KV]($block.collapsible(false))
+>- [`description`]($link.unsafeRef("KV"))
+>- [`.key`]($link.unsafeRef("KV.key"))
+>- [`.value`]($link.unsafeRef("KV.value"))
+
+># [err]($block.collapsible(false))
+>- [`description`]($link.unsafeRef("err"))
+# [Global Context]($section.id('global'))
+
+## [`$site`]($text.id('$site')) : [Site]($link.ref("Site"))
 
 The current website. In a multilingual website,
 each locale will have its own separate instance of $site
 
-## `$page` : [Page]($link.ref("Page"))
+## [`$page`]($text.id('$page')) : [Page]($link.ref("Page"))
 
 The page being currently rendered.
 
-## `$build` : [Build]($link.ref("Build"))
+## [`$build`]($text.id('$build')) : [Build]($link.ref("Build"))
 
 Gives you access to build-time assets (i.e. assets built
  via the Zig build system) alongside other information
 relative to the current build.
 
-## `$i18n` : [Map]($link.ref("Map"))
+## [`$i18n`]($text.id('$i18n')) : [Map]($link.ref("Map"))
 
 In a multilingual website it contains the translations 
 defined in the corresponding i18n file.
 
 See the i18n docs for more info.
 
-## `$ctx` : [Ctx]($link.ref("Ctx"))
+## [`$ctx`]($text.id('$ctx')) : [Ctx]($link.ref("Ctx"))
 
 A key-value mapping that contains data defined in `<ctx>`
 nodes.
 
-## `$loop` : ?[Iterator]($link.ref("Iterator"))
+## [`$loop`]($text.id('$loop')) : ?[Iterator]($link.ref("Iterator"))
 
 The current iterator, only available within elements
 that have a `loop` attribute.
 
-## `$if` : ?[any]($link.ref("any"))
+## [`$if`]($text.id('$if')) : ?[any]($link.ref("any"))
 
 The current branching variable, only available within elements
 that have an `if` attribute used to unwrap an optional value.
@@ -55,11 +250,11 @@ The global site configuration. The fields come from the call to
 
 ## Fields
 
-### `host_url` : [String]($link.ref("String"))
+### [`host_url`]($text.id('Site.host_url')) : [String]($link.ref("String"))
 
 The host URL, as defined in your `build.zig`.
 
-### `title` : [String]($link.ref("String"))
+### [`title`]($text.id('Site.title')) : [String]($link.ref("String"))
 
 The website title, as defined in your `build.zig`.
 
@@ -119,15 +314,20 @@ matched by Zine with either:
  - content/foo/bar.smd
  - content/foo/bar/index.smd
 
+To reference the site homepage, pass an empty string.
+
 #### Examples
 
 ```superhtml
 <a href="$site.page('downloads').link()">Downloads</a>
 ```
-### []($heading.id("Site.pages")) [`fn`]($link.ref("Site.pages")) pages ([String]($link.ref("String")), [[String]($link.ref("String"))...]) -> [[Page]($link.ref("Page"))] *(see also [[any]]($link.ref("Array")))*   
+### []($heading.id("Site.pages")) [`fn`]($link.ref("Site.pages")) pages ([[String]($link.ref("String"))...]) -> [[Page]($link.ref("Page"))] *(see also [[any]]($link.ref("Array")))*   
 
 Same as `page`, but accepts a variable number of page references and 
 loops over them in the provided order. All pages must exist.
+
+Calling this function with no arguments will loop over all pages
+of the site.
 
 To be used in conjunction with a `loop` attribute.
 
@@ -135,6 +335,7 @@ To be used in conjunction with a `loop` attribute.
 
 ```superhtml
 <ul :loop="$site.pages('a', 'b', 'c')"><li :text="$loop.it.title"></li></ul>
+<ul :loop="$site.pages()"><li :text="$loop.it.title"></li></ul>
 ```
 ### []($heading.id("Site.locale")) [`fn`]($link.ref("Site.locale")) locale ([String]($link.ref("String"))) -> [Site]($link.ref("Site"))
 
@@ -153,44 +354,44 @@ The page currently being rendered.
 
 ## Fields
 
-### `title` : [String]($link.ref("String"))
+### [`title`]($text.id('Page.title')) : [String]($link.ref("String"))
 
 Title of the page, 
 as set in the SuperMD frontmatter.
 
-### `description` : [String]($link.ref("String"))
+### [`description`]($text.id('Page.description')) : [String]($link.ref("String"))
 
 Description of the page, 
 as set in the SuperMD frontmatter.
 
-### `author` : [String]($link.ref("String"))
+### [`author`]($text.id('Page.author')) : [String]($link.ref("String"))
 
 Author of the page, 
 as set in the SuperMD frontmatter.
 
-### `date` : [Date]($link.ref("Date"))
+### [`date`]($text.id('Page.date')) : [Date]($link.ref("Date"))
 
 Publication date of the page, 
 as set in the SuperMD frontmatter.
 
 Used to provide default ordering of pages.
 
-### `layout` : [String]($link.ref("String"))
+### [`layout`]($text.id('Page.layout')) : [String]($link.ref("String"))
 
 SuperHTML layout used to render the page, 
 as set in the SuperMD frontmatter.
 
-### `draft` : [Bool]($link.ref("Bool"))
+### [`draft`]($text.id('Page.draft')) : [Bool]($link.ref("Bool"))
 
 When set to true the page will not be rendered in release mode, 
 as set in the SuperMD frontmatter.
 
-### `tags` : [[String]($link.ref("String"))] *(see also [[any]]($link.ref("Array")))*   
+### [`tags`]($text.id('Page.tags')) : [[String]($link.ref("String"))] *(see also [[any]]($link.ref("Array")))*   
 
 Tags associated with the page, 
 as set in the SuperMD frontmatter.
 
-### `aliases` : [[String]($link.ref("String"))] *(see also [[any]]($link.ref("Array")))*   
+### [`aliases`]($text.id('Page.aliases')) : [[String]($link.ref("String"))] *(see also [[any]]($link.ref("Array")))*   
 
 Aliases of the current page, 
 as set in the SuperMD frontmatter.
@@ -201,28 +402,28 @@ from different locations.
 Every entry in the list is an output location where the 
 rendered page will be copied to.
 
-### `alternatives` : [[Alternative]($link.ref("Alternative"))] *(see also [[any]]($link.ref("Array")))*   
+### [`alternatives`]($text.id('Page.alternatives')) : [[Alternative]($link.ref("Alternative"))] *(see also [[any]]($link.ref("Array")))*   
 
 Alternative versions of the page, 
 as set in the SuperMD frontmatter.
 
 Alternatives are a good way of implementing RSS feeds, for example.
 
-### `skip_subdirs` : [Bool]($link.ref("Bool"))
+### [`skip_subdirs`]($text.id('Page.skip_subdirs')) : [Bool]($link.ref("Bool"))
 
 Skips any other potential content present in the subdir of the page, 
 as set in the SuperMD frontmatter.
 
 Can only be set to true on section pages (i.e. `index.smd` pages).
 
-### `translation_key` : ?[String]($link.ref("String"))
+### [`translation_key`]($text.id('Page.translation_key')) : ?[String]($link.ref("String"))
 
 Translation key used to map this page with corresponding localized variants, 
 as set in the SuperMD frontmatter.
 
 See the docs on i18n for more info.
 
-### `custom` : [any]($link.ref("any"))
+### [`custom`]($text.id('Page.custom')) : [any]($link.ref("any"))
 
 A Ziggy map where you can define custom properties for the page, 
 as set in the SuperMD frontmatter.
@@ -411,6 +612,10 @@ $page.hasPrev()
 
 Returns the URL of the target page.
 
+In multilingual sites, if the target page belongs to a different
+localized variant, the link will containt the full host URL if
+'host_url_override' was specified for either page.
+
 #### Examples
 
 ```superhtml
@@ -539,20 +744,20 @@ can be used when generating `<link rel="alternate">` elements.
 
 ## Fields
 
-### `name` : [String]($link.ref("String"))
+### [`name`]($text.id('Alternative.name')) : [String]($link.ref("String"))
 
 A name that can be used to fetch this alternative version
 of the page.
 
-### `layout` : [String]($link.ref("String"))
+### [`layout`]($text.id('Alternative.layout')) : [String]($link.ref("String"))
 
 The SuperHTML layout to use to generate this alternative version of the page.
 
-### `output` : [String]($link.ref("String"))
+### [`output`]($text.id('Alternative.output')) : [String]($link.ref("String"))
 
 Output path where to to put the generated alternative.
 
-### `type` : [String]($link.ref("String"))
+### [`type`]($text.id('Alternative.type')) : [String]($link.ref("String"))
 
 A metadata field that can be used to set the content-type of this alternative version of the Page. 
 
@@ -584,11 +789,11 @@ A content section from a page.
 
 ## Fields
 
-### `id` : [String]($link.ref("String"))
+### [`id`]($text.id('ContentSection.id')) : [String]($link.ref("String"))
 
 The id of the current section.
 
-### `data` : [Map]($link.ref("Map"))
+### [`data`]($text.id('ContentSection.data')) : [Map]($link.ref("Map"))
 
 A Ziggy Map that contains data key-value pairs set in SuperMD
 
@@ -623,17 +828,26 @@ Renders the section.
 ```superhtml
 <div :html="$loop.it.html()"></div>
 ```
+### []($heading.id("ContentSection.htmlNoHeading")) [`fn`]($link.ref("ContentSection.htmlNoHeading")) htmlNoHeading () -> [String]($link.ref("String"))
+
+Renders the section but omits the section heading if present.
+
+#### Examples
+
+```superhtml
+<div :html="$loop.it.htmlNoHeading()"></div>
+```
 # [Footnote]($section.id('Footnote'))
 
 A footnote from a page.
 
 ## Fields
 
-### `def_id` : [String]($link.ref("String"))
+### [`def_id`]($text.id('Footnote.def_id')) : [String]($link.ref("String"))
 
 The ID for the footnote definition.
 
-### `ref_ids` : [[String]($link.ref("String"))] *(see also [[any]]($link.ref("Array")))*   
+### [`ref_ids`]($text.id('Footnote.ref_ids')) : [[String]($link.ref("String"))] *(see also [[any]]($link.ref("Array")))*   
 
 The IDs of the footnote's references,
 to be used for creating backlinks.
@@ -656,7 +870,7 @@ When inside of a git repository it also gives git-related metadata.
 
 ## Fields
 
-### `generated` : [Date]($link.ref("Date"))
+### [`generated`]($text.id('Build.generated')) : [Date]($link.ref("Date"))
 
 Returns the current date when the build is taking place.
 
@@ -706,23 +920,23 @@ Information about the current git repository.
 
 ## Fields
 
-### `commit_hash` : [String]($link.ref("String"))
+### [`commit_hash`]($text.id('Git.commit_hash')) : [String]($link.ref("String"))
 
 The current commit hash.
 
-### `commit_date` : [Date]($link.ref("Date"))
+### [`commit_date`]($text.id('Git.commit_date')) : [Date]($link.ref("Date"))
 
 The date of the current commit.
 
-### `commit_message` : [String]($link.ref("String"))
+### [`commit_message`]($text.id('Git.commit_message')) : [String]($link.ref("String"))
 
 The commit message of the current commit.
 
-### `author_name` : [String]($link.ref("String"))
+### [`author_name`]($text.id('Git.author_name')) : [String]($link.ref("String"))
 
 The name of the author of the current commit.
 
-### `author_email` : [String]($link.ref("String"))
+### [`author_email`]($text.id('Git.author_email')) : [String]($link.ref("String"))
 
 The email of the author of the current commit.
 
@@ -785,8 +999,8 @@ Returns a link to the asset.
 Calling `link` on an asset will cause it to be installed
 under the same relative path into the output directory.
 
-    `content/post/bar.jpg` -> `zig-out/post/bar.jpg`
-  `assets/foo/bar/baz.jpg` -> `zig-out/foo/bar/baz.jpg`
+    `content/post/bar.jpg` -> `public/post/bar.jpg`
+  `assets/foo/bar/baz.jpg` -> `public/foo/bar/baz.jpg`
 
 Build assets will be installed under the path defined in
 your `build.zig`.
@@ -1239,23 +1453,23 @@ An iterator.
 
 ## Fields
 
-### `it` : [any]($link.ref("any"))
+### [`it`]($text.id('Iterator.it')) : [any]($link.ref("any"))
 
 The current iteration variable.
 
-### `idx` : [Int]($link.ref("Int"))
+### [`idx`]($text.id('Iterator.idx')) : [Int]($link.ref("Int"))
 
 The current iteration index.
 
-### `first` : [Bool]($link.ref("Bool"))
+### [`first`]($text.id('Iterator.first')) : [Bool]($link.ref("Bool"))
 
 True on the first iteration loop.
 
-### `last` : [Bool]($link.ref("Bool"))
+### [`last`]($text.id('Iterator.last')) : [Bool]($link.ref("Bool"))
 
 True on the last iteration loop.
 
-### `len` : [Int]($link.ref("Int"))
+### [`len`]($text.id('Iterator.len')) : [Int]($link.ref("Int"))
 
 The length of the sequence being iterated.
 
@@ -1277,11 +1491,11 @@ An array of items.
 
 ## Fields
 
-### `len` : [Int]($link.ref("Int"))
+### [`len`]($text.id('Array.len')) : [Int]($link.ref("Int"))
 
 The length of the array.
 
-### `empty` : [Bool]($link.ref("Bool"))
+### [`empty`]($text.id('Array.empty')) : [Bool]($link.ref("Bool"))
 
 True when len is 0.
 
@@ -1336,11 +1550,11 @@ A key-value pair.
 
 ## Fields
 
-### `key` : [String]($link.ref("String"))
+### [`key`]($text.id('KV.key')) : [String]($link.ref("String"))
 
 The key string.
 
-### `value` : [any]($link.ref("any"))
+### [`value`]($text.id('KV.value')) : [any]($link.ref("any"))
 
 The corresponding value.
 

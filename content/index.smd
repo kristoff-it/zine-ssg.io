@@ -19,7 +19,11 @@ copies the result into an output directory that you can then publish on static
 hosting services like GitHub Pages.
 
 Zine uses a **structured approach to content authoring** that helps keeping sizeable
-content collections manageable. Similarly, the build process uses **surgical
+content collections manageable.
+
+Zine is implemented from scratch in [Zig](https://ziglang.org) and it's so fast that it's currently able to give you instant live updates when the development server is running, even though it rebuilds your entire site from scratch every time. As a datapoint, this website rebuilds in `7ms` on a Mac Mini M2.
+
+Cached rebuilds are planned and will implement **surgical
 dependency tracking** to ensure minimal rebuilds, keeping the authoring experience
 excellent at all scales.
 

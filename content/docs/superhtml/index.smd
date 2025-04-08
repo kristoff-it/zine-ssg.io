@@ -236,10 +236,10 @@ Nested instances of `<ctx>` will have all their attributes merged in `$ctx` (i.e
 
 Shadowing is not allowed for `<ctx>` attributes and will be reported as an error if two definitions of the same attribute are active in the same scope.
 
-## [`<super>`]($section.id('super'))
+## `<super>`
 Used to define template extension hierarchies, see the next section for more information.
 
-## [`<extend>`]($section.id('extend'))
+## `<extend>`
 Used to define template extension hierarchies, see the next section for more information.
 
 # [Extending templates]($section.id('extending-templates'))

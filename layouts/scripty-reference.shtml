@@ -10,12 +10,22 @@
        margin-bottom: 0;
      }
 
-	#reference h1 {
-		position: sticky;
-		top: 0;
-		background-color: #111;
-		border-bottom: 2px dashed #aaa;
-		margin-top: 50px;
+	#reference>div>h1, #sidebar>h1 {
+	    font-size: 2.2rem;
+	}
+
+ #sidebar>h1 {
+	text-align: left;
+	margin-right: 10px;
+	padding-left: 10px;
+	background-color: #111 !important;
+}
+	
+	#reference h1, #sidebar>h1 {
+		background-color: #222;
+		border-bottom: 1px dashed #888;
+		
+		margin-top: 0px;
 	}
 
 	#reference h1 a {
@@ -78,6 +88,11 @@
 	  animation: pulse-div 2s ease-in-out 1;
 	}
 
+	#reference>div {
+		margin-bottom: 40px;
+	}
+
+
 	@keyframes pulse-div {
 	  0%,
 	  100% {
@@ -92,12 +107,12 @@
 	.container {
 		display: flex;
 		flex-direction: row;
+		gap: 10px;
 	
 	}
 
 		#sidebar {
 			flex: 0 0 260px;
-			padding-top: 0.67em;
 		}
 
 		#sidebar details {
@@ -105,17 +120,25 @@
 		}
 
 		#sidebar summary {
-			border-top: 1px solid var(--border-color);
+  font-family: 'Bebas Neue', sans-serif;
+  font-weight: normal;
+  color: #eee;
+  font-size: 1.2rem;
 			list-style: none;
 			padding: 10px 0;
-			color: #333;
+			color: #ccc;
 			font-weight: bold;
 			padding-left: 10px;
 		}
 
+		#sidebar details[open] summary {
+			
+background-color: #222;
+		}
+
 		#sidebar summary:hover {
 			color: #fff;
-			background-color: #111;
+			background-color: #222;
 		}
 
 		#sidebar ul {
@@ -134,33 +157,127 @@
 
 		#sidebar a:hover, #sidebar .selected { 
 			background-color: #333;
+			color: #fff;
 		}
 
+		#sidebar {
+		}
 		#sidebar-content {
 			position: sticky;
-			top: 110px;
+			top: 0px;
+  max-height: 100vh;
+			  overflow-y: auto;
+  scrollbar-gutter: stable;
+scrollbar-color: yellow #222;
+			overflow-x: hidden;
 		}
 
-		ul>li>ul>li>ul>li>ul {
-			display: none;
+
+
+        
+		#content {
+			max-width: unset;
 		}
 
 		#reference {
-			max-width: 600px;
+			max-width: 800px;
+			overflow-x: hidden;
 		}
-		#sidebar em {
-			display: none;
+
+		body {
+			height: 100vh;
 		}
-		#content {
-			max-width: 1200px;
+
+		#sidebar .block {
+			border: 1px dotted #ccc;
 		}
+
+@media screen and (max-width: 799px) {
+  body {
+	height: unset;
+	display:flex;
+	flex-direction: column;
+	box-model: border-box;
+}
+
+#content {
+	padding: 0;
+}
+
+
+  #sidebar>h1 {
+	text-align:center;
+  }
+  .container {
+    flex-direction: column;
+	gap: 25px;
+  width: 100vw;
+  }
+
+  #sidebar, #reference {
+	padding: 0 15px;
+}
+}
+
+
+@media screen and (min-width: 800px) and (max-width: 1000px) {
+  #sidebar-content {
+    max-height: calc(100vh / 1.2);
+  }
+}
+
+@media screen and (min-width: 1000px) and (max-width: 1200px) {
+  #sidebar-content {
+    max-height: calc(100vh / 1.3);
+  }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1400px) {
+  #sidebar-content {
+    max-height: calc(100vh / 1.4);
+  }
+}
+
+@media screen and (min-width: 1400px) and (max-width: 1600px) {
+  #sidebar-content {
+    max-height: calc(100vh / 1.5);
+  }
+}
+
+@media screen and (min-width: 1400px) and (max-width: 1600px) {
+  #sidebar-content {
+    max-height: calc(100vh / 1.55);
+  }
+}
+
+
+@media screen and (min-width: 1400px) and (max-width: 1600px) {
+  #sidebar-content {
+    max-height: calc(100vh / 1.6);
+  }
+}
+
+@media screen and (min-width: 1600px) and (max-width: 1800px) {
+  #sidebar-content {
+    max-height: calc(100vh / 1.65);
+  }
+}
+
+@media screen and (min-width: 1800px) {
+  #sidebar-content {
+    max-height: calc(100vh / 1.7);
+  }
+}
   </style>
   <h3 class="centered">Zine</h3>
   <h1 :text="$page.title"></h1>
   <div class="container">
     <div id="sidebar">
-      <div :html="$page.toc()"></div>
+      <h1>Navigation</h1>
+      <div id="sidebar-content" :html="$page.contentSection('menu')"></div>
     </div>
-    <div id="reference" :html="$page.content()"></div>
+    <div id="reference" :loop="$page.contentSections().slice(1)">
+      <ctx :html="$loop.it.html()"></ctx>
+    </div>
   </div>
 </div>
