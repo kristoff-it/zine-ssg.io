@@ -40,6 +40,7 @@
 >- [`description`]($link.ref("Image"))
 >- [`fn alt()`]($link.ref("Image.alt")) 
 >- [`fn linked()`]($link.ref("Image.linked")) 
+>- [`fn size()`]($link.ref("Image.size")) 
 >- [`fn url()`]($link.ref("Image.url")) 
 >- [`fn asset()`]($link.ref("Image.asset")) 
 >- [`fn siteAsset()`]($link.ref("Image.siteAsset")) 
@@ -148,6 +149,21 @@ Example:
 >Lorem ipsum.
 
 
+By calling `collapsible` you can generate `<details>` elements:
+
+
+Example:
+```markdown
+># [Example]($block.collapsible(false))
+>The title becomes the `<summary>` element!
+>Lorem ipsum.
+```
+># [Example]($block.collapsible(false))
+>The title becomes the `<summary>` element!
+>Lorem ipsum.
+
+
+
 ## [`$heading`]($text.id("$heading")) : [Heading]($link.ref("Heading"))
 
 Allows giving an id and attributes to a heading element.
@@ -182,7 +198,7 @@ Outputs the given LaTeX formula as a script tag that can be rendered
 at runtime by JavaScript tools such as [Katex](https://katex.org),
 [MathJax](https://www.mathjax.org/), [Temml](https://temml.org/), etc.
 Note that the formula must be enclosed in backticks to avoid
-collisions with SuperMD.
+collisions with other SuperMD syntax.
 
 This JS based solution is temporary. Zine will eventually implement
 its own way of outputting MathML at buildtime so that clients won't 
@@ -337,6 +353,21 @@ Example:
 >Lorem ipsum.
 
 
+By calling `collapsible` you can generate `<details>` elements:
+
+
+Example:
+```markdown
+># [Example]($block.collapsible(false))
+>The title becomes the `<summary>` element!
+>Lorem ipsum.
+```
+># [Example]($block.collapsible(false))
+>The title becomes the `<summary>` element!
+>Lorem ipsum.
+
+
+
 ## Functions
 
 ### []($heading.id("Block.collapsible")) [`fn`]($link.ref("Block.collapsible")) collapsible (bool) -> [Block]($link.ref("Block"))
@@ -379,6 +410,26 @@ tooling can access.
 ### []($heading.id("Image.linked")) [`fn`]($link.ref("Image.linked")) linked (bool) -> [Image]($link.ref("Image"))
 
 Wraps the image in a link to itself.
+
+### []($heading.id("Image.size")) [`fn`]($link.ref("Image.size")) size (int, int) -> [Image]($link.ref("Image"))
+
+Sets the width and/or height of the image.
+
+When both dimensions are non-zero, the image will be resized to exactly those dimensions:
+```markdown
+[Image caption]($image.asset('example.jpg').size(800, 600))
+```
+
+To specify width while maintaining aspect ratio, set height to 0:
+```markdown
+[Image caption]($image.asset('example.jpg').size(800, 0))
+```
+
+To specify height while maintaining aspect ratio, set width to 0:
+```markdown
+[Image caption]($image.asset('example.jpg').size(0, 600))
+```
+
 
 ### []($heading.id("Image.url")) [`fn`]($link.ref("Image.url")) url (str) -> [Image]($link.ref("Image"))
 
@@ -596,7 +647,7 @@ Outputs the given LaTeX formula as a script tag that can be rendered
 at runtime by JavaScript tools such as [Katex](https://katex.org),
 [MathJax](https://www.mathjax.org/), [Temml](https://temml.org/), etc.
 Note that the formula must be enclosed in backticks to avoid
-collisions with SuperMD.
+collisions with other SuperMD syntax.
 
 This JS based solution is temporary. Zine will eventually implement
 its own way of outputting MathML at buildtime so that clients won't 

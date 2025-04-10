@@ -138,6 +138,7 @@
 >- [`fn len()`]($link.ref("String.len")) 
 >- [`fn contains()`]($link.ref("String.contains")) 
 >- [`fn endsWith()`]($link.ref("String.endsWith")) 
+>- [`fn startsWith()`]($link.ref("String.startsWith")) 
 >- [`fn eql()`]($link.ref("String.eql")) 
 >- [`fn basename()`]($link.ref("String.basename")) 
 >- [`fn suffix()`]($link.ref("String.suffix")) 
@@ -155,6 +156,7 @@
 >- [`fn gt()`]($link.ref("Date.gt")) 
 >- [`fn lt()`]($link.ref("Date.lt")) 
 >- [`fn eq()`]($link.ref("Date.eq")) 
+>- [`fn in()`]($link.ref("Date.in")) 
 >- [`fn format()`]($link.ref("Date.format")) 
 >- [`fn formatHTTP()`]($link.ref("Date.formatHTTP")) 
 
@@ -1155,6 +1157,16 @@ Returns true if the receiver ends with the provided string.
 ```superhtml
 $page.permalink().endsWith("/blog/")
 ```
+### []($heading.id("String.startsWith")) [`fn`]($link.ref("String.startsWith")) startsWith ([String]($link.ref("String"))) -> [Bool]($link.ref("Bool"))
+
+Returns true if the receiver starts with the provided string.
+
+
+#### Examples
+
+```superhtml
+$page.permalink().startsWith("/blog/")
+```
 ### []($heading.id("String.eql")) [`fn`]($link.ref("String.eql")) eql ([String]($link.ref("String"))) -> [Bool]($link.ref("Bool"))
 
 Returns true if the receiver equals the provided string.
@@ -1307,6 +1319,16 @@ Return true if lhs is the same instant as the rhs (the argument).
 
 ```superhtml
 $page.date.eq($page.custom.expiry_date)
+```
+### []($heading.id("Date.in")) [`fn`]($link.ref("Date.in")) in ([String]($link.ref("String"))) -> [Date]($link.ref("Date"))
+
+Change the Time Zone offset of a date with the offset
+of the location provided.
+
+#### Examples
+
+```superhtml
+$page.date.in("Europe/Berlin")
 ```
 ### []($heading.id("Date.format")) [`fn`]($link.ref("Date.format")) format ([String]($link.ref("String"))) -> [String]($link.ref("String"))
 

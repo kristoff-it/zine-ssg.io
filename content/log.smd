@@ -17,6 +17,29 @@ This is a non-exhaustive, curated list of changes meant to help users quickly se
 You can [subscribe to this page via RSS]($link.alternative("rss")).
 
 ## Changes
+
+[]($section.id('v0.10.1').data('date','2025-04-10'))
+- SuperMD:
+  - Added support for [`$image.size()`](/docs/supermd/scripty/#Image.size)  
+    (specify image size manually)
+
+- SuperHTML:
+  - Added support for [`Date.in()`](/docs/superhtml/scripty/#Date.in)  
+    (change tz of a date based on a location string)
+  - Added support for [`String.startsWith()`](/docs/superhtml/scripty/#String.startsWith)  
+  ([#137](https://github.com/kristoff-it/zine/pull/137), thanks illfygli!) 
+    
+
+- Bugfixes:
+  - Fixed one memory corruption bug that could cause Zine to crash on
+    startup ([fc0b117](https://github.com/kristoff-it/zine/commit/fc0b117f43d1ab985cc06b0c9a0639bd4479cd47)).
+  - Fixed some path manipulation inconsistencies on Windows, now CI
+    is green also for the greatest OS ever made.
+  - The help menu wrongly suggested to use `--output` to specify an
+    install path, while the correct string is `--install`.
+  - Zine checks for output path collisions but a bug in how page aliases
+    were handled in the code could cause false positives.
+
 []($section.id('v0.10.0').data('date','2025-04-08'))
 ### Standalone Zine is here!
 
