@@ -22,6 +22,7 @@ You can [subscribe to this page via RSS]($link.alternative("rss")).
 - SuperMD:
   - Added support for [`$image.size()`](/docs/supermd/scripty/#Image.size)  
     (specify image size manually)
+  - Added support for fragments in Markdown vanilla link syntax. Now `[](/my/page/#my-ref)` will correctly translate to `$link.page('my/page').ref('#my-ref')`
 
 - SuperHTML:
   - Added support for [`Date.in()`](/docs/superhtml/scripty/#Date.in)  
