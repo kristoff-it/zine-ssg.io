@@ -18,6 +18,21 @@ You can [subscribe to this page via RSS]($link.alternative("rss")).
 
 ## Changes
 
+[]($section.id('v0.10.2').data('date','2025-04-22'))
+- SuperHTML:
+  - Fixed a crash when using `$page.alternative()`, in the refactoting to standalone
+    I forgot to wire back some state management, resulting in a reliable crash when
+    using that function. Sorry! Now it's fixed though.
+  - DateTime: introduced the ability to add and subtract time durations to a DateTime.
+- SuperMD:
+  - Fixed a crash when providing a URL to the root path in some directives.
+- Zine Development Server:
+  - The hot reload script injected to your pages now has a `defer` attribute which
+    helps simplify local performance testing of your website.
+  - Fixed websocket disconnections when the client sent long headers, particularly
+    felt on Windows (([#139](https://github.com/kristoff-it/zine/pull/139)) thanks Scott!).
+- Added nix flake (([#143](https://github.com/kristoff-it/zine/pull/143)) thanks sreehax!)
+
 []($section.id('v0.10.1').data('date','2025-04-10'))
 - SuperMD:
   - Added support for [`$image.size()`](/docs/supermd/scripty/#Image.size)  

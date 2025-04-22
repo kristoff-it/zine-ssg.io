@@ -53,7 +53,7 @@ Once we have created our Cloudflare Pages project, we will need a few things fro
 Add your API key and account ID as a GitHub Actions secrets. In the example below, this would be set to `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
 
 ***`.github/workflows/cf-pages.yml`***
-```
+```yaml
 name: cloudflare pages
 
 on:
@@ -71,7 +71,7 @@ jobs:
       - name: Setup Zine
         uses: kristoff-it/setup-zine@v1
         with:
-          version: v0.10.1
+          version: v0.10.2
           
       - name: Build
         run: zine release
