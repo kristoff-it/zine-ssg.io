@@ -206,7 +206,7 @@ One last thing to know about Directives is that all allow you to set `id()` and 
 You can find the full list of available Directives in the [SuperMD Scripty Reference]($link.page('docs/supermd/scripty')).
 
 ## [Spaces in SuperMD Directives]($section.id('spaces'))
-SuperMD is currently build on top of Markdown syntax and as such it has to obey
+SuperMD is currently built on top of Markdown syntax and as such it has to obey
 Markdown rules. One situation where this can be source of confusion is when you need
 to place a space in a Scripty expression, as doing so will cause a parsing error.
 
