@@ -4,270 +4,220 @@
 <div id="content">
   <style>
     h1 {
-       margin-top: 0;
-     }
-     h3 {
-       margin-bottom: 0;
-     }
+      margin-top: 0;
+    }
 
-	#reference>div>h1, #sidebar>h1 {
-	    font-size: 2.2rem;
-	}
+    h3 {
+      margin-bottom: 0;
+    }
 
- #sidebar>h1 {
-	text-align: left;
-	margin-right: 10px;
-	padding-left: 10px;
-	background-color: #111 !important;
-}
-	
-	#reference h1, #sidebar>h1 {
-		background-color: #222;
-		border-bottom: 1px dashed #888;
-		
-		margin-top: 0px;
-	}
+    #reference>div>h1,
+    #sidebar>h1 {
+      font-size: 2.2rem;
+    }
 
-	#reference h1 a {
-		text-decoration: none;
-	}
+    #sidebar>h1 {
+      text-align: left;
+      margin-right: 10px;
+      padding-left: 10px;
+      background-color: #111 !important;
+    }
 
-	#reference h2, #reference h3 {
-		font-family: 'Fira Code', monospace;
-		text-align: left;
-		font-size: 1rem;
-	}
+    #reference h1,
+    #sidebar>h1 {
+      background-color: #222;
+      border-bottom: 1px dashed #888;
 
-	#reference h2 {
-		border-bottom: 1px dashed #aaa;
-		margin-top: 2em;
-	}
-	
-	#reference h3 {
-		margin-top: 2em;
-		background-color: #222;
-		padding: 3px 5px;
-	}
+      margin-top: 0px;
+    }
 
-	#reference h3 > em {
-		font-size: 0.7em;
-	}
+    #reference h1 a {
+      text-decoration: none;
+    }
 
-	#reference table {
-		width: 100%;
-		padding: 10px;
-		text-align: center;
-	}
+    #reference h2,
+    #reference h3 {
+      font-family: 'Fira Code', monospace;
+      text-align: left;
+      font-size: 1rem;
+    }
+
+    #reference h2 {
+      border-bottom: 1px dashed #aaa;
+      margin-top: 2em;
+    }
+
+    #reference h3 {
+      margin-top: 2em;
+      background-color: #222;
+      padding: 3px 5px;
+    }
+
+    #reference h3>em {
+      font-size: 0.7em;
+    }
+
+    #reference table {
+      width: 100%;
+      padding: 10px;
+      text-align: center;
+    }
 
     #reference .note h1 {
-		background-color: #ccc;
-		border: 1px solid #ccc;
-		padding-top: 2px;
-	}
-	
-	html {
-		scroll-padding-top: 50px;
-	}
+      background-color: #ccc;
+      border: 1px solid #ccc;
+      padding-top: 2px;
+    }
 
-	h3[id]:target {
-	  animation: pulse 2s ease-in-out 2 forwards;
-	}
+    html {
+      scroll-padding-top: 50px;
+    }
 
-	@keyframes pulse {
-	  0%,
-	  100% {
-	    background-color: #444;
-	  }
+    h3[id]:target {
+      animation: pulse 2s ease-in-out 2 forwards;
+    }
 
-	  50% {
-	    background-color: #222;
-	  }
-	}
-	
-	div[id]:target {
-	  animation: pulse-div 2s ease-in-out 1;
-	}
+    @keyframes pulse {
+      0%,
+      100% {
+        background-color: #444;
+      }
 
-	#reference>div {
-		margin-bottom: 40px;
-	}
+      50% {
+        background-color: #222;
+      }
+    }
 
+    div[id]:target {
+      animation: pulse-div 2s ease-in-out 1;
+    }
 
-	@keyframes pulse-div {
-	  0%,
-	  100% {
-	    background-color: #111;
-	  }
-
-	  50% {
-	    background-color: #222;
-	  }
-	}
-
-	.container {
-		display: flex;
-		flex-direction: row;
-		gap: 10px;
-	
-	}
-
-		#sidebar {
-			flex: 0 0 260px;
-		}
-
-		#sidebar details {
-			list-style: none;
-		}
-
-		#sidebar summary {
-  font-family: 'Bebas Neue', sans-serif;
-  font-weight: normal;
-  color: #eee;
-  font-size: 1.2rem;
-			list-style: none;
-			padding: 10px 0;
-			color: #ccc;
-			font-weight: bold;
-			padding-left: 10px;
-		}
-
-		#sidebar details[open] summary {
-			
-background-color: #222;
-		}
-
-		#sidebar summary:hover {
-			color: #fff;
-			background-color: #222;
-		}
-
-		#sidebar ul {
-			list-style: none;
-			padding: 0;
-			margin: 0 0 10px;
-		}
-
-		#sidebar a {
-			display: block;
-			text-decoration: none;
-			padding: 5px 0;
-			color: inherit;
-			padding-left: 10px;
-		}
-
-		#sidebar a:hover, #sidebar .selected { 
-			background-color: #333;
-			color: #fff;
-		}
-
-		#sidebar {
-		}
-		#sidebar-content {
-			position: sticky;
-			top: 0px;
-  max-height: 100vh;
-			  overflow-y: auto;
-  scrollbar-gutter: stable;
-scrollbar-color: yellow #222;
-			overflow-x: hidden;
-		}
+    #reference>div {
+      margin-bottom: 40px;
+    }
 
 
+    @keyframes pulse-div {
+      0%,
+      100% {
+        background-color: #111;
+      }
 
-        
-		#content {
-			max-width: unset;
-		}
+      50% {
+        background-color: #222;
+      }
+    }
 
-		#reference {
-			max-width: 800px;
-			overflow-x: hidden;
-		}
+    .container {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
 
-		body {
-			height: 100vh;
-		}
+    }
 
-		#sidebar .block {
-			border: 1px dotted #ccc;
-		}
+    #sidebar {
+      flex: 0 0 260px;
+    }
 
-@media screen and (max-width: 799px) {
-  body {
-	height: unset;
-	display:flex;
-	flex-direction: column;
-	box-model: border-box;
-}
+    #sidebar details {
+      list-style: none;
+    }
 
-#content {
-	padding: 0;
-}
+    #sidebar summary {
+      font-family: 'Bebas Neue', sans-serif;
+      font-weight: normal;
+      color: #eee;
+      font-size: 1.2rem;
+      list-style: none;
+      padding: 10px 0;
+      color: #ccc;
+      font-weight: bold;
+      padding-left: 10px;
+    }
 
+    #sidebar details[open] summary {
+      background-color: #222;
+    }
 
-  #sidebar>h1 {
-	text-align:center;
-  }
-  .container {
-    flex-direction: column;
-	gap: 25px;
-  width: 100vw;
-  }
+    #sidebar summary:hover {
+      color: #fff;
+      background-color: #222;
+    }
 
-  #sidebar, #reference {
-	padding: 0 15px;
-}
-}
+    #sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 10px;
+    }
 
+    #sidebar a {
+      display: block;
+      text-decoration: none;
+      padding: 5px 0;
+      color: inherit;
+      padding-left: 10px;
+    }
 
-@media screen and (min-width: 800px) and (max-width: 1000px) {
-  #sidebar-content {
-    max-height: calc(100vh / 1.2);
-  }
-}
+    #sidebar a:hover,
+    #sidebar .selected {
+      background-color: #333;
+      color: #fff;
+    }
 
-@media screen and (min-width: 1000px) and (max-width: 1200px) {
-  #sidebar-content {
-    max-height: calc(100vh / 1.3);
-  }
-}
-
-@media screen and (min-width: 1200px) and (max-width: 1400px) {
-  #sidebar-content {
-    max-height: calc(100vh / 1.4);
-  }
-}
-
-@media screen and (min-width: 1400px) and (max-width: 1600px) {
-  #sidebar-content {
-    max-height: calc(100vh / 1.5);
-  }
-}
-
-@media screen and (min-width: 1400px) and (max-width: 1600px) {
-  #sidebar-content {
-    max-height: calc(100vh / 1.55);
-  }
-}
+    #sidebar-content {
+      --offset: 10px;
+      position: sticky;
+      top: var(--offset);
+      max-height: calc(var(--viewport-height) - 2 * var(--offset));
+      overflow-y: auto;
+      scrollbar-gutter: stable;
+      scrollbar-color: yellow #222;
+      overflow-x: hidden;
+    }
 
 
-@media screen and (min-width: 1400px) and (max-width: 1600px) {
-  #sidebar-content {
-    max-height: calc(100vh / 1.6);
-  }
-}
 
-@media screen and (min-width: 1600px) and (max-width: 1800px) {
-  #sidebar-content {
-    max-height: calc(100vh / 1.65);
-  }
-}
 
-@media screen and (min-width: 1800px) {
-  #sidebar-content {
-    max-height: calc(100vh / 1.7);
-  }
-}
+    #content {
+      max-width: 100%;
+    }
+
+    #reference {
+      max-width: 800px;
+      overflow-x: hidden;
+    }
+
+    #sidebar .block {
+      border: 1px dotted #ccc;
+    }
+
+    @media screen and (max-width: 799px) {
+      body {
+        height: unset;
+        display: flex;
+        flex-direction: column;
+        box-model: border-box;
+      }
+
+      #content {
+        padding: 0;
+      }
+
+      #sidebar>h1 {
+        text-align: center;
+      }
+
+      .container {
+        flex-direction: column;
+        gap: 25px;
+        width: 100%;
+      }
+
+      #sidebar,
+      #reference {
+        padding: 0 15px;
+      }
+    }
   </style>
   <h3 class="centered">Zine</h3>
   <h1 :text="$page.title"></h1>
