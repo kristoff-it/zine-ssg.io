@@ -2,18 +2,9 @@ const std = @import("std");
 const zine = @import("zine");
 
 pub fn build(b: *std.Build) !void {
-    b.getInstallStep().dependOn(&zine.website(b, .{
-        .build_assets = &.{
-            .{
-                .name = "frontmatter",
-                .lp = b.dependency("zine", .{}).path(
-                    "frontmatter.ziggy-schema",
-                ),
-            },
-        },
-        .zine = .{ .path = null },
-    }).step);
-
+    b.getInstallStep().dependOn(&b.addFail(
+        "this build.zig is only used to generate reference docs for scripty, run zine directly to edit the website.",
+    ).step);
     // This line creates a build step that generates an updated
     // Scripty reference file. Other sites will not need this
     // most probably, but at least it's an example of how Zine
