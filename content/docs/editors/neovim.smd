@@ -28,17 +28,17 @@ git clone https://github.com/kristoff-it/superhtml
 
 ## 2. Link all queries 
 
-In your Neovim **config directory** (usually `~/.config/neovim/`), create a symbolic link to all the Tree Sitter queries from our parsers.  
+In your Neovim **config directory** (usually `~/.config/nvim/`), create a symbolic link to all the Tree Sitter queries from our parsers.  
 
   From the directory where you cloned all repos, run the following commands:
 
 **`shell`**
 ```
-ln -s ziggy/tree-sitter-ziggy/queries ~/.config/neovim/queries/ziggy
-ln -s ziggy/tree-sitter-ziggy-schema/queries ~/.config/neovim/queries/ziggy_schema
-ln -s supermd/editors/neovim/queries/supermd ~/.config/neovim/queries/supermd
-ln -s supermd/editors/neovim/queries/supermd_inline ~/.config/neovim/queries/supermd_inline
-ln -s superhtml/tree-sitter-superhtml/queries ~/.config/neovim/queries/superhtml  
+ln -s ziggy/tree-sitter-ziggy/queries ~/.config/nvim/queries/ziggy
+ln -s ziggy/tree-sitter-ziggy-schema/queries ~/.config/nvim/queries/ziggy_schema
+ln -s supermd/editors/neovim/queries/supermd ~/.config/nvim/queries/supermd
+ln -s supermd/editors/neovim/queries/supermd_inline ~/.config/nvim/queries/supermd_inline
+ln -s superhtml/tree-sitter-superhtml/queries ~/.config/nvim/queries/superhtml  
 ```
 
 ## 3. Setup your init scripts
