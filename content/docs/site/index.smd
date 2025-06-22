@@ -29,7 +29,7 @@ Site {
 }
 ```
 Once you put a `zine.ziggy` file in a directory, you're able to run `zine` to 
-start the dev server and begin edit your website.
+start the dev server and begin to edit your website.
 
 
 ## File formats used by Zine
@@ -154,7 +154,7 @@ In this section we will instead go through the motions of bootstrapping a Zine w
 First of all you need to create a `zine.ziggy` file and place it in an empty directory. The `zine.ziggy` file must be structured like the one at the top of this page.
 
 
-Once that's done, let's create a home page and a relative template.
+Once that's done, let's create a homepage and a relative template.
 
 **`shell`**
 ```
@@ -278,4 +278,4 @@ You can learn more about extending templates in the docs section dedicated to Su
 In this page we showed you the structure of a simple Zine website, but it's 
 also possible to use Zine to generate multilingual websites. 
 
-You can loarn more about that in the [Multilingual (i18n)](i18n) section.
+You can learn more about that in the [Multilingual (i18n)](i18n) section.
