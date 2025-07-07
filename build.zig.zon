@@ -1,3 +1,7 @@
+// The build script is only used to generated new reference
+// docs for Scripty, which then gets commited as source.
+// If you're trying to run the Zine website locally, just
+// use the Zine executable directly.
 .{
     .name = .official_zine_website,
     .version = "0.1.0",

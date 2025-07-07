@@ -157,6 +157,8 @@
 >- [`fn lt()`]($link.ref("Date.lt")) 
 >- [`fn eq()`]($link.ref("Date.eq")) 
 >- [`fn in()`]($link.ref("Date.in")) 
+>- [`fn add()`]($link.ref("Date.add")) 
+>- [`fn sub()`]($link.ref("Date.sub")) 
 >- [`fn format()`]($link.ref("Date.format")) 
 >- [`fn formatHTTP()`]($link.ref("Date.formatHTTP")) 
 
@@ -174,6 +176,7 @@
 >- [`fn plus()`]($link.ref("Int.plus")) 
 >- [`fn div()`]($link.ref("Int.div")) 
 >- [`fn byteSize()`]($link.ref("Int.byteSize")) 
+>- [`fn str()`]($link.ref("Int.str")) 
 
 ># [Float]($block.collapsible(false))
 >- [`description`]($link.unsafeRef("Float"))
@@ -1330,6 +1333,34 @@ of the location provided.
 ```superhtml
 $page.date.in("Europe/Berlin")
 ```
+### []($heading.id("Date.add")) [`fn`]($link.ref("Date.add")) add ([Int]($link.ref("Int")), [String]($link.ref("String"))) -> [Date]($link.ref("Date"))
+
+ Add a given duration to the receiver date.
+ A duration is specified as a number of units, with possible units being:
+ - 'second'
+ - 'minute'
+ - 'hour'
+ - 'day'
+
+#### Examples
+
+```superhtml
+$page.date.add(1, 'day').add(1, 'hour')
+```
+### []($heading.id("Date.sub")) [`fn`]($link.ref("Date.sub")) sub ([Int]($link.ref("Int")), [String]($link.ref("String"))) -> [Date]($link.ref("Date"))
+
+ Subtract a given duration to the receiver date.
+ A duration is specified as a number of units, with possible units being:
+ - 'second'
+ - 'minute'
+ - 'hour'
+ - 'day'
+
+#### Examples
+
+```superhtml
+$page.date.sub(1, 'hour').add(1, 'hour').eq($page.date)
+```
 ### []($heading.id("Date.format")) [`fn`]($link.ref("Date.format")) format ([String]($link.ref("String"))) -> [String]($link.ref("String"))
 
 Formats a datetime according to the specified format string.
@@ -1464,6 +1495,16 @@ appropriately uses Kilo, Mega, Giga, etc.
 
 ```superhtml
 $page.asset('photo.jpg').size().byteSize()
+```
+### []($heading.id("Int.str")) [`fn`]($link.ref("Int.str")) str () -> [String]($link.ref("String"))
+
+Converts the number into a string, so that can be used for
+functions that require a string argument.
+
+#### Examples
+
+```superhtml
+$i18n.get!("current_page").fmt($loop.idx.str())
 ```
 # [Float]($section.id('Float'))
 

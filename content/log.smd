@@ -18,6 +18,23 @@ You can [subscribe to this page via RSS]($link.alternative("rss")).
 
 ## Changes
 
+[]($section.id('v0.10.3').data('date','2025-04-22'))
+After hiatus of a few months, I'm resuming development of Zine. This release
+contains bug fixes and minor improvements.
+
+This new Zine development season will focus on two main new big features:
+- SuperHTML snippets, so the ability to create reusable components
+- LSP support for Scripty
+
+New changes:
+- Zine development server:
+  - Added ipv6 support ([#146](https://github.com/kristoff-it/zine/pull/146), thanks Spiffyk!).
+  - Fixed a crash when trying to some paths with a missing trailing slash.
+
+- SuperHTML:
+  - Added `str()` to `Int` to make it possible to use them in formatting ([#140](https://github.com/kristoff-it/zine/pull/140), thanks knutwalker!).
+
+
 []($section.id('v0.10.2').data('date','2025-04-22'))
 - SuperHTML:
   - Fixed a crash when using `$page.alternative()`, in the refactoting to standalone
