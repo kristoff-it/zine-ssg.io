@@ -18,7 +18,28 @@ You can [subscribe to this page via RSS]($link.alternative("rss")).
 
 ## Changes
 
-[]($section.id('v0.10.3').data('date','2025-04-22'))
+[]($section.id('v0.10.4').data('date','2025-07-16'))
+This release upgrades Zine to Zig 0.15.0-dev (post Writergate) and fixes two
+silly bugs about build assets:
+
+- The Zine live server will now correctly serve build assets ([#162](https://github.com/kristoff-it/zine/pull/162), thanks llyrical-island!).
+
+- Up until now Zine failed to install all build assets when making a site
+  release. Turns out that we were missing the required code entirely, whoops!
+
+
+As an upgrade suggestion, if you have a website that uses build.zig and you
+don't want to upgrade your own code to Zig 0.15.0-dev (post Writergate), then
+consider using in your build.zig `.zine = .{ .path = null }` (it's a field of
+`zine.Options`), which will allow you to use a system-provided build of Zine.
+
+Of course that won't solve potential CI issues, but you will at least be able
+to try it out locally. If you're in that situation, do try to upgrade your code
+it's going to be worth it, especially in preparation for the upcoming async I/O
+redesign coming soon to Zig!
+
+
+[]($section.id('v0.10.3').data('date','2025-07-07'))
 After hiatus of a few months, I'm resuming development of Zine. This release
 contains bug fixes and minor improvements.
 
