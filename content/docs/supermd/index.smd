@@ -126,7 +126,7 @@ SuperMD files have a `.smd` file extension.
 We don't have yet any developer tooling for SuperMD files, but it's high on our
 list of priorities. 
 
-You should expect grammars for syntax highlighting and a language server for immediate feedback on sytnax errors.
+You should expect grammars for syntax highlighting and a language server for immediate feedback on syntax errors.
 
 
 # [Frontmatter]($section.id('frontmatter'))
