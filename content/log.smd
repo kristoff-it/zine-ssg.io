@@ -18,6 +18,33 @@ You can [subscribe to this page via RSS]($link.alternative("rss")).
 
 ## Changes
 
+[]($section.id('v0.11.0').data('date','2025-07-24'))
+This release brings minor backwards compatibility breakage and a few good bug
+fixes.
+
+### Breaking change
+Zine will now refuse to output a website release to a non-empty directory.
+This solves the problem of users being surprised that old files are somehow
+still "being rendered" when they're actually not, and this also seems a better
+choice than defaulting to emtpying the output dir, as that could have
+catastrophic consequences.
+
+You can use `--force` (or `-f`) to ignore the presence of other files.
+
+Related to this change `--install` has been renamed to `--output` since Zine
+now refuses to "install" releases.
+
+
+### Bugfixes
+- Added missing check to `nextPage?`, `prevPage?`, `hasNext`, `hasPrev` when the
+  target page is the root index. The Zine section model defines the index page
+  of a section to not be part of the section, consequently the root index cannot
+  have any sibling. A proper error will be reported now.
+- Ziggy parsing code failed to report syntax errors in string escapes, resulting
+  in the confusing situation where an error is being reported but the list of
+  diagnostics is empty. This is now reported correctly.
+- SuperMD would mistake `![](https://foo.com/myphoto.jpg)` (i.e. remote url in vanilla image syntax) for a local asset. This has now been fixed.
+
 []($section.id('v0.10.4').data('date','2025-07-16'))
 This release upgrades Zine to Zig 0.15.0-dev (post Writergate) and fixes two
 silly bugs about build assets:
