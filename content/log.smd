@@ -18,6 +18,22 @@ You can [subscribe to this page via RSS]($link.alternative("rss")).
 
 ## Changes
 
+[]($section.id('v0.11.1').data('date','2025-07-26'))
+Another round of bug fixes, with this release all known bugs have been solved!
+
+- The `release` and `serve` commands dealt with some asset paths in an
+  inconsistent manner, resulting in the situation where an asset path would
+  work with only one of them at a time, depending on whether it was absolute
+  or relative. Now all paths are normalized before being used.
+- An absolute install path given to a static asset would be interpreted as a
+  absolute path by `release`, resulting in an attempt to install assets outside
+  of the output directory which is, generally speaking, not optimal. We now
+  normalize paths to ensure we don't try to override your `/etc/shadow` (or `~/.ssh/id_rsa`) by mistake :^)
+- Fixed some invalid memory accesses when deiniting a website build. These bugs
+  shouldn't have impacted the user experience and were in fact caught by CI.
+  
+
+
 []($section.id('v0.11.0').data('date','2025-07-24'))
 This release brings minor backwards compatibility breakage and a few good bug
 fixes.
