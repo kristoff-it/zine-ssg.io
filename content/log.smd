@@ -239,7 +239,7 @@ highlights for brevity:
 #### Other [new features]($text.attrs('important')) in Zine:
 
 - Zine is now MIT licensed. It was actually intended to be that from the start
-  but I forgor to add the file. Consider this a reverse rugpull where from
+  but I forgot to add the file. Consider this a reverse rugpull where from
   proprietary we went to open source. A rug has been pushed under your feet, in
   a sense.
   
@@ -266,10 +266,10 @@ highlights for brevity:
 
 - Added `Array.first?()` and `Array.last?()`, which will return the first and
   last item in an array, respectively, or `null` if the array is empty. This
-  can be useful to implement advanced prev-next page navivagation that crosses
+  can be useful to implement advanced prev-next page navigation that crosses
   site section boundaries, [as explained here]($link.page('docs/frequent').ref('prev-next')).
 
-- Added in SuperMD [`$link.alternative`]($link.page('docs/supermd/scripty').ref('Link.alternative')), which allows liking to an alternative version specified in the
+- Added in SuperMD [`$link.alternative`]($link.page('docs/supermd/scripty').ref('Link.alternative')), which allows linking to an alternative version specified in the
   target page (by using the `alternatives` frontmatter field).
 
 - The Zine dev server now implements debouncing in order to avoid issuing a
@@ -277,7 +277,7 @@ highlights for brevity:
   file system level events. The dev server has a new related CLI flag, run
   `zig build help` for more info. 
   
-- New version of flow-syntax by neurocyte bring syntax highlighting support for:
+- New version of flow-syntax by neurocyte brings syntax highlighting support for:
   - Gleam
   - CMake (to make it easier for you to port CMake to build.zig using
     [flow](https://github.com/neurocyte/flow))
