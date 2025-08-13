@@ -38,7 +38,7 @@ The Scripty expressions in the previous two examples were the following:
 
 You might be wondering why it's so different to embed a link in the two languages. We'll touch upon this topic more later in this page, but for now suffice to say that **content and templates have vastly different needs** and their respective Super- languages tailor their usage of Scripty accordingly. 
 
-## Scrypty Syntax
+## Scripty Syntax
 
 Scripty is a very small language designed to be embedded in a string.
 
