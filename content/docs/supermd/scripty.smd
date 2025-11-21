@@ -64,6 +64,7 @@
 >- [`fn asset()`]($link.ref("Link.asset")) 
 >- [`fn siteAsset()`]($link.ref("Link.siteAsset")) 
 >- [`fn buildAsset()`]($link.ref("Link.buildAsset")) 
+>- [`fn site()`]($link.ref("Link.site")) 
 >- [`fn page()`]($link.ref("Link.page")) 
 >- [`fn sibling()`]($link.ref("Link.sibling")) 
 >- [`fn sub()`]($link.ref("Link.sub")) 
@@ -520,6 +521,14 @@ Sets the source location of this directive to a site asset.
 
 Sets the source location of this directive to a build asset.
 
+### []($heading.id("Link.site")) [`fn`]($link.ref("Link.site")) site (?str) -> [Link]($link.ref("Link"))
+
+Sets the source location of this directive to the site's home page.
+
+The only optional argument is the locale code for mulitlingual
+websites. In mulitlingual websites, the locale code defaults to
+the same locale of the current content file.
+
 ### []($heading.id("Link.page")) [`fn`]($link.ref("Link.page")) page (str, ?str) -> [Link]($link.ref("Link"))
 
 Sets the source location of this directive to a page.
@@ -537,6 +546,8 @@ For example, the value 'foo/bar' will be automatically
 matched by Zine with either:
   - content/foo/bar.smd
   - content/foo/bar/index.smd
+
+To link to the website's home page, see `$link.site()`
 
 ### []($heading.id("Link.sibling")) [`fn`]($link.ref("Link.sibling")) sibling (str, ?str) -> [Link]($link.ref("Link"))
 

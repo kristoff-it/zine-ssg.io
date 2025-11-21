@@ -18,6 +18,32 @@ You can [subscribe to this page via RSS]($link.alternative("rss")).
 
 ## Changes
 
+[]($section.id('v0.11.2').data('date','2025-11-21'))
+
+This release fixes some bugs that were discovered since the last and should not require
+any change for existing websites.
+
+The next release will merge a new version of Ziggy (the data language used in SuperMD
+frontmatters) that instead will require you to change your content files, so brace for
+upcoming impact :^) In exchange though, the Ziggy language has improved a lot and you
+will finally be able to get great code intelligence, which will help you get your
+frontmatters right more easily. More on that in the next release.
+
+Fixes:
+
+- Fixed rendering of links to alternatives when absolute paths are involved.
+- `zine init` template files were created back before superhtml had good
+  autoformatting support, resulting in a bunch of code moving around when you saved
+  the file for the first time (using a new build of superhtml w/ more refined
+  autoformatting behavior). Now the template files embedded in Zine have been
+  formatted, giving you a better out-of-the-box experience.
+- Linking to the site homepage from SuperMD was impossible because of a bug and
+  because of a missing feature. You can now use either vanilla syntax (`[home](/)`)
+  or explicit Scripty syntax (`$link.site()`, just added in this release).
+- Zig build system integration: the serve step now correctly uses a prebuilt zine
+  if you specify the `path` option, previously it would ignore the setting and
+  default to building Zine from scratch always.
+
 []($section.id('v0.11.1').data('date','2025-07-26'))
 Another round of bug fixes, with this release all known bugs have been solved!
 
