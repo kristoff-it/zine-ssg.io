@@ -16,7 +16,59 @@ This is a non-exhaustive, curated list of changes meant to help users quickly se
 
 You can [subscribe to this page via RSS]($link.alternative("rss")).
 
+># [UPGRADING SAFELY]($block.attrs("warning"))
+> Upgrading Zine can change how your website is rendered, either because of bugs
+> or breaking changes. Reading the changelog helps you prepare, but to fully
+> ascertain that your website looks as expected, I recommend following this
+> procedure:
+>
+>- `zine release -o old` &nbsp; &nbsp; &nbsp; (with **old** Zine)
+>- `zine release -o new` &nbsp; &nbsp; &nbsp; (with **new** Zine)
+>- `diff new old`
+>
+> At this point is up to you to decide if any change in the diff is
+> desireable or not. If you see a change that is not mentioned in the
+> changelog, it might be the result of a bug, in which case a reproducible
+> bug report would be appreciated.
+
 ## Changes
+
+
+[]($section.id('v0.11.3').data('date','2026-06-17'))
+This release upgrades to Zig 0.17.0-dev all the way up from 0.15.0. I did
+not make a release for Zig 0.16.0 because of regressions in translate-c,
+which have now been fixed.
+
+This release contains relatively few and small user-facing improvements and
+its main purpose is to isolate potential bugs that come from the Zig
+upgrade process from upcoming changes to Zine.
+
+In the next version of Zine I will update Ziggy (the .smd frontmatter
+language) to a new version that changes some of the syntax, requiring you
+to do some work before you can use it.
+
+### Bugfixes & Breaking Changes
+
+- Only emit `id` attributes from SuperMD when it has a set value.
+  ([#198](https://github.com/kristoff-it/zine/pull/198), thanks GasInfinity!).
+- Fixed a bug where an empty `index.smd` (i.e. no content, no frontmatter)
+  would be partially picked up by Zine, creating a buggy section, which
+  would then crash Zine under certain circumstances.
+- Fixed a bug where toggling a `.draft` field from `false` to `true` would
+  cause the Zine dev server to crash.
+
+### New features
+
+- In SuperMD, you can now specify audio embeds, like so:
+  `[](<$audio.asset('music.wav')>)`
+  ([#195](https://github.com/kristoff-it/zine/pull/195), thanks PowerUser64!).
+- In SuperHTML, added `.minus()` to integers
+  ([#188](https://github.com/kristoff-it/zine/pull/188), thanks acc1729!).
+- Releases now include a FreeBSD tarball
+  ([#202](https://github.com/kristoff-it/zine/pull/202), thanks dmarker!).
+- Zig build system integration has been updated to Zig 0.17.0-dev (see the
+  Zon file for more information).
+
 
 []($section.id('v0.11.2').data('date','2025-11-21'))
 

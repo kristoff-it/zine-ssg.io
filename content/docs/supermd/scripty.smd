@@ -18,6 +18,7 @@
 >- [`$code`]($link.unsafeRef("$code"))
 >- [`$image`]($link.unsafeRef("$image"))
 >- [`$video`]($link.unsafeRef("$video"))
+>- [`$audio`]($link.unsafeRef("$audio"))
 
 ># [anydirective]($block.collapsible(false))
 >- [`description`]($link.ref("anydirective"))
@@ -58,6 +59,17 @@
 >- [`fn siteAsset()`]($link.ref("Video.siteAsset")) 
 >- [`fn buildAsset()`]($link.ref("Video.buildAsset")) 
 
+># [Audio]($block.collapsible(false))
+>- [`description`]($link.ref("Audio"))
+>- [`fn loop()`]($link.ref("Audio.loop")) 
+>- [`fn muted()`]($link.ref("Audio.muted")) 
+>- [`fn autoplay()`]($link.ref("Audio.autoplay")) 
+>- [`fn hide_controls()`]($link.ref("Audio.hide_controls")) 
+>- [`fn url()`]($link.ref("Audio.url")) 
+>- [`fn asset()`]($link.ref("Audio.asset")) 
+>- [`fn siteAsset()`]($link.ref("Audio.siteAsset")) 
+>- [`fn buildAsset()`]($link.ref("Audio.buildAsset")) 
+
 ># [Link]($block.collapsible(false))
 >- [`description`]($link.ref("Link"))
 >- [`fn url()`]($link.ref("Link.url")) 
@@ -91,14 +103,14 @@
 ## [`$section`]($text.id("$section")) : [Section]($link.ref("Section"))
 
 A content section, used to define a portion of content
-that can be rendered individually by a template. 
+that can be rendered individually by a template.
 
 ## [`$block`]($text.id("$block")) : [Block]($link.ref("Block"))
 
-When placed at the beginning of a Markdown quote block, the quote 
+When placed at the beginning of a Markdown quote block, the quote
 block becomes a styleable container for elements.
 
-SuperHTML will automatically give the class `block` when rendering 
+SuperHTML will automatically give the class `block` when rendering
 Block directives.
 
 Example:
@@ -112,7 +124,7 @@ Example:
 >This is now a block.
 >Lorem ipsum.
 
-Differently from Sections, Blocks cannot be rendered independently 
+Differently from Sections, Blocks cannot be rendered independently
 and can be nested.
 
 Example:
@@ -135,8 +147,8 @@ Example:
 >
 >back to the outer block
 
-A block can optionally wrap a Markdown heading element. In this case  
-the generated Block will be rendered with two separate sub-containers: 
+A block can optionally wrap a Markdown heading element. In this case
+the generated Block will be rendered with two separate sub-containers:
 one for the block title and one for the body.
 
 Example:
@@ -202,7 +214,7 @@ Note that the formula must be enclosed in backticks to avoid
 collisions with other SuperMD syntax.
 
 This JS based solution is temporary. Zine will eventually implement
-its own way of outputting MathML at buildtime so that clients won't 
+its own way of outputting MathML at buildtime so that clients won't
 need to have JS enabled.
 
 To render math formulas as separate blocks, use this syntax:
@@ -213,7 +225,7 @@ To render math formulas as separate blocks, use this syntax:
 
 Example:
 ```markdown
-Here's some [`x+\sqrt{1-x^2}`]($mathtex) math. 
+Here's some [`x+\sqrt{1-x^2}`]($mathtex) math.
 ```
 
 This will be rendered by SuperHTML as:
@@ -263,6 +275,18 @@ Example:
 [This is the caption]($video.asset('foo.webm'))
 ```
 
+## [`$audio`]($text.id("$audio")) : [Audio]($link.ref("Audio"))
+
+An embedded audio file.
+
+Any text placed between `[]` will be used as a caption for the audio
+file.
+
+Example:
+```markdown
+[This is the caption]($audio.asset('foo.wav'))
+```
+
 # [anydirective]($section.id('anydirective'))
 
 Each Directive has a different set of properties that can be set.
@@ -287,22 +311,22 @@ not get rendered directly in the page.
 
 Adds data key-value pairs of a Directive.
 
-In SuperHTML data key-value pairs can be accessed 
+In SuperHTML data key-value pairs can be accessed
 programmatically in a template when rendering
 a section, while data will turn into `data-foo`
-attributes otherwise. 
+attributes otherwise.
 
 # [Section]($section.id('Section'))
 
 A content section, used to define a portion of content
-that can be rendered individually by a template. 
+that can be rendered individually by a template.
 
 # [Block]($section.id('Block'))
 
-When placed at the beginning of a Markdown quote block, the quote 
+When placed at the beginning of a Markdown quote block, the quote
 block becomes a styleable container for elements.
 
-SuperHTML will automatically give the class `block` when rendering 
+SuperHTML will automatically give the class `block` when rendering
 Block directives.
 
 Example:
@@ -316,7 +340,7 @@ Example:
 >This is now a block.
 >Lorem ipsum.
 
-Differently from Sections, Blocks cannot be rendered independently 
+Differently from Sections, Blocks cannot be rendered independently
 and can be nested.
 
 Example:
@@ -339,8 +363,8 @@ Example:
 >
 >back to the outer block
 
-A block can optionally wrap a Markdown heading element. In this case  
-the generated Block will be rendered with two separate sub-containers: 
+A block can optionally wrap a Markdown heading element. In this case
+the generated Block will be rendered with two separate sub-containers:
 one for the block title and one for the body.
 
 Example:
@@ -463,24 +487,24 @@ Example:
 
 ### []($heading.id("Video.loop")) [`fn`]($link.ref("Video.loop")) loop (bool) -> [Video]($link.ref("Video"))
 
-If true, the video will seek back to the start upon reaching the 
+If true, the video will seek back to the start upon reaching the
 end.
 
 ### []($heading.id("Video.muted")) [`fn`]($link.ref("Video.muted")) muted (bool) -> [Video]($link.ref("Video"))
 
-If true, the video will be silenced at start. 
+If true, the video will be silenced at start.
 
 ### []($heading.id("Video.autoplay")) [`fn`]($link.ref("Video.autoplay")) autoplay (bool) -> [Video]($link.ref("Video"))
 
-If true, the video will start playing automatically. 
+If true, the video will start playing automatically.
 
 ### []($heading.id("Video.controls")) [`fn`]($link.ref("Video.controls")) controls (bool) -> [Video]($link.ref("Video"))
 
-If true, the video will display controls (e.g. play/pause, volume). 
+If true, the video will display controls (e.g. play/pause, volume).
 
 ### []($heading.id("Video.pip")) [`fn`]($link.ref("Video.pip")) pip (bool) -> [Video]($link.ref("Video"))
 
-If **false**, clients shouldn't try to display the video in a 
+If **false**, clients shouldn't try to display the video in a
 Picture-in-Picture context.
 
 ### []($heading.id("Video.url")) [`fn`]($link.ref("Video.url")) url (str) -> [Video]($link.ref("Video"))
@@ -496,6 +520,54 @@ Sets the source location of this directive to a page asset.
 Sets the source location of this directive to a site asset.
 
 ### []($heading.id("Video.buildAsset")) [`fn`]($link.ref("Video.buildAsset")) buildAsset (str) -> [Video]($link.ref("Video"))
+
+Sets the source location of this directive to a build asset.
+
+# [Audio]($section.id('Audio'))
+
+An embedded audio file.
+
+Any text placed between `[]` will be used as a caption for the audio
+file.
+
+Example:
+```markdown
+[This is the caption]($audio.asset('foo.wav'))
+```
+
+## Functions
+
+### []($heading.id("Audio.loop")) [`fn`]($link.ref("Audio.loop")) loop (bool) -> [Audio]($link.ref("Audio"))
+
+If true, the audio file will seek back to the start upon reaching
+the end.
+
+### []($heading.id("Audio.muted")) [`fn`]($link.ref("Audio.muted")) muted (bool) -> [Audio]($link.ref("Audio"))
+
+If true, the audio file will be silenced at start.
+
+### []($heading.id("Audio.autoplay")) [`fn`]($link.ref("Audio.autoplay")) autoplay (bool) -> [Audio]($link.ref("Audio"))
+
+If true, the audio file will start playing automatically.
+
+### []($heading.id("Audio.hide_controls")) [`fn`]($link.ref("Audio.hide_controls")) hide_controls (bool) -> [Audio]($link.ref("Audio"))
+
+If true, the audio file will hide its controls (e.g. play/pause,
+volume).
+
+### []($heading.id("Audio.url")) [`fn`]($link.ref("Audio.url")) url (str) -> [Audio]($link.ref("Audio"))
+
+Sets the source location of this directive to an external URL.
+
+### []($heading.id("Audio.asset")) [`fn`]($link.ref("Audio.asset")) asset (str) -> [Audio]($link.ref("Audio"))
+
+Sets the source location of this directive to a page asset.
+
+### []($heading.id("Audio.siteAsset")) [`fn`]($link.ref("Audio.siteAsset")) siteAsset (str) -> [Audio]($link.ref("Audio"))
+
+Sets the source location of this directive to a site asset.
+
+### []($heading.id("Audio.buildAsset")) [`fn`]($link.ref("Audio.buildAsset")) buildAsset (str) -> [Audio]($link.ref("Audio"))
 
 Sets the source location of this directive to a build asset.
 
@@ -568,7 +640,7 @@ filename).
 
 ### []($heading.id("Link.new")) [`fn`]($link.ref("Link.new")) new (bool) -> [Link]($link.ref("Link"))
 
-When `true` it asks readers to open the link in a new window or 
+When `true` it asks readers to open the link in a new window or
 tab.
 
 ### []($heading.id("Link.alternative")) [`fn`]($link.ref("Link.alternative")) alternative (str) -> [Link]($link.ref("Link"))
@@ -577,7 +649,7 @@ When linking to a content page, allows to link to a specific
 alternative version of the page, which can be particularly
 useful when referencing the RSS feed version of a page.
 
-The string argument is the name of an alrenative as defined 
+The string argument is the name of an alrenative as defined
 in the page's `alternatives` frontmatter property.
 
 ### []($heading.id("Link.ref")) [`fn`]($link.ref("Link.ref")) ref (str) -> [Link]($link.ref("Link"))
@@ -586,17 +658,17 @@ Deep-links to a specific element (like a section or any
 directive that specifies an `id`) of either the current
 page or a target page set with `page()`.
 
-Zine tracks all ids defined in content files so referencing 
+Zine tracks all ids defined in content files so referencing
 an id that doesn't exist will result in a build error.
 
-Zine does not track ids defined inside of templates so 
-use `unsafeRef` to deep-link to those. 
+Zine does not track ids defined inside of templates so
+use `unsafeRef` to deep-link to those.
 
 ### []($heading.id("Link.unsafeRef")) [`fn`]($link.ref("Link.unsafeRef")) unsafeRef (str) -> [Link]($link.ref("Link"))
 
 Like `ref` but Zine will not perform any id checking.
 
-Can be used to deep-link to ids specified in templates. 
+Can be used to deep-link to ids specified in templates.
 
 # [Code]($section.id('Code'))
 
@@ -661,7 +733,7 @@ Note that the formula must be enclosed in backticks to avoid
 collisions with other SuperMD syntax.
 
 This JS based solution is temporary. Zine will eventually implement
-its own way of outputting MathML at buildtime so that clients won't 
+its own way of outputting MathML at buildtime so that clients won't
 need to have JS enabled.
 
 To render math formulas as separate blocks, use this syntax:
@@ -672,7 +744,7 @@ To render math formulas as separate blocks, use this syntax:
 
 Example:
 ```markdown
-Here's some [`x+\sqrt{1-x^2}`]($mathtex) math. 
+Here's some [`x+\sqrt{1-x^2}`]($mathtex) math.
 ```
 
 This will be rendered by SuperHTML as:

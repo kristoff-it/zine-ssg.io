@@ -174,6 +174,7 @@
 >- [`fn eq()`]($link.ref("Int.eq")) 
 >- [`fn gt()`]($link.ref("Int.gt")) 
 >- [`fn plus()`]($link.ref("Int.plus")) 
+>- [`fn minus()`]($link.ref("Int.minus")) 
 >- [`fn div()`]($link.ref("Int.div")) 
 >- [`fn byteSize()`]($link.ref("Int.byteSize")) 
 >- [`fn str()`]($link.ref("Int.str")) 
@@ -655,6 +656,7 @@ Returns an alternative by name.
      type="$ctx.alt.type" 
      :text="$ctx.alt.name"
   ></a>
+</ctx>
 ```
 ### []($heading.id("Page.content")) [`fn`]($link.ref("Page.content")) content () -> [String]($link.ref("String"))
 
@@ -1474,6 +1476,16 @@ Sums two integers.
 
 ```superhtml
 $page.wordCount().plus(10)
+```
+### []($heading.id("Int.minus")) [`fn`]($link.ref("Int.minus")) minus ([Int]($link.ref("Int"))) -> [Int]($link.ref("Int"))
+
+Subtracts the rhs from the lhs.
+
+
+#### Examples
+
+```superhtml
+$page.wordCount().minus(12)
 ```
 ### []($heading.id("Int.div")) [`fn`]($link.ref("Int.div")) div ([Int]($link.ref("Int"))) -> [Int]($link.ref("Int"))
 
