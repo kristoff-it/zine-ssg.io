@@ -24,7 +24,7 @@ You can [subscribe to this page via RSS]($link.alternative("rss")).
 >
 >- `zine release -o old` &nbsp; &nbsp; &nbsp; (with **old** Zine)
 >- `zine release -o new` &nbsp; &nbsp; &nbsp; (with **new** Zine)
->- `diff new old`
+>- `diff -ru new old`
 >
 > At this point is up to you to decide if any change in the diff is
 > desireable or not. If you see a change that is not mentioned in the
