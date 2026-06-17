@@ -17,8 +17,8 @@ This is a non-exhaustive, curated list of changes meant to help users quickly se
 You can [subscribe to this page via RSS]($link.alternative("rss")).
 
 ># [UPGRADING SAFELY]($block.attrs("warning"))
-> Upgrading Zine can change how your website is rendered, either because of bugs
-> or breaking changes. Reading the changelog helps you prepare, but to fully
+> Upgrading Zine can change how your website is rendered because of bugs or
+> breaking changes. Reading the changelog helps you prepare, but to fully
 > ascertain that your website looks as expected, I recommend following this
 > procedure:
 >
