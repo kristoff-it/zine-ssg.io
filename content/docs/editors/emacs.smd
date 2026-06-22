@@ -1,0 +1,81 @@
+---
+.title = "Emacs Tooling Setup",
+.date = @date("2025-10-29T00:00:00"),
+.author = "Davide Colazingari",
+.layout = "documentation.shtml",
+.draft = false,
+--- 
+
+## 1. Install zine-mode
+[zine-mode](https://github.com/dcolazin/zine-mode/) is a simple tree-sitter major mode for Emacs 29.1 and later.
+
+`zine-mode` assumes Emacs was built with tree-sitter support. If `(treesit-available-p)` evaluates to `t` then your installation supports tree-sitter; otherwise you might consider building Emacs from source. A guide can be found [here](https://www.masteringemacs.org/article/how-to-get-started-tree-sitter).
+
+`zine-mode` is available on Melpa, so it possible to install it with most package managers. Most package managers will automatically download also `ziggy-mode`, the package required for editing ziggy files, but complete installation steps for `ziggy-mode` can be found in the [ziggy documentation](https://ziggy-lang.io/documentation/editors/emacs/).
+
+## 2. Install the grammars
+
+You still need to install the tree-sitter grammars for superhtml, supermd, javascript and css, for example adding the following snippets in your configuration:
+
+**`elisp`**
+```
+(unless (treesit-language-available-p 'supermd-inline)
+  (require 'treesit)
+  (add-to-list 'treesit-language-source-alist
+   '(supermd-inline "https://github.com/kristoff-it/supermd" "main" "tree-sitter/supermd-inline/src" nil nil))
+  (treesit-install-language-grammar 'supermd-inline))
+
+(unless (treesit-language-available-p 'supermd)
+  (require 'treesit)
+  (add-to-list 'treesit-language-source-alist
+   '(supermd "https://github.com/kristoff-it/supermd" "main" "tree-sitter/supermd/src" nil nil))
+  (treesit-install-language-grammar 'supermd))
+
+(unless (treesit-language-available-p 'superhtml)
+  (require 'treesit)
+  (add-to-list 'treesit-language-source-alist
+   '(superhtml "https://github.com/kristoff-it/superhtml" "master" "tree-sitter-superhtml/src" nil nil))
+  (treesit-install-language-grammar 'superhtml))
+
+(unless (treesit-language-available-p 'javascript)
+  (require 'treesit)
+  (add-to-list 'treesit-language-source-alist
+   '(javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src" nil nil))
+  (treesit-install-language-grammar 'javascript))
+
+(unless (treesit-language-available-p 'css)
+  (require 'treesit)
+  (add-to-list 'treesit-language-source-alist
+   '(css "https://github.com/tree-sitter/tree-sitter-css" "master" "src" nil nil))
+  (treesit-install-language-grammar 'css))
+```
+
+## 3. Get all the CLI tools
+
+`zine-mode` assumes that `superhtml` is on your PATH or the variable `zine-superhtml-bin` is properly customized
+
+## 4. Override the shtml defaults
+
+By default, Emacs will open `.shtml` files using `mhtml-mode`, as this extension is used also by Server Side Includes file. To override this behavior, put `(zine-override-auto-mode)` in your configuration.
+
+## 5. LSP
+
+To use the `superhtml` LSP with `eglot`, add the following to your configuration:
+
+```
+(add-to-list 'eglot-server-programs
+             '((zine-superhtml-mode :language-id "superhtml") "superhtml" "lsp"))
+```
+
+Instead, to use `superhtml` LSP with `lsp-mode`, add the following to your configuration:
+
+```
+(add-hook 'zine-superhtml-mode-hook 'lsp)
+
+(with-eval-after-load 'lsp-mode
+  (add-to-list 'lsp-language-id-configuration '(zine-superhtml-mode . "superhtml"))
+  (lsp-register-client (make-lsp-client
+	:new-connection (lsp-stdio-connection "superhtml")
+	:activation-fn (lsp-activate-on "superhtml")
+	:server-id 'superhtml)))
+```

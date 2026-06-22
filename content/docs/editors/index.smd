@@ -53,6 +53,10 @@ If you encounter issues while setting up your editor, [join the community](/comm
 
 Make sure to have all the CLI tools available in your `PATH` to enable LSP support.
 
+## Emacs
+[See the Emacs dedicated page](./emacs).
+
+
 ## Other editors
 Any editor that supports Tree Sitter for syntax highlighting and the Language Server Protocol can be setup to support Ziggy, SuperMD, and SuperHTML.
 
