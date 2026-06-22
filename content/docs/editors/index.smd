@@ -49,9 +49,12 @@ If you encounter issues while setting up your editor, [join the community](/comm
 
 
 ## Flow Control
-[Flow Control](https://github.com/neurocyte/flow) has native support for all Zine file formats.
+[Flow Control](https://flow-control.dev/) has native support for all Zine file formats.
 
-Make sure to have all the CLI tools available in your `PATH` to enable LSP support.
+You will want [superhtml](https://github.com/kristoff-it/superhtml),
+[marksman](https://github.com/artempyanykh/marksman) and
+[prettier](https://github.com/prettier/prettier) installed and available in your
+`PATH` to enable LSP and formatting support.
 
 ## Other editors
 Any editor that supports Tree Sitter for syntax highlighting and the Language Server Protocol can be setup to support Ziggy, SuperMD, and SuperHTML.
