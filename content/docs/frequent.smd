@@ -109,7 +109,7 @@ Zine has no support for ugly URLs at the moment.
 The SuperMD docs show that you can inline HTML content in a SuperMD document 
 by creating a `=html` code block:
 
-    ```=hml
+    ```=html
 	<h1>Hello</h1>
 	```
 
