@@ -76,7 +76,7 @@ Dictionary that you can access via `$site.custom`. See below in the upgrade
 guide section how that looks like.
 
 ### Codeberg Pages
-The docs now contain a page dedicated to deployng to Codeberg Pages,
+The docs now contain a page dedicated to deploying to Codeberg Pages,
 for those who might be interested.
 
 ### Setup Zine Version 2
