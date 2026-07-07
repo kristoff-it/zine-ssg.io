@@ -1,10 +1,7 @@
 ---
 .title = "SuperMD Scripty Reference",
-.description = "",
-.author = "Loris Cro",
+.date = .date("2023-06-16T00:00:00"),
 .layout = "scripty-reference.shtml",
-.date = @date("2023-06-16T00:00:00"),
-.draft = false,
 ---
 []($section.id('menu'))
 
@@ -183,7 +180,7 @@ Allows giving an id and attributes to a heading element.
 
 Example:
 ```markdown
-# [Title]($heading.id('foo').attrs('bar', 'baz'))
+# [Title]($heading.id('foo').attrs('bar','baz'))
 ```
 
 This will be rendered by SuperHTML as:
@@ -197,7 +194,7 @@ Allows giving an id and attributes to some text.
 
 Example:
 ```markdown
-Hello [World]($text.id('foo').attrs('bar', 'baz'))!
+Hello [World]($text.id('foo').attrs('bar','baz'))!
 ```
 
 This will be rendered by SuperHTML as:
@@ -406,7 +403,7 @@ Allows giving an id and attributes to a heading element.
 
 Example:
 ```markdown
-# [Title]($heading.id('foo').attrs('bar', 'baz'))
+# [Title]($heading.id('foo').attrs('bar','baz'))
 ```
 
 This will be rendered by SuperHTML as:
@@ -442,17 +439,17 @@ Sets the width and/or height of the image.
 
 When both dimensions are non-zero, the image will be resized to exactly those dimensions:
 ```markdown
-[Image caption]($image.asset('example.jpg').size(800, 600))
+[Image caption]($image.asset('example.jpg').size(800,600))
 ```
 
 To specify width while maintaining aspect ratio, set height to 0:
 ```markdown
-[Image caption]($image.asset('example.jpg').size(800, 0))
+[Image caption]($image.asset('example.jpg').size(800,0))
 ```
 
 To specify height while maintaining aspect ratio, set width to 0:
 ```markdown
-[Image caption]($image.asset('example.jpg').size(0, 600))
+[Image caption]($image.asset('example.jpg').size(0,600))
 ```
 
 
@@ -706,7 +703,7 @@ syntax highlighting.
  The second argument is inclusive.
 
  ```
- []($code.asset("main.zig").lines(10, 15))
+ []($code.asset("main.zig").lines(10,15))
  ```
  This will include only lines 10 - 15 from the main.zig asset file.
 
@@ -716,7 +713,7 @@ Allows giving an id and attributes to some text.
 
 Example:
 ```markdown
-Hello [World]($text.id('foo').attrs('bar', 'baz'))!
+Hello [World]($text.id('foo').attrs('bar','baz'))!
 ```
 
 This will be rendered by SuperHTML as:

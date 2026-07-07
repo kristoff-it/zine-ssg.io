@@ -29,9 +29,7 @@ jobs:
           fetch-depth: 0  # Change if you need git info
 
       - name: Setup Zine
-        uses: kristoff-it/setup-zine@v1
-        with:
-          version: v0.11.2
+        uses: kristoff-it/setup-zine@v2
 
       - name: Build
         run: zine release

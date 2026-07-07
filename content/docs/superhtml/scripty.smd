@@ -1,10 +1,7 @@
 ---
 .title = "SuperHTML Scripty Reference",
-.description = "",
-.author = "Loris Cro",
+.date = .date("2023-06-16T00:00:00"),
 .layout = "scripty-reference.shtml",
-.date = @date("2023-06-16T00:00:00"),
-.draft = false,
 ---
 []($section.id('menu'))
 
@@ -21,6 +18,7 @@
 >- [`description`]($link.unsafeRef("Site"))
 >- [`.host_url`]($link.unsafeRef("Site.host_url"))
 >- [`.title`]($link.unsafeRef("Site.title"))
+>- [`.custom`]($link.unsafeRef("Site.custom"))
 >- [`fn localeCode()`]($link.ref("Site.localeCode")) 
 >- [`fn localeName()`]($link.ref("Site.localeName")) 
 >- [`fn link()`]($link.ref("Site.link")) 
@@ -33,7 +31,7 @@
 >- [`description`]($link.unsafeRef("Page"))
 >- [`.title`]($link.unsafeRef("Page.title"))
 >- [`.description`]($link.unsafeRef("Page.description"))
->- [`.author`]($link.unsafeRef("Page.author"))
+>- [`.authors`]($link.unsafeRef("Page.authors"))
 >- [`.date`]($link.unsafeRef("Page.date"))
 >- [`.layout`]($link.unsafeRef("Page.layout"))
 >- [`.draft`]($link.unsafeRef("Page.draft"))
@@ -52,8 +50,11 @@
 >- [`fn wordCount()`]($link.ref("Page.wordCount")) 
 >- [`fn parentSection()`]($link.ref("Page.parentSection")) 
 >- [`fn isSection()`]($link.ref("Page.isSection")) 
+>- [`fn leaves()`]($link.ref("Page.leaves")) 
 >- [`fn subpages()`]($link.ref("Page.subpages")) 
 >- [`fn subpagesAlphabetic()`]($link.ref("Page.subpagesAlphabetic")) 
+>- [`fn subpagesByAuthor()`]($link.ref("Page.subpagesByAuthor")) 
+>- [`fn subpagesByTag()`]($link.ref("Page.subpagesByTag")) 
 >- [`fn nextPage?()`]($link.ref("Page.nextPage?")) 
 >- [`fn prevPage?()`]($link.ref("Page.prevPage?")) 
 >- [`fn hasNext()`]($link.ref("Page.hasNext")) 
@@ -132,6 +133,11 @@
 
 ># [?any]($block.collapsible(false))
 >- [`description`]($link.unsafeRef("?any"))
+
+># [Union]($block.collapsible(false))
+>- [`description`]($link.unsafeRef("Union"))
+>- [`fn tag()`]($link.ref("Union.tag")) 
+>- [`fn case?()`]($link.ref("Union.case?")) 
 
 ># [String]($block.collapsible(false))
 >- [`description`]($link.unsafeRef("String"))
@@ -248,11 +254,10 @@ that have an `if` attribute used to unwrap an optional value.
 
 # [Site]($section.id('Site'))
 
-The global site configuration. The fields come from the call to 
-`website` in your `build.zig`.
+ The global site configuration. The fields come from your `zine.ziggy`
+ config file (or the call to `website` in your `build.zig`).
  
- Gives you also access to assets and static assets from the directories 
- defined in your site configuration.
+ Gives you also access to site assets and other site-wide resources.
 
 ## Fields
 
@@ -263,6 +268,16 @@ The host URL, as defined in your `build.zig`.
 ### [`title`]($text.id('Site.title')) : [String]($link.ref("String"))
 
 The website title, as defined in your `build.zig`.
+
+### [`custom`]($text.id('Site.custom')) : [Map]($link.ref("Map"))
+
+The custom Ziggy Dictionary you can define in your `zine.ziggy`
+config file.
+
+Note that in the case of multilingual websites this is still
+going to be a single instance shared by all localized variants.
+To create per-localized-variant settings, refer to the 'i18n'
+documentation.
 
 ## Functions
 
@@ -307,40 +322,45 @@ Retuns an asset by name from inside the assets directory.
 ```superhtml
 <img src="$site.asset('foo.png').link()">
 ```
-### []($heading.id("Site.page")) [`fn`]($link.ref("Site.page")) page ([String]($link.ref("String"))) -> [Page]($link.ref("Page"))
+### []($heading.id("Site.page")) [`fn`]($link.ref("Site.page")) page ([String]($link.ref("String")), [[String]($link.ref("String"))...]) -> [Page]($link.ref("Page"))
 
 Finds a page by path.
 
-Paths are relative to the content directory and should exclude
-the markdown suffix as Zine will automatically infer which file
-naming convention is used by the target page. 
+Paths are relative to the content directory and should
+exclude the markdown suffix as Zine will automatically infer
+which file naming convention is used by the target page.
 
 For example, the value 'foo/bar' will be automatically
 matched by Zine with either:
+
  - content/foo/bar.smd
  - content/foo/bar/index.smd
 
 To reference the site homepage, pass an empty string.
+
+You can pass multiple arguments to compose a path, meaning
+that the two following invocations are equivalent:
+
+ - `$site.page('foo/bar/baz')`
+ - `$site.page('foo', 'bar/baz')`
+
+This can be useful when part of your path is fixed while
+part is parametrized:
+
+ - `$site.page('speakers', $page.authors.at(0))`
 
 #### Examples
 
 ```superhtml
 <a href="$site.page('downloads').link()">Downloads</a>
 ```
-### []($heading.id("Site.pages")) [`fn`]($link.ref("Site.pages")) pages ([[String]($link.ref("String"))...]) -> [[Page]($link.ref("Page"))] *(see also [[any]]($link.ref("Array")))*   
+### []($heading.id("Site.pages")) [`fn`]($link.ref("Site.pages")) pages () -> [][Page]($link.ref("Page")) *(see also [[]any]($link.ref("Array")))*   
 
-Same as `page`, but accepts a variable number of page references and 
-loops over them in the provided order. All pages must exist.
-
-Calling this function with no arguments will loop over all pages
-of the site.
-
-To be used in conjunction with a `loop` attribute.
+Returns all pages in the website, to be used in conjunction with a `loop` attribute.
 
 #### Examples
 
 ```superhtml
-<ul :loop="$site.pages('a', 'b', 'c')"><li :text="$loop.it.title"></li></ul>
 <ul :loop="$site.pages()"><li :text="$loop.it.title"></li></ul>
 ```
 ### []($heading.id("Site.locale")) [`fn`]($link.ref("Site.locale")) locale ([String]($link.ref("String"))) -> [Site]($link.ref("Site"))
@@ -362,17 +382,17 @@ The page currently being rendered.
 
 ### [`title`]($text.id('Page.title')) : [String]($link.ref("String"))
 
-Title of the page, 
+Title of the page,
 as set in the SuperMD frontmatter.
 
 ### [`description`]($text.id('Page.description')) : [String]($link.ref("String"))
 
-Description of the page, 
+Description of the page,
 as set in the SuperMD frontmatter.
 
-### [`author`]($text.id('Page.author')) : [String]($link.ref("String"))
+### [`authors`]($text.id('Page.authors')) : [][String]($link.ref("String")) *(see also [[]any]($link.ref("Array")))*   
 
-Author of the page, 
+Authors of the page,
 as set in the SuperMD frontmatter.
 
 ### [`date`]($text.id('Page.date')) : [Date]($link.ref("Date"))
@@ -392,12 +412,12 @@ as set in the SuperMD frontmatter.
 When set to true the page will not be rendered in release mode, 
 as set in the SuperMD frontmatter.
 
-### [`tags`]($text.id('Page.tags')) : [[String]($link.ref("String"))] *(see also [[any]]($link.ref("Array")))*   
+### [`tags`]($text.id('Page.tags')) : [][String]($link.ref("String")) *(see also [[]any]($link.ref("Array")))*   
 
 Tags associated with the page, 
 as set in the SuperMD frontmatter.
 
-### [`aliases`]($text.id('Page.aliases')) : [[String]($link.ref("String"))] *(see also [[any]]($link.ref("Array")))*   
+### [`aliases`]($text.id('Page.aliases')) : [][String]($link.ref("String")) *(see also [[]any]($link.ref("Array")))*   
 
 Aliases of the current page, 
 as set in the SuperMD frontmatter.
@@ -408,7 +428,7 @@ from different locations.
 Every entry in the list is an output location where the 
 rendered page will be copied to.
 
-### [`alternatives`]($text.id('Page.alternatives')) : [[Alternative]($link.ref("Alternative"))] *(see also [[any]]($link.ref("Array")))*   
+### [`alternatives`]($text.id('Page.alternatives')) : [][Alternative]($link.ref("Alternative")) *(see also [[]any]($link.ref("Array")))*   
 
 Alternative versions of the page, 
 as set in the SuperMD frontmatter.
@@ -501,7 +521,7 @@ To be used in conjunction with an `if` attribute.
   <a href="$if.link()" :text="$if.title"></a>
 </div>
 ```
-### []($heading.id("Page.locales")) [`fn`]($link.ref("Page.locales")) locales () -> [[Page]($link.ref("Page"))] *(see also [[any]]($link.ref("Array")))*   
+### []($heading.id("Page.locales")) [`fn`]($link.ref("Page.locales")) locales () -> [][Page]($link.ref("Page")) *(see also [[]any]($link.ref("Array")))*   
 
 Returns the list of localized variants of the current page.
 
@@ -545,7 +565,26 @@ the current page is an 'index.smd' page).
 ```superhtml
 $page.isSection()
 ```
-### []($heading.id("Page.subpages")) [`fn`]($link.ref("Page.subpages")) subpages () -> [[Page]($link.ref("Page"))] *(see also [[any]]($link.ref("Array")))*   
+### []($heading.id("Page.leaves")) [`fn`]($link.ref("Page.leaves")) leaves (?[String]($link.ref("String"))) -> [][Page]($link.ref("Page")) *(see also [[]any]($link.ref("Array")))*   
+
+Returns a (flat) list of all **non-section** pages (i.e. leaf
+pages) in the subtree of the current section. Returns an
+error when called on a non-section page.
+
+Sections are defined by `index.smd` files, see the content 
+structure section in the official docs for more info.
+
+Accepts an optional argument to limit the number of pages
+to iterate on. 
+
+#### Examples
+
+```superhtml
+<div :loop="$page.leaves()">
+  <span :text="$loop.it.title"></span>
+</div>
+```
+### []($heading.id("Page.subpages")) [`fn`]($link.ref("Page.subpages")) subpages () -> [][Page]($link.ref("Page")) *(see also [[]any]($link.ref("Array")))*   
 
 Returns a list of all the pages in this section. If the page is 
 not a section, returns an empty list.
@@ -560,15 +599,73 @@ structure section in the official docs for more info.
   <span :text="$loop.it.title"></span>
 </div>
 ```
-### []($heading.id("Page.subpagesAlphabetic")) [`fn`]($link.ref("Page.subpagesAlphabetic")) subpagesAlphabetic () -> [[Page]($link.ref("Page"))] *(see also [[any]]($link.ref("Array")))*   
+### []($heading.id("Page.subpagesAlphabetic")) [`fn`]($link.ref("Page.subpagesAlphabetic")) subpagesAlphabetic () -> [][Page]($link.ref("Page")) *(see also [[]any]($link.ref("Array")))*   
 
 Same as `subpages`, but returns the pages in alphabetic order by
-comparing their titles. 
+comparing their titles.
 
 #### Examples
 
 ```superhtml
 <div :loop="$page.subpagesAlphabetic()">
+  <span :text="$loop.it.title"></span>
+</div>
+```
+### []($heading.id("Page.subpagesByAuthor")) [`fn`]($link.ref("Page.subpagesByAuthor")) subpagesByAuthor ([String]($link.ref("String"))) -> [][Page]($link.ref("Page")) *(see also [[]any]($link.ref("Array")))*   
+
+Retrieve subpages of this section page that have in their
+`authors` field the provided string. Returns an error when
+called on a non-section page.
+
+Sections are defined by `index.smd` files, see the content
+structure section in the official docs for more info.
+
+Search is performed using an index and will not impact build
+performance.
+
+If you want to attach extra information to an author, use the
+argument string as a key to a custom dictionary field or
+another page. For example 'loris-cro' can be used so:
+
+ - `$page.custom.get('loris-cro').get('name')`
+ - `$site.page('speakers', 'loris-cro').title`
+
+The latter case is a common technique for structuring sites
+that collect talks, books, etc.
+
+#### Examples
+
+```superhtml
+<div :loop="$site.page('talks').subpagesByAuthor('loris-cro')">
+  <span :text="$loop.it.title"></span>
+</div>
+```
+### []($heading.id("Page.subpagesByTag")) [`fn`]($link.ref("Page.subpagesByTag")) subpagesByTag ([String]($link.ref("String"))) -> [][Page]($link.ref("Page")) *(see also [[]any]($link.ref("Array")))*   
+
+Retrieve subpages of this section page that have in their
+`tags` field the provided string. Returns an error when
+called on a non-section page.
+
+Sections are defined by `index.smd` files, see the content
+structure section in the official docs for more info.
+
+Search is performed using an index and will not impact build
+performance.
+
+If you want to attach extra information to a tag, use the
+argument string as a key to a custom dictionary field or
+another page. For example 'adventure' can be used so:
+
+  - `$page.custom.get('adventure').get('description')`
+  - `$site.page('tags', 'adventure').description`
+
+The latter case is a common technique for structuring sites
+that collect movies, books, etc.
+
+#### Examples
+
+```superhtml
+<div :loop="$site.page('movies').subpagesByTag('adventure')">
   <span :text="$loop.it.title"></span>
 </div>
 ```
@@ -687,7 +784,7 @@ Returns true if the page contains a content-section with the given id
 <div :html="$page.hasContentSection('section-id')"></div>
 <div :html="$page.hasContentSection('other-section')"></div>
 ```
-### []($heading.id("Page.contentSections")) [`fn`]($link.ref("Page.contentSections")) contentSections () -> [[ContentSection]($link.ref("ContentSection"))] *(see also [[any]]($link.ref("Array")))*   
+### []($heading.id("Page.contentSections")) [`fn`]($link.ref("Page.contentSections")) contentSections () -> [][ContentSection]($link.ref("ContentSection")) *(see also [[]any]($link.ref("Array")))*   
 
 Returns a list of sections for the current page.
 
@@ -700,7 +797,7 @@ null id.
 ```superhtml
 <div :html="$page.contentSections()"></div>
 ```
-### []($heading.id("Page.footnotes?")) [`fn`]($link.ref("Page.footnotes?")) footnotes? () -> ?[[Footnote]($link.ref("Footnote"))]
+### []($heading.id("Page.footnotes?")) [`fn`]($link.ref("Page.footnotes?")) footnotes? () -> ?[][Footnote]($link.ref("Footnote"))
 
 Returns a list of footnotes for the current page, if any exist.
 
@@ -764,7 +861,7 @@ The SuperHTML layout to use to generate this alternative version of the page.
 
 Output path where to to put the generated alternative.
 
-### [`type`]($text.id('Alternative.type')) : [String]($link.ref("String"))
+### [`type`]($text.id('Alternative.type')) : ?[String]($link.ref("String"))
 
 A metadata field that can be used to set the content-type of this alternative version of the Page. 
 
@@ -854,7 +951,7 @@ A footnote from a page.
 
 The ID for the footnote definition.
 
-### [`ref_ids`]($text.id('Footnote.ref_ids')) : [[String]($link.ref("String"))] *(see also [[any]]($link.ref("Array")))*   
+### [`ref_ids`]($text.id('Footnote.ref_ids')) : [][String]($link.ref("String")) *(see also [[]any]($link.ref("Array")))*   
 
 The IDs of the footnote's references,
 to be used for creating backlinks.
@@ -1056,7 +1153,7 @@ Tries to parse the asset as a Ziggy document.
 ```
 # [Map]($section.id('Map'))
 
-A map that can hold any value, used to represent the `custom` field 
+A Dictionary that can hold any value, used to represent the `custom` field 
 in Page frontmatters or Ziggy / JSON data loaded from assets.
 
 ## Functions
@@ -1103,7 +1200,7 @@ Returns true if the map contains the provided key.
 ```superhtml
 <div :if="$page.custom.has('myValue')">Yep!</div>
 ```
-### []($heading.id("Map.iterate")) [`fn`]($link.ref("Map.iterate")) iterate () -> [[KV]($link.ref("KV"))] *(see also [[any]]($link.ref("Array")))*   
+### []($heading.id("Map.iterate")) [`fn`]($link.ref("Map.iterate")) iterate () -> [][KV]($link.ref("KV")) *(see also [[]any]($link.ref("Array")))*   
 
 Iterates over key-value pairs of a Ziggy map.
 
@@ -1112,7 +1209,7 @@ Iterates over key-value pairs of a Ziggy map.
 ```superhtml
 $page.custom.iterate()
 ```
-### []($heading.id("Map.iterPattern")) [`fn`]($link.ref("Map.iterPattern")) iterPattern ([String]($link.ref("String"))) -> [[KV]($link.ref("KV"))] *(see also [[any]]($link.ref("Array")))*   
+### []($heading.id("Map.iterPattern")) [`fn`]($link.ref("Map.iterPattern")) iterPattern ([String]($link.ref("String"))) -> [][KV]($link.ref("KV")) *(see also [[]any]($link.ref("Array")))*   
 
 Iterates over key-value pairs of a Ziggy map where the key
 matches the given pattern.
@@ -1126,6 +1223,51 @@ $page.custom.iterPattern("user-")
 
 An optional value, to be used in conjunction with `if` attributes.
 
+# [Union]($section.id('Union'))
+
+A tagged union.
+
+Supports retrieving the active tag and tentatively accessing the
+active case (see `case?`). In situations where you know statically
+which is going to be the active case, use normal path syntax to
+access the value.
+
+When you don't know for sure the active case:
+   `$myunion.case?('foo')`
+
+When you do know statically:
+   `$myunion.foo`
+
+Tagged unions are not a common data type in Zine. For example page
+dates are expressed as tagged unions in the frontmatter but they have
+a dedicated type when accessed through Scripty. That said, tagged
+union support is important to be able to navigate all possible Ziggy
+Document values.
+
+## Functions
+
+### []($heading.id("Union.tag")) [`fn`]($link.ref("Union.tag")) tag () -> [String]($link.ref("String"))
+
+Returns the current active tag of this union.
+
+
+#### Examples
+
+```superhtml
+$page.custom.get('myunion').tag()
+```
+### []($heading.id("Union.case?")) [`fn`]($link.ref("Union.case?")) case? ([String]($link.ref("String"))) -> [any]($link.ref("any"))
+
+Checks if the active union case matches the one provided as argument
+and on success returns the value, otherwise returns null.
+
+To be used in conjunction with `:if` attributes.
+
+#### Examples
+
+```superhtml
+<ctx :if="$page.custom.get('myunion').case?('foo')"></ctx>
+```
 # [String]($section.id('String'))
 
 A string.
@@ -1576,7 +1718,7 @@ True when len is 0.
 
 ## Functions
 
-### []($heading.id("Array.slice")) [`fn`]($link.ref("Array.slice")) slice ([Int]($link.ref("Int")), ?[Int]($link.ref("Int"))) -> [[any]($link.ref("any"))]
+### []($heading.id("Array.slice")) [`fn`]($link.ref("Array.slice")) slice ([Int]($link.ref("Int")), ?[Int]($link.ref("Int"))) -> [][any]($link.ref("any"))
 
 Slices an array from the first value (inclusive) to the
 second value (exclusive).
@@ -1601,7 +1743,7 @@ Returns the value at the provided index.
 ```superhtml
 $page.tags.at(0)
 ```
-### []($heading.id("Array.first?")) [`fn`]($link.ref("Array.first?")) first? () -> [[any]($link.ref("any"))]
+### []($heading.id("Array.first?")) [`fn`]($link.ref("Array.first?")) first? () -> [any]($link.ref("any"))
 
 Returns the the first value of the array or null if the array is empty. 
 
@@ -1610,7 +1752,7 @@ Returns the the first value of the array or null if the array is empty.
 ```superhtml
 $page.tags.first?()
 ```
-### []($heading.id("Array.last?")) [`fn`]($link.ref("Array.last?")) last? () -> [[any]($link.ref("any"))]
+### []($heading.id("Array.last?")) [`fn`]($link.ref("Array.last?")) last? () -> [any]($link.ref("any"))
 
 Returns the the last value of the array or null if the array is empty. 
 

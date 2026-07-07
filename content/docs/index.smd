@@ -1,17 +1,17 @@
 ---
 .title = "Documentation",
-.date = @date("2020-07-06T00:00:00"),
-.author = "Sample Author",
+.date = .date("2020-07-06T00:00:00"),
 .layout = "documentation.shtml",
-.draft = false,
 .custom = {
   "toc": false,
 }
 --- 
 
 ># [Warning]($block.attrs('warning'))
->Zine is alpha software.  
->Using Zine today means participating in its development.
+>Zine is beta software.
+>
+>Simple and medium complexity websites can be easily handled by Zine today,
+>but not all planned features have been implemented yet.
 
 # Section Index
 
@@ -28,6 +28,7 @@
 - Deploying
     - [GitHub Pages](./deploying/github-pages)
     - [Cloudflare Pages](./deploying/cloudflare-pages)
+    - [Codeberg Pages](./deploying/codeberg-pages)
 - [Using Zine from `build.zig`](./zig)
 - [Frequently Encountered Use Cases](./frequent)
 

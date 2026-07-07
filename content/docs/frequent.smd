@@ -1,12 +1,10 @@
 ---
 .title = "Frequent Use Cases",
-.date = @date("2020-07-06T00:00:00"),
-.author = "Sample Author",
+.date = .date("2020-07-06T00:00:00"),
 .layout = "frequent.shtml",
-.draft = false,
 --- 
 
-# [RSS feed]($section.id('rss'))
+# [RSS Feed]($section.id('rss'))
 Zine doesn't have direct knowledge of RSS feeds but by combining a handful of
 its features you can add support for the most syndication formats commonly used.
 
@@ -92,7 +90,7 @@ Different page (see the reference docs for more variations):
 </ctx>
 ```
 
-# [Preserve old links]($section.id('old-links'))
+# [Preserve Old Links]($section.id('old-links'))
 You're porting your website to Zine but still want to make sure old links don't
 break?
 
@@ -104,7 +102,7 @@ location you'd like.
 If your old site used so-called *ugly URLs* (i.e. `foo.md` would become `foo.html` instead of `foo/index.html`), then this is your only option since
 Zine has no support for ugly URLs at the moment.
 
-# Inline generated HTML content in a SuperMD document
+# [Inline Generated HTML Content in a SuperMD Document]($section.id('inline-html'))
 
 The SuperMD docs show that you can inline HTML content in a SuperMD document 
 by creating a `=html` code block:
@@ -209,3 +207,37 @@ one level (`parentSection()`), go to the {prev, next} section, and then
 navigate down (`subpages()`) to the {first, last} page contained.
 
 
+# [Author / Tag Metadata]($section.id('author-tag-metadata'))
+
+The Ziggy frontmatter lets you specify a list of authors and tags for each page, but
+the entries in those arrays are simple strings.
+
+If you want to give extra metadata to those quantities (e.g. a profile picture
+and a bio to each author, or a logo and a description to a tag), instead of treating
+them as ready-to-print values, use them as keys for:
+
+- page navigation
+- indexing into a custom dict
+
+For example a website for a conference could have a `talks` section and a `speakers` one:
+
+
+In `talk.shtml`:
+```superhtml
+<ctx author="$site.page('speakers', $page.authors.at(0))">
+  <h2 :text="$ctx.author.title"></h2>
+  <img src="$ctx.author.asset('picture.jpg')">
+  <p :html="$ctx.author.content()"></p>
+</ctx>
+```
+(This could be improved by looping over all authors instead of just selecting the first one.)
+
+In `speaker.shtml`:
+```superhtml
+<h2>Talks</h2>
+<ul :loop="$site.page('talks').subpagesByAuthor($page.link().basename())">
+  <a href="$loop.it.link()">
+    <li :text="$loop.it.title"></li>
+  </a>
+</ul>
+```

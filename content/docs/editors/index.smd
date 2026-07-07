@@ -1,15 +1,12 @@
 ---
 .title = "Editor Support",
-.date = @date("2020-07-06T00:00:00"),
-.author = "Sample Author",
+.date = .date("2020-07-06T00:00:00"),
 .layout = "documentation.shtml",
-.draft = false,
 .custom = {
   "toc": false,
 }
 --- 
 
-## About
 Zine uses three languages that you will want to add support for in your editor:
 - [Ziggy](https://ziggy-lang.io)
 - [SuperMD](https://github.com/kristoff-it/supermd)
@@ -33,13 +30,27 @@ specific to your editor.
 ## Troubleshooting
 If you encounter issues while setting up your editor, [join the community](/community) and ask for help.
 
+# Ziggy Schemas
+When you run `zine init`, Zine will add two files:
+- `.ziggy-schema` (for `zine.ziggy`)
+- `content/.ziggy-schema` (for content files frontmatter data)
+
+These hidden files contain the schema that the Ziggy LSP will be able to
+use to provide code intelligence features.
+
+**To create these files in a pre-existing project, or to update them when updating Zine version,
+run `zine update`.**
+
+
 # Editors
 
 ## VSCode
+- [Ziggy Extension](https://marketplace.visualstudio.com/items?itemName=LorisCro.ziggy)
 - [SuperMD Extension](https://marketplace.visualstudio.com/items?itemName=LorisCro.supermd)
 - [SuperHTML Extension](https://marketplace.visualstudio.com/items?itemName=LorisCro.super)
-  - The extension bundles a WASM build of the Language Server, so you won't need
-    to install the CLI tool to use it.
+
+VSCode extensions don't require you to install the Ziggy CLI tool as they will use an
+internal WASM build of the language server.
 
 ## Neovim
 [See the Neovim dedicated page](./neovim).

@@ -1,9 +1,7 @@
 ---
 .title = "Site Structure",
-.date = @date("2020-07-06T00:00:00"),
-.author = "Sample Author",
+.date = .date("2020-07-06T00:00:00"),
 .layout = "documentation.shtml",
-.draft = false,
 .custom = {
   "toc": false,
 }
@@ -17,22 +15,27 @@ Here's what the config of `zine-ssg.io` looks like:
 
 ***`zine.ziggy`***
 ```ziggy
-Site {
+.zine_version = "0.12.0",
+.site = .simple(.{
    .title = "Zine - Static Site Generator",
    .host_url = "https://zine-ssg.io",
    .content_dir_path = "content",
    .layouts_dir_path = "layouts",
    .assets_dir_path = "assets",
    .static_assets = [
-      // omitted for brevity
+       "CNAME",
+       "fonts",
    ],
-}
+}),
 ```
 Once you put a `zine.ziggy` file in a directory, you're able to run `zine` to 
 start the dev server and begin to edit your website.
 
+># [Expand to see its Ziggy Schema]($block.collapsible(false))
+>[](<$code.siteAsset('zine.ziggy-schema').language('ziggy-schema')>)
 
-## File formats used by Zine
+
+# File formats used by Zine
 Zine uses [SuperMD]($link.page('docs/supermd')) for content and [SuperHTML]($link.page('docs/superhtml')) for defining layouts.
 
 - File extensions:
@@ -108,25 +111,24 @@ how deeply they are nested inside of different directories.
 Each SuperMD file must start with a Ziggy frontmatter delimited by `---` (three
 dashes in a row).
 
-Ziggy is a data serialization language similar to YAML and JSON. You can
-learn more on the official Ziggy website: 
+Ziggy is a data serialization language that extends JSON with new useful
+constructs. You can learn more on the official Ziggy website:
 [https://ziggy-lang.io](https://ziggy-lang.io).
 
 **`index.smd`** 
 ```ziggy
 ---
 .title = "Homepage",
-.date = @date("2020-07-06T00:00:00"),
-.author = "Sample Author",
+.date = .date("2020-07-06T00:00:00"),
 .layout = "home.shtml",
-.draft = false,
 --- 
 Your **SuperMD** content goes here.
 ```
 
-Some fields, like `title`, and `layout` are mandatory, while others have default values. You can find a complete list of  
-[frontmatter fields]($link.page('docs/supermd/').ref('frontmatter')) 
-in the SuperMD documentation page.
+Some fields, like `title`, `date`, and `layout` are mandatory, while others
+have default values. You can find a complete list of [frontmatter
+fields]($link.page('docs/supermd/').ref('frontmatter')) in the SuperMD
+documentation page.
 
 A very important required field is `layout`. This field must point at the layout
 that you want to use to style your content. In Zine this field must always be
@@ -147,11 +149,15 @@ through Zine's [Asset System]($link.page('docs/assets')).
 
 # First Steps
 
-The quickest way to start a Zine site is to run `zine init`, which will generate a sample site for you.
+The quickest way to start a Zine site is to run `zine init`, which will
+generate a sample site for you.
 
-In this section we will instead go through the motions of bootstrapping a Zine website entirely from scratch.
+In this section we will instead go through the motions of bootstrapping a
+Zine website entirely from scratch.
 
-First of all you need to create a `zine.ziggy` file and place it in an empty directory. The `zine.ziggy` file must be structured like the one at the top of this page.
+First of all you need to create a `zine.ziggy` file and place it in an
+empty directory. The `zine.ziggy` file must be structured like the one at
+the top of this page.
 
 
 Once that's done, let's create a homepage and a relative template.
@@ -166,10 +172,8 @@ $ touch layouts/home.shtml
 ```ziggy
 ---
 .title = "Home",
-.date = @date("2020-07-06T00:00:00"),
-.author = "Sample Author",
+.date = .date("2020-07-06T00:00:00"),
 .layout = "home.shtml",
-.draft = false,
 --- 
 Hello World!
 ```
@@ -230,9 +234,8 @@ $ touch layouts/post.shtml
 ---
 .title = "First Post!",
 .date = @date("2020-07-06T00:00:00"),
-.author = "Sample Author",
 .layout = "post.shtml",
-.draft = false,
+.authors = ["Loris Cro"],
 --- 
 This is my first post!
 ```
@@ -248,7 +251,9 @@ This is my first post!
   <body>
     <h1>Blog</h1>
     <h2 :text="$page.title"></h2>
-    <h3>by <span :text="$page.author"></span></h3>
+    <h3 :if="$page.authors.first?()">
+      by <span :text="$if"></span>
+    </h3>
     <h4>
       Posted on: 
       <span 
@@ -267,11 +272,10 @@ Note how we needed a new layout (`post.shtml`) since the blog post is not
 going to have the same structure as the homepage.
 
 While the structure is indeed different, both `post.shtml` and `home.shtml`
-share a lot of common boilerplate that can be collected into a single template by leveraging SuperHTML template extension features.
+share a lot of common boilerplate that can be collected into a single
+template by leveraging SuperHTML template extension features.
 
 You can learn more about extending templates in the docs section dedicated to SuperHTML.
-
-
 
 # Multilingual sites
 

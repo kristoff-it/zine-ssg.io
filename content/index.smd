@@ -1,15 +1,14 @@
 ---
 .title = "Home",
-.date = @date("2020-07-06T00:00:00"),
-.author = "Loris Cro",
+.date = .date("2020-07-06T00:00:00"),
 .layout = "index.shtml",
-.draft = false,
-.tags = ["foo", "bar", "baz"],
 ---
 
 ># [Warning]($block.attrs('warning'))
->Zine is alpha software.  
->Using Zine today means participating in its development.
+>Zine is beta software.
+>
+>Simple and medium complexity websites can be easily handled by Zine today,
+>but not all planned features have been implemented yet.
 
 ## What is Zine?
 A Zine site is a collection of content files and layouts.
@@ -21,14 +20,18 @@ hosting services like GitHub Pages.
 Zine uses a **structured approach to content authoring** that helps keeping sizeable
 content collections manageable.
 
-Zine is implemented from scratch in [Zig](https://ziglang.org) and it's so fast that it's currently able to give you instant live updates when the development server is running, even though it rebuilds your entire site from scratch every time. As a datapoint, this website rebuilds in `7ms` on a Mac Mini M2.
+Zine is implemented from scratch in [Zig](https://ziglang.org) and it's so
+fast that it's currently able to give you instant live updates when the
+development server is running, even though it rebuilds your entire site
+from scratch every time. As a datapoint, this website rebuilds in `7ms` on
+a Mac Mini M2.
 
 Cached rebuilds are planned and will implement **surgical
 dependency tracking** to ensure minimal rebuilds, keeping the authoring experience
 excellent at all scales.
 
 *Zine is pronounced like in [fan**zine**](https://en.wikipedia.org/wiki/Zine)*.
-    
+
 ## A handcrafted authoring experience
 Zine uses [SuperMD]($link.page('docs/supermd')) for content and 
 [SuperHTML]($link.page('docs/superhtml')) for defining layouts.

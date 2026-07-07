@@ -1,9 +1,7 @@
 ---
 .title = "Deploying to GitHub Pages",
-.date = @date("2020-07-06T00:00:00"),
-.author = "Sample Author",
+.date = .date("2020-07-06T00:00:00"),
 .layout = "documentation.shtml",
-.draft = false,
 .custom = {
   "toc": false,
 },
@@ -30,7 +28,7 @@ After you select the right dropdown menu entry, GitHub will immediately save you
 Once that's done, you can now add a new GitHub Actions Workflow file in your repository:
 
 
-**`.github/workflows/gh-pages.yml`**
+**`.github/workflows/deploy.yml`**
 ```yaml
 name: Deploy the website to Github Pages
 
@@ -63,9 +61,7 @@ jobs:
           fetch-depth: 0  # Change if you need git info
 
       - name: Setup Zine
-        uses: kristoff-it/setup-zine@v1
-        with:
-          version: v0.11.3
+        uses: kristoff-it/setup-zine@v2
 
       - name: Build
         run: zine release

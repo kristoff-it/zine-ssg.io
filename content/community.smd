@@ -1,9 +1,7 @@
 ---
 .title = "Community",
-.date = @date("2020-07-06T00:00:00"),
-.author = "Sample Author",
+.date = .date("2020-07-06T00:00:00"),
 .layout = "page.shtml",
-.draft = false,
 --- 
 ## About the author
 Hi, I'm Loris Cro, the original creator of Zine.
@@ -17,19 +15,20 @@ personal blog at [https://kristoff.it](https://kristoff.it).
 Each link in the previous section points to a static website authored 
 by me. 
 
-My journey in creating software  you can love has taught me that, if your
+My journey in creating software you can love has taught me that, if your
 project is serious enough, **you will need a website and that in most cases a
 *static* website will be exactly what you need**.
 
 For this reason I've become interested in streamlining the static website 
-building experience for myself and others who are interested in creating *experiences* you can love.
+building experience for myself and others who are interested in creating
+*experiences* you can love.
 
 **Zine is tailored for creators who want to make simple, elegant websites
-that reflect the attention to detail they already put in designing their main
-product.**
+that reflect the attention to detail they already put in designing their main *thing*
+(be it software, events, or content of any kind).**
 
 Zine itself is designed according to this principle and this is why I've decided
-to design the entire authoring experience of Zine from scratch, retaining ideas
+to design the entire authoring experience from scratch, retaining ideas
 that I appreciated from static site generators I've used in the past, and 
 innovating whenever I believe a better way can be found.
 

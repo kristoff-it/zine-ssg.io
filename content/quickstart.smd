@@ -1,15 +1,14 @@
 ---
 .title = "Quickstart",
-.date = @date("2020-07-06T00:00:00"),
-.author = "Sample Author",
+.date = .date("2020-07-06T00:00:00"),
 .layout = "page.shtml",
-.draft = false,
 --- 
 
 ># [Warning]($block.attrs('warning'))
->Zine is alpha software.  
->Using Zine today means participating in its development.
-
+>Zine is beta software.
+>
+>Simple and medium complexity websites can be easily handled by Zine today,
+>but not all planned features have been implemented yet.
 
 ## 1. Get Zine
 

@@ -1,9 +1,7 @@
 ---
 .title = "Multilingual Websites",
-.date = @date("2020-07-06T00:00:00"),
-.author = "Sample Author",
+.date = .date("2020-07-06T00:00:00"),
 .layout = "documentation.shtml",
-.draft = false,
 --- 
 # [Creating Multilingual Websites]($section.id('multilingual')) 
 

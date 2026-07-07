@@ -1,0 +1,84 @@
+---
+.title = "Deploying to GitHub Pages",
+.date = .date("2020-07-06T00:00:00"),
+.layout = "documentation.shtml",
+.custom = {
+  "toc": false,
+},
+--- 
+# About
+This guide assumes that you're already familiar with Codeberg Pages.
+
+
+# The setup Zine action
+Zine has an official Forgejo action to obtain Zine in a Forgejo Actions
+runner [which can be found
+here](https://github.com/marketplace/actions/setup-zine) (it's the same one used by GitHub).
+
+In the example below we will use it to have the Forgejo Actions runner
+build your Zine website before deploying to Codeberg Pages.
+
+# ForgeJo Actions Workflow
+
+First of all you need to make sure to enable Actions in your repository. If you haven't done so yet,
+go to the repository's settings page and from 'Units' enable 'Actions'.
+
+For more information about Codeberg Pages,
+[see the official docs](https://docs.codeberg.org/codeberg-pages/forgejo-actions/).
+
+**`.forgejo/workflows/deploy.yml`**
+```yaml
+name: Deploy the website to Codeberg Pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: codeberg-tiny # good enough for small sites, upgrade to 'codeberg-small' if you get timeouts
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Change if you need git info
+
+      - name: Setup Zine
+        uses: https://github.com/kristoff-it/setup-zine@v2
+
+      - name: Build
+        run: zine release
+
+      - uses: https://codeberg.org/git-pages/action@v2
+        with:
+          site: "https://${{ forge.repository_owner }}.codeberg.page/YOUR_REPO_NAME"
+          token: ${{ forge.token }}
+          source: public
+```
+
+On success, your website will have been deployed to Codeberg Pages.
+
+Note that in this example we are deploying to a **subdirectory** whose name should correspond
+to the name of your repository.
+
+> # [WARNING]($block.attrs('warning'))
+>If your GitHub Pages website is going to be deployed under
+>a subpath (e.g. `nickname.codeberg.page/repo-name/`),
+>make sure to set `url_path_prefix` correctly in your
+>`zine.ziggy` config file, otherwise Zine will not be able
+>to generate correct links.
+
+Codeberg Pages also supports deploying to the root directory of your subdomain, see the docs
+linked above for more information on that.
+
+
+

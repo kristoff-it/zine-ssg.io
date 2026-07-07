@@ -1,14 +1,12 @@
 ---
 .title = "Devlog",
-.date = @date("2021-07-06T00:00:00"),
-.author = "Sample Author",
+.date = .date("2021-07-06T00:00:00"),
 .layout = "log.shtml",
-.alternatives = [{
+.alternatives = [.{
   .name = "rss",
   .layout = "log.xml",
   .output = "/log/index.xml",
 }],
-.draft = false,
 --- 
 []($section.id('about'))
 ## About
@@ -22,16 +20,310 @@ You can [subscribe to this page via RSS]($link.alternative("rss")).
 > ascertain that your website looks as expected, I recommend following this
 > procedure:
 >
->- `zine release -o old` &nbsp; &nbsp; &nbsp; (with **old** Zine)
->- `zine release -o new` &nbsp; &nbsp; &nbsp; (with **new** Zine)
->- `diff -ru new old`
+> - `zine release -o old` &nbsp; &nbsp; &nbsp; (with **old** Zine)
+> - `zine release -o new` &nbsp; &nbsp; &nbsp; (with **new** Zine)
+> - `diff -ru new old`
 >
 > At this point is up to you to decide if any change in the diff is
 > desireable or not. If you see a change that is not mentioned in the
 > changelog, it might be the result of a bug, in which case a reproducible
 > bug report would be appreciated.
+>
+> ># [More examples of useful diffing commands]($block.collapsible(false))
+> > Normal diffing is line based, but occasionally you will want
+> > to find more easily which word has changed within a line.
+> > 
+> > This command highlights individual words:
+> > - `git diff --word-diff=color --no-index new old`
+> > 
+> > This command highlights individual characters, useful for
+> > quickly detecting whitespace changes:
+> > - `git diff --no-index --word-diff-regex=. new old`
 
 ## Changes
+
+[]($section.id('v0.12.0').data('date','2026-06-29'))
+This release contains a few new features and one big breaking change.
+
+
+### The Zine server now works with Firefox
+I finally tracked down and solved the issue that would cause Firefox to
+stop loading pages from the development webserver if you "clicked around"
+too much. Turns out I forgot to flush, and Firefox forgot to kill
+half-upgraded websocket connections on page reload ([firefox bug
+report](https://bugzilla.mozilla.org/show_bug.cgi?id=2051402)).
+
+### You can now add directories to static assets
+Tired of having to list all your fonts one by one in `static_assets`?
+
+You can now put them in a `fonts` directory and just add that to your
+config file. Or you could just create `assets/static` and use that as a
+convention that is not limited to just fonts.
+
+I'm also pretty proud of my implementation of this feature. Without some
+care it's easy to make this feature computationally more hungry than it
+needs to be.
+
+Also note that Zine will complain if the same file ends up being included
+twice (either directly or via directory inclusion). This is done to make
+sure you don't end up in the situation where you think you removed a file
+from static assets, but in reality it's still being installed because of
+a second reference.
+
+### The Zine config file now supports custom fields
+The new `zine.ziggy` definition allows you to specify a `.custom` Ziggy
+Dictionary that you can access via `$site.custom`. See below in the upgrade
+guide section how that looks like.
+
+### Codeberg Pages
+The docs now contain a page dedicated to deployng to Codeberg Pages,
+for those who might be interested.
+
+### Setup Zine Version 2
+`kristoff-it/setup-zine@v1` required you to specify which version of Zine
+to fetch, but the new Ziggy config file features a `zine_version` field
+that should now be considered the authoritative source of truth for which
+version of Zine your website requires.
+
+Update your CI scripts to use `kristoff-it/setup-zine@v2` and remove
+the input setting to enjoy a more seamless experience.
+
+**Note that now Zine will complain about versions not matching between the
+website config file and the Zine executable version.**
+
+### SuperHTML Scripty changes!
+- Added `$page.subpagesByAuthor()` and `$page.subpagesByTag()`, which will allow
+  you to, well, find all subpages of a given section that have the requested
+  author and tag, respectively. **It was already possible to manually iterate
+  subpages and filter them on this property, but the builtin functions can
+  consult an index, offering better performance.** The -`byAuthor` variant of
+  these functions relies on a Ziggy frontmatter change explained in the
+  frontmatter upgrade section further ahead in this changelog entry.
+
+- Added `$page.leaves()` which returns a (flat) list of **non-section**
+  pages in the subtree of the target section page. It accepts an optional
+  argument to limit the length of the iteration. This function is useful
+  to show the latest entries in a structured section.
+
+- Removed the ability to pass arguments to `$site.pages()`, which allowed
+  you to iterate over a list of known pages. It was originally created to
+  simplify running the same html snippet over a list of manually selected
+  pages, but it's fully replaceable by looping over a Ziggy array defined
+  in the frontmatter.
+
+  Old:
+  ```superhtml
+  <ul :loop="$site.pages('foo', 'bar')">
+    <li :text="$loop.it.title"></li>
+  </ul>
+  ```
+
+  New:
+  ```superhtml
+  <ul :loop="$page.custom.get('menu-entries')">
+    <li :text="$site.page($loop.it).title"></li>
+  </ul>
+  ```
+  
+- You can now pass multiple arguments to `$site.page`, which will become
+  components to compose the final path used to find the target page. This
+  means that the following invocations are equivalent:
+  
+   - `$site.page('foo/bar/baz')`
+   - `$site.page('foo', 'bar/baz')`
+  
+  This can be useful when part of your path is fixed while
+  part is parametrized:
+  
+   ```
+   $site.page('speakers', $page.authors.at(0))
+   ```
+   
+- The SuperHTML Scripty reference now uses slightly different syntax
+  to refer to arrays. Previously `[String]` was notation for an array
+  of strings, while now it's `[]String`, in order to more closely mirror
+  the new [Ziggy Schema syntax](https://ziggy-lang.io/docs/builtin-types/).
+
+  Variadic function arguments are still specified as `[String...]`.
+
+### [New Ziggy Upgrade Guide]($text.attrs('important'))
+[Ziggy](https://ziggy-lang.io) is the data serialization language used in
+the Zine config file (`zine.ziggy`) and the frontmatter in SuperMD files.
+**Up until recently it was probably the weakest point of Zine but, after
+giving it some love, I'm happy to say that this is not the case anymore.**
+Unfortunately this comes at the cost of some breaking changes, for which I
+do apologize. I tried to put all breaking changes that I could think of in
+this release, in order to leave users alone for a while once they're done
+upgrading.
+
+Some Ziggy syntax changed, but most importantly both parser and surrounding
+tooling has matured a lot which enables pushing past previous *cul de sac*s.
+
+#### [Better error messages]($text.attrs('important'))
+If you ever wrote a bad date, you probably saw this misleading error message:
+```
+content/index.smd:3:9:
+    .date = @date("1990-01-1T00:00:00"),
+            ^
+syntax error: '@'
+```
+This is now:
+```
+content/index.smd:3:9: error: unable to parse date: InvalidCharacter
+|    .date = .date("1990-01-1T00:00:00"),
+|            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+```
+
+Unfortunately Zine is not yet able to tell you that there's a missing digit
+in the day section of the date, but it's on my pile of TODOs to eventually
+take direct control over date parsing and provide even better diagnostics.
+
+#### [In-editor schema intelligence!]($text.attrs('important'))
+[]($video.asset("ziggy2026.mp4").controls(true).loop(true).autoplay(true))
+
+Looking at the usual suspects (other SSGs), I believe this is currently a
+unique feature of Zine. To unlock this ability:
+
+1. [Your editor must be configured to launch the Ziggy LSP for `.ziggy`,
+   `.ziggy-schema` and `.smd` files.]($text.attrs('important')) In the future SuperMD will have a
+   dedicated LSP but for now the Ziggy one will offer frontmatter support.
+2. [You must have the correct Ziggy Schema files installed in your Zine
+   website.]($text.attrs('important')) Those files contain the schema definition for the Zine config
+   file (`zine.ziggy`) and SuperMD frontmatter. Use `zine install-schemas`
+   to have Zine automatically place up-to-date copies of those files at
+   the right locations (also `zine init` will now generate a project with
+   those files already in place). Note that `install-schemas` requires you
+   to update your `zine.ziggy` config file first.
+
+It's not pictured in the video, but `zine.ziggy` also has in-editor support now.
+The Ziggy LSP is not yet at the same level of polish of, say, the SuperHTML one, but
+it will be improved over time.
+
+#### [Upgrading your website]($text.attrs('important'))
+
+Ziggy Document syntax changed slightly, checkout [the official docs](https://ziggy-lang.io)
+for the full list of changes. The ones that Zine users care the most about are the following two:
+
+1. `@foo` literals are gone.
+2. Structs don't have names anymore.
+3. Both of the above have been functionally replaced by the newly introduced tagged unions.
+4. Structs now have a leading dot like in Zig, so  
+   `{ .foo = true }` becomes `.{ .foo = true }`.
+
+Lastly be aware that **you can omit every struct field** that in their Ziggy Schema definition is:
+ - an optional (leading `?` in the type expression)
+ - a slice (leading `[]` in the type expression)
+ - a dictionary (leading `{:}` in the type expression)
+
+
+##### Upgrading your `zine.ziggy`
+
+Before:
+```
+Site {
+  // ...
+}
+```
+After:
+```ziggy
+.zine_version = "0.12.0",
+.site = .simple(.{ // <-- note the dot!
+  // ...
+}),
+```
+The contents of `.simple` should remain the same as they were before.
+
+If you have a multilingual website:
+```ziggy
+.zine_version = "0.12.0",
+.site = .multilingual(.{ // <-- note the dot!
+  // ...
+}),
+```
+In this case as well the contents of `.simple` should be the structurally the same **but beware that
+nested structs (e.g. `Locale`s), will now need a leading dot.**
+
+As a reminder, [you can now also define custom properties in your config file, which become
+accessible via `$site.custom`]($text.attrs('important')):
+
+```ziggy
+.zine_version = "0.12.0",
+.site = .simple(.{ // <-- note the dot!
+  // ...
+}),
+.custom = { // <-- dicts have no dot!
+  "my": ["custom", "values!"],
+}
+```
+
+After fixing your `zine.ziggy`, it's a good idea to run `zine install-schemas`.
+
+># [BREAKING CHANGE]($block.attrs('warning'))
+>The new Zine config file schema has a new setting: `auto_target_blank` which
+>defines wheder external links generated by SuperMD should have a target blank
+>attribute by default or not.
+>
+>Zine previously defaulted to adding these attributes automatically while now
+>they are turned off by default. Define the setting to true if you want to
+>preserve the previous behavior.
+>
+>Note that you can always override this setting for each link by using
+>explicit Scripty syntax when defining the link:
+>```md
+>[my link]($link.url(https://example.com).new(true))
+>```
+
+##### Upgrading your frontmatters
+
+- `@date` has been replaced by `.date` and `.unix` (which accepts a unix timestamp instead of a string)
+- `.author` has been replaced by `.authors` which can be omitted and accepts a list of strings
+- Just like for the config file, structs now need a leading dot, which will affect you if:
+   - did not use braceless top-level syntax for your frontmatter
+   - define `alternatives` as each is a struct
+   - used struct syntax inside of your `custom` data dictionary
+- Some previously mandatory fields have now become optional, see the frontmatter Ziggy Schema for more
+  info (it's also present in the SuperMD section of the Zine docs).
+  
+In short, this is what it looks like.
+
+
+Before:
+```
+---
+.title = "Home",
+.date = @date("2018-07-06T00:00:00"),
+.description = "",
+.author = "Loris Cro",
+.layout = "index.shtml",
+.alternatives = [{ 
+    .name = "rss",
+    .layout = "rss.xml", 
+    .output = "/index.xml",
+}],
+---
+```
+After:
+```ziggy
+---
+.title = "Home",
+.date = .date("2018-07-06T00:00:00"),
+.layout = "index.shtml",
+.alternatives = [.{ // <-- note the dot!
+    .name = "rss",
+    .layout = "rss.xml", 
+    .output = "/index.xml",
+}],
+---
+```
+
+For the `.author` field my recommendation is to hardcode the author name in the template
+for personal websites where the author is essentially always the same person. The new
+`.authors` field accepts a list of strings for cases where your have more complex needs.
+
+In case that you do have more complex author management needs, don't forget that you can
+use entries in the `.authors` field not only as "directly printable" names, but also
+as keys into page navigation (e.g. each author has a dedicated page) or a `.custom` field
+defined somewhere, maybe in `$site.custom`, for example.
 
 
 []($section.id('v0.11.3').data('date','2026-06-17'))

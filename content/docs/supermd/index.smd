@@ -1,10 +1,7 @@
 ---
 .title = "SuperMD Basics",
-.description = "",
-.author = "Loris Cro",
+.date = .date("2023-06-16T00:00:00"),
 .layout = "documentation.shtml",
-.date = @date("2023-06-16T00:00:00"),
-.draft = false,
 ---
 
 # [Intro]($section.id('intro'))
@@ -136,8 +133,8 @@ SuperMD uses [Ziggy](https://ziggy-lang.io) as its frontmatter data serializatio
 
 This is the full Ziggy Schema for the frontmatter:
 
-***`frontmatter.ziggy-schema`***
-[]($code.siteAsset('frontmatter.ziggy-schema').language('ziggy-schema'))
+***`page.ziggy-schema`***
+[]($code.siteAsset('page.ziggy-schema').language('ziggy-schema'))
 
 The frontmatter data fill become available in SuperHTML inside of instances of 
 [`Page`]($link.page('docs/superhtml/scripty').ref('Page')).
