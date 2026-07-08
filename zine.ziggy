@@ -1,4 +1,5 @@
 .zine_version = "0.12.0",
+.auto_target_blank = true,
 .site = .simple(.{
     .title = "Zine - Static Site Generator",
     .host_url = "https://zine-ssg.io",

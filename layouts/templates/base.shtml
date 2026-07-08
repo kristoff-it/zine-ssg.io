@@ -34,7 +34,7 @@
       •
       <a href="$site.page('docs').link()">Docs</a>
       •
-      <a href="$site.page('community').link()">Community</a>
+      <a href="$site.page('community').link()">Forum</a>
       •
       <a href="$site.page('log').link()">Changelog</a>
       •
