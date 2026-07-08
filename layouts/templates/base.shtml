@@ -1,49 +1,57 @@
 <!DOCTYPE html>
 <html>
-  <head id="head">
-    <meta charset="UTF-8">
-    <meta name="description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@croloris">
-    <meta name="twitter:author" content="@croloris">
-    <meta name="twitter:description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
-    <meta name="twitter:title" content="$page.title.suffix(' | Zine')">
-    <meta name="twitter:image" content="$site.host_url.addPath($site.asset('preview.png').link())">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="$page.title.suffix(' | Zine')">
-    <meta property="og:image" content="$site.host_url.addPath($site.asset('preview.png').link())">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, shrink-to-fit=no">
-    <title id="title">
-      <super>
-      - Zine
-    </title>
-    <link rel="stylesheet" type="text/css" href="$site.asset('fonts.css').link()">
-    <link rel="stylesheet" type="text/css" href="$site.asset('fira_code.css').link()">
-    <link rel="stylesheet" type="text/css" href="$site.asset('style.css').link()">
-    <link rel="stylesheet" type="text/css" href="$site.asset('highlight.css').link()">
-    <super>
-  </head>
-  <body>
-    <nav id="menu" class="centered">
-      <a href="/">Home</a>
-      •
-      <a href="https://github.com/kristoff-it/zine/releases/">Download</a>
-      •
-      <a href="$site.page('quickstart').link()">Get Started</a>
-      •
-      <a href="$site.page('docs').link()">Docs</a>
-      •
-      <a href="$site.page('community').link()">Forum</a>
-      •
-      <a href="$site.page('log').link()">Changelog</a>
-      •
-      <a href="https://github.com/kristoff-it/zine" target="_blank">
-        Code
-      </a>
-    </nav>
-    <div id="content">
-      <super>
-    </div>
-  </body>
+	<head id="head">
+		<meta charset="UTF-8">
+		<meta name="description" content="Zine: Fast, Scalable and Flexible Static Site Generator">
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:site" content="@croloris">
+		<meta name="twitter:author" content="@croloris">
+		<meta name="twitter:description"
+		      content="Zine: Fast, Scalable and Flexible Static Site Generator"
+		>
+		<meta name="twitter:title" content="$page.title.suffix(' | Zine')">
+		<meta name="twitter:image"
+		      content="$site.host_url.addPath($site.asset('preview.png').link())"
+		>
+		<meta property="og:type" content="website">
+		<meta property="og:title" content="$page.title.suffix(' | Zine')">
+		<meta property="og:image"
+		      content="$site.host_url.addPath($site.asset('preview.png').link())"
+		>
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<meta name="viewport"
+		      content="width=device-width, height=device-height, initial-scale=1, shrink-to-fit=no"
+		>
+		<title id="title">
+			<super>
+			- Zine
+		</title>
+		<link rel="stylesheet" type="text/css" href="$site.asset('fonts.css').link()">
+		<link rel="stylesheet" type="text/css" href="$site.asset('fira_code.css').link()">
+		<link rel="stylesheet" type="text/css" href="$site.asset('style.css').link()">
+		<link rel="stylesheet" type="text/css" href="$site.asset('highlight.css').link()">
+		<super>
+	</head>
+	<body>
+		<nav id="menu" class="centered">
+			<a href="/">Home</a>
+			•
+			<a href="https://github.com/kristoff-it/zine/releases/">Download</a>
+			•
+			<a href="$site.page('quickstart').link()">Get Started</a>
+			•
+			<a href="$site.page('docs').link()">Docs</a>
+			•
+			<a href="$site.page('community').link()">Forum</a>
+			•
+			<a href="$site.page('log').link()">Changelog</a>
+			•
+			<a href="https://github.com/kristoff-it/zine" target="_blank">
+				Code
+			</a>
+		</nav>
+		<div id="content">
+			<super>
+		</div>
+	</body>
 </html>

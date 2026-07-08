@@ -1,10 +1,10 @@
 ---
-.title = "Forum",
+.title = "Community Forum",
 .date = .date("2020-07-06T00:00:00"),
 .layout = "page.shtml",
 --- 
 
-Join other Zine users to discuss about static sites, and to offer & receive help using Zine.
+Join other Zine users to discuss about static sites and to offer/receive help using Zine.
 
 https://zine.discourse.group
 
