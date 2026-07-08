@@ -42,6 +42,15 @@ You can [subscribe to this page via RSS]($link.alternative("rss")).
 
 ## Changes
 
+[]($section.id('new-forum').data('date','2026-07-09'))
+
+To give more space to requests for help, and to start disentangling Zine discussion
+from Discord, I created a new Discourse forum that I invite Zine users to join
+both to offer and receive help using Zine, and to discuss static sites in general.
+
+https://zine.discourse.group
+
+
 []($section.id('v0.12.0').data('date','2026-06-29'))
 This release contains a few new features and one big breaking change.
 
