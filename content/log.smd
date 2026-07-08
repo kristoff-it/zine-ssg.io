@@ -80,10 +80,11 @@ The docs now contain a page dedicated to deploying to Codeberg Pages,
 for those who might be interested.
 
 ### Setup Zine Version 2
-`kristoff-it/setup-zine@v1` required you to specify which version of Zine
-to fetch, but the new Ziggy config file features a `zine_version` field
-that should now be considered the authoritative source of truth for which
-version of Zine your website requires.
+The GitHub / Codeberg `kristoff-it/setup-zine@v1` action required you to
+specify which version of Zine to fetch, but the new Ziggy config file
+features a `zine_version` field that should now be considered the
+authoritative source of truth for which version of Zine your website
+requires.
 
 Update your CI scripts to use `kristoff-it/setup-zine@v2` and remove
 the input setting to enjoy a more seamless experience.
