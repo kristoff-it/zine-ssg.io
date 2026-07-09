@@ -8,195 +8,46 @@
 >This guide is not battle tested. Corrections and improvements from experienced 
 >Neovim users are welcome.
 
-## 1. Clone all three repositories
-While it is possible to depend directly on remote repositories, cloning locally
-helps both with the initial setup, and also helps you stay up to date with the
-latest changes made to the tooling for each language.
+## 1. Install Tree-Sitter parsers
 
-**`shell`**
+These can be installed from inside neovim:
+
 ```
-git clone https://github.com/kristoff-it/ziggy
-git clone https://github.com/kristoff-it/supermd
-git clone https://github.com/kristoff-it/superhtml
-```
-
-># [Note]($block)
->If and when Neovim will have builtin support for Zine file formats none of these
->steps will be necessary anymore.
-
-## 2. Link all queries 
-
-In your Neovim **config directory** (usually `~/.config/nvim/`), create a symbolic link to all the Tree Sitter queries from our parsers.  
-
-  From the directory where you cloned all repos, run the following commands:
-
-**`shell`**
-```
-ln -s ziggy/tree-sitter-ziggy/queries ~/.config/nvim/queries/ziggy
-ln -s ziggy/tree-sitter-ziggy-schema/queries ~/.config/nvim/queries/ziggy_schema
-ln -s supermd/editors/neovim/queries/supermd ~/.config/nvim/queries/supermd
-ln -s supermd/editors/neovim/queries/supermd_inline ~/.config/nvim/queries/supermd_inline
-ln -s superhtml/tree-sitter-superhtml/queries ~/.config/nvim/queries/superhtml  
+:TSInstall superhtml
+:TSInstall supermd
+:TSInstall supermd_inline
+:TSInstall ziggy
+:TSInstall ziggy_schema
 ```
 
-## 3. Setup your init scripts
 
-> # [Warning]($block.attrs('warning'))
->This guide assumes you're using `nvim-lspconfig`, `conform.nvim`, and 
->`nvim-treesitter`. 
->
->If you're using different plugins, the specific steps to 
->setup everything will be different.
+## 2. Update configurations
 
-The following code blocks are snippets that should be placed wherever you are
-initializing the corresponding plugin. 
+The following snippets can be executed in a running neovim session using the
+`:lua` command. Alternatively, you can place them in your init.lua to have them
+run on launch.
 
 **`nvim-lspconfig`**
 ```lua
-vim.api.nvim_create_autocmd('FileType', {
-  group = vim.api.nvim_create_augroup('ziggy', {}),
-  pattern = 'ziggy',
-  callback = function()
-    vim.lsp.start {
-      name = 'Ziggy LSP',
-      cmd = { 'ziggy', 'lsp' },
-      root_dir = vim.loop.cwd(),
-      flags = { exit_timeout = 1000 },
-    }
-  end,
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-  group = vim.api.nvim_create_augroup('ziggy_schema', {}),
-  pattern = 'ziggy_schema',
-  callback = function()
-    vim.lsp.start {
-      name = 'Ziggy LSP',
-      cmd = { 'ziggy', 'lsp', '--schema' },
-      root_dir = vim.loop.cwd(),
-      flags = { exit_timeout = 1000 },
-    }
-  end,
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-  group = vim.api.nvim_create_augroup('superhtml', {}),
-  pattern = 'superhtml',
-  callback = function()
-    vim.lsp.start {
-      name = 'SuperHTML LSP',
-      cmd = { 'superhtml', 'lsp' },
-      root_dir = vim.loop.cwd(),
-      flags = { exit_timeout = 1000 },
-    }
-  end,
-})
+vim.lsp.enable('superhtml')
+vim.lsp.enable('ziggy')
+vim.lsp.enable('ziggy_schema')
 ```
 
-**`conform.nvim`**
+**format on save**
 ```lua
-formatters = {
-  superhtml = {
-    inherit = false,
-    command = 'superhtml',
-    stdin = true,
-    args = { 'fmt', '--stdin-super' },
-  },
-  ziggy = {
-    inherit = false,
-    command = 'ziggy',
-    stdin = true,
-    args = { 'fmt', '--stdin' },
-  },
-  ziggy_schema = {
-    inherit = false,
-    command = 'ziggy',
-    stdin = true,
-    args = { 'fmt', '--stdin-schema' },
-  },
-},
-
-formatters_by_ft = {
-  shtml = { 'superhtml' },
-  ziggy = { 'ziggy' },
-  ziggy_schema = { 'ziggy_schema' },
-},
+vim.api.nvim_create_autocmd('BufWritePre', {
+  group = vim.api.nvim_create_augroup('UserAutoFormat', {}),
+  callback = function()
+    if vim.lsp.buf.format ~= nil then
+      vim.lsp.buf.format()
+    end
+  end,
+})
 ```
 
 **`nvim-treesitter`**
 ```lua
-local parser_config = require(
-  'nvim-treesitter.parsers'
-).get_parser_configs()
-
-parser_config.ziggy = {
-  install_info = {
-    url = 'https://github.com/kristoff-it/ziggy', 
-    includes = { 'tree-sitter-ziggy/src' },
-    files = { 'tree-sitter-ziggy/src/parser.c' },
-    branch = 'main',
-    generate_requires_npm = false, 
-    requires_generate_from_grammar = false, 
-  },
-  filetype = 'ziggy',
-}
-
-parser_config.ziggy_schema = {
-  install_info = {
-    url = 'https://github.com/kristoff-it/ziggy', 
-    files = { 'tree-sitter-ziggy-schema/src/parser.c' },
-    branch = 'main',
-    generate_requires_npm = false, 
-    requires_generate_from_grammar = false,
-  },
-  filetype = 'ziggy-schema',
-}
-
-parser_config.supermd = {
-  install_info = {
-    url = 'https://github.com/kristoff-it/supermd', 
-    includes = { 'tree-sitter/supermd/src' },
-    files = { 
-      'tree-sitter/supermd/src/parser.c',
-      'tree-sitter/supermd/src/scanner.c'
-    }, 
-    branch = 'main',
-    generate_requires_npm = false, 
-    requires_generate_from_grammar = false, 
-  },
-  filetype = 'supermd',
-}
-
-parser_config.supermd_inline = {
-  install_info = {
-    url = 'https://github.com/kristoff-it/supermd', 
-    includes = { 'tree-sitter/supermd-inline/src' },
-    files = { 
-      'tree-sitter/supermd-inline/src/parser.c',
-      'tree-sitter/supermd-inline/src/scanner.c'
-    }, 
-    branch = 'main', 
-    generate_requires_npm = false, 
-    requires_generate_from_grammar = false,
-  },
-  filetype = 'supermd_inline',
-}
-
-parser_config.superhtml = {
-  install_info = {
-    url = 'https://github.com/kristoff-it/superhtml',
-    includes = { 'tree-sitter-superhtml/src' },
-    files = { 
-      'tree-sitter-superhtml/src/parser.c',
-      'tree-sitter-superhtml/src/scanner.c'
-    }, 
-    branch = 'main', 
-    generate_requires_npm = false, 
-    requires_generate_from_grammar = false, 
-  },
-  filetype = 'superhtml',
-}
-
 vim.filetype.add {
   extension = {
     smd = 'supermd',
@@ -207,7 +58,7 @@ vim.filetype.add {
 }
 ```
 
-## 4. Get all CLI tools
+## 3. Get all CLI tools
 Get all CLI tools from the releases of each repository (or build them yourself),
 make sure to make them available in `PATH`, and at that point you should be fully
 setup!
