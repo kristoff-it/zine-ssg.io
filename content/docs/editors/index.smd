@@ -64,6 +64,9 @@ internal WASM build of the language server.
 
 Make sure to have all the CLI tools available in your `PATH` to enable LSP support.
 
+## GNOME Builder
+[SuperBuilder](https://github.com/Shardion/superbuilder) provides extensions for SuperHTML and SuperMD.
+
 ## Other editors
 Any editor that supports Tree Sitter for syntax highlighting and the Language Server Protocol can be setup to support Ziggy, SuperMD, and SuperHTML.
 
