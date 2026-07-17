@@ -69,7 +69,7 @@ name = "ziggy_schema"
 scope = "text.ziggy_schema"
 roots = []
 injection-regex = "ziggy-schema|zgy-schema"
-file-types = ["ziggy-schema", "zgy-schema"]
+file-types = ["ziggy-schema", "zgy-schema", { glob = ".ziggy-schema" }]
 comment-token = "///"
 indent = { tab-width = 4, unit = "    " }
 formatter = { command = "ziggy" , args = ["fmt", "-", "--type", "schema"] }
