@@ -10,7 +10,7 @@
 >Simple and medium complexity websites can be easily handled by Zine today,
 >but not all planned features have been implemented yet.
 
-## What is Zine?
+# What is Zine?
 A Zine site is a collection of content files and layouts.
 
 Zine turns your content into HTML, styles it using your layouts, and finally
@@ -32,7 +32,7 @@ excellent at all scales.
 
 *Zine is pronounced like in [fan**zine**](https://en.wikipedia.org/wiki/Zine)*.
 
-## A handcrafted authoring experience
+# A handcrafted authoring experience
 Zine uses [SuperMD]($link.page('docs/supermd')) for content and 
 [SuperHTML]($link.page('docs/superhtml')) for defining layouts.
 
@@ -45,7 +45,7 @@ mistakes become **build time errors**.
 
 *[Learn more]($link.page('docs/scripty')) about file formats in Zine.*
 
-## Watch the video
+# Watch the video
 
 `//TODO: record the video :^)`
 

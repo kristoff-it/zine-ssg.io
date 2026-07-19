@@ -40,7 +40,103 @@ You can [subscribe to this page via RSS]($link.alternative("rss")).
 > > quickly detecting whitespace changes:
 > > - `git diff --no-index --word-diff-regex=. new old`
 
-## Changes
+
+[]($section.id('v0.13.0').data('date','2026-07-19'))
+
+**This release contains schema changes, make sure to run
+`zine install-schemas` after upgrading**.
+
+### Breaking changes
+- The config file `auto_target_blank` setting has moved under the new
+  `supermd` field, as there are now more supermd rendering settings you
+  can tweak.
+
+  Before:
+  ```ziggy
+  .zine_version = "0.12.0",
+  .auto_target_blank = true,
+  // ...
+  ```
+  Now:
+  ```ziggy
+  .zine_version = "0.12.0",
+  .supermd = .{
+      .auto_target_blank = true,
+  }
+  // ...
+  ```
+  
+- The fontmatter `skip_subdir` setting has been deleted (it never did anything).
+- Starting now, [SuperMD documents don't allow heading level skips anymore]($text.attrs('important')).
+  If you have a '#' heading followed by '###', you will now get a build
+  error. Releated to this, SuperMD documents now must start with heading
+  level 1 ('#'). If you were deliberately starting at '##' to render `<h2>`
+  headings, the aforementioned `supermd` field in 'zine.ziggy' has
+  `headings_h2` which, when set to `true`, will render level 1 headings as
+  `h2` and so forth. **Note that sectioned content (`$section`) is exempt from this
+  check for now.** 
+
+  My recommendation for upgrading is to first understand if you were defaulting
+  to starting each document from '##'. If so, then you probably want to set
+  `headings_h2` in 'zine.ziggy' and you will want to shave off one heading level
+  from all your files. Here's a one liner that can help with that (**make sure
+  to have commited all pending changes before running it!**):
+
+  Linux & Mac:
+  ```sh
+  find . -name "*.smd" -type f -exec perl -pi -e 's/^#//' {} +
+  ```
+  Windows:
+  ```powershell
+  Get-ChildItem -Recurse -Filter *.smd | % { $p=$_.FullName; $c=[IO.File]::ReadAllText($p,[Text.Encoding]::UTF8); [IO.File]::WriteAllText($p,($c -replace '(?m)^#',''),[Text.Encoding]::UTF8) }
+  ```
+  After running the command, make sure to audit the resulting diff for errors.
+  
+  For everybody else nothing should change, except that maybe discovering that
+  you occasionally skipped a heading level by mistake. I found a few instances
+  of that when upgrading my own websites.
+
+### New features!
+
+- SuperMD errors have greatly improved. Techatrix started the work in
+  [#239](https://github.com/kristoff-it/zine/pull/239) and coincidentally
+  soon after I pushed the work further because I wanted the new "skipped
+  heading level" errors to not be confusing.
+
+- In SuperHTML, `$build.development` is true when the build is being served
+  by the Zine live server
+
+- In SuperHTML, `$site.index()` returns the root index page (aka the
+  homepage) of a site. It's the same as `$site.page('')` but it's clearer
+  for a reader what your intent was.
+  
+- You can now specify `forbid_subsections` in the frontmatter of a
+  **`index.smd` file**. When set to true, no child page can use the
+  `foo/index.smd` naming style as that would define a subsection. Users
+  will be prompted to name the file `foo.smd`. This setting is useful to
+  guarantee that `$page.leaves()` doesn't skip pages that were meant to be
+  leaves.
+
+
+
+
+### Bugfixes
+
+- Last release announced `$site.custom` but a bug prevented scripty from being
+  able to access that data, sorry!
+- `auto_target_blank` was a bit too eager and ended up adding the attirbute to all
+  links when set to `true`.
+- SuperHTML would crash when trying to put `:text` into a self-closing XML element.
+- The live development server would fail to serve the livereloading JS and websocket
+  endpoints when a `url_path_prefix` was defined.
+- Using Zine from a `build.zig` would cause Zine to try to parse your Git tags, this
+  was caused by a piece of build functionality that helped me remember to properly
+  create tags and update my zon file when releasing Zine. It's now disabled when using
+  Zine as a dependency.
+- A bug prevented `[](#foo)` refs to be validated, you might find new broken deep links
+  after this update.
+
+
 
 []($section.id('new-forum').data('date','2026-07-09'))
 
@@ -616,7 +712,7 @@ highlights for brevity:
   builtin functions that return an `Optional` to end with a question mark.
 
 
-#### Other [new features]($text.attrs('important')) in Zine:
+### Other [new features]($text.attrs('important')) in Zine:
 
 - Zine is now MIT licensed. It was actually intended to be that from the start
   but I forgot to add the file. Consider this a reverse rugpull where from
@@ -831,25 +927,25 @@ highlights for brevity:
 
 []($section.id('old'))
 
-### 2024-08-30 (later in the day)
+## 2024-08-30 (later in the day)
 ```sh
 zig fetch --save "git+https://github.com/kristoff-it/zine#v0.4.7"
 ```
 - Fix an off by one error that gave the wrong value to `Iterator.last`
 
-### 2024-08-30 (later in the day)
+## 2024-08-30 (later in the day)
 ```sh
 zig fetch --save "git+https://github.com/kristoff-it/zine#v0.4.6"
 ```
 - Fix a bug caused page-local assets to be installed in the wrong place
 
-### 2024-08-30 (later in the day)
+## 2024-08-30 (later in the day)
 ```sh
 zig fetch --save "git+https://github.com/kristoff-it/zine#v0.4.5"
 ```
 - Fix off-by-one error in some iterators (eg in `$page.tags`)
   
-### 2024-08-30 (later in the day)
+## 2024-08-30 (later in the day)
 ```sh
 zig fetch --save "git+https://github.com/kristoff-it/zine#v0.4.4"
 ```
@@ -859,27 +955,27 @@ zig fetch --save "git+https://github.com/kristoff-it/zine#v0.4.4"
 - Some SuperMD Scripty reference docs were improved.
 
 
-### 2024-08-30 (later in the day)
+## 2024-08-30 (later in the day)
 ```sh
 zig fetch --save "git+https://github.com/kristoff-it/zine#v0.4.3"
 ```
 
 Fixes a printing bug related to Int values.
 
-### 2024-08-30 
+## 2024-08-30 
 ```sh
 zig fetch --save "git+https://github.com/kristoff-it/zine#v0.4.2"
 ```
 Fixes a bug that prevented users from accessing `$loop` in the intended way.
 
-### 2024-08-29 (later in the day)
+## 2024-08-29 (later in the day)
 ```sh
 zig fetch --save "git+https://github.com/kristoff-it/zine#v0.4.1"
 ```
 Fixes a silly but annoyng bug where SuperMD links nested inside of styiling elements would not get analyzed.
 
 
-### 2024-08-29
+## 2024-08-29
 ```sh
 zig fetch --save "git+https://github.com/kristoff-it/zine#v0.4.0"
 ```
@@ -959,7 +1055,7 @@ Now onto new features and breaking changes:
   available as fields under `$ctx`. See the SuperHTML docs page for more info.
 
 
-### 2024-08-03
+## 2024-08-03
 ```sh
 zig fetch --save "git+https://github.com/kristoff-it/zine#v0.3.0"
 ```
@@ -976,7 +1072,7 @@ zig fetch --save "git+https://github.com/kristoff-it/zine#v0.3.0"
 - In `MultilingualSite`, `variants` has been renamed to `localized variants`
 - Scripty has gained a new `Asset` type and handful of new builtins, including adding the ability to query for the current `locale_code` in a multilingual website (`$site.localeCode()`)
 
-### 2024-07-27 
+## 2024-07-27 
 
 ```sh
 zig fetch --save "git+https://github.com/kristoff-it/zine#v0.2.0"
@@ -997,7 +1093,7 @@ zig fetch --save "git+https://github.com/kristoff-it/zine#v0.2.0"
 *The next item on the roadmap is to add an asset system to Zine in order to have the static content generation depend on other steps defined in your build script.*
   
 
-### 2024-07-26 
+## 2024-07-26 
 
 ```sh
 zig fetch --save "git+https://github.com/kristoff-it/zine#v0.1.3"
@@ -1023,7 +1119,7 @@ zig fetch --save "git+https://github.com/kristoff-it/zine#v0.1.3"
 
 - Zine and some of its dependencies depend on [kristoff-it/zig-afl-kit](https://github.com/kristoff-it/zig-afl-kit) for fuzzing. I tried now to make it a lazy dependency so that users don't have to download it just to use Zine (as it's a dev-only dependency), but I haven't yet been able to fully test if I did so correctly.
 
-### 2024-07-25 
+## 2024-07-25 
 
 ```sh
 zig fetch --save "git+https://github.com/kristoff-it/zine#v0.1.0"
@@ -1064,7 +1160,7 @@ That's mostly it. If you encounter bugs while updating, please don't hesitate to
 
 
 
-### 2024-03-26 
+## 2024-03-26 
 
 ```zig
 .url = "git+https://github.com/kristoff-it/zine#e33a1d79b09e8532db60347a7ec4bd3413888977",
@@ -1083,8 +1179,9 @@ That's mostly it. If you encounter bugs while updating, please don't hesitate to
    - Maps, refined the `get` family of functions
       - `get(key, fallback)` allows to get a key from a map and provide a fallback value
       - `get!(key)` errors out if the key doesn't exist
-      - `get?(key)` returns null if the value is missing, to be used in conjunction with `if` attributes.       
-### 2024-03-21 
+      - `get?(key)` returns null if the value is missing, to be used in conjunction with `if` attributes.
+
+## 2024-03-21 
 
 ```zig
 .url = "git+https://github.com/kristoff-it/zine#ecc72eb042af07f5b4690a35a7ca1dd9c6fd5b61",
@@ -1098,7 +1195,7 @@ That's mostly it. If you encounter bugs while updating, please don't hesitate to
   - `gt` on integers.
   - `lt`, `eq`, `gt` on dates.
 
-### 2024-03-20 
+## 2024-03-20 
 
 ```zig
 .url = "git+https://github.com/kristoff-it/zine#d06884ec657abe87ab4f408b5dc3f336a6dcea9b",
@@ -1111,7 +1208,7 @@ That's mostly it. If you encounter bugs while updating, please don't hesitate to
 - Updated Zig version because [a bugfix](https://github.com/ziglang/zig/pull/19224) was needed to add syntax highlighting to templates. Now Zine depends on Zig `0.12.0-dev.3381+7057bffc1` and above. Make sure to update your GitHub Actions workflows accordingly.
 
 
-### 2024-03-08 
+## 2024-03-08 
 
 ```zig
 .url = "git+https://github.com/kristoff-it/zine.git#4b3efd178cb6ee9af3c864fa980ad0499823aac6",
@@ -1120,12 +1217,12 @@ That's mostly it. If you encounter bugs while updating, please don't hesitate to
 - Added syntax highlighting support via tree-sitter. Most code snippets of this website have now gained syntax highlighting. No themes are provided for now and it's expected that you define your own CSS from scratch. See `hightlight.css` from this website for an idea on how to proceed.
 - Updated Zig version because of a recent breaking change related to `std.http`. Now Zine depends on Zig `0.12.0-dev.3161+377ecc6af` and above. Make sure to update your GitHub Actions workflows accordingly.
 
-### 2024-02-13
+## 2024-02-13
 - Overhauled the documentation page. Now  it's a little bit easier to get started with Zine.
 - Added deployment guides: [one for GitHub Pages](/docs/deploying/github-pages/) and [one for Cloudflare Pages](/docs/deploying/cloudflare-pages/) (thanks `ninja_tron`!)
 - Started work on the JSON replacement for better frontmatters, [join the Discord server](https://discord.gg/B73sGxF) or [catch me live on Twitch](https://twitch.tv/kristoff_it) for related discussion & sneak peeks.
 
-### 2024-02-11 
+## 2024-02-11 
 
 ```zig
 .url = "git+https://github.com/kristoff-it/zine.git#beb5434a04fad660ecf8db8379532dfe5b5e13b0",
@@ -1135,7 +1232,7 @@ That's mostly it. If you encounter bugs while updating, please don't hesitate to
 - The Scripty reference documentation was improved slightly: the reference for `Page` displays which fields have default values and which do not.
 - The dev server is now better at reporting build errors: in the event of a build error the message will be shown in the terminal, as well as being shown on the web page, and the 404 page too will connect to the hot-reloading mechanism in order to show build errors.
 
-### 2024-02-09 (later in the day)
+## 2024-02-09 (later in the day)
 
 ```zig
 .url = "git+https://github.com/kristoff-it/zine.git#da7c32c2c253f6b0dbd392006055598feb07410b",
@@ -1144,7 +1241,7 @@ That's mostly it. If you encounter bugs while updating, please don't hesitate to
 - When running the dev server (`zig build serve`), Zine will now show build error messages inside of the web page itself using the hot reload mechanism. Fix the build error and the error overlay will disappear. Error messages are ugly for now  ([#16](https://github.com/kristoff-it/zine/issues/16)).
 
 
-### 2024-02-09 
+## 2024-02-09 
 
 ```zig
 .url = "git+https://github.com/kristoff-it/zine.git#527762348ef104dce601f52bca9f958a511ff11b",
@@ -1153,7 +1250,7 @@ That's mostly it. If you encounter bugs while updating, please don't hesitate to
 
 - Zine will now stop erroring out in the presence of empty markdown files. It will instead print a warning and ignore them. Now you can `touch` a bunch of files and fill them out as you make progress, without losing hot reloading in the meantime.
 
-### 2024-02-08
+## 2024-02-08
 
 ```zig
 .url = "git+https://github.com/kristoff-it/zine.git#eaa23f2d3a80868251302a1b979dbcc7e5b81d3a",

@@ -233,7 +233,7 @@ details.block {
 }
 
 .block h1 {
-  font-size: 1.17em;
+  font-size: 1.17em !important;
   position: relative !important;
   margin: 0 !important;
   text-align: left;

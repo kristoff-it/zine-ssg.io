@@ -15,7 +15,7 @@ Here's what the config of `zine-ssg.io` looks like:
 
 ***`zine.ziggy`***
 ```ziggy
-.zine_version = "0.12.0",
+.zine_version = "0.13.0",
 .site = .simple(.{
    .title = "Zine - Static Site Generator",
    .host_url = "https://zine-ssg.io",
@@ -218,7 +218,7 @@ In this example we just saw:
 
 If you start the dev server now by running `zine`, you should see the output page at `http://localhost:1990/`.
 
-### Adding more pages
+## Adding more pages
 
 Let's imagine now that we want to add a blog section to our website with a first post in it.
 

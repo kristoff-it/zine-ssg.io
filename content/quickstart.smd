@@ -10,14 +10,14 @@
 >Simple and medium complexity websites can be easily handled by Zine today,
 >but not all planned features have been implemented yet.
 
-## 1. Get Zine
+# 1. Get Zine
 
 [Download Zine](https://github.com/kristoff-it/zine/releases/) for your platform. 
 
 If instead you prefer compiling from [source](https://github.com/kristoff-it/zine/), you will need [Zig](https://ziglang.org).
 
 
-## 2. Init a new Zine site
+# 2. Init a new Zine site
 
 **`shell`**
 ```bash
@@ -38,7 +38,7 @@ dedicated RSS feed where every post has a separate entry.
 this communication format. If you too are developing an Open Source project,
 or just like microblogging, consider giving it a try as a zen alternative to mainstream social media platforms.
 
-## 3. Get developer tooling
+# 3. Get developer tooling
 This step is optional but **strongly** recommended as it will give you access
 to syntax highlighting, autoformatting and language server diagnostics for your
 editor.
@@ -48,7 +48,7 @@ Extensions tab (the right extensions are all from `Loris Cro`).
 
 If you don't use VSCode, see the [Editor support](/docs/editors/) section.
 
-## Start editing your Zine site
+# Start editing your Zine site
 
 Run `zine` (without subcommand) to start the development server and begin editing
 your new Zine site. 

@@ -8,14 +8,23 @@
 
 **Make sure to read [Scripty Basics]($link.page('docs/scripty')) first.**
 
-
 SuperMD is an extension of Markdown that adds Scripty expression support.
 
-There are [plenty](https://github.github.com/gfm/) [of](https://github.com/iamgio/quarkdown) Markdown dialects in the wild that add new syntax to it, and there are also [plenty](https://mdxjs.com/) [of](https://gohugo.io/content-management/shortcodes/) templating languages that allow you to *template* your Markdown content.
+There are [plenty](https://github.github.com/gfm/)
+[of](https://github.com/iamgio/quarkdown) Markdown dialects in the wild
+that add new syntax to it, and there are also [plenty](https://mdxjs.com/)
+[of](https://gohugo.io/content-management/shortcodes/) templating languages
+that allow you to *template* your Markdown content.
 
-The issue with the first approach is that new syntax complicates an already overcomplicated language (to parse) and it usually only solves very specific problems.
+The issue with the first approach is that new syntax complicates an already
+overcomplicated language (to parse) and it usually only solves very
+specific problems.
 
-The issue with the second approach is that, while templating (like [Hugo Shortcodes](https://gohugo.io/content-management/shortcodes/)) does allow you to extend Markdown in a very general way, it usually translates into pulling layouting concerns into the content, which is the exact thing we were trying to minimize by writing Markdown in the first place.
+The issue with the second approach is that, while templating (like [Hugo
+Shortcodes](https://gohugo.io/content-management/shortcodes/)) does allow
+you to extend Markdown in a very general way, it usually translates into
+pulling layouting concerns into the content, which is the exact thing we
+were trying to minimize by writing Markdown in the first place.
 
 
 ## [Two Columns]($section.id('two-columns'))
@@ -86,13 +95,21 @@ Dolor Something Something
 ```
 
 ## [Design Goals]($section.id('design-goals'))
-The main design goal of SuperMD is to upgrade Markdown to a full-fledged markup format that is not dependent on HTML.
+The main design goal of SuperMD is to upgrade Markdown to a full-fledged
+markup format that is not dependent on HTML.
 
-Markdown is [often times](https://buttondown.com/hillelwayne/archive/why-i-prefer-rst-to-markdown/) considered too simplistic for serious markup work (e.g. creating a book) in good part also because of its ties to HTML.
+Markdown is [often
+times](https://buttondown.com/hillelwayne/archive/why-i-prefer-rst-to-markdown/)
+considered too simplistic for serious markup work (e.g. creating a book) in
+good part also because of its ties to HTML.
 
-SuperMD doesn't allow inlined HTML and instead gives you the ability to define a variety of "embedded assets" through a unified syntax.
+SuperMD doesn't allow inlined HTML and instead gives you the ability to
+define a variety of "embedded assets" through a unified syntax.
 
-It is planned for Zine to eventually gain support for generating PDFs (and potentially other file formats), at which point it will be critical for the content markup language to have the ability to define embedded assets (and styling elements) without using HTML as a crutch.
+It is planned for Zine to eventually gain support for generating PDFs (and
+potentially other file formats), at which point it will be critical for the
+content markup language to have the ability to define embedded assets (and
+styling elements) without using HTML as a crutch.
 
 ### [Roadmap]($section.id('roadmap'))
 Compared to other parts of Zine, SuperMD is very new and many parts of it are
@@ -127,9 +144,12 @@ You should expect grammars for syntax highlighting and a language server for imm
 
 
 # [Frontmatter]($section.id('frontmatter'))
-As mentioned in the main documentation page, every SuperMD file in Zine must start with a frontmatter that contains all the metadata relative to the page.
+As mentioned in the main documentation page, every SuperMD file in Zine
+must start with a frontmatter that contains all the metadata relative to
+the page.
 
-SuperMD uses [Ziggy](https://ziggy-lang.io) as its frontmatter data serialization language.
+SuperMD uses [Ziggy](https://ziggy-lang.io) as its frontmatter data
+serialization language.
 
 This is the full Ziggy Schema for the frontmatter:
 
@@ -140,9 +160,12 @@ The frontmatter data fill become available in SuperHTML inside of instances of
 [`Page`]($link.page('docs/superhtml/scripty').ref('Page')).
 
 # [Markdown Syntax]($section.id('md-syntax'))
-SuperMD uses [cmark-gfm](https://github.com/kristoff-it/cmark-gfm) so it supports all the common extensions (tables, strikethrough, autolinks, etc) that you can normally find in the wild.
+SuperMD uses [cmark-gfm](https://github.com/kristoff-it/cmark-gfm) so it
+supports all the common extensions (tables, strikethrough, autolinks, etc)
+that you can normally find in the wild.
 
-Currently SuperMD adds only one new syntactical construct: **a Scripty expression embedded in link syntax**.
+Currently SuperMD adds only one new syntactical construct: **a Scripty
+expression embedded in link syntax**.
 
 ***`image example`*** 
 ```markdown
@@ -151,15 +174,17 @@ Currently SuperMD adds only one new syntactical construct: **a Scripty expressio
 
 In normal Markdown this example would result in a (invalid) link element.
 
-In SuperMD the resulting type of that construct depends on the  value that the embedded Scripty expression evaluates to. 
+In SuperMD the resulting type of that construct depends on the value that
+the embedded Scripty expression evaluates to.
 
 In the previous example the expression evaluates to an 
 [`Image`]($link.page('docs/supermd/scripty').ref('Image')), 
 making it equivalent to the vanilla `![](cat.jpg)`.
 
-This might not seem particularly exciting, but things become more interesting
-once you realize that this way of doing things allows you to easily give `id`s
-and other attributes to both emdedded assets and pieces of content.
+This might not seem particularly exciting, but things become more
+interesting once you realize that this way of doing things allows you to
+easily give `id`s and other attributes to both emdedded assets and pieces
+of content.
 
 ***`image example`*** 
 ```markdown
@@ -178,7 +203,9 @@ For example this how you can define a video embed:
 []($video.asset('video.mp4').loop(true).autoplay(true))
 ```
 
-What we described up until now as "emdedded assets", are called "rendering directives" in Zine. Most of them do describe embedded assets, but `$section` (as seen in the two columns example) for example does not.
+What we described up until now as "emdedded assets", are called "rendering
+directives" in Zine. Most of them do describe embedded assets, but
+`$section` (as seen in the two columns example) for example does not.
 
 # [Directives]($section.id('directives'))
 
