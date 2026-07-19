@@ -92,7 +92,7 @@ You can [subscribe to this page via RSS]($link.alternative("rss")).
   ```
   After running the command, make sure to audit the resulting diff for errors.
   
-  For everybody else nothing should change, except that maybe discovering that
+  For everybody else nothing should change, except maybe discovering that
   you occasionally skipped a heading level by mistake. I found a few instances
   of that when upgrading my own websites.
 
