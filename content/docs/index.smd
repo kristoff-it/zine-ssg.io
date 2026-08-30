@@ -29,6 +29,7 @@
     - [GitHub Pages](./deploying/github-pages)
     - [Cloudflare Pages](./deploying/cloudflare-pages)
     - [Codeberg Pages](./deploying/codeberg-pages)
+    - [sourcehut pages](./deploying/sourcehut-pages)
 - [Using Zine from `build.zig`](./zig)
 - [Frequently Encountered Use Cases](./frequent)
 
