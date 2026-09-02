@@ -28,3 +28,26 @@ vim.lsp.enable('ziggy_schema')
 
 require('nvim-treesitter').install({ 'superhtml', 'ziggy', 'ziggy_schema' })
 ```
+
+The Tree-sitter parsers for SuperMD are not yet available via `nvim-treesitter`.
+To install and enable them use following snipped based on the [official `nvim-treesitter` documentation](https://github.com/nvim-treesitter/nvim-treesitter#adding-custom-languages):
+
+```lua
+vim.api.nvim_create_autocmd('User', { pattern = 'TSUpdate',
+callback = function()
+  require('nvim-treesitter.parsers').supermd = {
+    install_info = {
+      url = 'https://github.com/kristoff-it/supermd',
+      location = 'tree-sitter/supermd',
+    },
+	}
+  require('nvim-treesitter.parsers').supermd_inline = {
+    install_info = {
+      url = 'https://github.com/kristoff-it/supermd',
+      location = 'tree-sitter/supermd-inline',
+    },
+	}
+end})
+
+require('nvim-treesitter').install { 'supermd', 'supermd_inline' }
+```
