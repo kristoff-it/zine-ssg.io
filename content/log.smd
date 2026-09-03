@@ -34,17 +34,17 @@ You can [subscribe to this page via RSS]($link.alternative("rss")).
 > > to find more easily which word has changed within a line.
 > >
 > > This command highlights individual words:
-> > - `git diff --word-diff=color --no-index new old`
+> > - `git diff --word-diff=color --no-index old new`
 > > 
 > > This command highlights individual characters, useful for
 > > quickly detecting whitespace changes:
-> > - `git diff --no-index --word-diff-regex=. new old`
+> > - `git diff --no-index --word-diff-regex=. old new`
 > >
 > > [`delta`](https://dandavison.github.io/delta/introduction.html) is a diff
 > > tool that is cross-platform, and supports word-diff and syntax highlighting
 > > by default (You do not need to configure it for git to use it as a
 > > standalone diff tool):
-> > - `delta new old`
+> > - `delta old new`
 
 []($section.id('v0.14.0').data('date','2026-09-03'))
 
