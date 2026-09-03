@@ -88,7 +88,7 @@ of Zine.
 
 ### Website changes
 
-- Added docs on how to [deploy a Zine website to sorucehut](docs/deploying/sourcehut-pages/) 
+- Added docs on how to [deploy a Zine website to sourcehut](docs/deploying/sourcehut-pages/) 
   ([#247](https://github.com/kristoff-it/zine/pull/247), thanks Chavdar Ivanov!).
 
 
