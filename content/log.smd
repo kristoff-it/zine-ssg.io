@@ -22,7 +22,7 @@ You can [subscribe to this page via RSS]($link.alternative("rss")).
 >
 > - `zine release -o old` &nbsp; &nbsp; &nbsp; (with **old** Zine)
 > - `zine release -o new` &nbsp; &nbsp; &nbsp; (with **new** Zine)
-> - `diff -ru new old`
+> - `diff -ru old new`
 >
 > At this point is up to you to decide if any change in the diff is
 > desireable or not. If you see a change that is not mentioned in the
@@ -35,7 +35,7 @@ You can [subscribe to this page via RSS]($link.alternative("rss")).
 > >
 > > This command highlights individual words:
 > > - `git diff --word-diff=color --no-index new old`
-> >
+> > 
 > > This command highlights individual characters, useful for
 > > quickly detecting whitespace changes:
 > > - `git diff --no-index --word-diff-regex=. new old`
@@ -45,6 +45,50 @@ You can [subscribe to this page via RSS]($link.alternative("rss")).
 > > by default (You do not need to configure it for git to use it as a
 > > standalone diff tool):
 > > - `delta new old`
+
+[]($section.id('v0.14.0').data('date','2026-09-03'))
+
+This is a minor release (as opposed to being a *patch* release) because
+there's a chance that a site that previously built, might now encounter a
+build error, even though **there are no breaking changes**.
+
+### Bugfixes
+- Updated Zeit (datetime dependency), which adds support for `America/Santiago`.
+- Overhauled how SuperMD analyzes the cmark AST, fixing a variety of bugs where
+  some nested elements would not be analyzed correctly, resulting in the Scripty
+  expression being printed verbatim. The old code was written when I had just
+  started working on Zine and had in it a bunch of wrong assumptions about markdown
+  content structure, which have now been rectified. **Previously some inlined HTML in
+  SuperMD would not get properly caught (and turned into an error), while now that's
+  not the case anymore.** While the rewrite has not caused any regression in tests
+  and known websites, it is highly recommended to use the safe upgrade procedure
+  (using diff tools) when updating to this version of Zine, in order to catch any
+  potential issue right away.
+- Fixed a couple of bugs in `$page.leaves()` (SuperHTML) where it would mistakenly
+  include some section pages in the output when they had no child pages (which is
+  incorrect since the file name decides if a page is a section or not).
+- Fixed a crash when toggling `draft`.
+
+### New features
+- Added a CLI flag (`--url-path-prefix PATH`) to override `url_path_prefix`
+  when serving the site from Zine's live server
+  ([#246](https://github.com/kristoff-it/zine/pull/246), thanks mauxanhxanh!).
+- Added syntax highlighting support for `console`, a meta-language that represents
+  interaction with a shell. All it does is highlight the prompt marker, but it can
+  be used as a baseline for implementing a "copy command" button in JS.
+  See the [relative docs section](/docs/supermd/#syntax-highlighting).
+  ([5b213f1](https://radicle.network/nodes/radicle.kristoff.it/zine/patches/5b213f122080d529737cb2b545cbcbf55626b28b), thanks mlugg!).
+- Added NetBSD support, which has also been added to our releases 
+  ([#247](https://github.com/kristoff-it/zine/pull/247), thanks Chavdar Ivanov!).
+- Added `Array.join` in SuperHTML, which lets you join an array of strings
+  or numbers into a single string using a provided separator.
+  The main usecase is being able to correctly implement
+  `<meta name="keywords" content="foo, bar">` tags.
+
+### Website changes
+
+- Added docs on how to [deploy a Zine website to sorucehut](docs/deploying/sourcehut-pages/) 
+  ([#247](https://github.com/kristoff-it/zine/pull/247), thanks Chavdar Ivanov!).
 
 
 []($section.id('v0.13.0').data('date','2026-07-19'))
@@ -1073,7 +1117,7 @@ zig fetch --save "git+https://github.com/kristoff-it/zine#v0.3.0"
     - Zine can now make use of artifacts generated via the Zig build system!
     - `static_dir_path` has become `assets_dir_path` (I also recommend renaming `static` to `assets`)
     - Page assets (eg images placed in the content directory next to the page they belong to) __now have one extra rule for file placement__, see the docs for more info on that (or let the error messages *gently* guide you)
-- The dev server now by default opens a <strike>door</strike> port to 1990 if you don't specify `-Dport`
+- The dev server now by default opens a ~door~ port to 1990 if you don't specify `-Dport`
 - `output_prefix` has been renamed to `output_path_prefix`
 - In `MultilingualSite`, `variants` has been renamed to `localized variants`
 - Scripty has gained a new `Asset` type and handful of new builtins, including adding the ability to query for the current `locale_code` in a multilingual website (`$site.localeCode()`)

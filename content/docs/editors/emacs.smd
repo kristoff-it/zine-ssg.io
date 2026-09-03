@@ -1,19 +1,18 @@
 ---
 .title = "Emacs Tooling Setup",
-.date = @date("2025-10-29T00:00:00"),
-.author = "Davide Colazingari",
+.date = .date("2025-10-29T00:00:00"),
 .layout = "documentation.shtml",
 .draft = false,
 --- 
 
-## 1. Install zine-mode
+# 1. Install zine-mode
 [zine-mode](https://github.com/dcolazin/zine-mode/) is a simple tree-sitter major mode for Emacs 29.1 and later.
 
 `zine-mode` assumes Emacs was built with tree-sitter support. If `(treesit-available-p)` evaluates to `t` then your installation supports tree-sitter; otherwise you might consider building Emacs from source. A guide can be found [here](https://www.masteringemacs.org/article/how-to-get-started-tree-sitter).
 
 `zine-mode` is available on Melpa, so it possible to install it with most package managers. Most package managers will automatically download also `ziggy-mode`, the package required for editing ziggy files, but complete installation steps for `ziggy-mode` can be found in the [ziggy documentation](https://ziggy-lang.io/documentation/editors/emacs/).
 
-## 2. Install the grammars
+# 2. Install the grammars
 
 You still need to install the tree-sitter grammars for superhtml, supermd, javascript and css, for example adding the following snippets in your configuration:
 
@@ -50,15 +49,15 @@ You still need to install the tree-sitter grammars for superhtml, supermd, javas
   (treesit-install-language-grammar 'css))
 ```
 
-## 3. Get all the CLI tools
+# 3. Get all the CLI tools
 
 `zine-mode` assumes that `superhtml` is on your PATH or the variable `zine-superhtml-bin` is properly customized
 
-## 4. Override the shtml defaults
+# 4. Override the shtml defaults
 
 By default, Emacs will open `.shtml` files using `mhtml-mode`, as this extension is used also by Server Side Includes file. To override this behavior, put `(zine-override-auto-mode)` in your configuration.
 
-## 5. LSP
+# 5. LSP
 
 To use the `superhtml` LSP with `eglot`, add the following to your configuration:
 

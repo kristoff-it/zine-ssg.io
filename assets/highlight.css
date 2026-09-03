@@ -36,6 +36,10 @@ code.html .punctuation {
   color: var(--cyan);
 }
 
+code.console .prompt {
+  color: var(--light-yellow);
+}
+
 code.superhtml {}
 
 code.superhtml .string.markup_link_url {

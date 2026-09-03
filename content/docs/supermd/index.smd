@@ -475,6 +475,45 @@ that you'd like to see it added to Zine.
 
 In the future Zine will support the ability for users to add grammars independently of the main project.
 
+## Special languages
+
+Zine supports some special "meta-languages" that are syntax-highlighted without using tree-sitter.
+
+### `console`
+For code blocks that represent interaction with a terminal.
+It only highlights the command prompt.
+
+Example:
+```console
+$ ping localhost
+PING localhost (127.0.0.1): 56 data bytes
+64 bytes from 127.0.0.1: icmp_seq=0 ttl=64 time=0.072 ms
+64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.252 ms
+^C
+--- localhost ping statistics ---
+2 packets transmitted, 2 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 0.072/0.162/0.252/0.090 ms
+$ su
+[root@mymachine]# exit
+$ shutdown now
+```
+
+Recognized prompts: `$`, `#`, `[<anything>]$`, `[<anything>]#`.
+
+You can leverage prompt recognition to implement a "copy this command" button in JS.
+
+### Equal sign
+
+Some languages support prefixing their name with a `=` to perform inlining instead of
+syntax highlighting.
+
+Currently supported inlineable languages:
+
+- `=html`: inlines the HTML content verbatim, see [the relative FAQ section](/docs/frequent/#inline-html).
+
+
+
+
 # [Next Steps]($section.id('next-steps'))
 - [Read the SuperMD Scripty Reference Documentation](./scripty/)
 - [Learn more about SuperHTML](superhtml/)

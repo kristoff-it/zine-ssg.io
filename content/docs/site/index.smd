@@ -15,7 +15,7 @@ Here's what the config of `zine-ssg.io` looks like:
 
 ***`zine.ziggy`***
 ```ziggy
-.zine_version = "0.13.0",
+.zine_version = "0.14.0",
 .site = .simple(.{
    .title = "Zine - Static Site Generator",
    .host_url = "https://zine-ssg.io",

@@ -20,7 +20,7 @@ packages:
 - xz
 environment:
   site: your-username.srht.site
-	zine_version: v0.13.0
+	zine_version: v0.14.0
 tasks:
 - install: |
 		curl -LO https://github.com/kristoff-it/zine/releases/download/$zine_version/x86_64-linux-musl.tar.xz
