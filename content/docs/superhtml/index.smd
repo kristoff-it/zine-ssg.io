@@ -448,7 +448,7 @@ going to see what longer extension chains look like.
 At this point it's also useful to think of templates as documents that can do two things:
 
 - Define an interface by using `<super>`.
-- Fulfill an interface by extending another template and definig top-level elements that match corresponding blocks in the template they extend.
+- Fulfill an interface by extending another template and defining top-level elements that match corresponding blocks in the template they extend.
 
 Let's see an example: 
 
