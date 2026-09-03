@@ -71,6 +71,9 @@ You will want [superhtml](https://github.com/kristoff-it/superhtml),
 [See the Emacs dedicated page](./emacs).
 
 
+## GNOME Builder
+[SuperBuilder](https://github.com/Shardion/superbuilder) provides extensions for SuperHTML and SuperMD.
+
 ## Other editors
 Any editor that supports Tree Sitter for syntax highlighting and the Language Server Protocol can be setup to support Ziggy, SuperMD, and SuperHTML.
 
