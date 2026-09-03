@@ -50,7 +50,8 @@ You can [subscribe to this page via RSS]($link.alternative("rss")).
 
 This is a minor release (as opposed to being a *patch* release) because
 there's a chance that a site that previously built, might now encounter a
-build error, even though **there are no breaking changes**.
+build error, even though **there are no breaking changes** to the feature set
+of Zine.
 
 ### Bugfixes
 - Updated Zeit (datetime dependency), which adds support for `America/Santiago`.
