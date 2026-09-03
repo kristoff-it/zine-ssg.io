@@ -1,9 +1,7 @@
 ---
 .title = "Assets",
-.date = @date("2020-07-06T00:00:00"),
-.author = "Sample Author",
+.date = .date("2020-07-06T00:00:00"),
 .layout = "documentation.shtml",
-.draft = false,
 --- 
 
 # [Assets in Zine]($section.id('assets-in-zine'))
@@ -51,39 +49,25 @@ One example of where this makes sense is when you have a Ziggy (or JSON) documen
 ## [Static Site Assets]($section.id('static-assets'))
 Some assets should be installed even if no layout or page refers to them. 
 
-For example `favicon.ico` might not be referenced, but browsers will automatically try to fetch it.
+For example `favicon.ico` might not be referenced, but browsers will
+automatically try to fetch it.
 
-Another example could be [`.well-known`](https://en.wikipedia.org/wiki/Well-known_URI) assets or files that might have special meaning for the hosting service that you're using. 
+Another example could be
+[`.well-known`](https://en.wikipedia.org/wiki/Well-known_URI) assets or
+files that might have special meaning for the hosting service that you're
+using.
 
-For example, GitHub uses a file named `CNAME` to keep track of the custom domain configured for a given GitHub Pages website.
+One last example would be font files only referenced inside of CSS files,
+as Zine currently lacks the ability to inspect CSS files.
 
-One last example would be font files only referenced inside of CSS files, as Zine currently lacks the ability to inspect CSS files.
+To install assets unconditionally, list them in `static_assets` in your `zine.ziggy` config file.
 
-To install assets unconditionally, list them in `static_assets` in your `build.zig`:
 
-***build.zig***
-```zig
-pub fn build(b: *std.Build) !void {
-    zine.website(b, .{
-        .title = "Zine - Static Site Generator",
-        .host_url = "https://zine-ssg.io",
-        .layouts_dir_path = "layouts",
-        .content_dir_path = "content",
-        .assets_dir_path = "assets",
-        .static_assets = &.{
-            // Used by GitHub Pages
-            "CNAME",
-            // This asset is referenced in some inlined HTML in Markdown
-            // which Zine is not yet able to analyze so as a temporary
-            // hack we mark it as a static asset.
-            "vscode-autoformatting.mp4",
+># [Note]($block)
+>You can put directory names in your list of `static_assets`,
+> doing so will include all files under it, including files
+> in subdirectories.
 
-            // Font referenced in CSS files
-            "BebasNeue-Regular.ttf",
-        },
-    });
-} 
-```
 
 # [Page Assets]($section.id('page-assets'))
 Page assets are the same as site assets, but are located inside of `content_dir_path`, next to the page that references them.
@@ -157,7 +141,7 @@ even before downloading them, completely removing the need for reflowing the
 page, and overall giving the impression of a faster page load, especially if a
 page has many heavy images in it.
 
-## This feature has one big quirk
+## This feature has one quirk
 
 For some reason browsers will distort images that specify `height` and `width`
 when resizing them to fit their parent element. You can fix this by applying

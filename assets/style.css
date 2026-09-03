@@ -212,6 +212,19 @@ video {
   border: 1px solid #CCC;
 }
 
+.block.warning pre {
+  margin: 10px;
+}
+
+details.block {
+  border: none;
+}
+
+.block > details.block {
+  margin: 15px;
+  border: none;
+}
+
 .block p {
   padding-top: 0;
   font-size: 0.9em;
@@ -220,7 +233,7 @@ video {
 }
 
 .block h1 {
-  font-size: 1.17em;
+  font-size: 1.17em !important;
   position: relative !important;
   margin: 0 !important;
   text-align: left;

@@ -1,0 +1,38 @@
+---
+.title = "Deploying to sourcehut pages",
+.date = .date("2026-08-30T00:00:00"),
+.layout = "documentation.shtml",
+.custom = {
+  "toc": false,
+},
+---
+
+This guide assumes that you're already familiar with [sourcehut pages](https://srht.site/).
+
+Below build manifest extents the [original template](https://srht.site/automating-deployments/#writing-the-build-manifest) with tasks to install Zine and to run `zine release` to build the site. 
+
+**`.build.yml`**
+```yaml
+image: alpine/edge
+oauth: pages.sr.ht/PAGES:RW
+packages:
+- hut
+- xz
+environment:
+  site: your-username.srht.site
+	zine_version: v0.13.0
+tasks:
+- install: |
+		curl -LO https://github.com/kristoff-it/zine/releases/download/$zine_version/x86_64-linux-musl.tar.xz
+    tar -xJf x86_64-linux-musl.tar.xz
+- build: |
+		cd $site
+	  ../zine release
+- package: |
+    cd $site
+    tar -cvz public > ../site.tar.gz
+- upload: |
+    hut pages publish -d $site site.tar.gz
+```
+
+You might want to update the `zine_version` environment variable.

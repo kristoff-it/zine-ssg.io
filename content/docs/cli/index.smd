@@ -1,9 +1,7 @@
 ---
 .title = "Command Line Interface",
-.date = @date("2020-07-06T00:00:00"),
-.author = "Sample Author",
+.date = .date("2020-07-06T00:00:00"),
 .layout = "documentation.shtml",
-.draft = false,
 .custom = {
   "toc": false,
 }
@@ -35,11 +33,4 @@ If an error is encountered while building the website, you will see the error pr
 Run `zine release` to build your website. By default Zine will place your site under `public/`, next to where your `zine.ziggy` file lives.
 
 Run `zine release --help` to see all related options. 
-
-> # [WARNING]($block.attrs('warning'))
->The `zine release` command will not clear the
->output directory before installing newly built files
->in it.
->
->It's your responsibility to clear it if desired. 
 

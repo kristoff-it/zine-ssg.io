@@ -1,45 +1,45 @@
 <extend template="base.shtml">
 <title id="title" :text="$page.title"></title>
 <head id="head">
-  <style>
-    #page h2,
-		#page h3 {
+	<style>
+		#page h1,
+		#page h2 {
 			text-align: left;
 		}
-
-		#page h2 {
+		
+		#page h1 {
 			font-size: 1.7rem;
 			border-bottom: 1px dashed #aaa;
 			margin-top: 2em;
 		}
-
-		#page h3 {
+		
+		#page h2 {
 			font-size: 1.5rem;
 		}
-
-		#page h4 {
+		
+		#page h3 {
 			font-size: 1rem;
 		}
-
+		
 		.title,
 		.subtitle {
 			margin-bottom: 0;
 		}
-
+		
 		.subtitle,
 		.tagline {
 			margin-top: 0;
 		}
-
+		
 		.title {
 			font-size: 4rem;
 			margin-top: 1rem;
 		}
-
+		
 		.subtitle {
 			font-size: 2rem;
 		}
-
+		
 		.tagline {
 			font-size: 1rem;
 			font-style: italic;
@@ -48,7 +48,7 @@
 			padding: 2px 5px;
 			text-align: center;
 		}
-
+		
 		.get-started {
 			font-family: 'Bebas Neue', sans-serif;
 			font-weight: normal;
@@ -56,7 +56,7 @@
 			text-align: center;
 			margin: 1em;
 		}
-
+		
 		.get-started a {
 			color: black;
 			font-weight: normal;
@@ -65,19 +65,18 @@
 			padding: 3px 10px;
 			text-decoration: none;
 		}
-
+		
 		.get-started a:hover {
 			background-color: white;
 		}
-
-  </style>
+	</style>
 </head>
 <div id="content">
-  <h1 class="centered title">Zine</h1>
-  <h2 class="centered subtitle">Fast, Scalable, and Flexible Static Site Generator</h2>
-  <p class="centered tagline">
-    Make art with your words.
-  </p>
-  <div class="get-started"><a href="/quickstart/">Get Started</a></div>
-  <div id="page" :html="$page.content()"></div>
+	<h1 class="centered title">Zine</h1>
+	<h2 class="centered subtitle">Fast, Scalable, and Flexible Static Site Generator</h2>
+	<p class="centered tagline">
+		Make art with your words.
+	</p>
+	<div class="get-started"><a href="/quickstart/">Get Started</a></div>
+	<div id="page" :html="$page.content()"></div>
 </div>
