@@ -40,10 +40,9 @@ You can [subscribe to this page via RSS]($link.alternative("rss")).
 > > quickly detecting whitespace changes:
 > > - `git diff --no-index --word-diff-regex=. old new`
 > >
-> > [`delta`](https://dandavison.github.io/delta/introduction.html) is a diff
-> > tool that is cross-platform, and supports word-diff and syntax highlighting
-> > by default (You do not need to configure it for git to use it as a
-> > standalone diff tool):
+> > [`delta`](https://dandavison.github.io/delta/introduction.html) is a
+> > cross-platform diff tool that supports word-diff and syntax
+> > highlighting by default:
 > > - `delta old new`
 
 []($section.id('v0.14.0').data('date','2026-09-03'))
