@@ -19,15 +19,15 @@ packages:
 - hut
 - xz
 environment:
-  site: your-username.srht.site
-	zine_version: v0.14.0
+    site: your-username.srht.site
+    zine_version: v0.14.0
 tasks:
 - install: |
-		curl -LO https://github.com/kristoff-it/zine/releases/download/$zine_version/x86_64-linux-musl.tar.xz
+    curl -LO https://github.com/kristoff-it/zine/releases/download/$zine_version/x86_64-linux-musl.tar.xz
     tar -xJf x86_64-linux-musl.tar.xz
 - build: |
-		cd $site
-	  ../zine release
+    cd $site
+    ../zine release
 - package: |
     cd $site
     tar -cvz public > ../site.tar.gz
