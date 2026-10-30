@@ -45,6 +45,48 @@ You can [subscribe to this page via RSS]($link.alternative("rss")).
 > > highlighting by default:
 > > - `delta old new`
 
+[]($section.id('v0.14.1').data('date','2026-10-30'))
+
+This release brings Zine to Zig 0.17.0.
+
+Some minor improvements are included, most notably:
+
+- flow-syntax was updated, bringing you the latest and greatest in build-time syntax-higlighting
+  from neurocyte
+- Ziggy was updated to v0.3.0, which now properly implements non-obvious numeric and bytes (string)
+  literals.
+
+Most importantly about the second point, while this is marked as a patch release, you might
+experience a new build failure caused by the presence of carriage return bytes in your files.
+
+Previously Ziggy was agnostic to carriage returns (or most other misplaced control characters really).
+Most recently I finished formalizing the behavior of Ziggy when encountering control characters,
+invalid utf8 sequences, etc, narrowing the set of accepted Ziggy Documents.
+
+Carriage return in particular is a problematic control character and initially I tried to accommodate
+its presence, but after more deliberation and seeing the mechanical implications of accepting it,
+I opted instead for rejecting it alongside most other control characters.
+
+This is a decision that might be put into question in the future, but for now I want to proceeed with
+a stricter parser.
+
+If you need a one-liner for getting rid of carriage return in your files:
+```console
+$ find . -name "*.smd" -type f -exec perl -0777 -pi -e 's/\r\n/\n/g' {} +
+```
+
+Conversely, know that I have formalized that hard tabs are allowed not only as a form of white space
+in Ziggy, but that they are also allowed in multiline string literals. This in theory should make it
+easy to use multiline string literals to encode source code that uses tabs for indentation.
+
+You can find some railroad diagrams on the official Ziggy website to learn in detail how numeric literals
+and escape sequences work: https://ziggy-lang.io/docs/diagrams/.
+
+Lastly, I just experienced GitHub sneakily adding Copilot trash in my PRs, with no clear way on how
+to disable it, so I'm planning to move development of Zine off GitHub sooner than later.
+
+
+
 []($section.id('v0.14.0').data('date','2026-09-03'))
 
 This is a minor release (as opposed to being a *patch* release) because
